@@ -126,7 +126,7 @@ t_GDELETEEDGE=r'\.deleteEdge'   #35
 t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
 t_COMMA=r'\,' #37
-t_NEWLINE=r'\n'
+t_NEWLINE=r'\n'#38
 
 t_ignore  = ' \t'
 def t_error(t):
