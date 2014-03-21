@@ -3,13 +3,15 @@ import ply.lex as lex
 tokens = (
 	
 	'NUMERIC', #1
-	'DECIMAL', #2
+	'DECIMAL', #2, do we have to have decimal separate from numeric?
 	'TEXT',	   #3
 	'BOOLEAN', #4
 	'TIME',    #5
 	
 	'NULL',    #6
 	'EDGE',    #7
+#DIREDGE
+#UNDIREDGE
 	'NODE',    #8
 	'PATH',    #9
 	'GRAPH',   #10
@@ -20,6 +22,7 @@ tokens = (
 	'DIVIDE',  #14
 	'LPAREN',  #15
 	'RPAREN',  #16
+#MODULUS?
 	
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
@@ -36,6 +39,7 @@ tokens = (
 	'COMMENTFRONT', #27
 	'COMMENTBACK',   #28
 	'PRINT',         #29
+	
 	#Graphing functions
 	'GADD',          #30
 	'GDELETE',       #31
@@ -64,6 +68,7 @@ def t_BOOLEAN(t): #4
 	r'(True | False | true | false)'
 	t.value='rue' in t.value
 	return t
+
 def t_TIME(t):
 	r'Time'
 	return t #5
@@ -77,7 +82,6 @@ def t_EDGE(t):
 	r'Edge' 
 	return t #7
 
-
 def t_NODE(t):
 	r'Node' 
 	return t #8
@@ -89,6 +93,7 @@ def t_PATH(t):
 def t_GRAPH(t):
 	r'Graph' 
 	return t  #10
+
 #aritmetic operators
 t_PLUS    = r'\+' #11
 t_MINUS   = r'-'  #12
@@ -116,12 +121,12 @@ def t_PRINT(t):
 	r'Print'         
 	return t #29
 
-t_GADD=r'\.add'          #30
-t_GDELETE=r'\.delete'       #31
-t_GADJACENT=r'\.adjacent'     #32
-t_GPATH=r'\.path'         #33
-t_GGETEDGE=r'\.getEdge'      #34
-t_GADDEDGE=r'\.addEdge'      #35
+t_GADD=r'\.add'          		#30
+t_GDELETE=r'\.delete'       	#31
+t_GADJACENT=r'\.adjacent'     	#32
+t_GPATH=r'\.path'         		#33
+t_GGETEDGE=r'\.getEdge'      	#34
+t_GADDEDGE=r'\.addEdge'      	#35
 t_GDELETEEDGE=r'\.deleteEdge'   #35
 t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
@@ -132,7 +137,6 @@ t_ignore  = ' \t'
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
-
 
 
 test='Graph.addEdge(Node) disj dij \n'
