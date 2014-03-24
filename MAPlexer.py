@@ -9,7 +9,7 @@ tokens = (
 	'BOOLEAN', #4
 	'TIME',    #5	
 	'NULL',    #6
-	'EDGE',    #7
+	#'EDGE',    #7
 	'DIREDGE', #7.1
 	'UNDIREDGE', #7.2
 	'NODE',    #8
@@ -85,9 +85,9 @@ def t_UNDIREDGE(t):
 	r'Undiredge'
 	return t #7.2
 
-def t_EDGE(t):
-	r'Edge' 
-	return t #7
+#def t_EDGE(t):
+#	r'Edge' 
+#	return t #7
 
 def t_NODE(t):
 	r'Node' 
