@@ -51,10 +51,12 @@ tokens = (
 	'GFINDSHORTESTPATH',#36
 
 	'COMMA', #37
-	'NEWLINE'#38
+	'NEWLINE',#38
 
+#keywords
 
-
+	'FUNC',#39
+	'LBR','RBR'
 
 
 	)
@@ -94,6 +96,7 @@ def t_GRAPH(t):
 	r'Graph' 
 	return t  #10
 
+
 #aritmetic operators
 t_PLUS    = r'\+' #11
 t_MINUS   = r'-'  #12
@@ -132,8 +135,13 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
+t_FUNC = r'func'
+t_LBR = r'{'
+t_RBR = r'}'
+
 
 t_ignore  = ' \t'
+
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
@@ -153,4 +161,115 @@ print lexer.token()
 print lexer.token()
 print lexer.token()
 print lexer.token()
+
+
+
+
+#parsing rules
+
+# Parsing rules
+
+'''def p_tu_ed(t):
+	'translation-unit : external-declaration'
+	t[0] = t[1]
+
+def p_tu_ed2(t):
+	'translation-unit : translation-unit external-declaration'
+	t[0] = t[1] + ' ' + t[2]
+
+def p_ed1(t):
+	'external-declaration : function-definition'
+	t[0] = t[1]
+
+def p_ed2(t):
+	'external-declaration : statement'
+	t[0] = t[1]
+'''
+def p_fd(t):
+	'function-definition : FUNC identifier LPAREN parameter-list RPAREN compound-statement'
+	#t[0] = '{0}{1}{2}{3}{4}{5}'.format(t[1],t[2],t[3],t[4],t[5])
+
+def p_id(t):
+	'identifier : TEXT'
+	t[0] = t[1]
+
+def p_plist(t):
+	'parameter-list : identifier'
+	t[0] = t[1]
+
+def p_plist2(t):
+	'parameter-list : parameter-list COMMA identifier'
+	t[0] = "{0}{1}{2}".format(t[1],t[2],t[3])
+
+def p_cs(t):
+	'compound-statement : LBR statement-list RBR'
+	#	t[0] = "{0}{1}{2}{3}".format(t[1],t[2],t[3],t[4])
+
+def p_slist(t):
+	'statement-list : statement'
+	t[0] = t[1]
+
+def p_slist2(t):
+	'statement-list : statement-list statement'
+	#t[0] = "{0}{1}".format(t[1],t[2])
+
+def p_slist3(t):
+	'statement-list : '
+	t[0] = ""
+def p_s(t):
+	'''statement : expression-E
+	| compound-statement
+	| selection-statement
+	| iteration-statement'''
+	t[0] = t[1]
+
+def p_sels(t):
+	'selection-statement : IF LPAREN expression RPAREN statement'
+
+def p_sels2(t):
+	'selection-statement : IF LPAREN expression RPAREN statement ELSE statement'
+
+def p_iters(t):
+	'iteration-statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement'
+
+def p_ters2(t):
+	'iteration-statement : FOREACH LPAREN identifier IN identifier RPAREN statement'
+
+def p_expr(t):
+	'expression : assignment-expression'
+
+def p_expr2(t):
+	'expression : expression COMMA assignment-expression'
+
+def p_aexpr(t):
+	'assignment-expression : conditional-expression'
+
+def p_aexpr2(t):
+	'assignment-expression : primary-expression ASSIGN assignment-expression'
+
+def condexpr(t):
+	'''conditional-expression : logical-OR-expression
+	| logical-AND-expression'''
+
+def logorexpr(t):
+	'logical-OR-expression : logical-AND-expression'
+
+def logorexpr2(t):
+	'logical-OR-expression : logical-OR-expression | logical-AND-expression'
+
+def logandexpr(t):
+	'logical-AND-expression : inclusive-OR-expression'
+
+def logandexpr2(t):
+	'logical-AND-expression : logical-AND-expression & equality-expression'
+
+
+
+def p_error(t):
+    print("Syntax error at '%s'" % t.value)
+
+import ply.yacc as yacc
+yacc.yacc()
+print yacc.parse("func main() {\n\tText t = \"Hello, world\";\n\tprint(t);\n}")
+
 
