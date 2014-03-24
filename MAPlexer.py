@@ -47,7 +47,6 @@ tokens = (
 	'NEWLINE',#38
 	'READ', #39
 	'WRITE',#40
-	'NEWLINE',#38
 	'GEQUALS', # 49
 # add all key words && control flow stuff
 
@@ -65,7 +64,6 @@ tokens = (
 	'FOREACH', # 46
 	'CONTINUE', # 47
 	'RETURN', # 48
-
 
 	)
 
@@ -209,8 +207,3 @@ print lexer.token()
 print lexer.token()
 print lexer.token()
 print lexer.token()
-
-
-
-
-
