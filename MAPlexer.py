@@ -9,7 +9,6 @@ tokens = (
 	'BOOLEAN', #4
 	'TIME',    #5	
 	'NULL',    #6
-	#'EDGE',    #7
 	'DIREDGE', #7.1
 	'UNDIREDGE', #7.2
 	'NODE',    #8
@@ -28,7 +27,7 @@ tokens = (
 	'GREATERTHANOREQUALTO', #20
 	'EQUALSEQUALS', #21
 	'DOESNOTEQUAL', #22	
-	'AMPERSAN', #23
+	'ATSYM', #23
 	'LOGICALAND', #24
 	'LOGICALOR',  #25
 	'COMMENT',    #26
@@ -85,10 +84,6 @@ def t_UNDIREDGE(t):
 	r'Undiredge'
 	return t #7.2
 
-#def t_EDGE(t):
-#	r'Edge' 
-#	return t #7
-
 def t_NODE(t):
 	r'Node' 
 	return t #8
@@ -115,7 +110,7 @@ t_LESSTHANOREQUALTO=r'<\=' #19
 t_GREATERTHANOREQUALTO=r'>\='#20
 t_EQUALSEQUALS=r'=='#21
 t_DOESNOTEQUAL=r'!='#22
-t_AMPERSAN=r'\@'#23
+t_ATSYM=r'\@'#23
 t_LOGICALAND=r'&'  #24
 t_LOGICALOR=r'\|'  #25
 
