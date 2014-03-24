@@ -48,11 +48,19 @@ tokens = (
 	'READ', #39
 	'WRITE'#40
 	'NEWLINE',#38
+# add all key words && control flow stuff
+
+#
 
 #keywords
 
 	'FUNC',#39
-	'LBR','RBR'
+	'LBR', # 40
+	'RBR', # 41
+	'IF', #42
+	'FOR', #43
+	'BREAK', #44
+	'ELIF', # 45
 
 
 	)
@@ -62,6 +70,11 @@ t_NUMERIC=r'(\d+\.?\d+)'   #1
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
+
+def t_IF(t):
+	r'if'
+	return t # 42
+
 
 def t_BOOLEAN(t): #4
 	r'(True | False | true | false)'
