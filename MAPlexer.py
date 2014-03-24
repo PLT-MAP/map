@@ -336,7 +336,7 @@ def p_funcall2(t):
 	| write LPAREN identifier COMMA identifier RPAREN'''
 
 def p_funcname(t):
-	
+	'''function-name : 
 
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
