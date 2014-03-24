@@ -1,7 +1,6 @@
 import ply.lex as lex
 #http://flex.sourceforge.net/manual/Patterns.html
 tokens = (
-	
 	'NUMERIC', #1
 	'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
@@ -21,8 +20,11 @@ tokens = (
 	'LPAREN',  #15
 	'RPAREN',  #16
 	'MODULUS', #16.1
+	'SEMICOLON', # 16.2
+	'COLON', # 16.3
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
+	'EQUALS', 
 	'LESSTHANOREQUALTO', #19
 	'GREATERTHANOREQUALTO', #20
 	'EQUALSEQUALS', #21
@@ -48,12 +50,7 @@ tokens = (
 	'READ', #39
 	'WRITE',#40
 	'GEQUALS', # 49
-# add all key words && control flow stuff
-
-#
-
-#keywords
-
+	#keywords
 	'FUNC',#39
 	'LBR', # 40
 	'RBR', # 41
@@ -64,6 +61,9 @@ tokens = (
 	'FOREACH', # 46
 	'CONTINUE', # 47
 	'RETURN', # 48
+	'ELSE', #50
+	'LSB', 
+	'RSB',
 
 	)
 
@@ -72,6 +72,16 @@ t_NUMERIC=r'(\d+\.?\d+)'   #1
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
+t_SEMICOLON = r';' 
+t_COLON = r':'
+
+def t_FUNC(t):
+	r'func'
+	return t 
+
+def t_ELSE(t):
+	r'else'
+	return t 
 
 def t_RETURN(t):
 	r'return'
@@ -118,6 +128,7 @@ def t_NULL(t):
 def t_DIREDGE(t):
 	r'Diredge' 
 	return t #7.1
+
 def t_UNDIREDGE(t):
 	r'Undiredge'
 	return t #7.2
@@ -146,7 +157,8 @@ t_LESSTHAN=r'\<'  #17
 t_GREATERTHAN=r'\>' #18
 t_LESSTHANOREQUALTO=r'<\=' #19
 t_GREATERTHANOREQUALTO=r'>\='#20
-t_EQUALSEQUALS=r'=='#21
+t_EQUALS = r'\='
+t_EQUALSEQUALS=r'\=\='#21
 t_DOESNOTEQUAL=r'!='#22
 t_ATSYM=r'\@'#23
 t_LOGICALAND=r'&'  #24
@@ -156,7 +168,10 @@ t_LOGICALOR=r'\|'  #25
 t_COMMENT=r'//' #26
 t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
-
+t_LSB = '\['
+t_RSB = '\]'
+t_LBR = '\{'
+t_RBR = '\}'
 
 #standard library operators
 def t_PRINT(t):
@@ -174,10 +189,12 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 t_EQUALS = r'\.equals' # 49
 
 t_COMMA=r'\,' #37
+
 t_NEWLINE=r'\n'#38
 def t_READ(t):
 	r'read' 
 	return t  #39
+
 def t_WRITE(t):
 	r'write' 
 	return t  #40	
