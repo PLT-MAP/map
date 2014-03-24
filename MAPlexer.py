@@ -21,6 +21,8 @@ tokens = (
 	'LPAREN',  #15
 	'RPAREN',  #16
 	'MODULUS', #16.1
+	'SEMICOLON', # 16.2
+	'COLON', # 16.3
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
 	'LESSTHANOREQUALTO', #19
@@ -72,6 +74,14 @@ t_NUMERIC=r'(\d+\.?\d+)'   #1
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
+
+def t_SEMICOLON(t): 
+	r';' 
+	return t
+
+def t_COLON(t):
+	r':' 
+	return t
 
 def t_RETURN(t):
 	r'return'
