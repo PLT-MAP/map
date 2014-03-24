@@ -9,6 +9,7 @@ tokens = (
 	'BOOLEAN', #4
 	'TIME',    #5	
 	'NULL',    #6
+	'EDGE',    #7
 	'DIREDGE', #7.1
 	'UNDIREDGE', #7.2
 	'NODE',    #8
@@ -27,7 +28,7 @@ tokens = (
 	'GREATERTHANOREQUALTO', #20
 	'EQUALSEQUALS', #21
 	'DOESNOTEQUAL', #22	
-	'ATSYM', #23
+	'AMPERSAN', #23
 	'LOGICALAND', #24
 	'LOGICALOR',  #25
 	'COMMENT',    #26
@@ -45,9 +46,7 @@ tokens = (
 	'GFINDSHORTESTPATH',#36
 	'COMMA', #37
 	'NEWLINE',#38
-	'READ', #39
-	'WRITE'#40
-	'NEWLINE',#38
+<<<<<<< HEAD
 
 #keywords
 
@@ -55,6 +54,10 @@ tokens = (
 	'LBR','RBR'
 
 
+=======
+	'READ', #39
+	'WRITE'#40
+>>>>>>> e291a91bb3c97151612239b8c72c03e40b076682
 	)
 
 #primitive data types
@@ -84,6 +87,10 @@ def t_UNDIREDGE(t):
 	r'Undiredge'
 	return t #7.2
 
+def t_EDGE(t):
+	r'Edge' 
+	return t #7
+
 def t_NODE(t):
 	r'Node' 
 	return t #8
@@ -95,6 +102,7 @@ def t_PATH(t):
 def t_GRAPH(t):
 	r'Graph' 
 	return t  #10
+
 
 #aritmetic operators
 t_MODULUS = r'\%' #16.1
@@ -110,7 +118,7 @@ t_LESSTHANOREQUALTO=r'<\=' #19
 t_GREATERTHANOREQUALTO=r'>\='#20
 t_EQUALSEQUALS=r'=='#21
 t_DOESNOTEQUAL=r'!='#22
-t_ATSYM=r'\@'#23
+t_AMPERSAN=r'\@'#23
 t_LOGICALAND=r'&'  #24
 t_LOGICALOR=r'\|'  #25
 
@@ -138,12 +146,18 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
+<<<<<<< HEAD
+t_FUNC = r'func'
+t_LBR = r'{'
+t_RBR = r'}'
+=======
 def t_READ(t):
 	r'read' 
 	return t  #39
 def t_WRITE(t):
 	r'write' 
 	return t  #40	
+>>>>>>> e291a91bb3c97151612239b8c72c03e40b076682
 
 
 t_ignore  = ' \t'
@@ -223,7 +237,7 @@ def p_slist3(t):
 	'statement-list : '
 	t[0] = ""
 def p_s(t):
-	'''statement : expression
+	'''statement : expression-E
 	| compound-statement
 	| selection-statement
 	| iteration-statement'''
@@ -253,90 +267,23 @@ def p_aexpr(t):
 def p_aexpr2(t):
 	'assignment-expression : primary-expression ASSIGN assignment-expression'
 
-def p_condexpr(t):
+def condexpr(t):
 	'''conditional-expression : logical-OR-expression
 	| logical-AND-expression'''
 
-def p_logorexpr(t):
+def logorexpr(t):
 	'logical-OR-expression : logical-AND-expression'
 
-def p_logorexpr2(t):	
+def logorexpr2(t):
 	'logical-OR-expression : logical-OR-expression | logical-AND-expression'
 
-def p_logandexpr(t):
-	'logical-AND-expression : equality-expression'
+def logandexpr(t):
+	'logical-AND-expression : inclusive-OR-expression'
 
-def p_logandexpr2(t):
+def logandexpr2(t):
 	'logical-AND-expression : logical-AND-expression & equality-expression'
 
-'''def p_incor(t):
-	'inclusive-OR-expression : exclusive-OR-expression'
 
-def p_incor2(t):
-	'inclusive-OR-expression : exclusive-OR-expression | AND-expression'
-
-def p_exor(t):
-	'exclusive-OR-expression : AND-expression'
-
-def p_exor2(t):
-	'exclusive-OR-expression : exclusive-OR-expression ^ AND-expression'
-
-def p_andexpr(t):
-	'AND-expression : equality-expression'
-
-def p_andexpr2(t):
-	'AND-expression : AND-expression & equality-expression'
-'''
-
-def p_eqexpr(t):
-	'equality-expression : relational-expression'
-
-def p_eqexpr2(t):
-	'''equality-expression : equality-expression == relational-expression
-	| equality-expression != relational-expression'''
-
-def p_relexpr(t):
-	'relational-expression : additive-expression'
-
-def p_relexpr2(t):
-	'''relational-expression : relational-expression > additive-expression
-	| relational-expression < additive-expression
-	| relational-expression <= additive-expression
-	| relational-expression >= additive-expression'''
-
-def p_addexpr(t):
-	'additive-expression : multiplicatve-exression'
-
-def p_addexpr2(t):
-	'''additive-expression : additive-expression PLUS multiplicative-expression
-	| additive-expression MINUS multiplicative-expression'''
-
-def p_multexpr(t):
-	'multiplicative-expression : primary-expression'
-
-def p_multexpr2(t):
-	'''multiplicative-expression : multiplicative-expression STAR primary-expression
-	| multiplicative-expression SLASH primary-expression'''
-
-def p_primexp(t):
-	'''primary-expression : identifier
-	| constant
-	| string
-	| node
-	| edge
-	| LPAREN expression RPAREN
-	| function-call'''
-
-def p_funcall(t):
-	'function-call : identifier DOT function-name LPAREN parameter-list RPAREN'
-
-def p_funcall2(t):
-	'''function-call : print LPAREN identifier RPAREN
-	| read LPAREN identifier RPAREN
-	| write LPAREN identifier COMMA identifier RPAREN'''
-
-def p_funcname(t):
-	
 
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
