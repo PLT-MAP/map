@@ -46,8 +46,9 @@ tokens = (
 	'COMMA', #37
 	'NEWLINE',#38
 	'READ', #39
-	'WRITE'#40
+	'WRITE',#40
 	'NEWLINE',#38
+	'GEQUALS', # 49
 # add all key words && control flow stuff
 
 #
@@ -61,6 +62,9 @@ tokens = (
 	'FOR', #43
 	'BREAK', #44
 	'ELIF', # 45
+	'FOREACH', # 46
+	'CONTINUE', # 47
+	'RETURN', # 48
 
 
 	)
@@ -71,14 +75,37 @@ t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 
+def t_RETURN(t):
+	r'return'
+	return t
+
+def t_CONTINUE(t):
+	r'continue'
+	return t
+
+def t_FOREACH(t):
+	r'foreach'
+	return t 
+
 def t_IF(t):
 	r'if'
 	return t # 42
 
+def t_FOR(t):
+	r'for'
+	return t # 43
+
+def t_BREAK(t):
+	r'break'
+	return t
+
+def t_ELIF(t): 
+	r'elif'
+	return t 
 
 def t_BOOLEAN(t): #4
 	r'(True | False | true | false)'
-	t.value='rue' in t.value
+	t.value= 'rue' in t.value
 	return t
 
 def t_TIME(t):
@@ -148,6 +175,7 @@ t_GGETEDGE=r'\.getEdge'      	#34
 t_GADDEDGE=r'\.addEdge'      	#35
 t_GDELETEEDGE=r'\.deleteEdge'   #35
 t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
+t_GEQUALS = r'\.equals' # 49
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
@@ -167,7 +195,7 @@ def t_error(t):
 
 
 
-test='100000 read() write()\n'
+test='100000 read() write()\n foreach'
 lexer=lex.lex()
 lexer.input(test)
 
