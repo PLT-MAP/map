@@ -4,7 +4,7 @@ from MAPlexer import *
 
 #put any input you want to test here
 ###############################################
-test='.0821 100000 read()[] {} = == // . !! : \' \" \! ' 
+
 lexer=lex.lex()
 lexer.input(test)
 
@@ -34,6 +34,28 @@ def testlex():
 			return False
 
 	print "Test2 passed"
+
+	test='\''
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='SINGLEQUOTE':
+			print "Test3 failed"
+			return False
+
+	print "Test3 passed"
+
+	test='func1'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		print tok.type
+		if tok.type!='TEXT':
+			print "Test4 failed"
+			return False
+
+	print "Test4 passed"
+
 
 
 
