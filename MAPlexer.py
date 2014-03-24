@@ -64,6 +64,8 @@ tokens = (
 	'ELSE', #50
 	'LSB', 
 	'RSB',
+	'PERIOD',
+	'EXCLAMATION'
 
 	)
 
@@ -73,7 +75,9 @@ t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 t_SEMICOLON = r';' 
-t_COLON = r':'
+t_COLON = r'\:'
+t_PERIOD = r'\.'
+t_EXCLAMATION = r'\!'
 
 def t_FUNC(t):
 	r'func'
