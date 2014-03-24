@@ -79,43 +79,43 @@ t_PERIOD = r'\.'
 t_EXCLAMATION = r'\!'
 
 def t_IN(t):
-	r'in $'
+	r'in\s'
 	return t 
 
 def t_FUNC(t):
-	r'func $'
+	r'^func '
 	return t 
 
 def t_ELSE(t):
-	r'else $'
+	r'^else\s'
 	return t 
 
 def t_RETURN(t):
-	r'return $'
+	r'^return '
 	return t
 
 def t_CONTINUE(t):
-	r'continue'
+	r'^continue\s'
 	return t
 
 def t_FOREACH(t):
-	r'foreach'
+	r'^foreach\($'
 	return t 
 
 def t_IF(t):
-	r'if $'
+	r'^if$'
 	return t # 42
 
 def t_FOR(t):
-	r'for $'
+	r'^for$'
 	return t # 43
 
 def t_BREAK(t):
-	r'break'
+	r'^break$'
 	return t
 
 def t_ELIF(t): 
-	r'elif'
+	r'^elif$'
 	return t 
 
 def t_BOOLEAN(t): #4
@@ -124,32 +124,32 @@ def t_BOOLEAN(t): #4
 	return t
 
 def t_TIME(t):
-	r'Time'
+	r'Time$'
 	return t #5
 
 def t_NULL(t):
-	r'NULL' 
+	r'NULL$' 
 	t.value=None
 	return t #6
 
 def t_DIREDGE(t):
-	r'Diredge' 
+	r'Diredge$' 
 	return t #7.1
 
 def t_UNDIREDGE(t):
-	r'Undiredge $'
+	r'Undiredge$'
 	return t #7.2
 
 def t_NODE(t):
-	r'Node $' 
+	r'Node$' 
 	return t #8
 
 def t_PATH(t):
-	r'Path $' 
+	r'Path$' 
 	return t #9
 
 def t_GRAPH(t):
-	r'Graph $' 
+	r'Graph$' 
 	return t  #10
 
 #aritmetic operators

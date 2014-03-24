@@ -4,7 +4,7 @@ from MAPlexer import *
 
 #put any input you want to test here
 ###############################################
-test='.0821 100000 read()[] {} = == func1 func in' 
+test='continue else1 .0821 100000 read()[] {} = == func1 in return return1' 
 lexer=lex.lex()
 lexer.input(test)
 
