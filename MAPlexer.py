@@ -1,7 +1,6 @@
 import ply.lex as lex
 #http://flex.sourceforge.net/manual/Patterns.html
 tokens = (
-	
 	'NUMERIC', #1
 	'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
@@ -25,6 +24,7 @@ tokens = (
 	'COLON', # 16.3
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
+	'EQUALS', 
 	'LESSTHANOREQUALTO', #19
 	'GREATERTHANOREQUALTO', #20
 	'EQUALSEQUALS', #21
@@ -61,6 +61,9 @@ tokens = (
 	'FOREACH', # 46
 	'CONTINUE', # 47
 	'RETURN', # 48
+	'ELSE', #50
+	'LSB', 
+	'RSB',
 
 	)
 
@@ -71,6 +74,14 @@ t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 t_SEMICOLON = r';' 
 t_COLON = r':'
+
+def t_FUNC(t):
+	r'func'
+	return t 
+
+def t_ELSE(t):
+	r'else'
+	return t 
 
 def t_RETURN(t):
 	r'return'
@@ -146,7 +157,8 @@ t_LESSTHAN=r'\<'  #17
 t_GREATERTHAN=r'\>' #18
 t_LESSTHANOREQUALTO=r'<\=' #19
 t_GREATERTHANOREQUALTO=r'>\='#20
-t_EQUALSEQUALS=r'=='#21
+t_EQUALS = r'\='
+t_EQUALSEQUALS=r'\=\='#21
 t_DOESNOTEQUAL=r'!='#22
 t_ATSYM=r'\@'#23
 t_LOGICALAND=r'&'  #24
@@ -156,7 +168,10 @@ t_LOGICALOR=r'\|'  #25
 t_COMMENT=r'//' #26
 t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
-
+t_LSB = '\['
+t_RSB = '\]'
+t_LBR = '\{'
+t_RBR = '\}'
 
 #standard library operators
 def t_PRINT(t):

@@ -4,7 +4,7 @@ from MAPlexer import *
 
 #Sandya, put any input you want to test here
 ###############################################
-test='100000 read()'
+test='100000 read()[] {} = =='
 lexer=lex.lex()
 lexer.input(test)
 
