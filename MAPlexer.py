@@ -64,7 +64,8 @@ tokens = (
 	'LSB', 
 	'RSB',
 	'PERIOD',
-	'EXCLAMATION'
+	'EXCLAMATION',
+	'IN',
 
 	)
 
@@ -78,16 +79,20 @@ t_COLON = r'\:'
 t_PERIOD = r'\.'
 t_EXCLAMATION = r'\!'
 
+def t_IN(t):
+	r'in $'
+	return t 
+
 def t_FUNC(t):
-	r'func'
+	r'func $'
 	return t 
 
 def t_ELSE(t):
-	r'else'
+	r'else $'
 	return t 
 
 def t_RETURN(t):
-	r'return'
+	r'return $'
 	return t
 
 def t_CONTINUE(t):
@@ -99,11 +104,11 @@ def t_FOREACH(t):
 	return t 
 
 def t_IF(t):
-	r'if'
+	r'if $'
 	return t # 42
 
 def t_FOR(t):
-	r'for'
+	r'for $'
 	return t # 43
 
 def t_BREAK(t):
@@ -133,19 +138,19 @@ def t_DIREDGE(t):
 	return t #7.1
 
 def t_UNDIREDGE(t):
-	r'Undiredge'
+	r'Undiredge $'
 	return t #7.2
 
 def t_NODE(t):
-	r'Node' 
+	r'Node $' 
 	return t #8
 
 def t_PATH(t):
-	r'Path' 
+	r'Path $' 
 	return t #9
 
 def t_GRAPH(t):
-	r'Graph' 
+	r'Graph $' 
 	return t  #10
 
 #aritmetic operators
