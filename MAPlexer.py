@@ -3,6 +3,8 @@ import ply.lex as lex
 tokens = (
 	
 	'NUMERIC', #1
+	'SINGLEQUOTE', #2
+	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
 	'BOOLEAN', #4
 	'TIME',    #5	
@@ -43,11 +45,15 @@ tokens = (
 	'GDELETEEDGE',   #35
 	'GFINDSHORTESTPATH',#36
 	'COMMA', #37
-	'NEWLINE'#38
+	'NEWLINE',#38
+	'READ', #39
+	'WRITE'#40
 	)
 
 #primitive data types
 t_NUMERIC=r'(\d+\.?\d+)'   #1
+t_SINGLEQUOTE=r'(\')' #2
+t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 
 def t_BOOLEAN(t): #4
@@ -110,6 +116,9 @@ t_COMMENT=r'//' #26
 t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
 
+
+
+
 #standard library operators
 def t_PRINT(t):
 	r'Print'         
@@ -126,6 +135,13 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
+def t_READ(t):
+	r'read' 
+	return t  #39
+def t_WRITE(t):
+	r'write' 
+	return t  #40	
+
 
 t_ignore  = ' \t'
 def t_error(t):
@@ -133,7 +149,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-test='100000\n'
+test='100000 read() write()\n'
 lexer=lex.lex()
 lexer.input(test)
 
