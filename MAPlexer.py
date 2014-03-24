@@ -46,14 +46,24 @@ tokens = (
 	'COMMA', #37
 	'NEWLINE',#38
 	'READ', #39
-	'WRITE'#40
-	'NEWLINE',#38
+	'WRITE',#40
+	'GEQUALS', # 49
+# add all key words && control flow stuff
+
+#
 
 #keywords
 
 	'FUNC',#39
-	'LBR','RBR'
-
+	'LBR', # 40
+	'RBR', # 41
+	'IF', #42
+	'FOR', #43
+	'BREAK', #44
+	'ELIF', # 45
+	'FOREACH', # 46
+	'CONTINUE', # 47
+	'RETURN', # 48
 
 	)
 
@@ -63,9 +73,37 @@ t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 
+def t_RETURN(t):
+	r'return'
+	return t
+
+def t_CONTINUE(t):
+	r'continue'
+	return t
+
+def t_FOREACH(t):
+	r'foreach'
+	return t 
+
+def t_IF(t):
+	r'if'
+	return t # 42
+
+def t_FOR(t):
+	r'for'
+	return t # 43
+
+def t_BREAK(t):
+	r'break'
+	return t
+
+def t_ELIF(t): 
+	r'elif'
+	return t 
+
 def t_BOOLEAN(t): #4
 	r'(True | False | true | false)'
-	t.value='rue' in t.value
+	t.value= 'rue' in t.value
 	return t
 
 def t_TIME(t):
@@ -120,8 +158,6 @@ t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
 
 
-
-
 #standard library operators
 def t_PRINT(t):
 	r'Print'         
@@ -135,6 +171,7 @@ t_GGETEDGE=r'\.getEdge'      	#34
 t_GADDEDGE=r'\.addEdge'      	#35
 t_GDELETEEDGE=r'\.deleteEdge'   #35
 t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
+t_GEQUALS = r'\.equals' # 49
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
@@ -145,31 +182,8 @@ def t_WRITE(t):
 	r'write' 
 	return t  #40	
 
-
 t_ignore  = ' \t'
 
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
-
-
-
-test='100000 read() write()\n'
-lexer=lex.lex()
-lexer.input(test)
-
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-
-
-
-
-
