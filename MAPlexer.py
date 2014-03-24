@@ -158,8 +158,6 @@ t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
 
 
-
-
 #standard library operators
 def t_PRINT(t):
 	r'Print'         
@@ -184,26 +182,8 @@ def t_WRITE(t):
 	r'write' 
 	return t  #40	
 
-
 t_ignore  = ' \t'
 
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
-
-
-
-test='100000 read() write()\n foreach'
-lexer=lex.lex()
-lexer.input(test)
-
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
-print lexer.token()
