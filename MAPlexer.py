@@ -3,43 +3,38 @@ import ply.lex as lex
 tokens = (
 	
 	'NUMERIC', #1
-	'DECIMAL', #2, do we have to have decimal separate from numeric?
+	'SINGLEQUOTE', #2
+	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
 	'BOOLEAN', #4
-	'TIME',    #5
-	
+	'TIME',    #5	
 	'NULL',    #6
 	'EDGE',    #7
-#DIREDGE
-#UNDIREDGE
+	'DIREDGE', #7.1
+	'UNDIREDGE', #7.2
 	'NODE',    #8
 	'PATH',    #9
-	'GRAPH',   #10
-	
+	'GRAPH',   #10	
 	'PLUS',    #11
 	'MINUS',   #12
 	'TIMES',   #13
 	'DIVIDE',  #14
 	'LPAREN',  #15
 	'RPAREN',  #16
-#MODULUS?
-	
+	'MODULUS', #16.1
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
 	'LESSTHANOREQUALTO', #19
 	'GREATERTHANOREQUALTO', #20
 	'EQUALSEQUALS', #21
-	'DOESNOTEQUAL', #22
-	
+	'DOESNOTEQUAL', #22	
 	'AMPERSAN', #23
 	'LOGICALAND', #24
 	'LOGICALOR',  #25
-	
 	'COMMENT',    #26
 	'COMMENTFRONT', #27
 	'COMMENTBACK',   #28
 	'PRINT',         #29
-	
 	#Graphing functions
 	'GADD',          #30
 	'GDELETE',       #31
@@ -49,8 +44,10 @@ tokens = (
 	'GADDEDGE',      #35
 	'GDELETEEDGE',   #35
 	'GFINDSHORTESTPATH',#36
-
 	'COMMA', #37
+	'NEWLINE',#38
+	'READ', #39
+	'WRITE'#40
 	'NEWLINE',#38
 
 #keywords
@@ -62,8 +59,9 @@ tokens = (
 	)
 
 #primitive data types
-t_NUMERIC=r'(\d+)'   #1
-t_DECIMAL=r'\d + \.+\d+' #2
+t_NUMERIC=r'(\d+\.?\d+)'   #1
+t_SINGLEQUOTE=r'(\')' #2
+t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
 
 def t_BOOLEAN(t): #4
@@ -79,6 +77,13 @@ def t_NULL(t):
 	r'NULL' 
 	t.value=None
 	return t #6
+
+def t_DIREDGE(t):
+	r'Diredge' 
+	return t #7.1
+def t_UNDIREDGE(t):
+	r'Undiredge'
+	return t #7.2
 
 def t_EDGE(t):
 	r'Edge' 
@@ -96,8 +101,8 @@ def t_GRAPH(t):
 	r'Graph' 
 	return t  #10
 
-
 #aritmetic operators
+t_MODULUS = r'\%' #16.1
 t_PLUS    = r'\+' #11
 t_MINUS   = r'-'  #12
 t_TIMES   = r'\*' #13
@@ -119,6 +124,9 @@ t_COMMENT=r'//' #26
 t_COMMENTBACK=r'(\*/)' #27
 t_COMMENTFRONT=r'(/\*)'#28
 
+
+
+
 #standard library operators
 def t_PRINT(t):
 	r'Print'         
@@ -135,9 +143,12 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
-t_FUNC = r'func'
-t_LBR = r'{'
-t_RBR = r'}'
+def t_READ(t):
+	r'read' 
+	return t  #39
+def t_WRITE(t):
+	r'write' 
+	return t  #40	
 
 
 t_ignore  = ' \t'
@@ -147,7 +158,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-test='Graph.addEdge(Node) disj dij \n'
+test='100000 read() write()\n'
 lexer=lex.lex()
 lexer.input(test)
 
