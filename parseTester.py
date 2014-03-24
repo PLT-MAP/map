@@ -3,15 +3,12 @@ from MAPlexer import *
 
 
 
-test='100000 read() write()\n foreach;'
+test='100000 read()'
 lexer=lex.lex()
 lexer.input(test)
 
-for token in lexer:
-	print token
-
-
-
+for tok in lexer:
+	print tok.type, tok.value
 
 
 
