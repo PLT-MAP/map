@@ -1,0 +1,133 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    LESSTHAN
+    GGETEDGE
+    PRINT
+    PATH
+    NULL
+    MINUS
+    COMMENT
+    LESSTHANOREQUALTO
+    NEWLINE
+    GADJACENT
+    NUMERIC
+    BOOLEAN
+    EQUALSEQUALS
+    PLUS
+    GDELETEEDGE
+    GPATH
+    NODE
+    DIVIDE
+    LOGICALOR
+    GRAPH
+    DECIMAL
+    GREATERTHANOREQUALTO
+    COMMENTBACK
+    TIMES
+    GFINDSHORTESTPATH
+    GREATERTHAN
+    DOESNOTEQUAL
+    GADDEDGE
+    GADD
+    GDELETE
+    LOGICALAND
+    EDGE
+    TIME
+    COMMENTFRONT
+    AMPERSAN
+
+Grammar
+
+Rule 0     S' -> function-definition
+Rule 1     function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement
+Rule 2     identifier -> TEXT
+Rule 3     parameter-list -> identifier
+Rule 4     parameter-list -> parameter-list COMMA identifier
+Rule 5     compound-statement -> LBR statement-list RBR
+Rule 6     statement-list -> statement
+Rule 7     statement-list -> statement-list statement
+Rule 8     statement-list -> <empty>
+Rule 9     statement -> expression-E
+Rule 10    statement -> compound-statement
+Rule 11    statement -> selection-statement
+Rule 12    statement -> iteration-statement
+Rule 13    selection-statement -> IF LPAREN expression RPAREN statement
+Rule 14    selection-statement -> IF LPAREN expression RPAREN statement ELSE statement
+Rule 15    iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+Rule 16    iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement
+Rule 17    expression -> assignment-expression
+Rule 18    expression -> expression COMMA assignment-expression
+Rule 19    assignment-expression -> conditional-expression
+Rule 20    assignment-expression -> primary-expression ASSIGN assignment-expression
+
+Terminals, with rules where they appear
+
+AMPERSAN             : 
+BOOLEAN              : 
+COMMA                : 4 18
+COMMENT              : 
+COMMENTBACK          : 
+COMMENTFRONT         : 
+DECIMAL              : 
+DIVIDE               : 
+DOESNOTEQUAL         : 
+EDGE                 : 
+EQUALSEQUALS         : 
+FUNC                 : 1
+GADD                 : 
+GADDEDGE             : 
+GADJACENT            : 
+GDELETE              : 
+GDELETEEDGE          : 
+GFINDSHORTESTPATH    : 
+GGETEDGE             : 
+GPATH                : 
+GRAPH                : 
+GREATERTHAN          : 
+GREATERTHANOREQUALTO : 
+LBR                  : 5
+LESSTHAN             : 
+LESSTHANOREQUALTO    : 
+LOGICALAND           : 
+LOGICALOR            : 
+LPAREN               : 1 13 14 15 16
+MINUS                : 
+NEWLINE              : 
+NODE                 : 
+NULL                 : 
+NUMERIC              : 
+PATH                 : 
+PLUS                 : 
+PRINT                : 
+RBR                  : 5
+RPAREN               : 1 13 14 15 16
+TEXT                 : 2
+TIME                 : 
+TIMES                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+ASSIGN               : 20
+ELSE                 : 14
+FOR                  : 15
+FOREACH              : 16
+IF                   : 13 14
+IN                   : 16
+SEMICOLON            : 15 15
+assignment-expression : 17 18 20
+compound-statement   : 1 10
+conditional-expression : 19
+expression           : 13 14 15 15 15 18
+expression-E         : 9
+function-definition  : 0
+identifier           : 1 3 4 16 16
+iteration-statement  : 12
+parameter-list       : 1 4
+primary-expression   : 20
+selection-statement  : 11
+statement            : 6 7 13 14 14 15 16
+statement-list       : 5 7
+
