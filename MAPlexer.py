@@ -153,6 +153,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
+
 test='100000 read() write()\n'
 lexer=lex.lex()
 lexer.input(test)
@@ -339,7 +340,7 @@ def p_funcname(t):
 	'''function-name : 
 
 def p_error(t):
-    print("Syntax error at '%s'" % t.value)
+	print("Syntax error at '%s'" % t.value)
 
 import ply.yacc as yacc
 yacc.yacc()
