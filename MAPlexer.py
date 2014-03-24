@@ -66,7 +66,6 @@ tokens = (
 	'PERIOD',
 	'EXCLAMATION',
 	'IN',
-
 	)
 
 #primitive data types
