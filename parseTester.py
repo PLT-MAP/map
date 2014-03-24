@@ -34,7 +34,7 @@ def testlex():
 			return False
 
 	print "Test2 passed"
-	
+
 	test='\''
 	lexer=lex.lex()
 	lexer.input(test)
@@ -45,11 +45,10 @@ def testlex():
 
 	print "Test3 passed"
 
-	test='func1 2else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
+	test='func1 else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
-		print tok.type
 		if tok.type!='TEXT':
 			print "Test4 failed"
 			return False
