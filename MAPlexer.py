@@ -50,12 +50,7 @@ tokens = (
 	'READ', #39
 	'WRITE',#40
 	'GEQUALS', # 49
-# add all key words && control flow stuff
-
-#
-
-#keywords
-
+	#keywords
 	'FUNC',#39
 	'LBR', # 40
 	'RBR', # 41
@@ -74,14 +69,8 @@ t_NUMERIC=r'(\d+\.?\d+)'   #1
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
-
-def t_SEMICOLON(t): 
-	r';' 
-	return t
-
-def t_COLON(t):
-	r':' 
-	return t
+t_SEMICOLON = r';' 
+t_COLON = r':'
 
 def t_RETURN(t):
 	r'return'
@@ -128,6 +117,7 @@ def t_NULL(t):
 def t_DIREDGE(t):
 	r'Diredge' 
 	return t #7.1
+
 def t_UNDIREDGE(t):
 	r'Undiredge'
 	return t #7.2
@@ -184,10 +174,12 @@ t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
 t_GEQUALS = r'\.equals' # 49
 
 t_COMMA=r'\,' #37
+
 t_NEWLINE=r'\n'#38
 def t_READ(t):
 	r'read' 
 	return t  #39
+
 def t_WRITE(t):
 	r'write' 
 	return t  #40	
