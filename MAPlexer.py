@@ -153,12 +153,8 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-<<<<<<< HEAD
 
-test='1000000.00000 read()'
-=======
 test='100000 read() write()\n'
->>>>>>> 93a40a8f1f5f766eb8643b863eabcd2fa48611f3
 lexer=lex.lex()
 lexer.input(test)
 
@@ -344,7 +340,7 @@ def p_funcname(t):
 	
 
 def p_error(t):
-    print("Syntax error at '%s'" % t.value)
+	print("Syntax error at '%s'" % t.value)
 
 import ply.yacc as yacc
 yacc.yacc()
