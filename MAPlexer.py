@@ -74,7 +74,7 @@ def t_error(t):
 
 
 
-test='1000000.00000'
+test='1000000.00000 read()'
 lexer=lex.lex()
 lexer.input(test)
 
