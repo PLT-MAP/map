@@ -2,41 +2,32 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    LESSTHAN
-    GGETEDGE
+    ELIF
+    RETURN
+    READ
+    CONTINUE
     PRINT
     PATH
     NULL
-    MINUS
     COMMENT
-    LESSTHANOREQUALTO
     NEWLINE
-    GADJACENT
     NUMERIC
-    BOOLEAN
-    EQUALSEQUALS
-    PLUS
-    GDELETEEDGE
-    GPATH
+    UNDIREDGE
+    SINGLEQUOTE
     NODE
     DIVIDE
-    LOGICALOR
     GRAPH
-    DECIMAL
-    GREATERTHANOREQUALTO
     COMMENTBACK
-    TIMES
-    GFINDSHORTESTPATH
-    GREATERTHAN
-    DOESNOTEQUAL
-    GADDEDGE
-    GADD
-    GDELETE
-    LOGICALAND
-    EDGE
+    ATSYM
+    MODULUS
+    DOUBLEQUOTE
+    WRITE
+    GEQUALS
+    BREAK
+    DIREDGE
+    BOOLEAN
     TIME
     COMMENTFRONT
-    AMPERSAN
 
 Grammar
 
@@ -49,7 +40,7 @@ Rule 5     compound-statement -> LBR statement-list RBR
 Rule 6     statement-list -> statement
 Rule 7     statement-list -> statement-list statement
 Rule 8     statement-list -> <empty>
-Rule 9     statement -> expression-E
+Rule 9     statement -> expression
 Rule 10    statement -> compound-statement
 Rule 11    statement -> selection-statement
 Rule 12    statement -> iteration-statement
@@ -61,73 +52,141 @@ Rule 17    expression -> assignment-expression
 Rule 18    expression -> expression COMMA assignment-expression
 Rule 19    assignment-expression -> conditional-expression
 Rule 20    assignment-expression -> primary-expression ASSIGN assignment-expression
+Rule 21    conditional-expression -> logical-OR-expression
+Rule 22    conditional-expression -> logical-AND-expression
+Rule 23    logical-OR-expression -> logical-AND-expression
+Rule 24    logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression
+Rule 25    logical-AND-expression -> equality-expression
+Rule 26    logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression
+Rule 27    equality-expression -> relational-expression
+Rule 28    equality-expression -> equality-expression EQUALSEQUALS relational-expression
+Rule 29    equality-expression -> equality-expression DOESNOTEQUAL relational-expression
+Rule 30    relational-expression -> additive-expression
+Rule 31    relational-expression -> relational-expression GREATERTHAN additive-expression
+Rule 32    relational-expression -> relational-expression LESSTHAN additive-expression
+Rule 33    relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression
+Rule 34    relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression
+Rule 35    additive-expression -> multiplicative-exression
+Rule 36    additive-expression -> additive-expression PLUS multiplicative-expression
+Rule 37    additive-expression -> additive-expression MINUS multiplicative-expression
+Rule 38    multiplicative-expression -> primary-expression
+Rule 39    multiplicative-expression -> multiplicative-expression TIMES primary-expression
+Rule 40    multiplicative-expression -> multiplicative-expression DIVIDES primary-expression
+Rule 41    primary-expression -> identifier
+Rule 42    primary-expression -> constant
+Rule 43    primary-expression -> string
+Rule 44    primary-expression -> node
+Rule 45    primary-expression -> edge
+Rule 46    primary-expression -> LPAREN expression RPAREN
+Rule 47    primary-expression -> function-call
+Rule 48    function-call -> identifier DOT function-name LPAREN parameter-list RPAREN
+Rule 49    function-call -> print LPAREN identifier RPAREN
+Rule 50    function-call -> read LPAREN identifier RPAREN
+Rule 51    function-call -> write LPAREN identifier COMMA identifier RPAREN
+Rule 52    function-name -> GADD
+Rule 53    function-name -> GDELETE
+Rule 54    function-name -> GADJACENT
+Rule 55    function-name -> GPATH
+Rule 56    function-name -> GGETEDGE
+Rule 57    function-name -> GADDEDGE
+Rule 58    function-name -> GDELETEEDGE
+Rule 59    function-name -> GFINDSHORTESTPATH
+Rule 60    function-name -> EQUALS
 
 Terminals, with rules where they appear
 
-AMPERSAN             : 
+ATSYM                : 
 BOOLEAN              : 
-COMMA                : 4 18
+BREAK                : 
+COMMA                : 4 18 51
 COMMENT              : 
 COMMENTBACK          : 
 COMMENTFRONT         : 
-DECIMAL              : 
+CONTINUE             : 
+DIREDGE              : 
 DIVIDE               : 
-DOESNOTEQUAL         : 
-EDGE                 : 
-EQUALSEQUALS         : 
+DOESNOTEQUAL         : 29
+DOUBLEQUOTE          : 
+ELIF                 : 
+EQUALSEQUALS         : 28
+FOR                  : 15
+FOREACH              : 16
 FUNC                 : 1
-GADD                 : 
-GADDEDGE             : 
-GADJACENT            : 
-GDELETE              : 
-GDELETEEDGE          : 
-GFINDSHORTESTPATH    : 
-GGETEDGE             : 
-GPATH                : 
+GADD                 : 52
+GADDEDGE             : 57
+GADJACENT            : 54
+GDELETE              : 53
+GDELETEEDGE          : 58
+GEQUALS              : 
+GFINDSHORTESTPATH    : 59
+GGETEDGE             : 56
+GPATH                : 55
 GRAPH                : 
-GREATERTHAN          : 
-GREATERTHANOREQUALTO : 
+GREATERTHAN          : 31
+GREATERTHANOREQUALTO : 34
+IF                   : 13 14
 LBR                  : 5
-LESSTHAN             : 
-LESSTHANOREQUALTO    : 
-LOGICALAND           : 
-LOGICALOR            : 
-LPAREN               : 1 13 14 15 16
-MINUS                : 
+LESSTHAN             : 32
+LESSTHANOREQUALTO    : 33
+LOGICALAND           : 26
+LOGICALOR            : 24
+LPAREN               : 1 13 14 15 16 46 48 49 50 51
+MINUS                : 37
+MODULUS              : 
 NEWLINE              : 
 NODE                 : 
 NULL                 : 
 NUMERIC              : 
 PATH                 : 
-PLUS                 : 
+PLUS                 : 36
 PRINT                : 
 RBR                  : 5
-RPAREN               : 1 13 14 15 16
+READ                 : 
+RETURN               : 
+RPAREN               : 1 13 14 15 16 46 48 49 50 51
+SINGLEQUOTE          : 
 TEXT                 : 2
 TIME                 : 
-TIMES                : 
+TIMES                : 39
+UNDIREDGE            : 
+WRITE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
 ASSIGN               : 20
+DIVIDES              : 40
+DOT                  : 48
 ELSE                 : 14
-FOR                  : 15
-FOREACH              : 16
-IF                   : 13 14
+EQUALS               : 60
 IN                   : 16
 SEMICOLON            : 15 15
+additive-expression  : 30 31 32 33 34 36 37
 assignment-expression : 17 18 20
 compound-statement   : 1 10
 conditional-expression : 19
-expression           : 13 14 15 15 15 18
-expression-E         : 9
+constant             : 42
+edge                 : 45
+equality-expression  : 25 26 28 29
+expression           : 9 13 14 15 15 15 18 46
+function-call        : 47
 function-definition  : 0
-identifier           : 1 3 4 16 16
+function-name        : 48
+identifier           : 1 3 4 16 16 41 48 49 50 51 51
 iteration-statement  : 12
-parameter-list       : 1 4
-primary-expression   : 20
+logical-AND-expression : 22 23 24 26
+logical-OR-expression : 21 24
+multiplicative-expression : 36 37 39 40
+multiplicative-exression : 35
+node                 : 44
+parameter-list       : 1 4 48
+primary-expression   : 20 38 39 40
+print                : 49
+read                 : 50
+relational-expression : 27 28 29 31 32 33 34
 selection-statement  : 11
 statement            : 6 7 13 14 14 15 16
 statement-list       : 5 7
+string               : 43
+write                : 51
 
