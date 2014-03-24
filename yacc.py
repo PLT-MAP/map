@@ -1,4 +1,5 @@
-import MAPlexer.py
+import ply.yacc as yacc
+from MAPlexer import * 
 #parsing rules
 
 # Parsing rules
@@ -89,51 +90,32 @@ def p_logorexpr(t):
 	'logical-OR-expression : logical-AND-expression'
 
 def p_logorexpr2(t):	
-	'logical-OR-expression : logical-OR-expression | logical-AND-expression'
+	'logical-OR-expression : logical-OR-expression LOGICALOR logical-AND-expression'
 
 def p_logandexpr(t):
 	'logical-AND-expression : equality-expression'
 
 def p_logandexpr2(t):
-	'logical-AND-expression : logical-AND-expression & equality-expression'
-
-'''def p_incor(t):
-	'inclusive-OR-expression : exclusive-OR-expression'
-
-def p_incor2(t):
-	'inclusive-OR-expression : exclusive-OR-expression | AND-expression'
-
-def p_exor(t):
-	'exclusive-OR-expression : AND-expression'
-
-def p_exor2(t):
-	'exclusive-OR-expression : exclusive-OR-expression ^ AND-expression'
-
-def p_andexpr(t):
-	'AND-expression : equality-expression'
-
-def p_andexpr2(t):
-	'AND-expression : AND-expression & equality-expression'
-'''
+	'logical-AND-expression : logical-AND-expression LOGICALAND equality-expression'
 
 def p_eqexpr(t):
 	'equality-expression : relational-expression'
 
 def p_eqexpr2(t):
-	'''equality-expression : equality-expression == relational-expression
-	| equality-expression != relational-expression'''
+	'''equality-expression : equality-expression EQUALSEQUALS relational-expression
+	| equality-expression DOESNOTEQUAL relational-expression'''
 
 def p_relexpr(t):
 	'relational-expression : additive-expression'
 
 def p_relexpr2(t):
-	'''relational-expression : relational-expression > additive-expression
-	| relational-expression < additive-expression
-	| relational-expression <= additive-expression
-	| relational-expression >= additive-expression'''
+	'''relational-expression : relational-expression GREATERTHAN additive-expression
+	| relational-expression LESSTHAN additive-expression
+	| relational-expression LESSTHANOREQUALTO additive-expression
+	| relational-expression GREATERTHANOREQUALTO additive-expression'''
 
 def p_addexpr(t):
-	'additive-expression : multiplicatve-exression'
+	'additive-expression : multiplicative-exression'
 
 def p_addexpr2(t):
 	'''additive-expression : additive-expression PLUS multiplicative-expression
@@ -143,8 +125,8 @@ def p_multexpr(t):
 	'multiplicative-expression : primary-expression'
 
 def p_multexpr2(t):
-	'''multiplicative-expression : multiplicative-expression STAR primary-expression
-	| multiplicative-expression SLASH primary-expression'''
+	'''multiplicative-expression : multiplicative-expression TIMES primary-expression
+	| multiplicative-expression DIVIDES primary-expression'''
 
 def p_primexp(t):
 	'''primary-expression : identifier
@@ -164,13 +146,21 @@ def p_funcall2(t):
 	| write LPAREN identifier COMMA identifier RPAREN'''
 
 def p_funcname(t):
-	'''function-name : 
-
+	'''function-name : GADD
+	| GDELETE
+	| GADJACENT
+	| GPATH
+	| GGETEDGE
+	| GADDEDGE
+	| GDELETEEDGE
+	| GFINDSHORTESTPATH
+	| EQUALS'''
 def p_error(t):
 	print("Syntax error at '%s'" % t.value)
 
-import ply.yacc as yacc
 yacc.yacc()
+
+
 print yacc.parse("func main() {\n\tText t = \"Hello, world\";\n\tprint(t);\n}")
 
 

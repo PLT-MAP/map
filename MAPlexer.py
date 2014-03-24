@@ -171,7 +171,7 @@ t_GGETEDGE=r'\.getEdge'      	#34
 t_GADDEDGE=r'\.addEdge'      	#35
 t_GDELETEEDGE=r'\.deleteEdge'   #35
 t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
-t_GEQUALS = r'\.equals' # 49
+t_EQUALS = r'\.equals' # 49
 
 t_COMMA=r'\,' #37
 t_NEWLINE=r'\n'#38
