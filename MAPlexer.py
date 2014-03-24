@@ -258,21 +258,23 @@ def p_aexpr(t):
 def p_aexpr2(t):
 	'assignment-expression : primary-expression ASSIGN assignment-expression'
 
-def condexpr(t):
+def p_condexpr(t):
 	'''conditional-expression : logical-OR-expression
 	| logical-AND-expression'''
 
-def logorexpr(t):
+def p_logorexpr(t):
 	'logical-OR-expression : logical-AND-expression'
 
-def logorexpr2(t):
+def p_logorexpr2(t):	
 	'logical-OR-expression : logical-OR-expression | logical-AND-expression'
 
-def logandexpr(t):
+def p_logandexpr(t):
 	'logical-AND-expression : inclusive-OR-expression'
 
-def logandexpr2(t):
-	'logical-AND-expression : logical-AND-expression & equality-expression'
+def p_logandexpr2(t):
+	'logical-AND-expression : logical-AND-expression & inclusove-OR-expression'
+
+
 
 
 
