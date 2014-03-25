@@ -189,25 +189,26 @@ def t_PRINT(t):
 	r'Print'         
 	return t #29
 
-t_GADD=r'\.add'          		#30
-t_GDELETE=r'\.delete'       	#31
-t_GADJACENT=r'\.adjacent'     	#32
-t_GPATH=r'\.path'         		#33
-t_GGETEDGE=r'\.getEdge'      	#34
-t_GADDEDGE=r'\.addEdge'      	#35
-t_GDELETEEDGE=r'\.deleteEdge'   #35
-t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
-t_GEQUALS = r'\.equals' # 49
+t_GADD=r'\.add\('          		#30
+t_GDELETE=r'\.delete\('       	#31
+t_GADJACENT=r'\.adjacent\('     	#32
+t_GPATH=r'\.path\('         		#33
+t_GGETEDGE=r'\.getEdge\('      	#34
+t_GADDEDGE=r'\.addEdge\('      	#35
+t_GDELETEEDGE=r'\.deleteEdge\('   #35
+t_GFINDSHORTESTPATH=r'\.findShortestPath\('   #36
+t_GEQUALS = r'\.equals\(' # 49
 
 t_COMMA=r'\,' #37
 
 t_NEWLINE=r'\n'#38
+
 def t_READ(t):
-	r'read' 
+	r'read\(' 
 	return t  #39
 
 def t_WRITE(t):
-	r'write' 
+	r'write\(' 
 	return t  #40	
 
 t_ignore  = ' \t'
