@@ -112,7 +112,7 @@ def t_FOR(t):
 	return t # 43
 
 def t_BREAK(t):
-	r'^break$'
+	r'^break\;$'
 	return t
 
 def t_ELIF(t): 
@@ -125,8 +125,7 @@ def t_BOOLEAN(t): #4
 	return t
 
 def t_TIME(t):
-
-	r'\sTime\s'
+	r'Time\s|^Time\s|\=Time\s'
 	return t #5
 
 def t_INCLUDE(t):
@@ -134,7 +133,7 @@ def t_INCLUDE(t):
 	return t #5.5
 
 def t_NULL(t):
-	r'\sNULL$' 
+	r'NULL\s|NULL\)|\sNULL\s' 
 	t.value=None
 	return t #6
 

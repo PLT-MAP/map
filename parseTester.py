@@ -44,7 +44,7 @@ def testlex():
 
 	print "Test3 passed"
 
-	test='piPrint Printpo d1234537 piread readpi piwrite writepi piNode Nodepi Pathdh laPath piGraph Graphpo poforeach foreach39 tif fitif tofor winterbreak breakfast Timer PiTime PUndiredge Undiredge12 Diredge1 diDiredge internet pin elserpoop pesle klcontinue continuefdjj func1 else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
+	test='piNULL NULLpi piPrint Printpo d1234537 piread readpi piwrite writepi piNode Nodepi Pathdh laPath piGraph Graphpo poforeach foreach39 tif fitif tofor winterbreak breakfast Timer PiTime PUndiredge Undiredge12 Diredge1 diDiredge internet pin elserpoop pesle klcontinue continuefdjj func1 else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
@@ -63,21 +63,59 @@ def testlex():
 
 	print "Test5 passed"	
 
-	test='Time Time Time Time'
+	test='Time Time Time Time '
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
 		if tok.type!='TIME':
 			print "Test6 failed"
 			return False
-
 	print "Test6 passed"	
 
+	test='include '
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='INCLUDE':
+			print "Test7 failed"
+			return False
+	print "Test7 passed"	
+
+	test='=NULL = NULL) NULL;'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		print tok.type
+		if tok.type=='EQUALS':
+			continue
+		if tok.type=='SEMICOLON':
+			continue
+		if tok.type=='RPAREN':
+			continue
+
+		if tok.type!='NULL':
+			print "Test8 failed"
+			return False
+	print "Test8 passed"	
+	
 
 
 
-testlex()
 
+	return True
+
+
+
+def main():
+	boolean=testlex()
+	if boolean:
+		print 'All tests were passed'
+	else:
+		print'Please fix error'
+
+
+if __name__ == "__main__":
+    main()
 
 
 
