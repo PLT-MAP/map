@@ -124,7 +124,7 @@ def t_BOOLEAN(t): #4
 	return t
 
 def t_TIME(t):
-	r'Time$'
+	r'Time\s'
 	return t #5
 
 def t_NULL(t):
@@ -181,7 +181,7 @@ t_RBR = '\}'
 
 #standard library operators
 def t_PRINT(t):
-	r'Print'         
+	r'^Print\('         
 	return t #29
 
 t_GADD=r'\.add'          		#30
@@ -198,11 +198,11 @@ t_COMMA=r'\,' #37
 
 t_NEWLINE=r'\n'#38
 def t_READ(t):
-	r'read' 
+	r'read\(' 
 	return t  #39
 
 def t_WRITE(t):
-	r'write' 
+	r'write\(' 
 	return t  #40	
 
 t_ignore  = ' \t'

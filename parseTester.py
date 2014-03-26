@@ -4,7 +4,7 @@ from MAPlexer import *
 
 #put any input you want to test here
 ###############################################
-test='continue else1 .0821 100000 read()[] {} = == func1 in return return1' 
+test=''#'continue else1 .0821 100000 read()[] {} = == func1 in return return1' 
 lexer=lex.lex()
 lexer.input(test)
 
@@ -45,17 +45,34 @@ def testlex():
 
 	print "Test3 passed"
 
-	test='func1 else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
+	test='piPrint Printpo d1234537 piread readpi piwrite writepi piNode Nodepi Pathdh laPath piGraph Graphpo poforeach foreach39 tif fitif tofor winterbreak breakfast Timer PiTime PUndiredge Undiredge12 Diredge1 diDiredge internet pin elserpoop pesle klcontinue continuefdjj func1 else1 returnies forpeach fort break1 a12true b1092false elseif Timey NULLMASTER5000'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
 		if tok.type!='TEXT':
 			print "Test4 failed"
 			return False
-
 	print "Test4 passed"
 
+	test='True False'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='BOOLEAN':
+			print "Test5 failed"
+			return False
 
+	print "Test5 passed"	
+
+	test='Time Time Time Time'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='TIME':
+			print "Test6 failed"
+			return False
+
+	print "Test6 passed"	
 
 
 
