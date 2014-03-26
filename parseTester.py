@@ -3,7 +3,7 @@ from MAPlexer import *
 
 
 #put any input you want to test here
-test='return read() continue else1 .0821 100000 = Graph( read()[] {} = == func1 in  return1' 
+test='NULL' 
 lexer=lex.lex()
 lexer.input(test)
 
@@ -53,15 +53,16 @@ def testlex():
 			return False
 	print "Test4 passed"
 
-	test='True False'
-	lexer=lex.lex()
-	lexer.input(test)
-	for tok in lexer:
-		if tok.type!='BOOLEAN':
-			print "Test5 failed"
-			return False
+#	test='True False'
+#	lexer=lex.lex()
+#	lexer.input(test)
+#	for tok in lexer:
+#		print tok.type
+#		if tok.type!='BOOLEAN':
+#			print "Test5 failed"
+#			return False
 
-	print "Test5 passed"	
+#	print "Test5 passed"	
 
 	test='Time Time Time Time '
 	lexer=lex.lex()
@@ -85,7 +86,6 @@ def testlex():
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
-		print tok.type
 		if tok.type=='EQUALS':
 			continue
 		if tok.type=='SEMICOLON':
@@ -102,10 +102,9 @@ def testlex():
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
-		print tok.type
 		if tok.type=='EQUALS':
 			continue
-		if tok.type=='RPAREN':
+		if tok.type=='LPAREN':
 			continue
 
 		if tok.type!='DIREDGE':
@@ -117,16 +116,15 @@ def testlex():
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
-		print tok.type
 		if tok.type=='EQUALS':
 			continue
-		if tok.type=='RPAREN':
+		if tok.type=='LPAREN':
 			continue
 
-		if tok.type!='DIREDGE':
-			print "Test9 failed"
+		if tok.type!='UNDIREDGE':
+			print "Test10 failed"
 			return False
-	print "Test9 passed"	
+	print "Test10 passed"	
 
 
 

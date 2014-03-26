@@ -2,6 +2,7 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    EXCLAMATION
     ELIF
     RETURN
     READ
@@ -9,16 +10,20 @@ Unused terminals:
     PRINT
     PATH
     NULL
+    COMMENTBACK
     COMMENT
     NEWLINE
     NUMERIC
     UNDIREDGE
     SINGLEQUOTE
+    COLON
     NODE
+    RSB
     DIVIDE
     GRAPH
-    COMMENTBACK
-    ATSYM
+    PERIOD
+    LSB
+    INCLUDE
     MODULUS
     DOUBLEQUOTE
     WRITE
@@ -95,9 +100,9 @@ Rule 60    function-name -> EQUALS
 
 Terminals, with rules where they appear
 
-ATSYM                : 
 BOOLEAN              : 
 BREAK                : 
+COLON                : 
 COMMA                : 4 18 51
 COMMENT              : 
 COMMENTBACK          : 
@@ -108,7 +113,10 @@ DIVIDE               :
 DOESNOTEQUAL         : 29
 DOUBLEQUOTE          : 
 ELIF                 : 
+ELSE                 : 14
+EQUALS               : 60
 EQUALSEQUALS         : 28
+EXCLAMATION          : 
 FOR                  : 15
 FOREACH              : 16
 FUNC                 : 1
@@ -125,12 +133,15 @@ GRAPH                :
 GREATERTHAN          : 31
 GREATERTHANOREQUALTO : 34
 IF                   : 13 14
+IN                   : 16
+INCLUDE              : 
 LBR                  : 5
 LESSTHAN             : 32
 LESSTHANOREQUALTO    : 33
 LOGICALAND           : 26
 LOGICALOR            : 24
 LPAREN               : 1 13 14 15 16 46 48 49 50 51
+LSB                  : 
 MINUS                : 37
 MODULUS              : 
 NEWLINE              : 
@@ -138,12 +149,15 @@ NODE                 :
 NULL                 : 
 NUMERIC              : 
 PATH                 : 
+PERIOD               : 
 PLUS                 : 36
 PRINT                : 
 RBR                  : 5
 READ                 : 
 RETURN               : 
 RPAREN               : 1 13 14 15 16 46 48 49 50 51
+RSB                  : 
+SEMICOLON            : 15 15
 SINGLEQUOTE          : 
 TEXT                 : 2
 TIME                 : 
@@ -157,10 +171,6 @@ Nonterminals, with rules where they appear
 ASSIGN               : 20
 DIVIDES              : 40
 DOT                  : 48
-ELSE                 : 14
-EQUALS               : 60
-IN                   : 16
-SEMICOLON            : 15 15
 additive-expression  : 30 31 32 33 34 36 37
 assignment-expression : 17 18 20
 compound-statement   : 1 10

@@ -1,16 +1,20 @@
 import ply.lex as lex
 #http://flex.sourceforge.net/manual/Patterns.html
-tokens = (
+reserved ={
+	'NULL':'NULL',
+	'include':'INCLUDE',
+	'true' : 'TRUE', 
+	'false' : 'FALSE',
+	'Time':'TIME',
+	'Diredge':'DIREDGE',
+	'Undiredge':'UNDIREDGE' 
+}
+
+tokens = [
 	'NUMERIC', #1
 	'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
-	'BOOLEAN', #4
-	'TIME',    #5
-	'INCLUDE', #5.5
-	'NULL',    #6
-	'DIREDGE', #7.1
-	'UNDIREDGE', #7.2
 	'NODE',    #8
 	'PATH',    #9
 	'GRAPH',   #10	
@@ -67,13 +71,19 @@ tokens = (
 	'PERIOD',
 	'EXCLAMATION',
 	'IN',
-	)
+	]+list(reserved.values())
 
 #primitive data types
 t_NUMERIC=r'(\d+\.?\d+ | \.\d+)'   #1
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
-t_TEXT=r'[a-zA-Z]'+r'[a-zA-Z0-9]+'#3
+
+
+def t_TEXT(t): 
+ 	r'[a-zA-Z_][a-zA-Z_0-9]*' 
+ 	t.type = reserved.get(t.value,'TEXT')
+ 	return t
+
 t_SEMICOLON = r';' 
 t_COLON = r'\:'
 t_PERIOD = r'\.'
@@ -119,31 +129,10 @@ def t_ELIF(t):
 	r'^elif\s|^elif\('
 	return t 
 
-def t_BOOLEAN(t): #4
-	r'(True | False | true | false)'
-	t.value= 'rue' in t.value
-	return t
-
-def t_TIME(t):
-	r'Time\s|^Time\s|\=Time\s'
-	return t #5
-
-def t_INCLUDE(t):
-	r'^include\s'
-	return t #5.5
-
-def t_NULL(t):
-	r'NULL\s|NULL\)|\sNULL\s' 
-	t.value=None
-	return t #6
-
-def t_DIREDGE(t):
-	r'^Diredge\s|Diredge\(|\=Diredge\(' 
-	return t #7.1
-
-def t_UNDIREDGE(t):
-	r'^Undirectedge\s|Undirectedge\(|\=Undirectedge\(' 
-	return t #7.2
+#def t_BOOLEAN(t): #4
+#	r'(True | False | true | false)'
+#	t.value= 'rue' in t.value
+#	return t
 
 def t_NODE(t):
 	r'^Node\s|Node\(|\=Node\(' 
@@ -216,3 +205,6 @@ t_ignore  = ' \t'
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
+
+
+lexer=lex.lex()
