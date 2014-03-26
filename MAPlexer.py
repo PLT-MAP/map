@@ -3,11 +3,35 @@ import ply.lex as lex
 reserved ={
 	'NULL':'NULL',
 	'include':'INCLUDE',
-	'true' : 'TRUE', 
-	'false' : 'FALSE',
+	'True' : 'TRUE', 
+	'False' : 'FALSE',
 	'Time':'TIME',
 	'Diredge':'DIREDGE',
-	'Undiredge':'UNDIREDGE' 
+	'Undiredge':'UNDIREDGE',
+	'Node':'NODE',
+	'Path':'PATH',
+	'Graph':'GRAPH',
+	'Print':'PRINT', 
+	'add':'ADD',
+	'Delete':'DELETEFUNC',
+	'adjacent':'ADJACENT',
+	'getEdge':'GETEDGE',
+	'addEdge':'ADDEDGE',
+	'deleteEdge':'DELETEEDGE',
+	'findshortestpath':'FINDSHORTEST',
+	'equals':'EQUALSFUNC',
+	'in':'IN',
+	'if':'IF', 
+	'for':'FOR', 
+	'break':'BREAK', 
+	'elif':'ELIF', 
+	'foreach':'FOREACH',
+	'continue':'CONTINUE',
+	'return':'RETURN',
+	'else':'ELSE', 
+	'read':'READ', 
+	'write':'WRITE',
+	'func':'FUNC',
 }
 
 tokens = [
@@ -15,9 +39,6 @@ tokens = [
 	'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
-	'NODE',    #8
-	'PATH',    #9
-	'GRAPH',   #10	
 	'PLUS',    #11
 	'MINUS',   #12
 	'TIMES',   #13
@@ -39,38 +60,16 @@ tokens = [
 	'COMMENT',    #26
 	'COMMENTFRONT', #27
 	'COMMENTBACK',   #28
-	'PRINT',         #29
 	#Graphing functions
-	'GADD',          #30
-	'GDELETE',       #31
-	'GADJACENT',     #32
-	'GPATH',         #33
-	'GGETEDGE',      #34
-	'GADDEDGE',      #35
-	'GDELETEEDGE',   #35
-	'GFINDSHORTESTPATH',#36
 	'COMMA', #37
 	'NEWLINE',#38
-	'READ', #39
-	'WRITE',#40
-	'GEQUALS', # 49
 	#keywords
-	'FUNC',#39
 	'LBR', # 40
 	'RBR', # 41
-	'IF', #42
-	'FOR', #43
-	'BREAK', #44
-	'ELIF', # 45
-	'FOREACH', # 46
-	'CONTINUE', # 47
-	'RETURN', # 48
-	'ELSE', #50
 	'LSB', 
 	'RSB',
 	'PERIOD',
 	'EXCLAMATION',
-	'IN',
 	]+list(reserved.values())
 
 #primitive data types
@@ -89,62 +88,16 @@ t_COLON = r'\:'
 t_PERIOD = r'\.'
 t_EXCLAMATION = r'\!'
 
-def t_IN(t):
-	r'in\s'
-	return t 
+
 
 def t_FUNC(t):
 	r'^func\s'
-	return t 
-
-def t_ELSE(t):
-	r'^else\s|^else\{'
-	return t 
-
-def t_RETURN(t):
-	r'^return\s'
-	return t
-
-def t_CONTINUE(t):
-	r'^continue\s'
-	return t
-
-def t_FOREACH(t):
-	r'^foreach\('
-	return t 
-
-def t_IF(t):
-	r'^if\s|^if\('
-	return t # 42
-
-def t_FOR(t):
-	r'^for\s|^for\('
-	return t # 43
-
-def t_BREAK(t):
-	r'^break\;$'
-	return t
-
-def t_ELIF(t): 
-	r'^elif\s|^elif\('
 	return t 
 
 #def t_BOOLEAN(t): #4
 #	r'(True | False | true | false)'
 #	t.value= 'rue' in t.value
 #	return t
-
-def t_NODE(t):
-	r'^Node\s|Node\(|\=Node\(' 
-	return t #8
-
-def t_PATH(t):
-	r'^Path\s|Path\(|\=Path\(' 
-	return t #9
-
-def t_GRAPH(t):
-	r'^Graph\s|Graph\(|\=Graph\(' 
-	return t  #10
 
 #aritmetic operators
 t_MODULUS = r'\%' #16.1
@@ -173,32 +126,10 @@ t_RSB = '\]'
 t_LBR = '\{'
 t_RBR = '\}'
 
-#standard library operators
-def t_PRINT(t):
-	r'^Print\('         
-	return t #29
-
-t_GADD=r'\.add\('          		#30
-t_GDELETE=r'\.delete\('       	#31
-t_GADJACENT=r'\.adjacent\('     	#32
-t_GPATH=r'\.path\('         		#33
-t_GGETEDGE=r'\.getEdge\('      	#34
-t_GADDEDGE=r'\.addEdge\('      	#35
-t_GDELETEEDGE=r'\.deleteEdge\('   #35
-t_GFINDSHORTESTPATH=r'\.findShortestPath\('   #36
-t_GEQUALS = r'\.equals\(' # 49
 
 t_COMMA=r'\,' #37
 
 t_NEWLINE=r'\n'#38
-
-def t_READ(t):
-	r'read\(' 
-	return t  #39
-
-def t_WRITE(t):
-	r'write\(' 
-	return t  #40	
 
 t_ignore  = ' \t'
 

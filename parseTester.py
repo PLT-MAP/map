@@ -53,16 +53,21 @@ def testlex():
 			return False
 	print "Test4 passed"
 
-#	test='True False'
-#	lexer=lex.lex()
-#	lexer.input(test)
-#	for tok in lexer:
-#		print tok.type
-#		if tok.type!='BOOLEAN':
-#			print "Test5 failed"
-#			return False
-
-#	print "Test5 passed"	
+	test='True True True'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='TRUE':
+			print "Test5 failed"
+			return False
+	test='False False False'
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		if tok.type!='FALSE':
+			print "Test5 failed"
+			return False
+	print "Test5 passed"	
 
 	test='Time Time Time Time '
 	lexer=lex.lex()
