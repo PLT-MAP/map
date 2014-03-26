@@ -98,7 +98,35 @@ def testlex():
 			return False
 	print "Test8 passed"	
 	
+	test=' Diredge =Diredge Diredge( '
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		print tok.type
+		if tok.type=='EQUALS':
+			continue
+		if tok.type=='RPAREN':
+			continue
 
+		if tok.type!='DIREDGE':
+			print "Test9 failed"
+			return False
+	print "Test9 passed"	
+	
+	test=' Undiredge =Undiredge( Undiredge( '
+	lexer=lex.lex()
+	lexer.input(test)
+	for tok in lexer:
+		print tok.type
+		if tok.type=='EQUALS':
+			continue
+		if tok.type=='RPAREN':
+			continue
+
+		if tok.type!='DIREDGE':
+			print "Test9 failed"
+			return False
+	print "Test9 passed"	
 
 
 
