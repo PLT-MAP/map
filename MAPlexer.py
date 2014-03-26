@@ -6,7 +6,8 @@ tokens = (
 	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
 	'BOOLEAN', #4
-	'TIME',    #5	
+	'TIME',    #5
+	'INCLUDE', #5.5
 	'NULL',    #6
 	'DIREDGE', #7.1
 	'UNDIREDGE', #7.2
@@ -83,15 +84,15 @@ def t_IN(t):
 	return t 
 
 def t_FUNC(t):
-	r'^func '
+	r'^func\s'
 	return t 
 
 def t_ELSE(t):
-	r'^else\s'
+	r'^else\s|^else\{'
 	return t 
 
 def t_RETURN(t):
-	r'^return '
+	r'^return\s'
 	return t
 
 def t_CONTINUE(t):
@@ -99,15 +100,15 @@ def t_CONTINUE(t):
 	return t
 
 def t_FOREACH(t):
-	r'^foreach\($'
+	r'^foreach\('
 	return t 
 
 def t_IF(t):
-	r'^if$'
+	r'^if\s|^if\('
 	return t # 42
 
 def t_FOR(t):
-	r'^for$'
+	r'^for\s|^for\('
 	return t # 43
 
 def t_BREAK(t):
@@ -115,7 +116,7 @@ def t_BREAK(t):
 	return t
 
 def t_ELIF(t): 
-	r'^elif$'
+	r'^elif\s|^elif\('
 	return t 
 
 def t_BOOLEAN(t): #4
@@ -124,32 +125,37 @@ def t_BOOLEAN(t): #4
 	return t
 
 def t_TIME(t):
-	r'Time\s'
+
+	r'\sTime\s'
 	return t #5
 
+def t_INCLUDE(t):
+	r'^include\s'
+	return t #5.5
+
 def t_NULL(t):
-	r'NULL$' 
+	r'\sNULL$' 
 	t.value=None
 	return t #6
 
 def t_DIREDGE(t):
-	r'Diredge$' 
+	r'^Diredge\s|Diredge\(|\=Diredge\(' 
 	return t #7.1
 
 def t_UNDIREDGE(t):
-	r'Undiredge$'
+	r'^Undirectedge\s|Undirectedge\(|\=Undirectedge\(' 
 	return t #7.2
 
 def t_NODE(t):
-	r'Node$' 
+	r'^Node\s|Node\(|\=Node\(' 
 	return t #8
 
 def t_PATH(t):
-	r'Path$' 
+	r'^Path\s|Path\(|\=Path\(' 
 	return t #9
 
 def t_GRAPH(t):
-	r'Graph$' 
+	r'^Graph\s|Graph\(|\=Graph\(' 
 	return t  #10
 
 #aritmetic operators
@@ -184,19 +190,20 @@ def t_PRINT(t):
 	r'^Print\('         
 	return t #29
 
-t_GADD=r'\.add'          		#30
-t_GDELETE=r'\.delete'       	#31
-t_GADJACENT=r'\.adjacent'     	#32
-t_GPATH=r'\.path'         		#33
-t_GGETEDGE=r'\.getEdge'      	#34
-t_GADDEDGE=r'\.addEdge'      	#35
-t_GDELETEEDGE=r'\.deleteEdge'   #35
-t_GFINDSHORTESTPATH=r'\.findShortestPath'   #36
-t_GEQUALS = r'\.equals' # 49
+t_GADD=r'\.add\('          		#30
+t_GDELETE=r'\.delete\('       	#31
+t_GADJACENT=r'\.adjacent\('     	#32
+t_GPATH=r'\.path\('         		#33
+t_GGETEDGE=r'\.getEdge\('      	#34
+t_GADDEDGE=r'\.addEdge\('      	#35
+t_GDELETEEDGE=r'\.deleteEdge\('   #35
+t_GFINDSHORTESTPATH=r'\.findShortestPath\('   #36
+t_GEQUALS = r'\.equals\(' # 49
 
 t_COMMA=r'\,' #37
 
 t_NEWLINE=r'\n'#38
+
 def t_READ(t):
 	r'read\(' 
 	return t  #39

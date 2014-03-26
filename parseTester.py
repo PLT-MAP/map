@@ -3,14 +3,13 @@ from MAPlexer import *
 
 
 #put any input you want to test here
-###############################################
-test=''#'continue else1 .0821 100000 read()[] {} = == func1 in return return1' 
+test='return read() continue else1 .0821 100000 = Graph( read()[] {} = == func1 in  return1' 
 lexer=lex.lex()
 lexer.input(test)
 
 for tok in lexer:
 	print tok.type, tok.value
-###############################################
+
 
 def testlex():
 	#tester to make sure that the tokens work
