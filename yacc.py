@@ -162,14 +162,14 @@ def p_funcall2(t):
 
 def p_funcname(t):
 	'''function-name : GADD
-	| GDELETE
-	| GADJACENT
-	| GPATH
-	| GGETEDGE
-	| GADDEDGE
-	| GDELETEEDGE
-	| GFINDSHORTESTPATH
-	| EQUALS'''
+	| DELETEFUNC
+	| ADJACENTFUNC
+	| PATHFUNC
+	| GETEDGEFUNC
+	| ADDEDGEFUNC
+	| DELETEEDGEFUNC
+	| FINDSHORTESTFUNC
+	| EQUALSFUNC'''
 def p_error(t):
 	print("Syntax error at '%s'" % t.value)
 
