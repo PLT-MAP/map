@@ -53,14 +53,14 @@ def testlex():
 			return False
 	print "Test4 passed"
 
-	test='True True True'
+	test='true true true'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
 		if tok.type!='TRUE':
 			print "Test5 failed"
 			return False
-	test='False False False'
+	test='false false false'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
@@ -87,7 +87,7 @@ def testlex():
 			return False
 	print "Test7 passed"	
 
-	test='=NULL = NULL) NULL;'
+	test='=null = null) null;'
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
@@ -103,7 +103,7 @@ def testlex():
 			return False
 	print "Test8 passed"	
 	
-	test=' Diredge =Diredge Diredge( '
+	test=' DirEdge =DirEdge DirEdge( '
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
@@ -117,7 +117,7 @@ def testlex():
 			return False
 	print "Test9 passed"	
 	
-	test=' Undiredge =Undiredge( Undiredge( '
+	test=' UndirEdge =UndirEdge( UndirEdge( '
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:

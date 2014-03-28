@@ -1,13 +1,12 @@
 import ply.lex as lex
 #http://flex.sourceforge.net/manual/Patterns.html
-reserved ={
-	'NULL':'NULL',
+reserved ={ 'null':'NULL',
 	'include':'INCLUDE',
-	'True' : 'TRUE', 
-	'False' : 'FALSE',
+	'true' : 'TRUE', 
+	'false' : 'FALSE',
 	'Time':'TIME',
-	'Diredge':'DIREDGE',
-	'Undiredge':'UNDIREDGE',
+	'DirEdge':'DIREDGE',
+	'UndirEdge':'UNDIREDGE',
 	'Node':'NODE',
 	'Path':'PATH',
 	'Graph':'GRAPH',
@@ -19,7 +18,7 @@ reserved ={
 	'getEdge':'GETEDGEFUNC',
 	'addEdge':'ADDEDGEFUNC',
 	'deleteEdge':'DELETEEDGEFUNC',
-	'findshortestpath':'FINDSHORTESTFUNC',
+	'findShortest':'FINDSHORTESTFUNC',
 	'equals':'EQUALSFUNC',
 	'in':'IN',
 	'if':'IF', 
@@ -61,10 +60,8 @@ tokens = [
 	'COMMENT',    #26
 	'COMMENTFRONT', #27
 	'COMMENTBACK',   #28
-	#Graphing functions
 	'COMMA', #37
 	'NEWLINE',#38
-	#keywords
 	'LBR', # 40
 	'RBR', # 41
 	'LSB', 
