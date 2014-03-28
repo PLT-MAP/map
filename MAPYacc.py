@@ -12,6 +12,7 @@ def p_id(t):
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA identifier'
+	t[0]=t[1]+t[2]+t[3]
 	print t[0]
 
 def p_plist(t):
@@ -23,10 +24,13 @@ def p_plist(t):
 def p_error(t):
 	print("Syntax error at '%s'" % t.value)
 	print t[0]
-	
-test='func main(blah,test)'
+
+test='func main(blah,poop,test)'
 lexer=lex.lex()
 lexer.input(test)
+for tok in lexer:
+	print tok.type, tok.value
+
 yacc.yacc()
 print yacc.parse(test)
 
