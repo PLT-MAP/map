@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = '\xcdR\xdd\xd1\xd5P\xda\xdd\xd5((L\x92\xe0nk'
+_lr_signature = '\xd9i\xdb\xde\x15<\xb6L\x17z\xe3\xaf\xac\x15\x89J'
     
-_lr_action_items = {'TEXT':([0,],[1,]),'$end':([1,2,],[-1,0,]),}
+_lr_action_items = {'RPAREN':([3,6,7,10,],[-2,8,-4,-3,]),'FUNC':([0,],[1,]),'TEXT':([1,5,9,],[3,3,3,]),'COMMA':([3,6,7,10,],[-2,9,-4,-3,]),'LPAREN':([3,4,],[-2,5,]),'$end':([2,8,],[0,-1,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'identifier':([0,],[2,]),}
+_lr_goto_items = {'parameter-list':([5,],[6,]),'identifier':([1,5,9,],[4,7,10,]),'function-definition':([0,],[2,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -25,6 +25,9 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> identifier","S'",1,None,None,None),
-  ('identifier -> TEXT','identifier',1,'p_id','MAPYacc.py',9),
+  ("S' -> function-definition","S'",1,None,None,None),
+  ('function-definition -> FUNC identifier LPAREN parameter-list RPAREN','function-definition',5,'p_fd','MAPyacc.py',6),
+  ('identifier -> TEXT','identifier',1,'p_id','MAPyacc.py',10),
+  ('parameter-list -> parameter-list COMMA identifier','parameter-list',3,'p_plist2','MAPyacc.py',14),
+  ('parameter-list -> identifier','parameter-list',1,'p_plist','MAPyacc.py',18),
 ]
