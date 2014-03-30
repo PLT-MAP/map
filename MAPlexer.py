@@ -71,7 +71,13 @@ tokens = [
 	]+list(reserved.values())
 
 #primitive data types
-t_NUMERIC=r'(\d+\.?\d+ | \.\d+)'   #1
+
+#converts string into float 
+def t_NUMERIC(t): 
+	r'(\d+\.?\d+ | \.\d+)'    #1
+	t.value = float(t.value)
+	return t
+
 t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 
