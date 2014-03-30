@@ -20,19 +20,27 @@ def p_plist(t):
 	t[0] = t[1]
 	print t[0]
 
-
+# better error message 
 def p_error(t):
-	print("Syntax error at '%s'" % t.value)
-	print t[0]
+    if t is None:
+        print "Syntax error: unexpected EOF"
+    else:
+        print "Syntax error at line {}: unexpected token {}".format(t.lineno, t.value)
+    import inspect
+    frame = inspect.currentframe()
+    cvars = frame.f_back.f_locals
+    print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
+    print 'Found:', cvars['ltype']
 
-test='func main(blah,poop,test)'
+test='func main(blah,test,  fun)'
 lexer=lex.lex()
 lexer.input(test)
 for tok in lexer:
 	print tok.type, tok.value
 
 yacc.yacc()
-print yacc.parse(test)
+#print 
+yacc.parse(test)
 
 
 
