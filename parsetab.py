@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = '\xd9i\xdb\xde\x15<\xb6L\x17z\xe3\xaf\xac\x15\x89J'
+_lr_signature = '4\xa5jG\x03Q\xd2\xe5\xcf\x8c\xdcc\xfc3\xf4<'
     
-_lr_action_items = {'RPAREN':([3,6,7,10,],[-2,8,-4,-3,]),'FUNC':([0,],[1,]),'TEXT':([1,5,9,],[3,3,3,]),'COMMA':([3,6,7,10,],[-2,9,-4,-3,]),'LPAREN':([3,4,],[-2,5,]),'$end':([2,8,],[0,-1,]),}
+_lr_action_items = {'RPAREN':([3,5,6,7,10,],[-2,-3,8,-4,-5,]),'FUNC':([0,],[1,]),'TEXT':([1,5,9,],[3,3,3,]),'COMMA':([3,5,6,7,10,],[-2,-3,9,-4,-5,]),'LPAREN':([3,4,],[-2,5,]),'$end':([2,8,],[0,-1,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -26,8 +26,61 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> function-definition","S'",1,None,None,None),
-  ('function-definition -> FUNC identifier LPAREN parameter-list RPAREN','function-definition',5,'p_fd','MAPyacc.py',6),
-  ('identifier -> TEXT','identifier',1,'p_id','MAPyacc.py',10),
-  ('parameter-list -> parameter-list COMMA identifier','parameter-list',3,'p_plist2','MAPyacc.py',14),
-  ('parameter-list -> identifier','parameter-list',1,'p_plist','MAPyacc.py',18),
+  ('function-definition -> FUNC identifier LPAREN parameter-list RPAREN','function-definition',5,'p_fd','yacc.py',39),
+  ('identifier -> TEXT','identifier',1,'p_id','yacc.py',44),
+  ('parameter-list -> <empty>','parameter-list',0,'p_listE','yacc.py',49),
+  ('parameter-list -> identifier','parameter-list',1,'p_plist','yacc.py',52),
+  ('parameter-list -> parameter-list COMMA identifier','parameter-list',3,'p_plist2','yacc.py',56),
+  ('compound-statement -> LBR statement-list RBR','compound-statement',3,'p_cs','yacc.py',60),
+  ('statement-list -> statement','statement-list',1,'p_slist','yacc.py',63),
+  ('statement-list -> statement-list statement','statement-list',2,'p_slist2','yacc.py',67),
+  ('statement-list -> <empty>','statement-list',0,'p_slist3','yacc.py',70),
+  ('statement -> expression','statement',1,'p_s','yacc.py',73),
+  ('statement -> compound-statement','statement',1,'p_s','yacc.py',74),
+  ('statement -> selection-statement','statement',1,'p_s','yacc.py',75),
+  ('statement -> iteration-statement','statement',1,'p_s','yacc.py',76),
+  ('selection-statement -> IF LPAREN expression RPAREN statement','selection-statement',5,'p_sels','yacc.py',80),
+  ('selection-statement -> IF LPAREN expression RPAREN statement ELSE statement','selection-statement',7,'p_sels2','yacc.py',83),
+  ('iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement','iteration-statement',9,'p_iters','yacc.py',86),
+  ('iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement','iteration-statement',7,'p_ters2','yacc.py',89),
+  ('expression -> assignment-expression','expression',1,'p_expr','yacc.py',92),
+  ('expression -> expression COMMA assignment-expression','expression',3,'p_expr2','yacc.py',95),
+  ('assignment-expression -> conditional-expression','assignment-expression',1,'p_aexpr','yacc.py',98),
+  ('assignment-expression -> primary-expression EQUALS assignment-expression','assignment-expression',3,'p_aexpr2','yacc.py',101),
+  ('conditional-expression -> logical-OR-expression','conditional-expression',1,'p_condexpr','yacc.py',104),
+  ('conditional-expression -> logical-AND-expression','conditional-expression',1,'p_condexpr','yacc.py',105),
+  ('logical-OR-expression -> logical-AND-expression','logical-OR-expression',1,'p_logorexpr','yacc.py',108),
+  ('logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression','logical-OR-expression',3,'p_logorexpr2','yacc.py',111),
+  ('logical-AND-expression -> equality-expression','logical-AND-expression',1,'p_logandexpr','yacc.py',114),
+  ('logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression','logical-AND-expression',3,'p_logandexpr2','yacc.py',117),
+  ('equality-expression -> relational-expression','equality-expression',1,'p_eqexpr','yacc.py',120),
+  ('equality-expression -> equality-expression EQUALSEQUALS relational-expression','equality-expression',3,'p_eqexpr2','yacc.py',123),
+  ('equality-expression -> equality-expression DOESNOTEQUAL relational-expression','equality-expression',3,'p_eqexpr2','yacc.py',124),
+  ('relational-expression -> additive-expression','relational-expression',1,'p_relexpr','yacc.py',127),
+  ('relational-expression -> relational-expression GREATERTHAN additive-expression','relational-expression',3,'p_relexpr2','yacc.py',130),
+  ('relational-expression -> relational-expression LESSTHAN additive-expression','relational-expression',3,'p_relexpr2','yacc.py',131),
+  ('relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression','relational-expression',3,'p_relexpr2','yacc.py',132),
+  ('relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression','relational-expression',3,'p_relexpr2','yacc.py',133),
+  ('additive-expression -> multiplicative-expression','additive-expression',1,'p_addexpr','yacc.py',136),
+  ('additive-expression -> additive-expression PLUS multiplicative-expression','additive-expression',3,'p_addexpr2','yacc.py',139),
+  ('additive-expression -> additive-expression MINUS multiplicative-expression','additive-expression',3,'p_addexpr2','yacc.py',140),
+  ('multiplicative-expression -> primary-expression','multiplicative-expression',1,'p_multexpr','yacc.py',143),
+  ('multiplicative-expression -> multiplicative-expression TIMES primary-expression','multiplicative-expression',3,'p_multexpr2','yacc.py',146),
+  ('multiplicative-expression -> multiplicative-expression DIVIDE primary-expression','multiplicative-expression',3,'p_multexpr2','yacc.py',147),
+  ('primary-expression -> identifier','primary-expression',1,'p_primexp','yacc.py',150),
+  ('primary-expression -> TEXT','primary-expression',1,'p_primexp','yacc.py',151),
+  ('primary-expression -> NODE','primary-expression',1,'p_primexp','yacc.py',152),
+  ('primary-expression -> LPAREN expression RPAREN','primary-expression',3,'p_primexp','yacc.py',153),
+  ('function-call -> PRINT LPAREN identifier RPAREN','function-call',4,'p_funcall2','yacc.py',160),
+  ('function-call -> READ LPAREN identifier RPAREN','function-call',4,'p_funcall2','yacc.py',161),
+  ('function-call -> WRITE LPAREN identifier COMMA identifier RPAREN','function-call',6,'p_funcall2','yacc.py',162),
+  ('function-name -> ADD','function-name',1,'p_funcname','yacc.py',165),
+  ('function-name -> DELETEFUNC','function-name',1,'p_funcname','yacc.py',166),
+  ('function-name -> ADJACENTFUNC','function-name',1,'p_funcname','yacc.py',167),
+  ('function-name -> PATHFUNC','function-name',1,'p_funcname','yacc.py',168),
+  ('function-name -> GETEDGEFUNC','function-name',1,'p_funcname','yacc.py',169),
+  ('function-name -> ADDEDGEFUNC','function-name',1,'p_funcname','yacc.py',170),
+  ('function-name -> DELETEEDGEFUNC','function-name',1,'p_funcname','yacc.py',171),
+  ('function-name -> FINDSHORTESTFUNC','function-name',1,'p_funcname','yacc.py',172),
+  ('function-name -> EQUALSFUNC','function-name',1,'p_funcname','yacc.py',173),
 ]

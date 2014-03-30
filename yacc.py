@@ -36,12 +36,17 @@ def p_ed2(t):
 	t[0] = t[1]
 '''
 def p_fd(t):
-	'function-definition : FUNC identifier LPAREN parameter-list RPAREN compound-statement'
-	#t[0] = '{0}{1}{2}{3}{4}{5}'.format(t[1],t[2],t[3],t[4],t[5])
+	'function-definition : FUNC identifier LPAREN parameter-list RPAREN' # compound-statement'
+	print "funtion-definition : {1} {2}{3}{4}{5}".format(t[0],t[1],t[2],t[3],t[4],t[5])
+	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
 
 def p_id(t):
 	'identifier : TEXT'
+	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
+
+def p_listE(t):
+	'parameter-list : '
 
 def p_plist(t):
 	'parameter-list : identifier'
@@ -49,11 +54,10 @@ def p_plist(t):
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA identifier'
-	t[0] = "{0}{1}{2}".format(t[1],t[2],t[3])
+	t[0] = t[1] + t[2] + t[3]
 
 def p_cs(t):
 	'compound-statement : LBR statement-list RBR'
-	#	t[0] = "{0}{1}{2}{3}".format(t[1],t[2],t[3],t[4])
 
 def p_slist(t):
 	'statement-list : statement'
@@ -61,7 +65,6 @@ def p_slist(t):
 
 def p_slist2(t):
 	'statement-list : statement-list statement'
-	#t[0] = "{0}{1}".format(t[1],t[2])
 
 def p_slist3(t):
 	'statement-list : '
@@ -145,23 +148,21 @@ def p_multexpr2(t):
 
 def p_primexp(t):
 	'''primary-expression : identifier
-	| constant
-	| string
-	| node
-	| edge
-	| LPAREN expression RPAREN
-	| function-call'''
-
+	| TEXT
+	| NODE
+	| LPAREN expression RPAREN'''
+	#| function-call'''
+'''
 def p_funcall(t):
 	'function-call : identifier DOT function-name LPAREN parameter-list RPAREN'
-
+'''
 def p_funcall2(t):
-	'''function-call : print LPAREN identifier RPAREN
-	| read LPAREN identifier RPAREN
-	| write LPAREN identifier COMMA identifier RPAREN'''
+	'''function-call : PRINT LPAREN identifier RPAREN
+	| READ LPAREN identifier RPAREN
+	| WRITE LPAREN identifier COMMA identifier RPAREN'''
 
 def p_funcname(t):
-	'''function-name : GADD
+	'''function-name : ADD
 	| DELETEFUNC
 	| ADJACENTFUNC
 	| PATHFUNC
@@ -176,6 +177,7 @@ def p_error(t):
 yacc.yacc()
 
 
-print yacc.parse("func main() {\n\tText t = \"Hello, world\";\n\tprint(t);\n}")
+print yacc.parse("func main(hi, bye) ")
+		# {\n\tText t = \"Hello, world\";\n\tprint(t);\n}")
 
 
