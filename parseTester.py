@@ -15,7 +15,7 @@ def testlex():
 	#tester to make sure that the tokens work
 	
 	#check numeric
-	test='10 10.5 10.9 1000000 2138920183 102.202 .02931'
+	test="func main(hi, bye) { Text t = 'Hello, world'; print(t);} "
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:

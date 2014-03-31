@@ -154,7 +154,11 @@ def p_multexpr2(t):
 
 def p_primexp(t):
 	'''primary-expression : identifier
+<<<<<<< HEAD
 	| TYPE ID
+=======
+	| TYPE
+>>>>>>> 308eff4e6434ecd3d266f468144c9ec59666baed
 	| function-call
 	| LITERAL'''
 	t[0] = t[1]
