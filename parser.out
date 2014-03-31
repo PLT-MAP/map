@@ -25,6 +25,7 @@ Unused terminals:
     DIREDGE
     CONTINUE
     TIME
+    NUMERICD
     COMMENTFRONT
     INCLUDE
 
@@ -74,7 +75,7 @@ Rule 40    multiplicative-expression -> primary-expression
 Rule 41    multiplicative-expression -> multiplicative-expression TIMES primary-expression
 Rule 42    multiplicative-expression -> multiplicative-expression DIVIDE primary-expression
 Rule 43    primary-expression -> identifier
-Rule 44    primary-expression -> TEXT
+Rule 44    primary-expression -> TEXTD
 Rule 45    primary-expression -> NODE
 Rule 46    primary-expression -> function-call
 Rule 47    primary-expression -> LITERAL
@@ -144,6 +145,7 @@ NEWLINE              :
 NODE                 : 45
 NULL                 : 
 NUMERIC              : 
+NUMERICD             : 
 PATH                 : 
 PATHFUNC             : 56
 PERIOD               : 49
@@ -155,7 +157,8 @@ RETURN               :
 RPAREN               : 1 15 16 17 18 48 49 50 51 52
 RSB                  : 
 SEMICOLON            : 17 17
-TEXT                 : 2 44
+TEXT                 : 2
+TEXTD                : 44
 TIME                 : 
 TIMES                : 41
 TRUE                 : 
@@ -216,10 +219,38 @@ state 3
 
     (2) identifier -> TEXT .
 
-    RPAREN          reduce using rule 2 (identifier -> TEXT .)
+    PERIOD          reduce using rule 2 (identifier -> TEXT .)
+    EQUALS          reduce using rule 2 (identifier -> TEXT .)
+    TIMES           reduce using rule 2 (identifier -> TEXT .)
+    DIVIDE          reduce using rule 2 (identifier -> TEXT .)
+    PLUS            reduce using rule 2 (identifier -> TEXT .)
+    MINUS           reduce using rule 2 (identifier -> TEXT .)
+    GREATERTHAN     reduce using rule 2 (identifier -> TEXT .)
+    LESSTHAN        reduce using rule 2 (identifier -> TEXT .)
+    LESSTHANOREQUALTO reduce using rule 2 (identifier -> TEXT .)
+    GREATERTHANOREQUALTO reduce using rule 2 (identifier -> TEXT .)
+    EQUALSEQUALS    reduce using rule 2 (identifier -> TEXT .)
+    DOESNOTEQUAL    reduce using rule 2 (identifier -> TEXT .)
+    LOGICALAND      reduce using rule 2 (identifier -> TEXT .)
     COMMA           reduce using rule 2 (identifier -> TEXT .)
-    IN              reduce using rule 2 (identifier -> TEXT .)
+    LBR             reduce using rule 2 (identifier -> TEXT .)
+    IF              reduce using rule 2 (identifier -> TEXT .)
+    FOR             reduce using rule 2 (identifier -> TEXT .)
+    FOREACH         reduce using rule 2 (identifier -> TEXT .)
+    TEXTD           reduce using rule 2 (identifier -> TEXT .)
+    NODE            reduce using rule 2 (identifier -> TEXT .)
+    LITERAL         reduce using rule 2 (identifier -> TEXT .)
     LPAREN          reduce using rule 2 (identifier -> TEXT .)
+    TEXT            reduce using rule 2 (identifier -> TEXT .)
+    PRINT           reduce using rule 2 (identifier -> TEXT .)
+    READ            reduce using rule 2 (identifier -> TEXT .)
+    WRITE           reduce using rule 2 (identifier -> TEXT .)
+    RBR             reduce using rule 2 (identifier -> TEXT .)
+    LOGICALOR       reduce using rule 2 (identifier -> TEXT .)
+    RPAREN          reduce using rule 2 (identifier -> TEXT .)
+    SEMICOLON       reduce using rule 2 (identifier -> TEXT .)
+    ELSE            reduce using rule 2 (identifier -> TEXT .)
+    IN              reduce using rule 2 (identifier -> TEXT .)
 
 
 state 4
@@ -304,7 +335,7 @@ state 10
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -338,56 +369,59 @@ state 10
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! RBR             [ reduce using rule 10 (statement-list -> .) ]
   ! LBR             [ reduce using rule 7 (compound-statement -> .) ]
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
     statement-list                 shift and go to state 36
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
-    statement                      shift and go to state 23
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
+    statement                      shift and go to state 22
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
 state 11
 
@@ -413,120 +447,25 @@ state 13
 
 state 14
 
-    (44) primary-expression -> TEXT .
-    (2) identifier -> TEXT .
-
-  ! reduce/reduce conflict for EQUALS resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for TIMES resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for PLUS resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for MINUS resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for GREATERTHAN resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LESSTHAN resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LESSTHANOREQUALTO resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for GREATERTHANOREQUALTO resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for EQUALSEQUALS resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for DOESNOTEQUAL resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LOGICALAND resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for COMMA resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LBR resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for IF resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for FOR resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for FOREACH resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for TEXT resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for NODE resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LITERAL resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LPAREN resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for PRINT resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for READ resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for WRITE resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for RBR resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for LOGICALOR resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 2 (identifier -> TEXT .)
-  ! reduce/reduce conflict for ELSE resolved using rule 2 (identifier -> TEXT .)
-    PERIOD          reduce using rule 2 (identifier -> TEXT .)
-    EQUALS          reduce using rule 2 (identifier -> TEXT .)
-    TIMES           reduce using rule 2 (identifier -> TEXT .)
-    DIVIDE          reduce using rule 2 (identifier -> TEXT .)
-    PLUS            reduce using rule 2 (identifier -> TEXT .)
-    MINUS           reduce using rule 2 (identifier -> TEXT .)
-    GREATERTHAN     reduce using rule 2 (identifier -> TEXT .)
-    LESSTHAN        reduce using rule 2 (identifier -> TEXT .)
-    LESSTHANOREQUALTO reduce using rule 2 (identifier -> TEXT .)
-    GREATERTHANOREQUALTO reduce using rule 2 (identifier -> TEXT .)
-    EQUALSEQUALS    reduce using rule 2 (identifier -> TEXT .)
-    DOESNOTEQUAL    reduce using rule 2 (identifier -> TEXT .)
-    LOGICALAND      reduce using rule 2 (identifier -> TEXT .)
-    COMMA           reduce using rule 2 (identifier -> TEXT .)
-    LBR             reduce using rule 2 (identifier -> TEXT .)
-    IF              reduce using rule 2 (identifier -> TEXT .)
-    FOR             reduce using rule 2 (identifier -> TEXT .)
-    FOREACH         reduce using rule 2 (identifier -> TEXT .)
-    TEXT            reduce using rule 2 (identifier -> TEXT .)
-    NODE            reduce using rule 2 (identifier -> TEXT .)
-    LITERAL         reduce using rule 2 (identifier -> TEXT .)
-    LPAREN          reduce using rule 2 (identifier -> TEXT .)
-    PRINT           reduce using rule 2 (identifier -> TEXT .)
-    READ            reduce using rule 2 (identifier -> TEXT .)
-    WRITE           reduce using rule 2 (identifier -> TEXT .)
-    RBR             reduce using rule 2 (identifier -> TEXT .)
-    LOGICALOR       reduce using rule 2 (identifier -> TEXT .)
-    RPAREN          reduce using rule 2 (identifier -> TEXT .)
-    SEMICOLON       reduce using rule 2 (identifier -> TEXT .)
-    ELSE            reduce using rule 2 (identifier -> TEXT .)
-
-  ! EQUALS          [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! TIMES           [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! DIVIDE          [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! PLUS            [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! MINUS           [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! GREATERTHAN     [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LESSTHAN        [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LESSTHANOREQUALTO [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! GREATERTHANOREQUALTO [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! EQUALSEQUALS    [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! DOESNOTEQUAL    [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LOGICALAND      [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! COMMA           [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LBR             [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! IF              [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! FOR             [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! FOREACH         [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! TEXT            [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! NODE            [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LITERAL         [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LPAREN          [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! PRINT           [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! READ            [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! WRITE           [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! RBR             [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! RPAREN          [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! SEMICOLON       [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! ELSE            [ reduce using rule 44 (primary-expression -> TEXT .) ]
-  ! LOGICALOR       [ reduce using rule 44 (primary-expression -> TEXT .) ]
-
-
-state 15
-
     (13) statement -> selection-statement .
 
+    ELSE            reduce using rule 13 (statement -> selection-statement .)
     LBR             reduce using rule 13 (statement -> selection-statement .)
     IF              reduce using rule 13 (statement -> selection-statement .)
     FOR             reduce using rule 13 (statement -> selection-statement .)
     FOREACH         reduce using rule 13 (statement -> selection-statement .)
-    TEXT            reduce using rule 13 (statement -> selection-statement .)
+    TEXTD           reduce using rule 13 (statement -> selection-statement .)
     NODE            reduce using rule 13 (statement -> selection-statement .)
     LITERAL         reduce using rule 13 (statement -> selection-statement .)
     LPAREN          reduce using rule 13 (statement -> selection-statement .)
+    TEXT            reduce using rule 13 (statement -> selection-statement .)
     PRINT           reduce using rule 13 (statement -> selection-statement .)
     READ            reduce using rule 13 (statement -> selection-statement .)
     WRITE           reduce using rule 13 (statement -> selection-statement .)
     RBR             reduce using rule 13 (statement -> selection-statement .)
-    ELSE            reduce using rule 13 (statement -> selection-statement .)
 
 
-state 16
+state 15
 
     (29) equality-expression -> relational-expression .
     (33) relational-expression -> relational-expression . GREATERTHAN additive-expression
@@ -544,10 +483,11 @@ state 16
     IF              reduce using rule 29 (equality-expression -> relational-expression .)
     FOR             reduce using rule 29 (equality-expression -> relational-expression .)
     FOREACH         reduce using rule 29 (equality-expression -> relational-expression .)
-    TEXT            reduce using rule 29 (equality-expression -> relational-expression .)
+    TEXTD           reduce using rule 29 (equality-expression -> relational-expression .)
     NODE            reduce using rule 29 (equality-expression -> relational-expression .)
     LITERAL         reduce using rule 29 (equality-expression -> relational-expression .)
     LPAREN          reduce using rule 29 (equality-expression -> relational-expression .)
+    TEXT            reduce using rule 29 (equality-expression -> relational-expression .)
     PRINT           reduce using rule 29 (equality-expression -> relational-expression .)
     READ            reduce using rule 29 (equality-expression -> relational-expression .)
     WRITE           reduce using rule 29 (equality-expression -> relational-expression .)
@@ -560,14 +500,14 @@ state 16
     GREATERTHANOREQUALTO shift and go to state 42
 
 
-state 17
+state 16
 
     (50) function-call -> PRINT . LPAREN identifier RPAREN
 
     LPAREN          shift and go to state 45
 
 
-state 18
+state 17
 
     (46) primary-expression -> function-call .
 
@@ -588,10 +528,11 @@ state 18
     IF              reduce using rule 46 (primary-expression -> function-call .)
     FOR             reduce using rule 46 (primary-expression -> function-call .)
     FOREACH         reduce using rule 46 (primary-expression -> function-call .)
-    TEXT            reduce using rule 46 (primary-expression -> function-call .)
+    TEXTD           reduce using rule 46 (primary-expression -> function-call .)
     NODE            reduce using rule 46 (primary-expression -> function-call .)
     LITERAL         reduce using rule 46 (primary-expression -> function-call .)
     LPAREN          reduce using rule 46 (primary-expression -> function-call .)
+    TEXT            reduce using rule 46 (primary-expression -> function-call .)
     PRINT           reduce using rule 46 (primary-expression -> function-call .)
     READ            reduce using rule 46 (primary-expression -> function-call .)
     WRITE           reduce using rule 46 (primary-expression -> function-call .)
@@ -602,7 +543,7 @@ state 18
     LOGICALOR       reduce using rule 46 (primary-expression -> function-call .)
 
 
-state 19
+state 18
 
     (32) relational-expression -> additive-expression .
     (38) additive-expression -> additive-expression . PLUS multiplicative-expression
@@ -620,10 +561,11 @@ state 19
     IF              reduce using rule 32 (relational-expression -> additive-expression .)
     FOR             reduce using rule 32 (relational-expression -> additive-expression .)
     FOREACH         reduce using rule 32 (relational-expression -> additive-expression .)
-    TEXT            reduce using rule 32 (relational-expression -> additive-expression .)
+    TEXTD           reduce using rule 32 (relational-expression -> additive-expression .)
     NODE            reduce using rule 32 (relational-expression -> additive-expression .)
     LITERAL         reduce using rule 32 (relational-expression -> additive-expression .)
     LPAREN          reduce using rule 32 (relational-expression -> additive-expression .)
+    TEXT            reduce using rule 32 (relational-expression -> additive-expression .)
     PRINT           reduce using rule 32 (relational-expression -> additive-expression .)
     READ            reduce using rule 32 (relational-expression -> additive-expression .)
     WRITE           reduce using rule 32 (relational-expression -> additive-expression .)
@@ -636,31 +578,32 @@ state 19
     MINUS           shift and go to state 47
 
 
-state 20
+state 19
 
     (23) conditional-expression -> logical-OR-expression .
     (26) logical-OR-expression -> logical-OR-expression . LOGICALOR logical-AND-expression
 
-    RPAREN          reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     COMMA           reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     LBR             reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     IF              reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     FOR             reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     FOREACH         reduce using rule 23 (conditional-expression -> logical-OR-expression .)
-    TEXT            reduce using rule 23 (conditional-expression -> logical-OR-expression .)
+    TEXTD           reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     NODE            reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     LITERAL         reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     LPAREN          reduce using rule 23 (conditional-expression -> logical-OR-expression .)
+    TEXT            reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     PRINT           reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     READ            reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     WRITE           reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     RBR             reduce using rule 23 (conditional-expression -> logical-OR-expression .)
-    SEMICOLON       reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     ELSE            reduce using rule 23 (conditional-expression -> logical-OR-expression .)
+    RPAREN          reduce using rule 23 (conditional-expression -> logical-OR-expression .)
+    SEMICOLON       reduce using rule 23 (conditional-expression -> logical-OR-expression .)
     LOGICALOR       shift and go to state 48
 
 
-state 21
+state 20
 
     (24) conditional-expression -> logical-AND-expression .
     (25) logical-OR-expression -> logical-AND-expression .
@@ -674,30 +617,32 @@ state 21
   ! reduce/reduce conflict for IF resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for FOR resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for FOREACH resolved using rule 24 (conditional-expression -> logical-AND-expression .)
-  ! reduce/reduce conflict for TEXT resolved using rule 24 (conditional-expression -> logical-AND-expression .)
+  ! reduce/reduce conflict for TEXTD resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for NODE resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for LITERAL resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for LPAREN resolved using rule 24 (conditional-expression -> logical-AND-expression .)
+  ! reduce/reduce conflict for TEXT resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for PRINT resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for READ resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for WRITE resolved using rule 24 (conditional-expression -> logical-AND-expression .)
   ! reduce/reduce conflict for RBR resolved using rule 24 (conditional-expression -> logical-AND-expression .)
-    RPAREN          reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     COMMA           reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     LBR             reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     IF              reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     FOR             reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     FOREACH         reduce using rule 24 (conditional-expression -> logical-AND-expression .)
-    TEXT            reduce using rule 24 (conditional-expression -> logical-AND-expression .)
+    TEXTD           reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     NODE            reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     LITERAL         reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     LPAREN          reduce using rule 24 (conditional-expression -> logical-AND-expression .)
+    TEXT            reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     PRINT           reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     READ            reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     WRITE           reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     RBR             reduce using rule 24 (conditional-expression -> logical-AND-expression .)
-    SEMICOLON       reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     ELSE            reduce using rule 24 (conditional-expression -> logical-AND-expression .)
+    RPAREN          reduce using rule 24 (conditional-expression -> logical-AND-expression .)
+    SEMICOLON       reduce using rule 24 (conditional-expression -> logical-AND-expression .)
     LOGICALOR       reduce using rule 25 (logical-OR-expression -> logical-AND-expression .)
     LOGICALAND      shift and go to state 49
 
@@ -709,39 +654,41 @@ state 21
   ! IF              [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! FOR             [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! FOREACH         [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
-  ! TEXT            [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
+  ! TEXTD           [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! NODE            [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! LITERAL         [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! LPAREN          [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
+  ! TEXT            [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! PRINT           [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! READ            [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! WRITE           [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
   ! RBR             [ reduce using rule 25 (logical-OR-expression -> logical-AND-expression .) ]
 
 
-state 22
+state 21
 
     (21) assignment-expression -> conditional-expression .
 
+    SEMICOLON       reduce using rule 21 (assignment-expression -> conditional-expression .)
     COMMA           reduce using rule 21 (assignment-expression -> conditional-expression .)
-    ELSE            reduce using rule 21 (assignment-expression -> conditional-expression .)
     LBR             reduce using rule 21 (assignment-expression -> conditional-expression .)
     IF              reduce using rule 21 (assignment-expression -> conditional-expression .)
     FOR             reduce using rule 21 (assignment-expression -> conditional-expression .)
     FOREACH         reduce using rule 21 (assignment-expression -> conditional-expression .)
-    TEXT            reduce using rule 21 (assignment-expression -> conditional-expression .)
+    TEXTD           reduce using rule 21 (assignment-expression -> conditional-expression .)
     NODE            reduce using rule 21 (assignment-expression -> conditional-expression .)
     LITERAL         reduce using rule 21 (assignment-expression -> conditional-expression .)
     LPAREN          reduce using rule 21 (assignment-expression -> conditional-expression .)
+    TEXT            reduce using rule 21 (assignment-expression -> conditional-expression .)
     PRINT           reduce using rule 21 (assignment-expression -> conditional-expression .)
     READ            reduce using rule 21 (assignment-expression -> conditional-expression .)
     WRITE           reduce using rule 21 (assignment-expression -> conditional-expression .)
     RBR             reduce using rule 21 (assignment-expression -> conditional-expression .)
-    SEMICOLON       reduce using rule 21 (assignment-expression -> conditional-expression .)
     RPAREN          reduce using rule 21 (assignment-expression -> conditional-expression .)
+    ELSE            reduce using rule 21 (assignment-expression -> conditional-expression .)
 
 
-state 23
+state 22
 
     (8) statement-list -> statement .
     (9) statement-list -> statement . statement-list
@@ -765,7 +712,7 @@ state 23
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -800,25 +747,27 @@ state 23
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! RBR             [ reduce using rule 8 (statement-list -> statement .) ]
   ! RBR             [ reduce using rule 10 (statement-list -> .) ]
@@ -826,33 +775,34 @@ state 23
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
-    statement                      shift and go to state 23
+    statement                      shift and go to state 22
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     statement-list                 shift and go to state 50
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
-state 24
+state 23
 
     (19) expression -> assignment-expression .
 
@@ -862,10 +812,11 @@ state 24
     IF              reduce using rule 19 (expression -> assignment-expression .)
     FOR             reduce using rule 19 (expression -> assignment-expression .)
     FOREACH         reduce using rule 19 (expression -> assignment-expression .)
-    TEXT            reduce using rule 19 (expression -> assignment-expression .)
+    TEXTD           reduce using rule 19 (expression -> assignment-expression .)
     NODE            reduce using rule 19 (expression -> assignment-expression .)
     LITERAL         reduce using rule 19 (expression -> assignment-expression .)
     LPAREN          reduce using rule 19 (expression -> assignment-expression .)
+    TEXT            reduce using rule 19 (expression -> assignment-expression .)
     PRINT           reduce using rule 19 (expression -> assignment-expression .)
     READ            reduce using rule 19 (expression -> assignment-expression .)
     WRITE           reduce using rule 19 (expression -> assignment-expression .)
@@ -874,7 +825,7 @@ state 24
     SEMICOLON       reduce using rule 19 (expression -> assignment-expression .)
 
 
-state 25
+state 24
 
     (45) primary-expression -> NODE .
 
@@ -895,10 +846,11 @@ state 25
     IF              reduce using rule 45 (primary-expression -> NODE .)
     FOR             reduce using rule 45 (primary-expression -> NODE .)
     FOREACH         reduce using rule 45 (primary-expression -> NODE .)
-    TEXT            reduce using rule 45 (primary-expression -> NODE .)
+    TEXTD           reduce using rule 45 (primary-expression -> NODE .)
     NODE            reduce using rule 45 (primary-expression -> NODE .)
     LITERAL         reduce using rule 45 (primary-expression -> NODE .)
     LPAREN          reduce using rule 45 (primary-expression -> NODE .)
+    TEXT            reduce using rule 45 (primary-expression -> NODE .)
     PRINT           reduce using rule 45 (primary-expression -> NODE .)
     READ            reduce using rule 45 (primary-expression -> NODE .)
     WRITE           reduce using rule 45 (primary-expression -> NODE .)
@@ -909,28 +861,28 @@ state 25
     LOGICALOR       reduce using rule 45 (primary-expression -> NODE .)
 
 
-state 26
+state 25
 
     (17) iteration-statement -> FOR . LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
 
     LPAREN          shift and go to state 51
 
 
-state 27
+state 26
 
     (52) function-call -> WRITE . LPAREN identifier COMMA identifier RPAREN
 
     LPAREN          shift and go to state 52
 
 
-state 28
+state 27
 
     (18) iteration-statement -> FOREACH . LPAREN identifier IN identifier RPAREN statement
 
     LPAREN          shift and go to state 53
 
 
-state 29
+state 28
 
     (48) primary-expression -> LPAREN . expression RPAREN
     (19) expression -> . assignment-expression
@@ -940,7 +892,7 @@ state 29
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -969,28 +921,29 @@ state 29
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 54
-    assignment-expression          shift and go to state 24
+    assignment-expression          shift and go to state 23
 
-state 30
+state 29
 
     (27) logical-AND-expression -> equality-expression .
     (30) equality-expression -> equality-expression . EQUALSEQUALS relational-expression
@@ -1002,42 +955,44 @@ state 30
     IF              reduce using rule 27 (logical-AND-expression -> equality-expression .)
     FOR             reduce using rule 27 (logical-AND-expression -> equality-expression .)
     FOREACH         reduce using rule 27 (logical-AND-expression -> equality-expression .)
-    TEXT            reduce using rule 27 (logical-AND-expression -> equality-expression .)
+    TEXTD           reduce using rule 27 (logical-AND-expression -> equality-expression .)
     NODE            reduce using rule 27 (logical-AND-expression -> equality-expression .)
     LITERAL         reduce using rule 27 (logical-AND-expression -> equality-expression .)
     LPAREN          reduce using rule 27 (logical-AND-expression -> equality-expression .)
+    TEXT            reduce using rule 27 (logical-AND-expression -> equality-expression .)
     PRINT           reduce using rule 27 (logical-AND-expression -> equality-expression .)
     READ            reduce using rule 27 (logical-AND-expression -> equality-expression .)
     WRITE           reduce using rule 27 (logical-AND-expression -> equality-expression .)
     RBR             reduce using rule 27 (logical-AND-expression -> equality-expression .)
     LOGICALOR       reduce using rule 27 (logical-AND-expression -> equality-expression .)
     ELSE            reduce using rule 27 (logical-AND-expression -> equality-expression .)
-    SEMICOLON       reduce using rule 27 (logical-AND-expression -> equality-expression .)
     RPAREN          reduce using rule 27 (logical-AND-expression -> equality-expression .)
+    SEMICOLON       reduce using rule 27 (logical-AND-expression -> equality-expression .)
     EQUALSEQUALS    shift and go to state 55
     DOESNOTEQUAL    shift and go to state 56
 
 
-state 31
+state 30
 
     (12) statement -> compound-statement .
 
+    ELSE            reduce using rule 12 (statement -> compound-statement .)
     LBR             reduce using rule 12 (statement -> compound-statement .)
     IF              reduce using rule 12 (statement -> compound-statement .)
     FOR             reduce using rule 12 (statement -> compound-statement .)
     FOREACH         reduce using rule 12 (statement -> compound-statement .)
-    TEXT            reduce using rule 12 (statement -> compound-statement .)
+    TEXTD           reduce using rule 12 (statement -> compound-statement .)
     NODE            reduce using rule 12 (statement -> compound-statement .)
     LITERAL         reduce using rule 12 (statement -> compound-statement .)
     LPAREN          reduce using rule 12 (statement -> compound-statement .)
+    TEXT            reduce using rule 12 (statement -> compound-statement .)
     PRINT           reduce using rule 12 (statement -> compound-statement .)
     READ            reduce using rule 12 (statement -> compound-statement .)
     WRITE           reduce using rule 12 (statement -> compound-statement .)
     RBR             reduce using rule 12 (statement -> compound-statement .)
-    ELSE            reduce using rule 12 (statement -> compound-statement .)
 
 
-state 32
+state 31
 
     (15) selection-statement -> IF . LPAREN expression RPAREN statement
     (16) selection-statement -> IF . LPAREN expression RPAREN statement ELSE statement
@@ -1045,23 +1000,60 @@ state 32
     LPAREN          shift and go to state 57
 
 
+state 32
+
+    (44) primary-expression -> TEXTD .
+
+    EQUALS          reduce using rule 44 (primary-expression -> TEXTD .)
+    TIMES           reduce using rule 44 (primary-expression -> TEXTD .)
+    DIVIDE          reduce using rule 44 (primary-expression -> TEXTD .)
+    PLUS            reduce using rule 44 (primary-expression -> TEXTD .)
+    MINUS           reduce using rule 44 (primary-expression -> TEXTD .)
+    GREATERTHAN     reduce using rule 44 (primary-expression -> TEXTD .)
+    LESSTHAN        reduce using rule 44 (primary-expression -> TEXTD .)
+    LESSTHANOREQUALTO reduce using rule 44 (primary-expression -> TEXTD .)
+    GREATERTHANOREQUALTO reduce using rule 44 (primary-expression -> TEXTD .)
+    EQUALSEQUALS    reduce using rule 44 (primary-expression -> TEXTD .)
+    DOESNOTEQUAL    reduce using rule 44 (primary-expression -> TEXTD .)
+    LOGICALAND      reduce using rule 44 (primary-expression -> TEXTD .)
+    COMMA           reduce using rule 44 (primary-expression -> TEXTD .)
+    LBR             reduce using rule 44 (primary-expression -> TEXTD .)
+    IF              reduce using rule 44 (primary-expression -> TEXTD .)
+    FOR             reduce using rule 44 (primary-expression -> TEXTD .)
+    FOREACH         reduce using rule 44 (primary-expression -> TEXTD .)
+    TEXTD           reduce using rule 44 (primary-expression -> TEXTD .)
+    NODE            reduce using rule 44 (primary-expression -> TEXTD .)
+    LITERAL         reduce using rule 44 (primary-expression -> TEXTD .)
+    LPAREN          reduce using rule 44 (primary-expression -> TEXTD .)
+    TEXT            reduce using rule 44 (primary-expression -> TEXTD .)
+    PRINT           reduce using rule 44 (primary-expression -> TEXTD .)
+    READ            reduce using rule 44 (primary-expression -> TEXTD .)
+    WRITE           reduce using rule 44 (primary-expression -> TEXTD .)
+    RBR             reduce using rule 44 (primary-expression -> TEXTD .)
+    RPAREN          reduce using rule 44 (primary-expression -> TEXTD .)
+    SEMICOLON       reduce using rule 44 (primary-expression -> TEXTD .)
+    ELSE            reduce using rule 44 (primary-expression -> TEXTD .)
+    LOGICALOR       reduce using rule 44 (primary-expression -> TEXTD .)
+
+
 state 33
 
     (14) statement -> iteration-statement .
 
+    ELSE            reduce using rule 14 (statement -> iteration-statement .)
     LBR             reduce using rule 14 (statement -> iteration-statement .)
     IF              reduce using rule 14 (statement -> iteration-statement .)
     FOR             reduce using rule 14 (statement -> iteration-statement .)
     FOREACH         reduce using rule 14 (statement -> iteration-statement .)
-    TEXT            reduce using rule 14 (statement -> iteration-statement .)
+    TEXTD           reduce using rule 14 (statement -> iteration-statement .)
     NODE            reduce using rule 14 (statement -> iteration-statement .)
     LITERAL         reduce using rule 14 (statement -> iteration-statement .)
     LPAREN          reduce using rule 14 (statement -> iteration-statement .)
+    TEXT            reduce using rule 14 (statement -> iteration-statement .)
     PRINT           reduce using rule 14 (statement -> iteration-statement .)
     READ            reduce using rule 14 (statement -> iteration-statement .)
     WRITE           reduce using rule 14 (statement -> iteration-statement .)
     RBR             reduce using rule 14 (statement -> iteration-statement .)
-    ELSE            reduce using rule 14 (statement -> iteration-statement .)
 
 
 state 34
@@ -1079,23 +1071,24 @@ state 34
     EQUALSEQUALS    reduce using rule 37 (additive-expression -> multiplicative-expression .)
     DOESNOTEQUAL    reduce using rule 37 (additive-expression -> multiplicative-expression .)
     LOGICALAND      reduce using rule 37 (additive-expression -> multiplicative-expression .)
-    RPAREN          reduce using rule 37 (additive-expression -> multiplicative-expression .)
-    COMMA           reduce using rule 37 (additive-expression -> multiplicative-expression .)
     LOGICALOR       reduce using rule 37 (additive-expression -> multiplicative-expression .)
-    ELSE            reduce using rule 37 (additive-expression -> multiplicative-expression .)
+    COMMA           reduce using rule 37 (additive-expression -> multiplicative-expression .)
     LBR             reduce using rule 37 (additive-expression -> multiplicative-expression .)
     IF              reduce using rule 37 (additive-expression -> multiplicative-expression .)
     FOR             reduce using rule 37 (additive-expression -> multiplicative-expression .)
     FOREACH         reduce using rule 37 (additive-expression -> multiplicative-expression .)
-    TEXT            reduce using rule 37 (additive-expression -> multiplicative-expression .)
+    TEXTD           reduce using rule 37 (additive-expression -> multiplicative-expression .)
     NODE            reduce using rule 37 (additive-expression -> multiplicative-expression .)
     LITERAL         reduce using rule 37 (additive-expression -> multiplicative-expression .)
     LPAREN          reduce using rule 37 (additive-expression -> multiplicative-expression .)
+    TEXT            reduce using rule 37 (additive-expression -> multiplicative-expression .)
     PRINT           reduce using rule 37 (additive-expression -> multiplicative-expression .)
     READ            reduce using rule 37 (additive-expression -> multiplicative-expression .)
     WRITE           reduce using rule 37 (additive-expression -> multiplicative-expression .)
     RBR             reduce using rule 37 (additive-expression -> multiplicative-expression .)
+    RPAREN          reduce using rule 37 (additive-expression -> multiplicative-expression .)
     SEMICOLON       reduce using rule 37 (additive-expression -> multiplicative-expression .)
+    ELSE            reduce using rule 37 (additive-expression -> multiplicative-expression .)
     TIMES           shift and go to state 59
     DIVIDE          shift and go to state 58
 
@@ -1121,10 +1114,11 @@ state 35
     IF              reduce using rule 47 (primary-expression -> LITERAL .)
     FOR             reduce using rule 47 (primary-expression -> LITERAL .)
     FOREACH         reduce using rule 47 (primary-expression -> LITERAL .)
-    TEXT            reduce using rule 47 (primary-expression -> LITERAL .)
+    TEXTD           reduce using rule 47 (primary-expression -> LITERAL .)
     NODE            reduce using rule 47 (primary-expression -> LITERAL .)
     LITERAL         reduce using rule 47 (primary-expression -> LITERAL .)
     LPAREN          reduce using rule 47 (primary-expression -> LITERAL .)
+    TEXT            reduce using rule 47 (primary-expression -> LITERAL .)
     PRINT           reduce using rule 47 (primary-expression -> LITERAL .)
     READ            reduce using rule 47 (primary-expression -> LITERAL .)
     WRITE           reduce using rule 47 (primary-expression -> LITERAL .)
@@ -1159,23 +1153,24 @@ state 37
     EQUALSEQUALS    reduce using rule 40 (multiplicative-expression -> primary-expression .)
     DOESNOTEQUAL    reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LOGICALAND      reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    RPAREN          reduce using rule 40 (multiplicative-expression -> primary-expression .)
     COMMA           reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    LOGICALOR       reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LBR             reduce using rule 40 (multiplicative-expression -> primary-expression .)
     IF              reduce using rule 40 (multiplicative-expression -> primary-expression .)
     FOR             reduce using rule 40 (multiplicative-expression -> primary-expression .)
     FOREACH         reduce using rule 40 (multiplicative-expression -> primary-expression .)
-    TEXT            reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    TEXTD           reduce using rule 40 (multiplicative-expression -> primary-expression .)
     NODE            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LITERAL         reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LPAREN          reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    TEXT            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     PRINT           reduce using rule 40 (multiplicative-expression -> primary-expression .)
     READ            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     WRITE           reduce using rule 40 (multiplicative-expression -> primary-expression .)
     RBR             reduce using rule 40 (multiplicative-expression -> primary-expression .)
-    RPAREN          reduce using rule 40 (multiplicative-expression -> primary-expression .)
     SEMICOLON       reduce using rule 40 (multiplicative-expression -> primary-expression .)
     ELSE            reduce using rule 40 (multiplicative-expression -> primary-expression .)
-    LOGICALOR       reduce using rule 40 (multiplicative-expression -> primary-expression .)
 
 
 state 38
@@ -1200,10 +1195,11 @@ state 38
     IF              reduce using rule 43 (primary-expression -> identifier .)
     FOR             reduce using rule 43 (primary-expression -> identifier .)
     FOREACH         reduce using rule 43 (primary-expression -> identifier .)
-    TEXT            reduce using rule 43 (primary-expression -> identifier .)
+    TEXTD           reduce using rule 43 (primary-expression -> identifier .)
     NODE            reduce using rule 43 (primary-expression -> identifier .)
     LITERAL         reduce using rule 43 (primary-expression -> identifier .)
     LPAREN          reduce using rule 43 (primary-expression -> identifier .)
+    TEXT            reduce using rule 43 (primary-expression -> identifier .)
     PRINT           reduce using rule 43 (primary-expression -> identifier .)
     READ            reduce using rule 43 (primary-expression -> identifier .)
     WRITE           reduce using rule 43 (primary-expression -> identifier .)
@@ -1220,19 +1216,20 @@ state 39
     (11) statement -> expression .
     (20) expression -> expression . COMMA assignment-expression
 
+    ELSE            reduce using rule 11 (statement -> expression .)
     LBR             reduce using rule 11 (statement -> expression .)
     IF              reduce using rule 11 (statement -> expression .)
     FOR             reduce using rule 11 (statement -> expression .)
     FOREACH         reduce using rule 11 (statement -> expression .)
-    TEXT            reduce using rule 11 (statement -> expression .)
+    TEXTD           reduce using rule 11 (statement -> expression .)
     NODE            reduce using rule 11 (statement -> expression .)
     LITERAL         reduce using rule 11 (statement -> expression .)
     LPAREN          reduce using rule 11 (statement -> expression .)
+    TEXT            reduce using rule 11 (statement -> expression .)
     PRINT           reduce using rule 11 (statement -> expression .)
     READ            reduce using rule 11 (statement -> expression .)
     WRITE           reduce using rule 11 (statement -> expression .)
     RBR             reduce using rule 11 (statement -> expression .)
-    ELSE            reduce using rule 11 (statement -> expression .)
     COMMA           shift and go to state 63
 
 
@@ -1255,7 +1252,7 @@ state 41
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1266,17 +1263,18 @@ state 41
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     additive-expression            shift and go to state 65
 
@@ -1290,7 +1288,7 @@ state 42
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1301,17 +1299,18 @@ state 42
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     additive-expression            shift and go to state 67
 
@@ -1325,7 +1324,7 @@ state 43
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1336,17 +1335,18 @@ state 43
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     additive-expression            shift and go to state 68
 
@@ -1360,7 +1360,7 @@ state 44
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1371,17 +1371,18 @@ state 44
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     additive-expression            shift and go to state 69
 
@@ -1401,7 +1402,7 @@ state 46
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1412,17 +1413,18 @@ state 46
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 71
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
 
 state 47
@@ -1432,7 +1434,7 @@ state 47
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1443,17 +1445,18 @@ state 47
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 72
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
 
 state 48
@@ -1476,7 +1479,7 @@ state 48
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1487,22 +1490,23 @@ state 48
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     logical-AND-expression         shift and go to state 73
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
-    additive-expression            shift and go to state 19
+    additive-expression            shift and go to state 18
 
 state 49
 
@@ -1522,7 +1526,7 @@ state 49
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1533,21 +1537,22 @@ state 49
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     equality-expression            shift and go to state 74
-    relational-expression          shift and go to state 16
+    relational-expression          shift and go to state 15
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
-    additive-expression            shift and go to state 19
+    additive-expression            shift and go to state 18
 
 state 50
 
@@ -1566,7 +1571,7 @@ state 51
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1595,26 +1600,27 @@ state 51
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 75
-    assignment-expression          shift and go to state 24
+    assignment-expression          shift and go to state 23
 
 state 52
 
@@ -1658,7 +1664,7 @@ state 55
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1669,20 +1675,21 @@ state 55
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     relational-expression          shift and go to state 79
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
-    additive-expression            shift and go to state 19
+    additive-expression            shift and go to state 18
 
 state 56
 
@@ -1699,7 +1706,7 @@ state 56
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1710,20 +1717,21 @@ state 56
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     multiplicative-expression      shift and go to state 34
     relational-expression          shift and go to state 80
     primary-expression             shift and go to state 66
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
-    additive-expression            shift and go to state 19
+    additive-expression            shift and go to state 18
 
 state 57
 
@@ -1736,7 +1744,7 @@ state 57
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1765,32 +1773,33 @@ state 57
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 81
-    assignment-expression          shift and go to state 24
+    assignment-expression          shift and go to state 23
 
 state 58
 
     (42) multiplicative-expression -> multiplicative-expression DIVIDE . primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1801,23 +1810,24 @@ state 58
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     primary-expression             shift and go to state 82
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
 
 state 59
 
     (41) multiplicative-expression -> multiplicative-expression TIMES . primary-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1828,36 +1838,38 @@ state 59
     (51) function-call -> . READ LPAREN identifier RPAREN
     (52) function-call -> . WRITE LPAREN identifier COMMA identifier RPAREN
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
     primary-expression             shift and go to state 83
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
 
 state 60
 
     (6) compound-statement -> LBR statement-list RBR .
 
+    $end            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     ELSE            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     LBR             reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     IF              reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     FOR             reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     FOREACH         reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
-    TEXT            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
+    TEXTD           reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     NODE            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     LITERAL         reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     LPAREN          reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
+    TEXT            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     PRINT           reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     READ            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     WRITE           reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
     RBR             reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
-    $end            reduce using rule 6 (compound-statement -> LBR statement-list RBR .)
 
 
 state 61
@@ -1868,7 +1880,7 @@ state 61
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1897,23 +1909,24 @@ state 61
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     assignment-expression          shift and go to state 84
 
@@ -1950,7 +1963,7 @@ state 63
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -1979,23 +1992,24 @@ state 63
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     assignment-expression          shift and go to state 95
 
@@ -2024,10 +2038,11 @@ state 65
     IF              reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     FOR             reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     FOREACH         reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
-    TEXT            reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
+    TEXTD           reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     NODE            reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     LITERAL         reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     LPAREN          reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
+    TEXT            reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     PRINT           reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     READ            reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
     WRITE           reduce using rule 35 (relational-expression -> relational-expression LESSTHANOREQUALTO additive-expression .)
@@ -2060,10 +2075,11 @@ state 66
     IF              reduce using rule 40 (multiplicative-expression -> primary-expression .)
     FOR             reduce using rule 40 (multiplicative-expression -> primary-expression .)
     FOREACH         reduce using rule 40 (multiplicative-expression -> primary-expression .)
-    TEXT            reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    TEXTD           reduce using rule 40 (multiplicative-expression -> primary-expression .)
     NODE            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LITERAL         reduce using rule 40 (multiplicative-expression -> primary-expression .)
     LPAREN          reduce using rule 40 (multiplicative-expression -> primary-expression .)
+    TEXT            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     PRINT           reduce using rule 40 (multiplicative-expression -> primary-expression .)
     READ            reduce using rule 40 (multiplicative-expression -> primary-expression .)
     WRITE           reduce using rule 40 (multiplicative-expression -> primary-expression .)
@@ -2092,10 +2108,11 @@ state 67
     IF              reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     FOR             reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     FOREACH         reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
-    TEXT            reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
+    TEXTD           reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     NODE            reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     LITERAL         reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     LPAREN          reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
+    TEXT            reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     PRINT           reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     READ            reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
     WRITE           reduce using rule 36 (relational-expression -> relational-expression GREATERTHANOREQUALTO additive-expression .)
@@ -2126,10 +2143,11 @@ state 68
     IF              reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     FOR             reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     FOREACH         reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
-    TEXT            reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
+    TEXTD           reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     NODE            reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     LITERAL         reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     LPAREN          reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
+    TEXT            reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     PRINT           reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     READ            reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
     WRITE           reduce using rule 34 (relational-expression -> relational-expression LESSTHAN additive-expression .)
@@ -2160,10 +2178,11 @@ state 69
     IF              reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     FOR             reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     FOREACH         reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
-    TEXT            reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
+    TEXTD           reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     NODE            reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     LITERAL         reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     LPAREN          reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
+    TEXT            reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     PRINT           reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     READ            reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
     WRITE           reduce using rule 33 (relational-expression -> relational-expression GREATERTHAN additive-expression .)
@@ -2198,23 +2217,24 @@ state 71
     EQUALSEQUALS    reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     DOESNOTEQUAL    reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     LOGICALAND      reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
-    RPAREN          reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
-    COMMA           reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     LOGICALOR       reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
-    ELSE            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
+    COMMA           reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     LBR             reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     IF              reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     FOR             reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     FOREACH         reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
-    TEXT            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
+    TEXTD           reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     NODE            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     LITERAL         reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     LPAREN          reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
+    TEXT            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     PRINT           reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     READ            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     WRITE           reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     RBR             reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
+    RPAREN          reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     SEMICOLON       reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
+    ELSE            reduce using rule 38 (additive-expression -> additive-expression PLUS multiplicative-expression .)
     TIMES           shift and go to state 59
     DIVIDE          shift and go to state 58
 
@@ -2234,23 +2254,24 @@ state 72
     EQUALSEQUALS    reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     DOESNOTEQUAL    reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     LOGICALAND      reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
-    RPAREN          reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
-    COMMA           reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     LOGICALOR       reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
-    ELSE            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
+    COMMA           reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     LBR             reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     IF              reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     FOR             reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     FOREACH         reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
-    TEXT            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
+    TEXTD           reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     NODE            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     LITERAL         reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     LPAREN          reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
+    TEXT            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     PRINT           reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     READ            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     WRITE           reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     RBR             reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
+    RPAREN          reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     SEMICOLON       reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
+    ELSE            reduce using rule 39 (additive-expression -> additive-expression MINUS multiplicative-expression .)
     TIMES           shift and go to state 59
     DIVIDE          shift and go to state 58
 
@@ -2269,10 +2290,11 @@ state 73
     IF              reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     FOR             reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     FOREACH         reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
-    TEXT            reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
+    TEXTD           reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     NODE            reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     LITERAL         reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     LPAREN          reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
+    TEXT            reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     PRINT           reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     READ            reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
     WRITE           reduce using rule 26 (logical-OR-expression -> logical-OR-expression LOGICALOR logical-AND-expression .)
@@ -2292,18 +2314,19 @@ state 74
     IF              reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     FOR             reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     FOREACH         reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
-    TEXT            reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
+    TEXTD           reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     NODE            reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     LITERAL         reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     LPAREN          reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
+    TEXT            reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     PRINT           reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     READ            reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     WRITE           reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     RBR             reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     LOGICALOR       reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     ELSE            reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
-    SEMICOLON       reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     RPAREN          reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
+    SEMICOLON       reduce using rule 28 (logical-AND-expression -> logical-AND-expression LOGICALAND equality-expression .)
     EQUALSEQUALS    shift and go to state 55
     DOESNOTEQUAL    shift and go to state 56
 
@@ -2352,10 +2375,11 @@ state 78
     IF              reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     FOR             reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     FOREACH         reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
-    TEXT            reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
+    TEXTD           reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     NODE            reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     LITERAL         reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     LPAREN          reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
+    TEXT            reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     PRINT           reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     READ            reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
     WRITE           reduce using rule 48 (primary-expression -> LPAREN expression RPAREN .)
@@ -2384,10 +2408,11 @@ state 79
     IF              reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     FOR             reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     FOREACH         reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
-    TEXT            reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
+    TEXTD           reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     NODE            reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     LITERAL         reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     LPAREN          reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
+    TEXT            reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     PRINT           reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     READ            reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
     WRITE           reduce using rule 30 (equality-expression -> equality-expression EQUALSEQUALS relational-expression .)
@@ -2418,10 +2443,11 @@ state 80
     IF              reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     FOR             reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     FOREACH         reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
-    TEXT            reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
+    TEXTD           reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     NODE            reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     LITERAL         reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     LPAREN          reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
+    TEXT            reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     PRINT           reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     READ            reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
     WRITE           reduce using rule 31 (equality-expression -> equality-expression DOESNOTEQUAL relational-expression .)
@@ -2464,10 +2490,11 @@ state 82
     IF              reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     FOR             reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     FOREACH         reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
-    TEXT            reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
+    TEXTD           reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     NODE            reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     LITERAL         reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     LPAREN          reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
+    TEXT            reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     PRINT           reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     READ            reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
     WRITE           reduce using rule 42 (multiplicative-expression -> multiplicative-expression DIVIDE primary-expression .)
@@ -2498,10 +2525,11 @@ state 83
     IF              reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     FOR             reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     FOREACH         reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
-    TEXT            reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
+    TEXTD           reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     NODE            reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     LITERAL         reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     LPAREN          reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
+    TEXT            reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     PRINT           reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     READ            reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
     WRITE           reduce using rule 41 (multiplicative-expression -> multiplicative-expression TIMES primary-expression .)
@@ -2516,22 +2544,23 @@ state 84
 
     (22) assignment-expression -> primary-expression EQUALS assignment-expression .
 
+    SEMICOLON       reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     COMMA           reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
-    ELSE            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     LBR             reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     IF              reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     FOR             reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     FOREACH         reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
-    TEXT            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
+    TEXTD           reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     NODE            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     LITERAL         reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     LPAREN          reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
+    TEXT            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     PRINT           reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     READ            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     WRITE           reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     RBR             reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
-    SEMICOLON       reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     RPAREN          reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
+    ELSE            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
 
 
 state 85
@@ -2614,10 +2643,11 @@ state 95
     IF              reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     FOR             reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     FOREACH         reduce using rule 20 (expression -> expression COMMA assignment-expression .)
-    TEXT            reduce using rule 20 (expression -> expression COMMA assignment-expression .)
+    TEXTD           reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     NODE            reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     LITERAL         reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     LPAREN          reduce using rule 20 (expression -> expression COMMA assignment-expression .)
+    TEXT            reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     PRINT           reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     READ            reduce using rule 20 (expression -> expression COMMA assignment-expression .)
     WRITE           reduce using rule 20 (expression -> expression COMMA assignment-expression .)
@@ -2646,10 +2676,11 @@ state 96
     IF              reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     FOR             reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     FOREACH         reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
-    TEXT            reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
+    TEXTD           reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     NODE            reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     LITERAL         reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     LPAREN          reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
+    TEXT            reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     PRINT           reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     READ            reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
     WRITE           reduce using rule 51 (function-call -> READ LPAREN identifier RPAREN .)
@@ -2681,10 +2712,11 @@ state 97
     IF              reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     FOR             reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     FOREACH         reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
-    TEXT            reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
+    TEXTD           reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     NODE            reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     LITERAL         reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     LPAREN          reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
+    TEXT            reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     PRINT           reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     READ            reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
     WRITE           reduce using rule 50 (function-call -> PRINT LPAREN identifier RPAREN .)
@@ -2706,7 +2738,7 @@ state 98
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -2735,26 +2767,27 @@ state 98
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 103
-    assignment-expression          shift and go to state 24
+    assignment-expression          shift and go to state 23
 
 state 99
 
@@ -2795,7 +2828,7 @@ state 101
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -2828,55 +2861,58 @@ state 101
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     ELSE            reduce using rule 7 (compound-statement -> .)
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! LBR             [ reduce using rule 7 (compound-statement -> .) ]
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     statement                      shift and go to state 106
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
 state 102
 
@@ -2926,10 +2962,11 @@ state 106
     IF              reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     FOR             reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     FOREACH         reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
-    TEXT            reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
+    TEXTD           reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     NODE            reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     LITERAL         reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     LPAREN          reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
+    TEXT            reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     PRINT           reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     READ            reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
     WRITE           reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .)
@@ -2958,7 +2995,7 @@ state 108
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -2987,26 +3024,27 @@ state 108
     (41) multiplicative-expression -> . multiplicative-expression TIMES primary-expression
     (42) multiplicative-expression -> . multiplicative-expression DIVIDE primary-expression
 
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
-    logical-OR-expression          shift and go to state 20
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 113
-    assignment-expression          shift and go to state 24
+    assignment-expression          shift and go to state 23
 
 state 109
 
@@ -3028,10 +3066,11 @@ state 109
     IF              reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     FOR             reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     FOREACH         reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
-    TEXT            reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
+    TEXTD           reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     NODE            reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     LITERAL         reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     LPAREN          reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
+    TEXT            reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     PRINT           reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     READ            reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
     WRITE           reduce using rule 52 (function-call -> WRITE LPAREN identifier COMMA identifier RPAREN .)
@@ -3063,7 +3102,7 @@ state 110
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -3096,55 +3135,58 @@ state 110
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     ELSE            reduce using rule 7 (compound-statement -> .)
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! LBR             [ reduce using rule 7 (compound-statement -> .) ]
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     statement                      shift and go to state 114
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
 state 111
 
@@ -3166,7 +3208,7 @@ state 111
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -3199,55 +3241,58 @@ state 111
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     ELSE            reduce using rule 7 (compound-statement -> .)
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! LBR             [ reduce using rule 7 (compound-statement -> .) ]
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     statement                      shift and go to state 115
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
 state 112
 
@@ -3269,10 +3314,11 @@ state 112
     IF              reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     FOR             reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     FOREACH         reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
-    TEXT            reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
+    TEXTD           reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     NODE            reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     LITERAL         reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     LPAREN          reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
+    TEXT            reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     PRINT           reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     READ            reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
     WRITE           reduce using rule 49 (function-call -> identifier PERIOD function-name LPAREN parameter-list RPAREN .)
@@ -3297,38 +3343,40 @@ state 114
 
     (18) iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .
 
+    ELSE            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     LBR             reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     IF              reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     FOR             reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     FOREACH         reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
-    TEXT            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
+    TEXTD           reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     NODE            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     LITERAL         reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     LPAREN          reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
+    TEXT            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     PRINT           reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     READ            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     WRITE           reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
     RBR             reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
-    ELSE            reduce using rule 18 (iteration-statement -> FOREACH LPAREN identifier IN identifier RPAREN statement .)
 
 
 state 115
 
     (16) selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .
 
-    ELSE            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     LBR             reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     IF              reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     FOR             reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     FOREACH         reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
-    TEXT            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    TEXTD           reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     NODE            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     LITERAL         reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     LPAREN          reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    TEXT            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     PRINT           reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     READ            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     WRITE           reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
     RBR             reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    ELSE            reduce using rule 16 (selection-statement -> IF LPAREN expression RPAREN statement ELSE statement .)
 
 
 state 116
@@ -3351,7 +3399,7 @@ state 116
     (23) conditional-expression -> . logical-OR-expression
     (24) conditional-expression -> . logical-AND-expression
     (43) primary-expression -> . identifier
-    (44) primary-expression -> . TEXT
+    (44) primary-expression -> . TEXTD
     (45) primary-expression -> . NODE
     (46) primary-expression -> . function-call
     (47) primary-expression -> . LITERAL
@@ -3384,73 +3432,77 @@ state 116
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for FOREACH resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
+  ! shift/reduce conflict for TEXTD resolved as shift
   ! shift/reduce conflict for NODE resolved as shift
   ! shift/reduce conflict for LITERAL resolved as shift
   ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for TEXT resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for READ resolved as shift
   ! shift/reduce conflict for WRITE resolved as shift
     LBR             shift and go to state 10
     ELSE            reduce using rule 7 (compound-statement -> .)
     RBR             reduce using rule 7 (compound-statement -> .)
-    IF              shift and go to state 32
-    FOR             shift and go to state 26
-    FOREACH         shift and go to state 28
-    TEXT            shift and go to state 14
-    NODE            shift and go to state 25
+    IF              shift and go to state 31
+    FOR             shift and go to state 25
+    FOREACH         shift and go to state 27
+    TEXTD           shift and go to state 32
+    NODE            shift and go to state 24
     LITERAL         shift and go to state 35
-    LPAREN          shift and go to state 29
-    PRINT           shift and go to state 17
+    LPAREN          shift and go to state 28
+    TEXT            shift and go to state 3
+    PRINT           shift and go to state 16
     READ            shift and go to state 13
-    WRITE           shift and go to state 27
+    WRITE           shift and go to state 26
 
   ! LBR             [ reduce using rule 7 (compound-statement -> .) ]
   ! IF              [ reduce using rule 7 (compound-statement -> .) ]
   ! FOR             [ reduce using rule 7 (compound-statement -> .) ]
   ! FOREACH         [ reduce using rule 7 (compound-statement -> .) ]
-  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXTD           [ reduce using rule 7 (compound-statement -> .) ]
   ! NODE            [ reduce using rule 7 (compound-statement -> .) ]
   ! LITERAL         [ reduce using rule 7 (compound-statement -> .) ]
   ! LPAREN          [ reduce using rule 7 (compound-statement -> .) ]
+  ! TEXT            [ reduce using rule 7 (compound-statement -> .) ]
   ! PRINT           [ reduce using rule 7 (compound-statement -> .) ]
   ! READ            [ reduce using rule 7 (compound-statement -> .) ]
   ! WRITE           [ reduce using rule 7 (compound-statement -> .) ]
 
     iteration-statement            shift and go to state 33
-    logical-OR-expression          shift and go to state 20
-    selection-statement            shift and go to state 15
-    logical-AND-expression         shift and go to state 21
-    relational-expression          shift and go to state 16
-    equality-expression            shift and go to state 30
+    logical-OR-expression          shift and go to state 19
+    selection-statement            shift and go to state 14
+    logical-AND-expression         shift and go to state 20
+    relational-expression          shift and go to state 15
+    equality-expression            shift and go to state 29
     multiplicative-expression      shift and go to state 34
-    additive-expression            shift and go to state 19
-    conditional-expression         shift and go to state 22
+    additive-expression            shift and go to state 18
+    conditional-expression         shift and go to state 21
     statement                      shift and go to state 117
     primary-expression             shift and go to state 37
-    function-call                  shift and go to state 18
+    function-call                  shift and go to state 17
     identifier                     shift and go to state 38
     expression                     shift and go to state 39
-    compound-statement             shift and go to state 31
-    assignment-expression          shift and go to state 24
+    compound-statement             shift and go to state 30
+    assignment-expression          shift and go to state 23
 
 state 117
 
     (17) iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .
 
+    ELSE            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     LBR             reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     IF              reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     FOR             reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     FOREACH         reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
-    TEXT            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    TEXTD           reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     NODE            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     LITERAL         reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     LPAREN          reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    TEXT            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     PRINT           reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     READ            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     WRITE           reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
     RBR             reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
-    ELSE            reduce using rule 17 (iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
 
 WARNING: 
 WARNING: Conflicts:
@@ -3459,32 +3511,35 @@ WARNING: shift/reduce conflict for LBR in state 10 resolved as shift
 WARNING: shift/reduce conflict for IF in state 10 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 10 resolved as shift
 WARNING: shift/reduce conflict for FOREACH in state 10 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 10 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 10 resolved as shift
 WARNING: shift/reduce conflict for NODE in state 10 resolved as shift
 WARNING: shift/reduce conflict for LITERAL in state 10 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 10 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 10 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 10 resolved as shift
 WARNING: shift/reduce conflict for READ in state 10 resolved as shift
 WARNING: shift/reduce conflict for WRITE in state 10 resolved as shift
-WARNING: shift/reduce conflict for LBR in state 23 resolved as shift
-WARNING: shift/reduce conflict for IF in state 23 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 23 resolved as shift
-WARNING: shift/reduce conflict for FOREACH in state 23 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 23 resolved as shift
-WARNING: shift/reduce conflict for NODE in state 23 resolved as shift
-WARNING: shift/reduce conflict for LITERAL in state 23 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 23 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 23 resolved as shift
-WARNING: shift/reduce conflict for READ in state 23 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 23 resolved as shift
+WARNING: shift/reduce conflict for LBR in state 22 resolved as shift
+WARNING: shift/reduce conflict for IF in state 22 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 22 resolved as shift
+WARNING: shift/reduce conflict for FOREACH in state 22 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 22 resolved as shift
+WARNING: shift/reduce conflict for NODE in state 22 resolved as shift
+WARNING: shift/reduce conflict for LITERAL in state 22 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 22 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 22 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 22 resolved as shift
+WARNING: shift/reduce conflict for READ in state 22 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 22 resolved as shift
 WARNING: shift/reduce conflict for LBR in state 101 resolved as shift
 WARNING: shift/reduce conflict for IF in state 101 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 101 resolved as shift
 WARNING: shift/reduce conflict for FOREACH in state 101 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 101 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 101 resolved as shift
 WARNING: shift/reduce conflict for NODE in state 101 resolved as shift
 WARNING: shift/reduce conflict for LITERAL in state 101 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 101 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 101 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 101 resolved as shift
 WARNING: shift/reduce conflict for READ in state 101 resolved as shift
 WARNING: shift/reduce conflict for WRITE in state 101 resolved as shift
@@ -3493,10 +3548,11 @@ WARNING: shift/reduce conflict for LBR in state 110 resolved as shift
 WARNING: shift/reduce conflict for IF in state 110 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 110 resolved as shift
 WARNING: shift/reduce conflict for FOREACH in state 110 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 110 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 110 resolved as shift
 WARNING: shift/reduce conflict for NODE in state 110 resolved as shift
 WARNING: shift/reduce conflict for LITERAL in state 110 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 110 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 110 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 110 resolved as shift
 WARNING: shift/reduce conflict for READ in state 110 resolved as shift
 WARNING: shift/reduce conflict for WRITE in state 110 resolved as shift
@@ -3504,10 +3560,11 @@ WARNING: shift/reduce conflict for LBR in state 111 resolved as shift
 WARNING: shift/reduce conflict for IF in state 111 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 111 resolved as shift
 WARNING: shift/reduce conflict for FOREACH in state 111 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 111 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 111 resolved as shift
 WARNING: shift/reduce conflict for NODE in state 111 resolved as shift
 WARNING: shift/reduce conflict for LITERAL in state 111 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 111 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 111 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 111 resolved as shift
 WARNING: shift/reduce conflict for READ in state 111 resolved as shift
 WARNING: shift/reduce conflict for WRITE in state 111 resolved as shift
@@ -3515,23 +3572,21 @@ WARNING: shift/reduce conflict for LBR in state 116 resolved as shift
 WARNING: shift/reduce conflict for IF in state 116 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 116 resolved as shift
 WARNING: shift/reduce conflict for FOREACH in state 116 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 116 resolved as shift
+WARNING: shift/reduce conflict for TEXTD in state 116 resolved as shift
 WARNING: shift/reduce conflict for NODE in state 116 resolved as shift
 WARNING: shift/reduce conflict for LITERAL in state 116 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 116 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 116 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 116 resolved as shift
 WARNING: shift/reduce conflict for READ in state 116 resolved as shift
 WARNING: shift/reduce conflict for WRITE in state 116 resolved as shift
 WARNING: reduce/reduce conflict in state 10 resolved using rule (compound-statement -> <empty>)
 WARNING: rejected rule (statement-list -> <empty>) in state 10
-WARNING: reduce/reduce conflict in state 14 resolved using rule (identifier -> TEXT)
-WARNING: rejected rule (primary-expression -> TEXT) in state 14
-WARNING: reduce/reduce conflict in state 21 resolved using rule (conditional-expression -> logical-AND-expression)
-WARNING: rejected rule (logical-OR-expression -> logical-AND-expression) in state 21
-WARNING: reduce/reduce conflict in state 23 resolved using rule (statement-list -> statement)
-WARNING: rejected rule (statement-list -> <empty>) in state 23
-WARNING: reduce/reduce conflict in state 23 resolved using rule (compound-statement -> <empty>)
-WARNING: rejected rule (statement-list -> statement) in state 23
+WARNING: reduce/reduce conflict in state 20 resolved using rule (conditional-expression -> logical-AND-expression)
+WARNING: rejected rule (logical-OR-expression -> logical-AND-expression) in state 20
+WARNING: reduce/reduce conflict in state 22 resolved using rule (statement-list -> statement)
+WARNING: rejected rule (statement-list -> <empty>) in state 22
+WARNING: reduce/reduce conflict in state 22 resolved using rule (compound-statement -> <empty>)
+WARNING: rejected rule (statement-list -> statement) in state 22
 WARNING: Rule (statement-list -> <empty>) is never reduced
-WARNING: Rule (primary-expression -> TEXT) is never reduced
 WARNING: Rule (statement-list -> statement) is never reduced
