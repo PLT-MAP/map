@@ -152,7 +152,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-#lexer=lex.lex()
+lexer=lex.lex()
 
 #lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
