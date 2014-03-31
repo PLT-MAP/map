@@ -17,11 +17,13 @@ def p_listE(t):
 def p_plist(t):
 	'parameter-list : identifier'
 	t[0] = t[1]
+	print "param-list : {0}".format(t[1])
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA identifier'
 	t[0] = t[1] + t[2] + t[3]
-
+	print "parameter-list : {0}".format(t[0])
+	
 def p_cs(t):
 	'compound-statement : LBR statement-list RBR'
 	t[0] = t[1] + t[2] + t[3]
@@ -31,7 +33,7 @@ def p_cs_E(t):
 	t[0] = ""
 
 def p_slist(t):
-	'statement-list : statement'
+	'statement-list : statement SEMICOLON'
 	t[0] = t[1]
 
 def p_slist2(t):
@@ -156,6 +158,7 @@ def p_funcall2(t):
 	| READ LPAREN identifier RPAREN
 	| WRITE LPAREN identifier COMMA identifier RPAREN'''
 	t[0] = t[1] + t[2] + t[3] + t[4]
+	print t[0]
 
 def p_funcname(t):
 	'''function-name : ADD
@@ -170,7 +173,7 @@ def p_funcname(t):
 	t[0] = t[1]
 
 def p_error(t):
-	print("Syntax error at '%s'" % t)
+	print("Syntax error at '%s'" % t.value)
     
 yacc.yacc()
 

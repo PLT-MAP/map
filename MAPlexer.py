@@ -147,11 +147,11 @@ def t_error(t):
 
 
 lexer=lex.lex()
-
+'''
 lex.input("func main(hi, bye) { Text t = 'Hello, world!'; print(t);}")
 
 while 1:
 	tok = lex.token()
 	if not tok: break
 	print tok
-	
+'''	
