@@ -139,9 +139,13 @@ def p_primexp(t):
 	'''primary-expression : identifier
 	| TEXT
 	| NODE
-	| LPAREN expression RPAREN
-	| function-call'''
+	| function-call
+	| LITERAL'''
 	t[0] = t[1]
+
+def p_primexp2(t):
+	'''primary-expression : LPAREN expression RPAREN'''	
+	t[0] = t[1] + t[2] + t[3]
 
 def p_funcall(t):
 	'function-call : identifier PERIOD function-name LPAREN parameter-list RPAREN'
@@ -167,7 +171,7 @@ def p_funcname(t):
 
 def p_error(t):
 	print("Syntax error at '%s'" % t)
-
+    
 yacc.yacc()
 
 
