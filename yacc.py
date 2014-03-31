@@ -170,11 +170,16 @@ def p_funcname(t):
 	t[0] = t[1]
 
 def p_error(t):
-	print("Syntax error at '%s'" % t)
-    
+    import inspect
+    frame = inspect.currentframe()
+    cvars = frame.f_back.f_locals
+    print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
+    print 'Found:', cvars['ltype']
+
 yacc.yacc()
 
 
-print yacc.parse("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
+#print yacc.parse("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
+print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
 
 
