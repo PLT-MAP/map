@@ -32,6 +32,8 @@ reserved ={ 'null':'NULL',
 	'read':'READ', 
 	'write':'WRITE',
 	'func':'FUNC',
+	'text':'TEXTD',
+	'Numeric':'NUMERICD'
 }
 
 tokens = [
