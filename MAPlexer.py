@@ -38,7 +38,7 @@ tokens = [
 	'NUMERIC', #1
 	#'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
-	'TEXT',	   #3
+	'ID',	   #3
 	'PLUS',    #11
 	'MINUS',   #12
 	'TIMES',   #13
@@ -72,6 +72,10 @@ tokens = [
 	'LITERAL',
 	]+list(reserved.values())
 
+def t_TYPE(t):
+	r'^Text$|^Numeric$'
+	return t
+
 #primitive data types
 
 #converts string into float 
@@ -87,17 +91,15 @@ def t_LITERAL(t):
 	r'\'[A-Za-z ,!]*\''
 	return t
 
-def t_TEXT(t): 
+def t_ID(t): 
  	r'[a-zA-Z_][a-zA-Z_0-9]*' 
- 	t.type = reserved.get(t.value,'TEXT')
+ 	t.type = reserved.get(t.value,'ID')
  	return t
 
 t_SEMICOLON = r';' 
 t_COLON = r'\:'
 t_PERIOD = r'\.'
 t_EXCLAMATION = r'\!'
-
-
 
 def t_FUNC(t):
 	r'^func\s'

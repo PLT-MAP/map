@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from MAPlexer import * 
+from pprint import pprint
 
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN compound-statement'
@@ -7,7 +8,7 @@ def p_fd(t):
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
 
 def p_id(t):
-	'identifier : TEXT'
+	'identifier : ID'
 	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
 
@@ -139,8 +140,7 @@ def p_multexpr2(t):
 
 def p_primexp(t):
 	'''primary-expression : identifier
-	| TEXT
-	| NODE
+	| TYPE ID
 	| function-call
 	| LITERAL'''
 	t[0] = t[1]
@@ -158,7 +158,6 @@ def p_funcall2(t):
 	| READ LPAREN identifier RPAREN
 	| WRITE LPAREN identifier COMMA identifier RPAREN'''
 	t[0] = t[1] + t[2] + t[3] + t[4]
-	print t[0]
 
 def p_funcname(t):
 	'''function-name : ADD
@@ -171,12 +170,12 @@ def p_funcname(t):
 	| FINDSHORTESTFUNC
 	| EQUALSFUNC'''
 	t[0] = t[1]
+	print "function-name : {0}".format(t[1])
 
 def p_error(t):
 	print("Syntax error at '%s'" % t.value)
     
 yacc.yacc()
-
 
 print yacc.parse("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
