@@ -32,7 +32,7 @@ reserved ={ 'null':'NULL',
 	'Node':'TYPE',
 	'Path':'TYPE',
 	'Graph':'TYPE',
-	'text':'TYPE',
+	'Text':'TYPE',
 	'Numeric':'TYPE'
 }
 
@@ -150,11 +150,11 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-lexer=lex.lex()
+#lexer=lex.lex()
 
-lex.input("func main(Numeric hi, Text bye) { Text t = 'Hello, world!'; print(t);}")
+#lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
-while 1:
-	tok = lex.token()
-	if not tok: break
-	print tok
+#while 1:
+#	tok = lex.token()
+#	if not tok: break
+#	print tok

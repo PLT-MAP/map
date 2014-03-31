@@ -9,7 +9,7 @@ def p_fd(t):
 
 #identifiers
 def p_id(t):
-	'identifier : TEXT'
+	'identifier : ID'
 	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
 
@@ -153,8 +153,7 @@ def p_multexpr2(t):
 
 def p_primexp(t):
 	'''primary-expression : identifier
-	| TEXT
-	| NODE
+	| TYPE
 	| function-call
 	| LITERAL'''
 	t[0] = t[1]
