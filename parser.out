@@ -5,93 +5,35 @@ Unused terminals:
     EXCLAMATION
     ELIF
     RETURN
-<<<<<<< HEAD
-    READ
-    LESSTHAN
-    INCLUDE
-=======
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
     RSB
-    PRINT
     PATH
     NULL
     TRUE
-    MINUS
     COMMENTBACK
     COMMENT
-    GETEDGEFUNC
-    SEMICOLON
-    LESSTHANOREQUALTO
     NEWLINE
+    NUMERIC
     UNDIREDGE
-<<<<<<< HEAD
-    ADJACENTFUNC
-    SINGLEQUOTE
-    PLUS
-    DELETEEDGEFUNC
-=======
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
     COLON
-    PATHFUNC
-    NODE
-    EQUALSFUNC
-    DIVIDE
-    FOR
-    LOGICALOR
     GRAPH
-    GREATERTHANOREQUALTO
-    PERIOD
-    TIMES
-    WRITE
-    ADD
-    GREATERTHAN
-    FOREACH
-    DOESNOTEQUAL
-    IN
     LSB
-    ELSE
     MODULUS
     DOUBLEQUOTE
-    IF
-    DELETEFUNC
     FALSE
-    FINDSHORTESTFUNC
-    LOGICALAND
-    EQUALSEQUALS
     BREAK
     DIREDGE
     CONTINUE
     TIME
     COMMENTFRONT
-<<<<<<< HEAD
-    ADDEDGEFUNC
-=======
     INCLUDE
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 Grammar
 
 Rule 0     S' -> function-definition
 Rule 1     function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement
 Rule 2     identifier -> TEXT
-Rule 3     parameter-list -> parameter-list COMMA identifier
+Rule 3     parameter-list -> <empty>
 Rule 4     parameter-list -> identifier
-<<<<<<< HEAD
-Rule 5     compound-statement -> LBR statement-list RBR
-Rule 6     statement-list -> statement
-Rule 7     statement-list -> statement-list statement
-Rule 8     statement -> aexpression
-Rule 9     aexpression -> TEXT EQUALS NUMERIC
-
-Terminals, with rules where they appear
-
-ADD                  : 
-ADDEDGEFUNC          : 
-ADJACENTFUNC         : 
-BREAK                : 
-COLON                : 
-COMMA                : 3
-=======
 Rule 5     parameter-list -> parameter-list COMMA identifier
 Rule 6     compound-statement -> LBR statement-list RBR
 Rule 7     compound-statement -> <empty>
@@ -158,36 +100,17 @@ ADJACENTFUNC         : 55
 BREAK                : 
 COLON                : 
 COMMA                : 5 20 52
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 COMMENT              : 
 COMMENTBACK          : 
 COMMENTFRONT         : 
 CONTINUE             : 
-<<<<<<< HEAD
-DELETEEDGEFUNC       : 
-DELETEFUNC           : 
-=======
 DELETEEDGEFUNC       : 59
 DELETEFUNC           : 54
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 DIREDGE              : 
-DIVIDE               : 
-DOESNOTEQUAL         : 
+DIVIDE               : 42
+DOESNOTEQUAL         : 31
 DOUBLEQUOTE          : 
 ELIF                 : 
-<<<<<<< HEAD
-ELSE                 : 
-EQUALS               : 9
-EQUALSEQUALS         : 
-EQUALSFUNC           : 
-EXCLAMATION          : 
-FALSE                : 
-FINDSHORTESTFUNC     : 
-FOR                  : 
-FOREACH              : 
-FUNC                 : 1
-GETEDGEFUNC          : 
-=======
 ELSE                 : 16
 EQUALS               : 22
 EQUALSEQUALS         : 30
@@ -199,21 +122,12 @@ FOR                  : 17
 FOREACH              : 18
 FUNC                 : 1
 GETEDGEFUNC          : 57
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 GRAPH                : 
-GREATERTHAN          : 
-GREATERTHANOREQUALTO : 
-IF                   : 
-IN                   : 
+GREATERTHAN          : 33
+GREATERTHANOREQUALTO : 36
+IF                   : 15 16
+IN                   : 18
 INCLUDE              : 
-<<<<<<< HEAD
-LBR                  : 5
-LESSTHAN             : 
-LESSTHANOREQUALTO    : 
-LOGICALAND           : 
-LOGICALOR            : 
-LPAREN               : 1
-=======
 LBR                  : 6
 LESSTHAN             : 34
 LESSTHANOREQUALTO    : 35
@@ -221,29 +135,14 @@ LITERAL              : 47
 LOGICALAND           : 28
 LOGICALOR            : 26
 LPAREN               : 1 15 16 17 18 48 49 50 51 52
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 LSB                  : 
-MINUS                : 
+MINUS                : 39
 MODULUS              : 
 NEWLINE              : 
-NODE                 : 
+NODE                 : 45
 NULL                 : 
-NUMERIC              : 9
+NUMERIC              : 
 PATH                 : 
-<<<<<<< HEAD
-PATHFUNC             : 
-PERIOD               : 
-PLUS                 : 
-PRINT                : 
-RBR                  : 5
-READ                 : 
-RETURN               : 
-RPAREN               : 1
-RSB                  : 
-SEMICOLON            : 
-SINGLEQUOTE          : 
-TEXT                 : 2 9
-=======
 PATHFUNC             : 56
 PERIOD               : 49
 PLUS                 : 38
@@ -255,29 +154,15 @@ RPAREN               : 1 15 16 17 18 48 49 50 51 52
 RSB                  : 
 SEMICOLON            : 17 17
 TEXT                 : 2 44
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 TIME                 : 
-TIMES                : 
+TIMES                : 41
 TRUE                 : 
 UNDIREDGE            : 
-<<<<<<< HEAD
-WRITE                : 
-=======
 WRITE                : 52
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 error                : 
 
 Nonterminals, with rules where they appear
 
-<<<<<<< HEAD
-aexpression          : 8
-compound-statement   : 1
-function-definition  : 0
-identifier           : 1 3 4
-parameter-list       : 1 3
-statement            : 6 7
-statement-list       : 5 7
-=======
 additive-expression  : 32 33 34 35 36 38 39
 assignment-expression : 19 20 22
 compound-statement   : 1 12
@@ -298,7 +183,6 @@ relational-expression : 29 30 31 33 34 35 36
 selection-statement  : 13
 statement            : 8 9 15 16 16 17 18
 statement-list       : 6 9
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 Parsing method: LALR
 
@@ -332,10 +216,7 @@ state 3
 
     RPAREN          reduce using rule 2 (identifier -> TEXT .)
     COMMA           reduce using rule 2 (identifier -> TEXT .)
-<<<<<<< HEAD
-=======
     IN              reduce using rule 2 (identifier -> TEXT .)
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
     LPAREN          reduce using rule 2 (identifier -> TEXT .)
 
 
@@ -349,10 +230,13 @@ state 4
 state 5
 
     (1) function-definition -> FUNC identifier LPAREN . parameter-list RPAREN compound-statement
-    (3) parameter-list -> . parameter-list COMMA identifier
+    (3) parameter-list -> .
     (4) parameter-list -> . identifier
+    (5) parameter-list -> . parameter-list COMMA identifier
     (2) identifier -> . TEXT
 
+    RPAREN          reduce using rule 3 (parameter-list -> .)
+    COMMA           reduce using rule 3 (parameter-list -> .)
     TEXT            shift and go to state 3
 
     parameter-list                 shift and go to state 6
@@ -361,7 +245,7 @@ state 5
 state 6
 
     (1) function-definition -> FUNC identifier LPAREN parameter-list . RPAREN compound-statement
-    (3) parameter-list -> parameter-list . COMMA identifier
+    (5) parameter-list -> parameter-list . COMMA identifier
 
     RPAREN          shift and go to state 8
     COMMA           shift and go to state 9
@@ -378,15 +262,17 @@ state 7
 state 8
 
     (1) function-definition -> FUNC identifier LPAREN parameter-list RPAREN . compound-statement
-    (5) compound-statement -> . LBR statement-list RBR
+    (6) compound-statement -> . LBR statement-list RBR
+    (7) compound-statement -> .
 
     LBR             shift and go to state 10
+    $end            reduce using rule 7 (compound-statement -> .)
 
     compound-statement             shift and go to state 11
 
 state 9
 
-    (3) parameter-list -> parameter-list COMMA . identifier
+    (5) parameter-list -> parameter-list COMMA . identifier
     (2) identifier -> . TEXT
 
     TEXT            shift and go to state 3
@@ -395,19 +281,6 @@ state 9
 
 state 10
 
-<<<<<<< HEAD
-    (5) compound-statement -> LBR . statement-list RBR
-    (6) statement-list -> . statement
-    (7) statement-list -> . statement-list statement
-    (8) statement -> . aexpression
-    (9) aexpression -> . TEXT EQUALS NUMERIC
-
-    TEXT            shift and go to state 14
-
-    aexpression                    shift and go to state 15
-    statement                      shift and go to state 16
-    statement-list                 shift and go to state 13
-=======
     (6) compound-statement -> LBR . statement-list RBR
     (8) statement-list -> . statement
     (9) statement-list -> . statement-list statement
@@ -535,7 +408,6 @@ state 10
     expression                     shift and go to state 39
     compound-statement             shift and go to state 31
     assignment-expression          shift and go to state 24
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 state 11
 
@@ -546,38 +418,24 @@ state 11
 
 state 12
 
-    (3) parameter-list -> parameter-list COMMA identifier .
+    (5) parameter-list -> parameter-list COMMA identifier .
 
-    RPAREN          reduce using rule 3 (parameter-list -> parameter-list COMMA identifier .)
-    COMMA           reduce using rule 3 (parameter-list -> parameter-list COMMA identifier .)
+    RPAREN          reduce using rule 5 (parameter-list -> parameter-list COMMA identifier .)
+    COMMA           reduce using rule 5 (parameter-list -> parameter-list COMMA identifier .)
 
 
 state 13
 
-<<<<<<< HEAD
-    (5) compound-statement -> LBR statement-list . RBR
-    (7) statement-list -> statement-list . statement
-    (8) statement -> . aexpression
-    (9) aexpression -> . TEXT EQUALS NUMERIC
-
-    RBR             shift and go to state 17
-    TEXT            shift and go to state 14
-=======
     (51) function-call -> READ . LPAREN identifier RPAREN
 
     LPAREN          shift and go to state 40
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
-    aexpression                    shift and go to state 15
-    statement                      shift and go to state 18
 
 state 14
 
-    (9) aexpression -> TEXT . EQUALS NUMERIC
+    (44) primary-expression -> TEXT .
+    (2) identifier -> TEXT .
 
-<<<<<<< HEAD
-    EQUALS          shift and go to state 19
-=======
   ! reduce/reduce conflict for EQUALS resolved using rule 2 (identifier -> TEXT .)
   ! reduce/reduce conflict for TIMES resolved using rule 2 (identifier -> TEXT .)
   ! reduce/reduce conflict for DIVIDE resolved using rule 2 (identifier -> TEXT .)
@@ -667,17 +525,12 @@ state 14
   ! SEMICOLON       [ reduce using rule 44 (primary-expression -> TEXT .) ]
   ! ELSE            [ reduce using rule 44 (primary-expression -> TEXT .) ]
   ! LOGICALOR       [ reduce using rule 44 (primary-expression -> TEXT .) ]
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 
 state 15
 
-    (8) statement -> aexpression .
+    (13) statement -> selection-statement .
 
-<<<<<<< HEAD
-    RBR             reduce using rule 8 (statement -> aexpression .)
-    TEXT            reduce using rule 8 (statement -> aexpression .)
-=======
     RBR             reduce using rule 13 (statement -> selection-statement .)
     LBR             reduce using rule 13 (statement -> selection-statement .)
     IF              reduce using rule 13 (statement -> selection-statement .)
@@ -691,17 +544,10 @@ state 15
     READ            reduce using rule 13 (statement -> selection-statement .)
     WRITE           reduce using rule 13 (statement -> selection-statement .)
     ELSE            reduce using rule 13 (statement -> selection-statement .)
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 
 state 16
 
-<<<<<<< HEAD
-    (6) statement-list -> statement .
-
-    RBR             reduce using rule 6 (statement-list -> statement .)
-    TEXT            reduce using rule 6 (statement-list -> statement .)
-=======
     (29) equality-expression -> relational-expression .
     (33) relational-expression -> relational-expression . GREATERTHAN additive-expression
     (34) relational-expression -> relational-expression . LESSTHAN additive-expression
@@ -732,30 +578,17 @@ state 16
     LESSTHAN        shift and go to state 43
     LESSTHANOREQUALTO shift and go to state 41
     GREATERTHANOREQUALTO shift and go to state 42
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 
 state 17
 
-<<<<<<< HEAD
-    (5) compound-statement -> LBR statement-list RBR .
-
-    $end            reduce using rule 5 (compound-statement -> LBR statement-list RBR .)
-=======
     (50) function-call -> PRINT . LPAREN identifier RPAREN
 
     LPAREN          shift and go to state 45
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
 
 state 18
 
-<<<<<<< HEAD
-    (7) statement-list -> statement-list statement .
-
-    RBR             reduce using rule 7 (statement-list -> statement-list statement .)
-    TEXT            reduce using rule 7 (statement-list -> statement-list statement .)
-=======
     (46) primary-expression -> function-call .
 
     EQUALS          reduce using rule 46 (primary-expression -> function-call .)
@@ -2716,12 +2549,9 @@ state 83
 
 
 state 84
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
+    (22) assignment-expression -> primary-expression EQUALS assignment-expression .
 
-<<<<<<< HEAD
-state 19
-=======
     COMMA           reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     ELSE            reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
     RBR             reduce using rule 22 (assignment-expression -> primary-expression EQUALS assignment-expression .)
@@ -3143,16 +2973,8 @@ state 106
     ELSE            shift and go to state 111
 
   ! ELSE            [ reduce using rule 15 (selection-statement -> IF LPAREN expression RPAREN statement .) ]
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
-
-    (9) aexpression -> TEXT EQUALS . NUMERIC
-
-<<<<<<< HEAD
-    NUMERIC         shift and go to state 20
 
 
-state 20
-=======
 state 107
 
     (49) function-call -> identifier PERIOD function-name LPAREN parameter-list . RPAREN
@@ -3160,15 +2982,8 @@ state 107
 
     RPAREN          shift and go to state 112
     COMMA           shift and go to state 9
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
 
-    (9) aexpression -> TEXT EQUALS NUMERIC .
 
-<<<<<<< HEAD
-    RBR             reduce using rule 9 (aexpression -> TEXT EQUALS NUMERIC .)
-    TEXT            reduce using rule 9 (aexpression -> TEXT EQUALS NUMERIC .)
-
-=======
 state 108
 
     (17) iteration-statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON . expression RPAREN statement
@@ -3753,4 +3568,3 @@ WARNING: reduce/reduce conflict in state 21 resolved using rule (conditional-exp
 WARNING: rejected rule (logical-OR-expression -> logical-AND-expression) in state 21
 WARNING: Rule (statement-list -> <empty>) is never reduced
 WARNING: Rule (primary-expression -> TEXT) is never reduced
->>>>>>> 85e10b105d3e41972cbebd99763f1d9803d5f2f9
