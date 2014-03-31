@@ -125,7 +125,7 @@ t_EQUALSEQUALS=r'\=\='#21
 t_DOESNOTEQUAL=r'!='#22
 t_LOGICALAND=r'&'  #24
 t_LOGICALOR=r'\|'  #25
-t_LOGICALNOR=r'!' 
+t_LOGICALNOT=r'!' 
 
 #commenting
 t_COMMENT=r'//' #26
