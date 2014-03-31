@@ -1,59 +1,54 @@
 import ply.yacc as yacc
 from MAPlexer import * 
-#parsing rules'
 
+#function declaration
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN compound-statement'
-	#print "{0}:{1} {2} {3} {4}".format(t[1],t[2],t[3],t[4],t[5])
+	print "funtion-definition : {1} {2}{3}{4}{5}".format(t[0],t[1],t[2],t[3],t[4],t[5])
+	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
 
+#identifiers
 def p_id(t):
 	'identifier : TEXT'
+	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
 
+#empty parameter list
+def p_listE(t):
+	'parameter-list : '
+
+#multiple parameter list
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA identifier'
 	t[0]=t[1]+t[2]+t[3]
 
+#single parameter
 def p_plist(t):
 	'parameter-list : identifier'
 	t[0] = t[1]
 
-<<<<<<< HEAD
-#testing
+#no compound statement
+def p_cs_E(t):
+	'compound-statement : '
+	t[0] = ""
 
+#compound statement
 def p_cs(t):
 	'compound-statement : LBR statement-list RBR'
-	t[0] = t[2]
-	#print t[1], t[2], t[3]
+	t[0] = t[1] + t[2] + t[3]
 
+#single statement
 def p_slist(t):
 	'statement-list : statement'
 	t[0] = t[1]
-
+#multiple statements
 def p_slist2(t):
 	'statement-list : statement-list statement'
 
-#def p_s(t):
-#	'statement : TEXT'
-#	t[0] = t[1]
-#	print t[0]
-
-def p_s(t):
-	'statement : aexpression'
-	#| compound-statement
-	#| selection-statement
-	#| iteration-statement'''
-	t[0] = t[1]
-
-def p_expr(t):
-	'aexpression : TEXT EQUALS NUMERIC'
-	print t[1], t[2], t[3]
-
-def p_error(t):
-	print("Syntax error at '%s'" % t.value)
-	print t[0]
-
-test='func main(blah,poop,test){ poop=69 }'
+#no statements
+def p_slist3(t):
+	'statement-list : '
+	t[0] = ""
 
 # better error message 
 def p_error(t):
