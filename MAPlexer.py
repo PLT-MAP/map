@@ -156,4 +156,4 @@ while 1:
 	tok = lex.token()
 	if not tok: break
 	print tok
-	
+'''	
