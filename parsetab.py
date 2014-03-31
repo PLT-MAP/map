@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = '\xd9i\xdb\xde\x15<\xb6L\x17z\xe3\xaf\xac\x15\x89J'
+_lr_signature = 'E\x07\x02h\xa3\xf2\x7f<OH\xc0\x06/\xd6\x0c '
     
-_lr_action_items = {'RPAREN':([3,6,7,10,],[-2,8,-4,-3,]),'FUNC':([0,],[1,]),'TEXT':([1,5,9,],[3,3,3,]),'COMMA':([3,6,7,10,],[-2,9,-4,-3,]),'LPAREN':([3,4,],[-2,5,]),'$end':([2,8,],[0,-1,]),}
+_lr_action_items = {'LBR':([8,],[10,]),'RPAREN':([3,6,7,12,],[-2,8,-4,-3,]),'FUNC':([0,],[1,]),'TEXT':([1,5,9,10,13,15,16,18,20,],[3,3,3,14,14,-8,-6,-7,-9,]),'RBR':([13,15,16,18,20,],[17,-8,-6,-7,-9,]),'NUMERIC':([19,],[20,]),'EQUALS':([14,],[19,]),'COMMA':([3,6,7,12,],[-2,9,-4,-3,]),'LPAREN':([3,4,],[-2,5,]),'$end':([2,11,17,],[0,-1,-5,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'parameter-list':([5,],[6,]),'identifier':([1,5,9,],[4,7,10,]),'function-definition':([0,],[2,]),}
+_lr_goto_items = {'statement':([10,13,],[16,18,]),'parameter-list':([5,],[6,]),'aexpression':([10,13,],[15,15,]),'function-definition':([0,],[2,]),'statement-list':([10,],[13,]),'identifier':([1,5,9,],[4,7,12,]),'compound-statement':([8,],[11,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -26,8 +26,13 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> function-definition","S'",1,None,None,None),
-  ('function-definition -> FUNC identifier LPAREN parameter-list RPAREN','function-definition',5,'p_fd','MAPyacc.py',6),
-  ('identifier -> TEXT','identifier',1,'p_id','MAPyacc.py',10),
-  ('parameter-list -> parameter-list COMMA identifier','parameter-list',3,'p_plist2','MAPyacc.py',14),
-  ('parameter-list -> identifier','parameter-list',1,'p_plist','MAPyacc.py',18),
+  ('function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement','function-definition',6,'p_fd','MAPYacc.py',6),
+  ('identifier -> TEXT','identifier',1,'p_id','MAPYacc.py',10),
+  ('parameter-list -> parameter-list COMMA identifier','parameter-list',3,'p_plist2','MAPYacc.py',14),
+  ('parameter-list -> identifier','parameter-list',1,'p_plist','MAPYacc.py',18),
+  ('compound-statement -> LBR statement-list RBR','compound-statement',3,'p_cs','MAPYacc.py',24),
+  ('statement-list -> statement','statement-list',1,'p_slist','MAPYacc.py',29),
+  ('statement-list -> statement-list statement','statement-list',2,'p_slist2','MAPYacc.py',33),
+  ('statement -> aexpression','statement',1,'p_s','MAPYacc.py',41),
+  ('aexpression -> TEXT EQUALS NUMERIC','aexpression',3,'p_expr','MAPYacc.py',48),
 ]

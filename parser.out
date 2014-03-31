@@ -17,12 +17,9 @@ Unused terminals:
     COMMENTBACK
     COMMENT
     GETEDGEFUNC
-    LBR
     SEMICOLON
     LESSTHANOREQUALTO
-    RBR
     NEWLINE
-    NUMERIC
     UNDIREDGE
     ADJACENTFUNC
     SINGLEQUOTE
@@ -37,7 +34,6 @@ Unused terminals:
     LOGICALOR
     GRAPH
     GREATERTHANOREQUALTO
-    EQUALS
     PERIOD
     TIMES
     WRITE
@@ -66,10 +62,15 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> function-definition
-Rule 1     function-definition -> FUNC identifier LPAREN parameter-list RPAREN
+Rule 1     function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement
 Rule 2     identifier -> TEXT
 Rule 3     parameter-list -> parameter-list COMMA identifier
 Rule 4     parameter-list -> identifier
+Rule 5     compound-statement -> LBR statement-list RBR
+Rule 6     statement-list -> statement
+Rule 7     statement-list -> statement-list statement
+Rule 8     statement -> aexpression
+Rule 9     aexpression -> TEXT EQUALS NUMERIC
 
 Terminals, with rules where they appear
 
@@ -91,7 +92,7 @@ DOESNOTEQUAL         :
 DOUBLEQUOTE          : 
 ELIF                 : 
 ELSE                 : 
-EQUALS               : 
+EQUALS               : 9
 EQUALSEQUALS         : 
 EQUALSFUNC           : 
 EXCLAMATION          : 
@@ -107,7 +108,7 @@ GREATERTHANOREQUALTO :
 IF                   : 
 IN                   : 
 INCLUDE              : 
-LBR                  : 
+LBR                  : 5
 LESSTHAN             : 
 LESSTHANOREQUALTO    : 
 LOGICALAND           : 
@@ -119,20 +120,20 @@ MODULUS              :
 NEWLINE              : 
 NODE                 : 
 NULL                 : 
-NUMERIC              : 
+NUMERIC              : 9
 PATH                 : 
 PATHFUNC             : 
 PERIOD               : 
 PLUS                 : 
 PRINT                : 
-RBR                  : 
+RBR                  : 5
 READ                 : 
 RETURN               : 
 RPAREN               : 1
 RSB                  : 
 SEMICOLON            : 
 SINGLEQUOTE          : 
-TEXT                 : 2
+TEXT                 : 2 9
 TIME                 : 
 TIMES                : 
 TRUE                 : 
@@ -142,16 +143,20 @@ error                :
 
 Nonterminals, with rules where they appear
 
+aexpression          : 8
+compound-statement   : 1
 function-definition  : 0
 identifier           : 1 3 4
 parameter-list       : 1 3
+statement            : 6 7
+statement-list       : 5 7
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . function-definition
-    (1) function-definition -> . FUNC identifier LPAREN parameter-list RPAREN
+    (1) function-definition -> . FUNC identifier LPAREN parameter-list RPAREN compound-statement
 
     FUNC            shift and go to state 1
 
@@ -159,7 +164,7 @@ state 0
 
 state 1
 
-    (1) function-definition -> FUNC . identifier LPAREN parameter-list RPAREN
+    (1) function-definition -> FUNC . identifier LPAREN parameter-list RPAREN compound-statement
     (2) identifier -> . TEXT
 
     TEXT            shift and go to state 3
@@ -183,14 +188,14 @@ state 3
 
 state 4
 
-    (1) function-definition -> FUNC identifier . LPAREN parameter-list RPAREN
+    (1) function-definition -> FUNC identifier . LPAREN parameter-list RPAREN compound-statement
 
     LPAREN          shift and go to state 5
 
 
 state 5
 
-    (1) function-definition -> FUNC identifier LPAREN . parameter-list RPAREN
+    (1) function-definition -> FUNC identifier LPAREN . parameter-list RPAREN compound-statement
     (3) parameter-list -> . parameter-list COMMA identifier
     (4) parameter-list -> . identifier
     (2) identifier -> . TEXT
@@ -202,7 +207,7 @@ state 5
 
 state 6
 
-    (1) function-definition -> FUNC identifier LPAREN parameter-list . RPAREN
+    (1) function-definition -> FUNC identifier LPAREN parameter-list . RPAREN compound-statement
     (3) parameter-list -> parameter-list . COMMA identifier
 
     RPAREN          shift and go to state 8
@@ -219,10 +224,12 @@ state 7
 
 state 8
 
-    (1) function-definition -> FUNC identifier LPAREN parameter-list RPAREN .
+    (1) function-definition -> FUNC identifier LPAREN parameter-list RPAREN . compound-statement
+    (5) compound-statement -> . LBR statement-list RBR
 
-    $end            reduce using rule 1 (function-definition -> FUNC identifier LPAREN parameter-list RPAREN .)
+    LBR             shift and go to state 10
 
+    compound-statement             shift and go to state 11
 
 state 9
 
@@ -231,12 +238,99 @@ state 9
 
     TEXT            shift and go to state 3
 
-    identifier                     shift and go to state 10
+    identifier                     shift and go to state 12
 
 state 10
+
+    (5) compound-statement -> LBR . statement-list RBR
+    (6) statement-list -> . statement
+    (7) statement-list -> . statement-list statement
+    (8) statement -> . aexpression
+    (9) aexpression -> . TEXT EQUALS NUMERIC
+
+    TEXT            shift and go to state 14
+
+    aexpression                    shift and go to state 15
+    statement                      shift and go to state 16
+    statement-list                 shift and go to state 13
+
+state 11
+
+    (1) function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement .
+
+    $end            reduce using rule 1 (function-definition -> FUNC identifier LPAREN parameter-list RPAREN compound-statement .)
+
+
+state 12
 
     (3) parameter-list -> parameter-list COMMA identifier .
 
     RPAREN          reduce using rule 3 (parameter-list -> parameter-list COMMA identifier .)
     COMMA           reduce using rule 3 (parameter-list -> parameter-list COMMA identifier .)
+
+
+state 13
+
+    (5) compound-statement -> LBR statement-list . RBR
+    (7) statement-list -> statement-list . statement
+    (8) statement -> . aexpression
+    (9) aexpression -> . TEXT EQUALS NUMERIC
+
+    RBR             shift and go to state 17
+    TEXT            shift and go to state 14
+
+    aexpression                    shift and go to state 15
+    statement                      shift and go to state 18
+
+state 14
+
+    (9) aexpression -> TEXT . EQUALS NUMERIC
+
+    EQUALS          shift and go to state 19
+
+
+state 15
+
+    (8) statement -> aexpression .
+
+    RBR             reduce using rule 8 (statement -> aexpression .)
+    TEXT            reduce using rule 8 (statement -> aexpression .)
+
+
+state 16
+
+    (6) statement-list -> statement .
+
+    RBR             reduce using rule 6 (statement-list -> statement .)
+    TEXT            reduce using rule 6 (statement-list -> statement .)
+
+
+state 17
+
+    (5) compound-statement -> LBR statement-list RBR .
+
+    $end            reduce using rule 5 (compound-statement -> LBR statement-list RBR .)
+
+
+state 18
+
+    (7) statement-list -> statement-list statement .
+
+    RBR             reduce using rule 7 (statement-list -> statement-list statement .)
+    TEXT            reduce using rule 7 (statement-list -> statement-list statement .)
+
+
+state 19
+
+    (9) aexpression -> TEXT EQUALS . NUMERIC
+
+    NUMERIC         shift and go to state 20
+
+
+state 20
+
+    (9) aexpression -> TEXT EQUALS NUMERIC .
+
+    RBR             reduce using rule 9 (aexpression -> TEXT EQUALS NUMERIC .)
+    TEXT            reduce using rule 9 (aexpression -> TEXT EQUALS NUMERIC .)
 
