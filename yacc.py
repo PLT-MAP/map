@@ -22,7 +22,7 @@ def p_plist(t):
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA identifier'
 	t[0] = t[1] + t[2] + t[3]
-	print "parameter-list : {0}".format(t[0])
+	print "".format(t[0])
 	
 def p_cs(t):
 	'compound-statement : LBR statement-list RBR'
