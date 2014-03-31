@@ -57,6 +57,7 @@ tokens = [
 	'DOESNOTEQUAL', #22	
 	'LOGICALAND', #24
 	'LOGICALOR',  #25
+	'LOGICALNOT',
 	'COMMENT',    #26
 	'COMMENTFRONT', #27
 	'COMMENTBACK',   #28
@@ -124,6 +125,7 @@ t_EQUALSEQUALS=r'\=\='#21
 t_DOESNOTEQUAL=r'!='#22
 t_LOGICALAND=r'&'  #24
 t_LOGICALOR=r'\|'  #25
+t_LOGICALNOR=r'!' 
 
 #commenting
 t_COMMENT=r'//' #26
@@ -148,7 +150,7 @@ def t_error(t):
 
 lexer=lex.lex()
 
-lex.input("func main(hi, bye) { Text t = 'Hello, world!'; print(t);}")
+lex.input("func main(Numeric hi, Text bye) { Text t = 'Hello, world!'; print(t);}")
 
 while 1:
 	tok = lex.token()
