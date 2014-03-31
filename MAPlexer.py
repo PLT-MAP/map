@@ -7,9 +7,6 @@ reserved ={ 'null':'NULL',
 	'Time':'TIME',
 	'DirEdge':'DIREDGE',
 	'UndirEdge':'UNDIREDGE',
-	'Node':'NODE',
-	'Path':'PATH',
-	'Graph':'GRAPH',
 	'Print':'PRINT', 
 	'add':'ADD',
 	'Delete':'DELETEFUNC',
@@ -32,15 +29,18 @@ reserved ={ 'null':'NULL',
 	'read':'READ', 
 	'write':'WRITE',
 	'func':'FUNC',
-	'text':'TEXTD',
-	'Numeric':'NUMERICD'
+	'Node':'TYPE',
+	'Path':'TYPE',
+	'Graph':'TYPE',
+	'text':'TYPE',
+	'Numeric':'TYPE'
 }
 
 tokens = [
 	'NUMERIC', #1
 	#'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
-	'TEXT',	   #3
+	'ID',	   #3
 	'PLUS',    #11
 	'MINUS',   #12
 	'TIMES',   #13
@@ -89,9 +89,9 @@ def t_LITERAL(t):
 	r'\'[A-Za-z ,!]*\''
 	return t
 
-def t_TEXT(t): 
+def t_ID(t): 
  	r'[a-zA-Z_][a-zA-Z_0-9]*' 
- 	t.type = reserved.get(t.value,'TEXT')
+ 	t.type = reserved.get(t.value,'ID')
  	return t
 
 t_SEMICOLON = r';' 
