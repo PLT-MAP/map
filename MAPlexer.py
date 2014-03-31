@@ -7,9 +7,6 @@ reserved ={ 'null':'NULL',
 	'Time':'TIME',
 	'DirEdge':'DIREDGE',
 	'UndirEdge':'UNDIREDGE',
-	'Node':'NODE',
-	'Path':'PATH',
-	'Graph':'GRAPH',
 	'Print':'PRINT', 
 	'add':'ADD',
 	'Delete':'DELETEFUNC',
@@ -32,6 +29,11 @@ reserved ={ 'null':'NULL',
 	'read':'READ', 
 	'write':'WRITE',
 	'func':'FUNC',
+	'Node':'TYPE',
+	'Path':'TYPE',
+	'Graph':'TYPE',
+	'Text':'TYPE',
+	'Numeric':'TYPE'
 }
 
 tokens = [
@@ -71,11 +73,11 @@ tokens = [
 	'EXCLAMATION',
 	'LITERAL',
 	]+list(reserved.values())
-
+'''
 def t_TYPE(t):
 	r'^Text$|^Numeric$'
 	return t
-
+'''
 #primitive data types
 
 #converts string into float 

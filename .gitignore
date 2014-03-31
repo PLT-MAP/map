@@ -23,6 +23,8 @@ __pycache__
 *.orig
 *.out
 
+parsetab.py
+
 # Installer logs
 pip-log.txt
 

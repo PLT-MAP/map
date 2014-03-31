@@ -2,29 +2,31 @@ import ply.yacc as yacc
 from MAPlexer import * 
 from pprint import pprint
 
+#function definition
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN compound-statement'
 	print "funtion-definition : {1} {2}{3}{4}{5}".format(t[0],t[1],t[2],t[3],t[4],t[5])
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
 
+#identifiers
 def p_id(t):
 	'identifier : ID'
 	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
 
+#parameter list
 def p_listE(t):
 	'parameter-list : '
 
 def p_plist(t):
-	'parameter-list : identifier'
+	'parameter-list : TYPE identifier '
 	t[0] = t[1]
-	print "param-list : {0}".format(t[1])
 
 def p_plist2(t):
-	'parameter-list : parameter-list COMMA identifier'
+	'parameter-list : parameter-list COMMA TYPE identifier'
 	t[0] = t[1] + t[2] + t[3]
-	print "".format(t[0])
-	
+
+#Body of a function
 def p_cs(t):
 	'compound-statement : LBR statement-list RBR'
 	t[0] = t[1] + t[2] + t[3]
@@ -33,18 +35,20 @@ def p_cs_E(t):
 	'compound-statement : '
 	t[0] = ""
 
+#group of statements
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
 	t[0] = t[1]
 
 def p_slist2(t):
-	'statement-list : statement-list statement'
+	'statement-list : statement statement-list'
 	t[0] = t[1] + t[2]
 
 def p_slist3(t):
 	'statement-list : '
 	t[0] = ""
 
+#Statements
 def p_s(t):
 	'''statement : expression
 	| compound-statement
@@ -52,26 +56,36 @@ def p_s(t):
 	| iteration-statement'''
 	t[0] = t[1]
 
+#if statement
 def p_sels(t):
 	'selection-statement : IF LPAREN expression RPAREN statement'
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
 
+#else statement
 def p_sels2(t):
 	'selection-statement : IF LPAREN expression RPAREN statement ELSE statement'
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7]
+
+#for loop
 def p_iters(t):
-	'iteration-statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement'
+	'iteration-statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement' #compound-statement?
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7] + t[8] + t[9]
+
+#foreach
 def p_ters2(t):
-	'iteration-statement : FOREACH LPAREN identifier IN identifier RPAREN statement'
+	'iteration-statement : FOREACH LPAREN identifier IN identifier RPAREN statement' #compound-statement
 	t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7]
+
+#assignment
 def p_expr(t):
 	'expression : assignment-expression'
 	t[0] = t[1]
-
+#?????#
 def p_expr2(t):
 	'expression : expression COMMA assignment-expression'
 	t[0] = t[1] + t[2] + t[3] 
+
+#Conditional expression
 def p_aexpr(t):
 	'assignment-expression : conditional-expression'
 	t[0] = t[1]
@@ -173,10 +187,15 @@ def p_funcname(t):
 	print "function-name : {0}".format(t[1])
 
 def p_error(t):
-	print("Syntax error at '%s'" % t.value)
-    
+    import inspect
+    frame = inspect.currentframe()
+    cvars = frame.f_back.f_locals
+    print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
+    print 'Found:', cvars['ltype']
+
 yacc.yacc()
 
-print yacc.parse("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
+print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
+#print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
 
 
