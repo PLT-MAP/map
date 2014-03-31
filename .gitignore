@@ -1,5 +1,7 @@
 *.py[cod]
 
+*.swp
+
 # C extensions
 *.so
 
@@ -18,6 +20,8 @@ develop-eggs
 lib
 lib64
 __pycache__
+*.orig
+*.out
 
 # Installer logs
 pip-log.txt

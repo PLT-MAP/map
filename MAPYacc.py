@@ -18,6 +18,7 @@ def p_plist(t):
 	'parameter-list : identifier'
 	t[0] = t[1]
 
+<<<<<<< HEAD
 #testing
 
 def p_cs(t):
@@ -53,13 +54,29 @@ def p_error(t):
 	print t[0]
 
 test='func main(blah,poop,test){ poop=69 }'
+=======
+# better error message 
+def p_error(t):
+    if t is None:
+        print "Syntax error: unexpected EOF"
+    else:
+        print "Syntax error at line {}: unexpected token {}".format(t.lineno, t.value)
+    import inspect
+    frame = inspect.currentframe()
+    cvars = frame.f_back.f_locals
+    print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
+    print 'Found:', cvars['ltype']
+
+test='func main(blah,test,  fun)'
+>>>>>>> 6510da4d4b9db5eda95415b464d20274b638b3a9
 lexer=lex.lex()
 lexer.input(test)
 #for tok in lexer:
 	#print tok.type, tok.value
 
 yacc.yacc()
-print yacc.parse(test)
+#print 
+yacc.parse(test)
 
 
 
