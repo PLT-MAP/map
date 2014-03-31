@@ -54,7 +54,7 @@ def p_error(t):
 	print t[0]
 
 test='func main(blah,poop,test){ poop=69 }'
-=======
+
 # better error message 
 def p_error(t):
     if t is None:
@@ -68,7 +68,6 @@ def p_error(t):
     print 'Found:', cvars['ltype']
 
 test='func main(blah,test,  fun)'
->>>>>>> 6510da4d4b9db5eda95415b464d20274b638b3a9
 lexer=lex.lex()
 lexer.input(test)
 #for tok in lexer:

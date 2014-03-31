@@ -36,7 +36,7 @@ reserved ={ 'null':'NULL',
 
 tokens = [
 	'NUMERIC', #1
-	'SINGLEQUOTE', #2
+	#'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
 	'TEXT',	   #3
 	'PLUS',    #11
@@ -68,6 +68,7 @@ tokens = [
 	'RSB',
 	'PERIOD',
 	'EXCLAMATION',
+	'LITERAL',
 	]+list(reserved.values())
 
 #primitive data types
@@ -78,9 +79,12 @@ def t_NUMERIC(t):
 	t.value = float(t.value)
 	return t
 
-t_SINGLEQUOTE=r'(\')' #2
+#t_SINGLEQUOTE=r'(\')' #2
 t_DOUBLEQUOTE=r'(\")' #2.1
 
+def t_LITERAL(t):
+	r'\'[A-Za-z ,!]*\''
+	return t
 
 def t_TEXT(t): 
  	r'[a-zA-Z_][a-zA-Z_0-9]*' 
@@ -143,3 +147,11 @@ def t_error(t):
 
 
 lexer=lex.lex()
+
+lex.input("func main(hi, bye) { Text t = 'Hello, world!'; print(t);}")
+
+while 1:
+	tok = lex.token()
+	if not tok: break
+	print tok
+	
