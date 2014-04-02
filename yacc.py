@@ -226,6 +226,12 @@ def p_error(t):
 l = lex.lex()
 i = "func main(hi, bye) { Numeric n = 1+2;}"
 lex.input(i)
+
+while 1:
+	tok = lex.token()
+	if not tok: break
+	print tok
+
 yacc.yacc(debug=True)
 yacc.parse(i,lexer=l)
 

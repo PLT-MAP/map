@@ -82,7 +82,7 @@ def t_TYPE(t):
 
 #converts string into float 
 def t_NUMERIC(t): 
-	r'(\d+\.?\d+ | \.\d+)'    #1
+	r'\d*\.?\d+'    #1
 	t.value = float(t.value)
 	return t
 
@@ -156,9 +156,9 @@ lexer=lex.lex()
 
 #lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
-lex.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
+#lex.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
 
-while 1:
-	tok = lex.token()
-	if not tok: break
-	print tok
+#while 1:
+#	tok = lex.token()
+#	if not tok: break
+#	print tok
