@@ -28,19 +28,8 @@ def p_plist2(t):
 	'parameter-list : parameter-list COMMA type-declaration'
 	t[0] = t[1] + t[2] + t[3]
 	print "parameter-list : {0} {1} {2}".format(t[1],t[2],t[3])
-'''
-#Body of a function
-def p_cs(t):
-	'compound-statement : LBR statement-list RBR'
-	t[0] = t[1] + t[2] + t[3]
-	print "compound-statement : {0} {1} {2}".format(t[1],t[2],t[3])
 
-def p_cs_E(t):
-	'compound-statement : '
-	t[0] = ""
-'''
-#group of statements
-
+#group of statementsd
 def p_slist2(t):
 	'statement-list : statement-list SEMICOLON statement'
 	t[0] = t[1] + t[2] + t[3]
@@ -159,7 +148,8 @@ def p_multexpr2(t):
 def p_primexp(t):
 	'''primary-expression : identifier
 	| type-declaration
-	| LITERAL'''
+	| LITERAL
+	| NUMERIC'''
 	t[0] = t[1]
 
 def p_typedec(t):
@@ -195,13 +185,6 @@ def p_arg(t):
 def p_arg_E(t):
 	'arg : '
 	pass
-'''
-def p_funcall2(t):
-	function-call : PRINT LPAREN identifier RPAREN
-	| READ LPAREN identifier RPAREN
-	| WRITE LPAREN identifier COMMA identifier RPAREN
-	t[0] = t[1] + t[2] + t[3] + t[4]
-'''
 
 def p_funcname(t):
 	'''function-name : ADD
@@ -216,15 +199,24 @@ def p_funcname(t):
 	t[0] = t[1]
 	print "function-name : {0}".format(t[1])
 
+i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
+#i = "func main(Text hi, Numeric bye) {print(hi);}"
+#print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world';}")
+#print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
+
+
 def p_error(t):
-    import inspect
-    frame = inspect.currentframe()
-    cvars = frame.f_back.f_locals
-    print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
-    print 'Found:', cvars['ltype']
+	import inspect
+	frame = inspect.currentframe()
+	cvars = frame.f_back.f_locals
+	#pprint (cvars)
+	print "SYNTAX ERROR:"
+	print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
+	print 'Found:', cvars['ltype']
+	print cvars['errtoken']
+	print "input: {0}".format(i)
 
 l = lex.lex()
-i = "func main(hi, bye) { Numeric n = 1+2;}"
 lex.input(i)
 
 while 1:
@@ -233,11 +225,7 @@ while 1:
 	print tok
 
 yacc.yacc()
-yacc.parse(i,lexer=l)
+yacc.parse(i,lexer=l,tracking=True)
 
-
-#print yacc.parse("func main(Text hi, Numeric bye) {print(hi);}")
-#print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world';}")
-#print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
 
 
