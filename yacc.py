@@ -17,7 +17,7 @@ def p_id(t):
 #parameter list
 def p_listE(t):
 	'parameter-list : '
-	print 'parameter-list : E'
+	pass
 
 def p_plist(t):
 	'parameter-list : type-declaration'
@@ -52,7 +52,7 @@ def p_slist(t):
 
 def p_slist3(t):
 	'statement-list : '
-	t[0] = ""
+	pass
 
 #Statements
 def p_s(t):
@@ -194,7 +194,7 @@ def p_arg(t):
 
 def p_arg_E(t):
 	'arg : '
-	t[0] = ""
+	pass
 '''
 def p_funcall2(t):
 	function-call : PRINT LPAREN identifier RPAREN
@@ -232,7 +232,7 @@ while 1:
 	if not tok: break
 	print tok
 
-yacc.yacc(debug=True)
+yacc.yacc()
 yacc.parse(i,lexer=l)
 
 
