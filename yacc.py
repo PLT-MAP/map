@@ -2,19 +2,37 @@ import ply.yacc as yacc
 from MAPlexer import * 
 from pprint import pprint
 
-#function definition
+class Expr: pass
+
+class Node(Expr):
+	def __init__(self,left,value,right,t):
+		self.type = t
+		self.left = left
+		self.right = right
+		self.value = value
+
+	def __str__(self):
+		ret = "\t" + repr(self.value) + repr(self.type) + "\n"
+		
+		if self.left is not None:
+			ret += "\t" + self.left.__str__()
+		
+		if self.right is not None:
+			ret += "\t" + self.right.__str__()
+		
+		return ret
+
+	def __repr__(self):
+		return '()'
+
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN LBR statement-list RBR'
-	print "funtion-definition : {1} {2} {3} {4} {5}".format(t[0],t[1],t[2],t[3],t[4],t[5])
-	t[0] = t[1] + t[2] + t[3] + t[4] + t[5]
+	t[0] = Node(t[4],t[2],t[7],'function-definition')
 
-#identifiers
 def p_id(t):
 	'identifier : ID'
-	print "identifier : {1}".format(t[0],t[1])
 	t[0] = t[1]
 
-#parameter list
 def p_listE(t):
 	'parameter-list : '
 	pass
@@ -22,28 +40,23 @@ def p_listE(t):
 def p_plist(t):
 	'parameter-list : type-declaration'
 	t[0] = t[1]
-	print "parameter-list : {0}".format(t[1])
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA type-declaration'
-	t[0] = t[1] + t[2] + t[3]
-	print "parameter-list : {0} {1} {2}".format(t[1],t[2],t[3])
+	t[0] = Node(t[1],t[2],t[3],'parameter-list')
 
-#group of statementsd
 def p_slist2(t):
 	'statement-list : statement-list statement'
-	t[0] = t[1] + t[2] 
+	t[0] = Node(t[1],t[2],None,'statement-list')
 
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
-	t[0] = t[1] + t[2]
-	print "statement-list : {0} {1}".format(t[1],t[2])
+	t[0] = Node(t[1],t[2],None,'statement-list')
 
 def p_slist3(t):
 	'statement-list : '
 	pass
 
-#Statements
 def p_s(t):
 	'''statement : expression
 	| function-call'''
@@ -82,9 +95,10 @@ def p_expr(t):
 def p_aexpr(t):
 	'assignment-expression : conditional-expression'
 	t[0] = t[1]
+
 def p_aexpr2(t):
 	'assignment-expression : primary-expression EQUALS assignment-expression'
-	t[0] = t[1] + t[2] + t[3] 
+	t[0] = Node(t[1],t[2],t[3],'assignment-expression')
 
 def p_condexpr(t):
 	'''conditional-expression : logical-OR-expression
@@ -154,8 +168,7 @@ def p_primexp(t):
 
 def p_typedec(t):
 	'type-declaration : TYPE identifier'
-	t[0] = t[1] + t[2]
-	print "type-declaration : {0} {1}".format(t[1],t[2])
+	t[0] = Node(t[1],t[2],None,'type-declaration')
 
 def p_primexp2(t):
 	'''primary-expression : LPAREN expression RPAREN'''	
@@ -221,10 +234,11 @@ lex.input(i)
 while 1:
 	tok = lex.token()
 	if not tok: break
-	print tok
+	#print tok
 
 yacc.yacc()
-yacc.parse(i,lexer=l,tracking=True)
+print yacc.parse(i,lexer=l,tracking=True)
+
 
 
 
