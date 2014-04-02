@@ -31,8 +31,8 @@ def p_plist2(t):
 
 #group of statementsd
 def p_slist2(t):
-	'statement-list : statement-list SEMICOLON statement'
-	t[0] = t[1] + t[2] + t[3]
+	'statement-list : statement-list statement'
+	t[0] = t[1] + t[2] 
 
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
@@ -199,10 +199,9 @@ def p_funcname(t):
 	t[0] = t[1]
 	print "function-name : {0}".format(t[1])
 
-i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
+#i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
-#print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world';}")
-#print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
+i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
 
 
 def p_error(t):
@@ -213,7 +212,7 @@ def p_error(t):
 	print "SYNTAX ERROR:"
 	print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
 	print 'Found:', cvars['ltype']
-	print cvars['errtoken']
+	print 'Errtoken: {0}'.format(cvars['errtoken'])
 	print "input: {0}".format(i)
 
 l = lex.lex()
