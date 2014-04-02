@@ -223,11 +223,15 @@ def p_error(t):
     print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
     print 'Found:', cvars['ltype']
 
+l = lex.lex()
+i = "func main(hi, bye) { Numeric n = 1+2;}"
+lex.input(i)
 yacc.yacc(debug=True)
+yacc.parse(i,lexer=l)
 
 
 #print yacc.parse("func main(Text hi, Numeric bye) {print(hi);}")
-print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world';}")
+#print yacc.parse("func main(Text hi, Numeric bye) { Text t = 'Hello, world';}")
 #print yacc.parse("func main(hi, bye) { Numeric n = 1+2;}")
 
 
