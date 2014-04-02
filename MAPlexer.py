@@ -156,7 +156,9 @@ lexer=lex.lex()
 
 #lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
-#while 1:
-#	tok = lex.token()
-#	if not tok: break
-#	print tok
+lex.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
+
+while 1:
+	tok = lex.token()
+	if not tok: break
+	print tok
