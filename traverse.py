@@ -5,6 +5,11 @@ class Traverse(object):
 	def __init__(self, tree, file=sys.stdout):
 		self.f = file
 		
+		# used for scope checking
+		self.var_scopes = [[]]
+		self.scope_depth = 0
+		
+
 		self.relops = {'<','>','<=','>=','==','!=','+','-','*','/','%'}
 		self.future_imports = []
 		self.tempPoints = set()
@@ -30,14 +35,29 @@ class Traverse(object):
 	def enter(self):
 		'''Create a new scope associated with the corresponding : and increase to
 		the appropriate indentation.'''
-		self.write(":")
+		self.scope_depth += 1
+		self.var_scopes.append([])
 		self._indent += 1
+		self.f.write(":")
 
 	def leave(self):
-		'''Decrease the indentation level.'''
+		'''Decrease the indentation level and remove out-of-scope symbols.'''
 		self._indent -= 1
+		for var in self.var_scopes[self.scope_depth]:
+			del self.symbols[var]
+			if (var + str(self.scope_depth)) in self.symbols:
+				self.symbols[var] = self.symbols[var + str(self.scope_depth)]
+				del self.symbols[var + str(self.scope_depth)]
+			if var in self.values:
+				del self.values[var]
+				if (var + str(self.scope_depth)) in self.values:
+					self.values[var] = self.values[var + str(self.scope_depth)]
+					del self.values[var + str(self.scope_depth)]
+		del self.var_scopes[self.scope_depth]
+		self.scope_depth -= 1
+		self.indent -= 1
 
-	def dispatch(self, tree):
+	def dispatch(self, tree, flag=None):
 		'''Dispatcher function, dispatching tree type T to method _T.'''
 		if isinstance(tree, list):
 			for t in tree:
@@ -45,7 +65,7 @@ class Traverse(object):
 			return
 		meth = getattr(self, "_"+tree.type)
 		x = meth(tree, flag)
-		return x.
+		return x
 
 
 
