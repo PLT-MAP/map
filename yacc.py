@@ -9,6 +9,9 @@ class Node(Expr):
 		self.t = t
 		self.children = children
 		self.name = name
+	
+	def addChild(self,c):
+		self.children.append(c)
 
 	def __str__(self):
 		return "type:{1} name:{0}".format(self.name,self.t)
@@ -37,7 +40,7 @@ def p_fd(t):
 
 def p_id(t):
 	'identifier : ID'
-	t[0] = t[1]
+	t[0] = Node(t[1],'identifier')
 
 def p_listE(t):
 	'parameter-list : '
@@ -49,17 +52,21 @@ def p_plist(t):
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA type-declaration'
-	print t[1] 
-	print type(t[1])
-	#t[0] = t[1].children.append(t[3])
+#	t[1].addChild(t[3])
+	t[0] = Node(t[1],'param-list',t[3])
+
+def p_typedec(t):
+	'type-declaration : TYPE identifier'
+	t[0] = Node(t[1],'type-dec',t[2])
+
 
 def p_slist2(t):
 	'statement-list : statement-list statement'
-	t[0] = Node(t[2],[t[2]],'statement-list')
-
+	t[0] = Node(t[1],'statement-list',t[3])
+	
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
-	t[0] = Node(t[2],[Node(t[1],[])],'statement-list')
+	t[0] = Node(t[2],'statement-list',[Node(t[1],[])])
 
 def p_slist3(t):
 	'statement-list : '
@@ -68,7 +75,7 @@ def p_slist3(t):
 def p_s(t):
 	'''statement : expression
 	| function-call'''
-	t[0] = Node(t[1],[],t[0])
+	t[0] = Node(t[1],'statement')
 
 '''| selection-statement
 | iteration-statement'''
@@ -173,10 +180,6 @@ def p_primexp(t):
 	| LITERAL
 	| NUMERIC'''
 	t[0] = t[1]
-
-def p_typedec(t):
-	'type-declaration : TYPE identifier'
-	t[0] = Node(t[2],[Node(t[1],[])],'type-declaration')
 
 def p_primexp2(t):
 	'''primary-expression : LPAREN expression RPAREN'''	
