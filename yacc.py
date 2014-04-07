@@ -25,9 +25,13 @@ class Node(Expr):
 	def __repr__(self):
 		return '()'
 
+ast = Node(None,None,None,'') #root of the AST
+
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN LBR statement-list RBR'
 	t[0] = Node(t[4],t[2],t[7],'function-definition')
+	global ast
+	ast = t[0]
 
 def p_id(t):
 	'identifier : ID'
@@ -237,7 +241,8 @@ while 1:
 	#print tok
 
 yacc.yacc()
-print yacc.parse(i,lexer=l,tracking=True)
+yacc.parse(i,lexer=l,tracking=True)
+
 
 
 
