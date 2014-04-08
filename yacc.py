@@ -5,11 +5,18 @@ from pprint import pprint
 class Expr: pass
 
 class Node(Expr):
-	def __init__(self,name,t='',children=[]):
+	def __init__(self,name='',t='',children=[]):
 		self.t = t
 		self.children = children
+		#print "children:" 
+			
+		#for i in self.children:
+		#	print i
+		
 		self.name = name
-	
+		#print "name:{0}".format(self.name)
+
+
 	def addChild(self,c):
 		self.children.append(c)
 
@@ -34,48 +41,47 @@ ast = Node('root') #root of the AST
 
 def p_fd(t):
 	'function-definition : FUNC identifier LPAREN parameter-list RPAREN LBR statement-list RBR'
-	t[0] = Node(t[2],'funcdef',[Node(t[4]),Node(t[7])])
+	t[0] = Node(t[2],'funcdef',[t[4],t[7]])
 	global ast
 	ast = t[0]
 
 def p_id(t):
 	'identifier : ID'
-	t[0] = Node(t[1],'identifier')
+	t[0] = Node(t[1])
 
 def p_listE(t):
 	'parameter-list : '
-	pass
+	t[0] = Node()
 
 def p_plist(t):
 	'parameter-list : type-declaration'
-	t[0] = Node(t[1],'param-list')
+	t[0] = Node('','param-list',[t[1]])
 
 def p_plist2(t):
 	'parameter-list : parameter-list COMMA type-declaration'
-#	t[1].addChild(t[3])
-	t[0] = Node(t[1],'param-list',t[3])
+	t[0] = Node(t[2],'param-list',[t[1],t[3]])
 
 def p_typedec(t):
 	'type-declaration : TYPE identifier'
-	t[0] = Node(t[1],'type-dec',t[2])
+	t[0] = Node(t[1] + t[2])
 
 
 def p_slist2(t):
 	'statement-list : statement-list statement'
-	t[0] = Node(t[1],'statement-list',t[3])
+	t[0] = Node('','statement-list',[t[1],t[3]])
 	
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
-	t[0] = Node(t[2],'statement-list',[Node(t[1],[])])
+	t[0] = Node(t[2],'statement-list',[t[1]])
 
 def p_slist3(t):
 	'statement-list : '
-	pass
+	t[0] = Node()
 
 def p_s(t):
 	'''statement : expression
 	| function-call'''
-	t[0] = Node(t[1],'statement')
+	t[0] = Node('','statement',[t[1]])
 
 '''| selection-statement
 | iteration-statement'''
@@ -83,12 +89,13 @@ def p_s(t):
 #if statement
 def p_sels(t):
 	'selection-statement : IF LPAREN expression RPAREN statement'
-	t[0] = Node(t[1],[Node(t[2],[]), Node(t[3],[]), Node(t[4]), Node(t[5])],t[0])
+	t[0] = Node(t[1],'selection-statement',[t[3],t[5]])
 
 #else statement
 def p_sels2(t):
 	'selection-statement : IF LPAREN expression RPAREN statement ELSE statement'
-	t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7]
+	t[0] = Node(t[1],'selection-statement',[t[3],t[5],t[7]])
+
 
 '''
 #for loop
@@ -113,7 +120,7 @@ def p_aexpr(t):
 
 def p_aexpr2(t):
 	'assignment-expression : primary-expression EQUALS assignment-expression'
-	t[0] = Node(t[2],[Node(t[1],[]),Node(t[3],[])],'assignment-expression')
+	t[0] = Node(t[2],'assignment-expression',[t[1],t[3]])
 
 def p_condexpr(t):
 	'''conditional-expression : logical-OR-expression
@@ -226,7 +233,7 @@ def p_funcname(t):
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
-i = "func main(Text hi, Numeric bye){}"
+i = "func main(){}"
 
 def p_error(t):
 	import inspect
