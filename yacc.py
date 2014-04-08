@@ -182,10 +182,14 @@ def p_multexpr2(t):
 
 def p_primexp(t):
 	'''primary-expression : identifier
-	| type-declaration
-	| LITERAL
-	| NUMERIC'''
+	| type-declaration'''
 	t[0] = Node('','primary-expression',[t[1]])
+
+def p_primexp_term(t):
+	'''primary-expression : LITERAL
+	| NUMERIC'''
+	t[0] = Node('','primary-expression',[Node(t[1])])
+
 
 def p_primexp2(t):
 	'''primary-expression : LPAREN expression RPAREN'''	
@@ -207,10 +211,14 @@ def p_funcargs2(t):
 	'func-args : func-args COMMA arg'
 	t[0] = Node(t[2],[t[1],t[3]])
 
-def p_arg(t):
-	'''arg : LITERAL
-	| identifier'''
+def p_arg_lit(t):
+	'arg : LITERAL'
+	t[0] = Node('','arg',[Node(t[1])])
+
+def p_arg_id(t):
+	'arg : identifier'
 	t[0] = Node('','arg',[t[1]])
+
 
 def p_arg_E(t):
 	'arg : '
@@ -231,7 +239,7 @@ def p_funcname(t):
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
-i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore; }"
+i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; }"
 
 def p_error(t):
 	import inspect
