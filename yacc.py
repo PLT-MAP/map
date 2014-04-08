@@ -66,12 +66,12 @@ def p_typedec(t):
 	t[0] = Node(t[1],'typedec',[t[2]])
 
 def p_slist2(t):
-	'statement-list : statement-list statement'
+	'statement-list : statement-list statement SEMICOLON'
 	t[0] = Node('','statement-list',[t[1],t[2]])
 	
 def p_slist(t):
 	'statement-list : statement SEMICOLON'
-	t[0] = Node(t[2],'statement-list',[t[1]])
+	t[0] = Node('','statement-list',[t[1]])
 
 def p_slist3(t):
 	'statement-list : '
@@ -190,7 +190,6 @@ def p_primexp_term(t):
 	| NUMERIC'''
 	t[0] = Node('','primary-expression',[Node(t[1])])
 
-
 def p_primexp2(t):
 	'''primary-expression : LPAREN expression RPAREN'''	
 	t[0] = Node('','primary-expression', [t[2]])
@@ -239,7 +238,7 @@ def p_funcname(t):
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
-i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; }"
+i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2;}"
 
 def p_error(t):
 	import inspect
