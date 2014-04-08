@@ -6,7 +6,7 @@ class Expr: pass
 
 class Node(Expr):
 	def __init__(self,name='',t='',children=[]):
-		self.t = t
+		self.type = t
 		self.children = children
 		#print "children:" 
 			
@@ -21,7 +21,7 @@ class Node(Expr):
 		self.children.append(c)
 
 	def __str__(self):
-		return "{1}  {0}".format(self.name,self.t)
+		return "{1}  {0}".format(self.name,self.type)
 '''
 	def __str__(self):
 		ret = "^------" + repr(self.value) + repr(self.type) + "\n"
@@ -238,7 +238,7 @@ def p_funcname(t):
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
-i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2;}"
+i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2; hello = oneMore + hello;}"
 
 def p_error(t):
 	import inspect
