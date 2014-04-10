@@ -67,8 +67,18 @@ class Traverse(object):
 		x = meth(tree, flag)
 		return x
 
+# do we need external declaration stuff? translation unit? not in yacc but in our grammer
+
+	# function definition
+	def _fd(self, tree, flag=None):
+		
+
+	# identifier
+	def _id(self, tree, flag=None):
 
 
+
+# maybe use
 	def listtoparams(self, l, x=None):
 		s = ""
 		comma = False
@@ -82,40 +92,57 @@ class Traverse(object):
 				self.waitingfor.add(a)
 		return s
 
-	def _logical_OR_expression(self, tree, flag=None):
+	# logical expressions
+	def _logorexpr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + " or " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _logical_AND_expression(self, tree flag=None):
+	def _logandexpr(self, tree flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + " and " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag):
 
-	def _equality_expression(self, tree, flag=None):
+	# equality expression
+	def _eqexpr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _relational_expression(self, tree, flag=None):
+	# relational expression
+	def _relexpr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _additive_expression(self, tree, flag=None):
+	# additive expression
+	def _addexpr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _multiplicative_expression(self, tree, flag=None):
+	# multiplicative expression
+	def _multexpr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag) 
 
-	
+	# primary expression
+	def _primexp(self, tree, flag=None):
+
+
+	# primary expression term
+	def _primexp_term(self, tree, flag=None):
+
+
+	# function call
+	def _funcall(self, tree, flag=None): #params here?
+
+
+
