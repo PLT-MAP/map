@@ -1,3 +1,4 @@
+from yacc import *
 import sys
 
 class Traverse(object):
@@ -70,9 +71,10 @@ class Traverse(object):
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
 
 	# function definition
-	def _fd(self, tree, flag=None):
+	def _funcdef(self, tree, flag=None):
 		
 
+'''
 	# identifier
 	def _id(self, tree, flag=None):
 
@@ -143,6 +145,12 @@ class Traverse(object):
 
 	# function call
 	def _funcall(self, tree, flag=None): #params here?
+'''
 
 
+def main():
+	t = Traverse(ast)
+	t.enter()
 
+if __name__ == "__main__":
+	main()
