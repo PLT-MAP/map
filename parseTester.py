@@ -19,8 +19,11 @@ def testlex():
 	lexer=lex.lex()
 	lexer.input(test)
 	for tok in lexer:
-		if tok.type!='NUMERIC':
+		if tok.value == "Text" and tok.type!='TYPE':
 			print "Test1 failed"
+			print tok.type
+			print tok.value
+			printTokens(lexer)
 			return False
 	print "Test1 passed"
 
@@ -134,6 +137,13 @@ def main():
 		print 'All tests were passed'
 	else:
 		print'Please fix error'
+	
+
+def printTokens(l):
+	while 1:
+		tok = l.token()
+		if not tok: break
+		print tok
 
 
 if __name__ == "__main__":

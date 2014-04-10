@@ -25,4 +25,4 @@ def walkAst(t,state={}):
 print draw_tree(ast)
 walkAst(ast)
 
-
+print i
