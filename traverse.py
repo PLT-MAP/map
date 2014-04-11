@@ -6,6 +6,12 @@ class Traverse(object):
 	def __init__(self, tree, file=sys.stdout):
 		self.f = file
 		
+		self.flist = {"Edge": "Edge",
+					  "Text": "Text"}
+		self.fargs = {"Edge": [str], 
+					  "Node": [str],
+					  "Text": [str],
+					  "Path": [str]}
 		# used for scope checking
 		self.var_scopes = [[]]
 		self.scope_depth = 0
@@ -68,11 +74,81 @@ class Traverse(object):
 		x = meth(tree, flag)
 		return x
 
+	def flatten(self, x):
+		result = []
+		for y in x:
+			if hasattr(y, "__iter__") and not isinstance(y, basestring):
+				result.extend(self.flatten(y))
+			else:
+				result.append(y)
+		return result
+
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
 
 	# function definition
 	def _funcdef(self, tree, flag=None):
-		
+		print "tree", tree
+		fname = tree.leaf
+		print "fname: ", fname
+		s = "def" + tree.leaf + "("
+		if len(tree.children) == 2:
+			self.enter()
+			params = self.dispatch(tree.children[0], flag)
+
+			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			for (param, param_type) in zip(params, self.fargs[fname]):
+				print (param, param_type)
+				self.symbols[param] = param_type
+				self.var_scopes[self.scope_depth].append(param)
+			comma = False
+			for a in params:
+				if comma:
+					s += ","
+				else:
+					comma = True
+				s += a
+				self.waitingfor.add(a)
+			s = s + "):\n"
+			r = self.dispatch(tree.children[1], flag)
+			r += "\npass"
+			s += self.fill(r)
+			self.leave()
+		else:
+			p = self.dispatch(tree.children[0], flag)
+			comma = False
+			for a in p:
+				if comma:
+					s += ","
+				else:
+					comma = True
+				s += a
+				self.waitingfor.add(a)
+			s = s + "):\n"
+			self.enter()
+			self.fill("pass")
+		return s
+
+	def _param_list(self, tree, flag=None):
+		if len(tree.children) == 0:
+			return ""
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		else:
+			x = self.dispatch(tree.children[0], flag)
+			y = self.dispatch(tree.children[1], flag)
+			z = [x] + [y]
+			return self.flatten(z)
+
+
+	def _typedec(self, tree, flag=None):
+		return self.dispatch(tree.children[0], flag)
+
+	
+	def _statement_list(self, tree, flag=None):
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		else:
+			return self.dispatch(tree.children[0], flag) + "\n" + self.dispatch(tree.children[1], flag)
 
 '''
 	# identifier
