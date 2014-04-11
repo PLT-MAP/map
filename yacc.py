@@ -40,7 +40,7 @@ class Node(Expr):
 ast = Node('root') #root of the AST
 
 def p_fd(t):
-	'function-definition : FUNC identifier LPAREN parameter-list RPAREN LBR statement-list RBR'
+	'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
 	t[0] = Node(t[2],'funcdef',[t[4],t[7]])
 	global ast
 	ast = t[0]
@@ -50,36 +50,36 @@ def p_id(t):
 	t[0] = Node(t[1])
 
 def p_listE(t):
-	'parameter-list : '
+	'parameter_list : '
 	t[0] = Node()
 
 def p_plist(t):
-	'parameter-list : type-declaration'
-	t[0] = Node('','param-list',[t[1]])
+	'parameter_list : type_declaration'
+	t[0] = Node('','param_list',[t[1]])
 
 def p_plist2(t):
-	'parameter-list : parameter-list COMMA type-declaration'
-	t[0] = Node(t[2],'param-list',[t[1],t[3]])
+	'parameter_list : parameter_list COMMA type_declaration'
+	t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 def p_typedec(t):
-	'type-declaration : TYPE identifier'
+	'type_declaration : TYPE identifier'
 	t[0] = Node(t[1],'typedec',[t[2]])
 
 def p_slist2(t):
-	'statement-list : statement-list statement SEMICOLON'
-	t[0] = Node('','statement-list',[t[1],t[2]])
+	'statement_list : statement_list statement SEMICOLON'
+	t[0] = Node('','statement_list',[t[1],t[2]])
 	
 def p_slist(t):
-	'statement-list : statement SEMICOLON'
-	t[0] = Node('','statement-list',[t[1]])
+	'statement_list : statement SEMICOLON'
+	t[0] = Node('','statement_list',[t[1]])
 
 def p_slist3(t):
-	'statement-list : '
+	'statement_list : '
 	t[0] = Node()
 
 def p_s(t):
 	'''statement : expression
-	| function-call'''
+	| function_call'''
 	t[0] = Node('','statement',[t[1]])
 
 '''| selection-statement
@@ -87,13 +87,13 @@ def p_s(t):
 
 #if statement
 def p_sels(t):
-	'selection-statement : IF LPAREN expression RPAREN statement'
-	t[0] = Node(t[1],'selection-statement',[t[3],t[5]])
+	'selection_statement : IF LPAREN expression RPAREN statement'
+	t[0] = Node(t[1],'selection_statement',[t[3],t[5]])
 
 #else statement
 def p_sels2(t):
-	'selection-statement : IF LPAREN expression RPAREN statement ELSE statement'
-	t[0] = Node(t[1],'selection-statement',[t[3],t[5],t[7]])
+	'selection_statement : IF LPAREN expression RPAREN statement ELSE statement'
+	t[0] = Node(t[1],'selection_statement',[t[3],t[5],t[7]])
 
 
 '''
@@ -109,105 +109,105 @@ def p_ters2(t):
 
 #assignment
 def p_expr(t):
-	'expression : assignment-expression'
+	'expression : assignment_expression'
 	t[0] = Node('','expr',[t[1]])
 
 #Conditional expression
 def p_aexpr(t):
-	'assignment-expression : conditional-expression'
-	t[0] = Node('','assignment-expression',[t[1]])
+	'assignment_expression : conditional_expression'
+	t[0] = Node('','assignment_expression',[t[1]])
 
 def p_aexpr2(t):
-	'assignment-expression : primary-expression EQUALS assignment-expression'
-	t[0] = Node(t[2],'assignment-expression',[t[1],t[3]])
+	'assignment_expression : primary_expression EQUALS assignment_expression'
+	t[0] = Node(t[2],'assignment_expression',[t[1],t[3]])
 
 def p_condexpr(t):
-	'''conditional-expression : logical-OR-expression
-	| logical-AND-expression'''
-	t[0] = Node('','conditional-expression',[t[1]])
+	'''conditional_expression : logical_OR_expression
+	| logical_AND_expression'''
+	t[0] = Node('','conditional_expression',[t[1]])
 
 def p_logorexpr(t):
-	'logical-OR-expression : logical-AND-expression'
-	t[0] = Node('','logical-or-expr',[t[1]])
+	'logical_OR_expression : logical_AND_expression'
+	t[0] = Node('','logical_or_expr',[t[1]])
 
 def p_logorexpr2(t):	
-	'logical-OR-expression : logical-OR-expression LOGICALOR logical-AND-expression'
+	'logical_OR_expression : logical_OR_expression LOGICALOR logical_AND_expression'
 	t[0] = Node(t[2],'',[t[1],t[3]])
 
 def p_logandexpr(t):
-	'logical-AND-expression : equality-expression'
-	t[0] = Node('','logical-and-expr',[t[1]])
+	'logical_AND_expression : equality_expression'
+	t[0] = Node('','logical_and_expr',[t[1]])
 
 def p_logandexpr2(t):
-	'logical-AND-expression : logical-AND-expression LOGICALAND equality-expression'
-	t[0] = Node(t[2],'logical-and-expr',[t[1],t[3]])
+	'logical_AND_expression : logical_AND_expression LOGICALAND equality_expression'
+	t[0] = Node(t[2],'logical_and_expr',[t[1],t[3]])
 
 def p_eqexpr(t):
-	'equality-expression : relational-expression'
-	t[0] = Node('','equality-expression',[t[1]])
+	'equality_expression : relational_expression'
+	t[0] = Node('','equality_expression',[t[1]])
 
 def p_eqexpr2(t):
-	'''equality-expression : equality-expression EQUALSEQUALS relational-expression
-	| equality-expression DOESNOTEQUAL relational-expression'''
-	t[0] = Node(t[2],'equality-expression',[t[1],t[3]])
+	'''equality_expression : equality_expression EQUALSEQUALS relational_expression
+	| equality_expression DOESNOTEQUAL relational_expression'''
+	t[0] = Node(t[2],'equality_expression',[t[1],t[3]])
 
 def p_relexpr(t):
-	'relational-expression : additive-expression'
-	t[0] = Node('','relational-expression',[t[1]])
+	'relational_expression : additive_expression'
+	t[0] = Node('','relational_expression',[t[1]])
 
 def p_relexpr2(t):
-	'''relational-expression : relational-expression GREATERTHAN additive-expression
-	| relational-expression LESSTHAN additive-expression
-	| relational-expression LESSTHANOREQUALTO additive-expression
-	| relational-expression GREATERTHANOREQUALTO additive-expression'''
-	t[0] = Node(t[2],'relational-expression',[t[2],t[3]])
+	'''relational_expression : relational_expression GREATERTHAN additive_expression
+	| relational_expression LESSTHAN additive_expression
+	| relational_expression LESSTHANOREQUALTO additive_expression
+	| relational_expression GREATERTHANOREQUALTO additive_expression'''
+	t[0] = Node(t[2],'relational_expression',[t[2],t[3]])
 
 def p_addexpr(t):
-	'additive-expression : multiplicative-expression'
-	t[0] = Node('','additive-expression',[t[1]])
+	'additive_expression : multiplicative_expression'
+	t[0] = Node('','additive_expression',[t[1]])
 
 def p_addexpr2(t):
-	'''additive-expression : additive-expression PLUS multiplicative-expression
-	| additive-expression MINUS multiplicative-expression'''
-	t[0] = Node(t[2],'additive-expression', [t[1],t[3]])
+	'''additive_expression : additive_expression PLUS multiplicative_expression
+	| additive_expression MINUS multiplicative_expression'''
+	t[0] = Node(t[2],'additive_expression', [t[1],t[3]])
 
 def p_multexpr(t):
-	'multiplicative-expression : primary-expression'
-	t[0] = Node('','multiplicative-expression',[t[1]])
+	'multiplicative_expression : primary_expression'
+	t[0] = Node('','multiplicative_expression',[t[1]])
 
 def p_multexpr2(t):
-	'''multiplicative-expression : multiplicative-expression TIMES primary-expression
-	| multiplicative-expression DIVIDE primary-expression'''
-	t[0] = Node(t[2],'multiplicative-expression',[t[1], t[3]])
+	'''multiplicative_expression : multiplicative_expression TIMES primary_expression
+	| multiplicative_expression DIVIDE primary_expression'''
+	t[0] = Node(t[2],'multiplicative_expression',[t[1], t[3]])
 
 def p_primexp(t):
-	'''primary-expression : identifier
-	| type-declaration'''
-	t[0] = Node('','primary-expression',[t[1]])
+	'''primary_expression : identifier
+	| type_declaration'''
+	t[0] = Node('','primary_expression',[t[1]])
 
 def p_primexp_term(t):
-	'''primary-expression : LITERAL
+	'''primary_expression : LITERAL
 	| NUMERIC'''
-	t[0] = Node('','primary-expression',[Node(t[1])])
+	t[0] = Node('','primary_expression',[Node(t[1])])
 
 def p_primexp2(t):
-	'''primary-expression : LPAREN expression RPAREN'''	
-	t[0] = Node('','primary-expression', [t[2]])
+	'''primary_expression : LPAREN expression RPAREN'''	
+	t[0] = Node('','primary_expression', [t[2]])
 
 def p_funcall(t):
-	'function-call : identifier PERIOD function-name LPAREN parameter-list RPAREN'
-	t[0] = Node(t[2],'function-call',[t[1],t[3],t[5]])
+	'function_call : identifier PERIOD function_name LPAREN parameter_list RPAREN'
+	t[0] = Node(t[2],'function_call',[t[1],t[3],t[5]])
 
 def p_funcall2(t):
-	'function-call : identifier LPAREN func-args RPAREN'
-	t[0] = Node('','function-call',[t[1], t[3]])
+	'function_call : identifier LPAREN func_args RPAREN'
+	t[0] = Node('','function_call',[t[1], t[3]])
 
 def p_funcargs(t):
-	'func-args : arg'
-	t[0] = Node('','func-args',[t[1]])
+	'func_args : arg'
+	t[0] = Node('','func_args',[t[1]])
 
 def p_funcargs2(t):
-	'func-args : func-args COMMA arg'
+	'func_args : func_args COMMA arg'
 	t[0] = Node(t[2],[t[1],t[3]])
 
 def p_arg_lit(t):
@@ -224,7 +224,7 @@ def p_arg_E(t):
 	t[0] = Node()
 
 def p_funcname(t):
-	'''function-name : ADD
+	'''function_name : ADD
 	| DELETEFUNC
 	| ADJACENTFUNC
 	| PATHFUNC
@@ -233,7 +233,7 @@ def p_funcname(t):
 	| DELETEEDGEFUNC
 	| FINDSHORTESTFUNC
 	| EQUALSFUNC'''
-	t[0] = Node('','function-name',[t[1]])
+	t[0] = Node('','function_name',[t[1]])
 
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
@@ -261,8 +261,5 @@ while 1:
 
 yacc.yacc()
 yacc.parse(i,lexer=l,tracking=True)
-
-
-
 
 

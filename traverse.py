@@ -171,56 +171,60 @@ class Traverse(object):
 		return s
 
 	# logical expressions
-	def _logorexpr(self, tree, flag=None):
+	def _logical_or_expr(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + " or " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _logandexpr(self, tree flag=None):
+	def _logical_and_expr(self, tree flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + " and " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag):
 
 	# equality expression
-	def _eqexpr(self, tree, flag=None):
+	def _equality_expression(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# relational expression
-	def _relexpr(self, tree, flag=None):
+	def _relational_expression(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# additive expression
-	def _addexpr(self, tree, flag=None):
+	def _additive_expression(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# multiplicative expression
-	def _multexpr(self, tree, flag=None):
+	def _multiplicative_expression(self, tree, flag=None):
 		if tree.leaf:
 			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag) 
 
 	# primary expression
-	def _primexp(self, tree, flag=None):
-
-
-	# primary expression term
-	def _primexp_term(self, tree, flag=None):
+	def _primary_expression(self, tree, flag=None):
 
 
 	# function call
-	def _funcall(self, tree, flag=None): #params here?
+	def _function_call(self, tree, flag=None): #params here?
+
+	def _func_args():
+
+	def _arg():
+
+	def _function_name():
+
+
 '''
 
 
