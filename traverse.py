@@ -12,6 +12,19 @@ class Traverse(object):
 					  "Node": [str],
 					  "Text": [str],
 					  "Path": [str]}
+		self.class_meths = {"LIST": {
+								'append': "every",
+								'get': [int],
+								'delete': [int]
+								}
+							}
+		self.class_meth_impls = {"LIST": {
+				'append': (lambda name, params : '%s.append(%s)' % (name, params)),
+				'get': (lambda name, params : '%s[%s]' % (name, params)),
+				'delete': (lambda name, params : 'del %s[%s]' % (name, params))
+				}
+			}
+		
 		# used for scope checking
 		self.var_scopes = [[]]
 		self.scope_depth = 0
