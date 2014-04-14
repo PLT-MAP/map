@@ -83,9 +83,17 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		meth = getattr(self, "_"+tree.type)
-		x = meth(tree, flag)
-		return x
+		print "type: ", tree.type
+		try:
+			meth = getattr(self,"_"+tree.type)
+			x = meth(tree, flag)
+			return x
+		except AttributeError:
+			print "failed"
+			return
+		else:
+			print "not attribute error"
+			return 
 
 	def flatten(self, x):
 		result = []
@@ -152,16 +160,24 @@ class Traverse(object):
 			z = [x] + [y]
 			return self.flatten(z)
 
-
 	def _typedec(self, tree, flag=None):
+		print "hey sandya"
 		return self.dispatch(tree.children[0], flag)
 
 	
 	def _statement_list(self, tree, flag=None):
+		print "hey alf"
+		if len(tree.children) == 0:
+			print "no kids"
+			return ""
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		else:
 			return self.dispatch(tree.children[0], flag) + "\n" + self.dispatch(tree.children[1], flag)
+
+	def _statement(self, tree, flag=None):
+		print "hey serena"
+		return self.dispatch(tree.children[0], flag)
 
 '''
 	# identifier

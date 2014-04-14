@@ -5,8 +5,8 @@ from pprint import pprint
 class Expr: pass
 
 class Node(Expr):
-	def __init__(self,name='',t='',children=None,leaf=None,token=None):
-		self.type = t
+	def __init__(self,name='',type='',children=None,leaf=None,token=None):
+		self.type = type
 		if children:
 			self.children = children
 		else:
@@ -51,11 +51,12 @@ def p_fd(t):
 
 def p_id(t):
 	'identifier : ID'
-	t[0] = Node(t[1])
+	print "hey id"
+	t[0] = Node(t[1],'id')
 
 def p_listE(t):
 	'parameter_list : '
-	t[0] = Node()
+	t[0] = Node('','param_list')
 
 def p_plist(t):
 	'parameter_list : type_declaration'
@@ -79,7 +80,8 @@ def p_slist(t):
 
 def p_slist3(t):
 	'statement_list : '
-	t[0] = Node()
+	print "hey empty statement_list"
+	t[0] = Node('','statement_list_E')
 
 def p_s(t):
 	'''statement : expression
@@ -239,10 +241,11 @@ def p_funcname(t):
 	| EQUALSFUNC'''
 	t[0] = Node('','function_name',[t[1]])
 
+i = "func main(Text hi){hi = 'hello';}"
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
-i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2; hello = oneMore + hello;}"
+#i = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2; hello = oneMore + hello;}"
 
 def p_error(t):
 	import inspect
