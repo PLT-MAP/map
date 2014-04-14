@@ -5,14 +5,18 @@ from pprint import pprint
 class Expr: pass
 
 class Node(Expr):
-	def __init__(self,name='',t='',children=[]):
+	def __init__(self,name='',t='',children=None,leaf=None,token=None):
 		self.type = t
-		self.children = children
+		if children:
+			self.children = children
+		else:
+			self.children = []
 		#print "children:" 
 			
 		#for i in self.children:
 		#	print i
-		
+		self.leaf = leaf
+		self.token = token
 		self.name = name
 		#print "name:{0}".format(self.name)
 
