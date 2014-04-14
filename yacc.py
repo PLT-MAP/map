@@ -46,8 +46,8 @@ class mapparser:
 
 	def __init__(self,i):
 		self.ast = Node('root') #root of the AST
-		self.lexer.input(i)
 		self.lexer = self.lexer.lex()
+		self.lexer.input(i)
 		self.parser=yacc(modules=self,write_tables=0,debug=False)
 
 		while 1:
