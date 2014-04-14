@@ -19,7 +19,7 @@ class Node(Expr):
 		self.token = token
 		self.name = name
 		#print "name:{0}".format(self.name)
-
+	
 
 	def addChild(self,c):
 		self.children.append(c)
@@ -44,14 +44,21 @@ class Node(Expr):
 
 class mapparser:
 
-<<<<<<< HEAD
 	def __init__(self,i):
 		self.ast = Node('root') #root of the AST
-		self.lexer = lex.lex()
+		self.lexer.input(i)
+		self.lexer = self.lexer.lex()
 		self.parser=yacc(modules=self,write_tables=0,debug=False)
-		lex.input(self.i)
 
-=======
+		while 1:
+			tok = lex.token()
+			if not tok: break
+				#print tok
+
+		yacc.yacc()
+		yacc.parse(i,lexer=l,tracking=True)
+
+
 def p_id(t):
 	'identifier : ID'
 	t[0] = Node(t[1],'id')
@@ -59,7 +66,6 @@ def p_id(t):
 def p_listE(t):
 	'parameter_list : '
 	t[0] = Node('','param_list')
->>>>>>> 67fa01ff43d9ff92ad3d8d3d141f8ba52f438448
 
 	def p_fd(self,t):
 		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
@@ -74,7 +80,6 @@ def p_listE(t):
 		'parameter_list : '
 		t[0] = Node()
 
-<<<<<<< HEAD
 	def p_plist(self,t):
 		'parameter_list : type_declaration'
 		t[0] = Node('','param_list',[t[1]])
@@ -278,7 +283,6 @@ def p_listE(t):
 #while 1:
 #	tok = lex.token()
 #	if not tok: break
-=======
 def p_slist2(t):
 	'statement_list : statement_list statement SEMICOLON'
 	t[0] = Node('','statement_list',[t[1],t[2]])
@@ -468,17 +472,4 @@ def p_error(t):
 	print 'Found:', cvars['ltype']
 	print 'Errtoken: {0}'.format(cvars['errtoken'])
 	print "input: {0}".format(i)
-
-l = lex.lex()
-lex.input(i)
-
-while 1:
-	tok = lex.token()
-	if not tok: break
->>>>>>> 67fa01ff43d9ff92ad3d8d3d141f8ba52f438448
-	#print tok
-
-yacc.yacc()
-yacc.parse(i,lexer=l,tracking=True)
-
 
