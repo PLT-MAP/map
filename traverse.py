@@ -103,7 +103,7 @@ class Traverse(object):
 		print "tree", tree
 		fname = tree.leaf
 		print "fname: ", fname
-		s = "def" + tree.leaf + "("
+		s = "def ", tree.leaf, "("
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
