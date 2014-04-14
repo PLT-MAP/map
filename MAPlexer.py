@@ -2,8 +2,8 @@ import ply.lex as lex
 #http://flex.sourceforge.net/manual/Patterns.html
 reserved ={ 'null':'NULL',
 	'include':'INCLUDE',
-	'true' : 'TRUE', 
-	'false' : 'FALSE',
+#	'true' : 'TRUE', 
+#	'false' : 'FALSE',
 	'Time':'TIME',
 	'DirEdge':'DIREDGE',
 	'UndirEdge':'UNDIREDGE',
@@ -32,23 +32,25 @@ reserved ={ 'null':'NULL',
 	
 }
 
+Boolean=['true','false']
 Type=['Node','Path','Graph','Text','Numeric']
 
 tokens = [
-	'NUMERIC', #1
+	'NUMERIC', 
 	'TYPE',
+	'BOOLEAN',
 	#'SINGLEQUOTE', #2
-	'DOUBLEQUOTE', #2.1
-	'ID',	   #3
-	'PLUS',    #11
-	'MINUS',   #12
-	'TIMES',   #13
-	'DIVIDE',  #14
-	'LPAREN',  #15
-	'RPAREN',  #16
-	'MODULUS', #16.1
-	'SEMICOLON', # 16.2
-	'COLON', # 16.3
+	'DOUBLEQUOTE', 
+	'ID',	   
+	'PLUS',    
+	'MINUS',   
+	'TIMES',   
+	'DIVIDE',  
+	'LPAREN',  
+	'RPAREN',  
+	'MODULUS', 
+	'SEMICOLON', 
+	'COLON', 
 	'LESSTHAN', #17
 	'GREATERTHAN', #18
 	'EQUALS', 
@@ -95,8 +97,11 @@ def t_LITERAL(t):
 def t_ID(t): 
  	r'[a-zA-Z_][a-zA-Z_0-9]*' 
  	t.type = reserved.get(t.value,'ID')
- 	if (t.value in Type):
+ 	if (t.value in Boolean):
+		t.type='BOOLEAN'
+	if (t.value in Type):
  		t.type='TYPE'
+		t.value= 'rue' in t.value  
  	return t
 
 t_SEMICOLON = r';' 
