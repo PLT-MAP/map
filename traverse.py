@@ -179,12 +179,25 @@ class Traverse(object):
 		print "hey serena"
 		return self.dispatch(tree.children[0], flag)
 
-'''
+	def _expr(self, tree, flag=None):
+		print "hey expression"
+		return self.dispatch(tree.children[0], flag)
+
 	# identifier
 	def _id(self, tree, flag=None):
+		print "hey identifier"
+		s = tree.name
+		print s
 
+	def _primary_expression(self, tree, flag=None):
+		print "hey primary expression"
+		return self.dispatch(tree.children[0], flag)
 
+	def _assignment_expression(self, tree, flag=None):
+		print "hey assignment expression"
+		return self.dispatch(tree.children[0], flag)
 
+'''
 # maybe use
 	def listtoparams(self, l, x=None):
 		s = ""
