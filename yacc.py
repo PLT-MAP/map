@@ -1,5 +1,4 @@
 import ply.yacc as yacc
-
 class Expr: pass
 
 class Node(Expr):
@@ -237,3 +236,8 @@ class MAPparser():
 		print "input: {0}".format(i)
 
 
+def main(argv):
+	pass
+
+if __name__ == '__main__':
+	main(sys.argv)

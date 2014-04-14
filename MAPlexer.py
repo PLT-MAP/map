@@ -1,5 +1,8 @@
 import ply.lex as lex
-#http://flex.sourceforge.net/manual/Patterns.html
+import ply.yacc as yacc
+
+import sys
+
 class MAPlexer:
 	reserved ={ 'null':'NULL',
 		'include':'INCLUDE',
@@ -151,20 +154,17 @@ class MAPlexer:
 	def t_error(self, t):
 	    print "Illegal character '%s'" % t.value[0]
 	    t.lexer.skip(1)
-
-	def __init__(self,i):	
-		self.lexer=lex.lex(module=self)
+        
+	def __init__(self,i):
+        	self.lexer = lex.lex(module=self)
 		self.lexer.input(i)
 
-	
-#lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
-
-#lex.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
-
 	def tokenize(self,data):
-		print "tokenizing {0}".format(data)
+		'Debug method!'
 		self.lexer.input(data)
-		while 1:
+		while True:
 			tok = self.lexer.token()
-			if not tok: break
-		print tok
+			if tok:
+				print tok
+			else: 
+				break
