@@ -51,7 +51,6 @@ def p_fd(t):
 
 def p_id(t):
 	'identifier : ID'
-	print "hey id"
 	t[0] = Node(t[1],'id')
 
 def p_listE(t):
@@ -76,16 +75,17 @@ def p_slist2(t):
 	
 def p_slist(t):
 	'statement_list : statement SEMICOLON'
+	print "statement_list"
 	t[0] = Node('','statement_list',[t[1]])
 
 def p_slist3(t):
 	'statement_list : '
-	print "hey empty statement_list"
 	t[0] = Node('','statement_list_E')
 
 def p_s(t):
 	'''statement : expression
 	| function_call'''
+	print "statement"
 	t[0] = Node('','statement',[t[1]])
 
 '''| selection-statement
@@ -116,6 +116,7 @@ def p_ters2(t):
 #assignment
 def p_expr(t):
 	'expression : assignment_expression'
+	print "expression"
 	t[0] = Node('','expr',[t[1]])
 
 #Conditional expression
