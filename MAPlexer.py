@@ -29,15 +29,14 @@ reserved ={ 'null':'NULL',
 	'read':'READ', 
 	'write':'WRITE',
 	'func':'FUNC',
-	'Node':'TYPE',
-	'Path':'TYPE',
-	'Graph':'TYPE',
-	'Text':'TYPE',
-	'Numeric':'TYPE'
+	
 }
+
+Type=['Node','Path','Graph','Text','Numeric']
 
 tokens = [
 	'NUMERIC', #1
+	'TYPE',
 	#'SINGLEQUOTE', #2
 	'DOUBLEQUOTE', #2.1
 	'ID',	   #3
@@ -96,6 +95,8 @@ def t_LITERAL(t):
 def t_ID(t): 
  	r'[a-zA-Z_][a-zA-Z_0-9]*' 
  	t.type = reserved.get(t.value,'ID')
+ 	if (t.value in Type):
+ 		t.type='TYPE'
  	return t
 
 t_SEMICOLON = r';' 
