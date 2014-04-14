@@ -1,6 +1,4 @@
 import ply.yacc as yacc
-from MAPlexer import * 
-from pprint import pprint
 
 class Expr: pass
 
@@ -26,38 +24,13 @@ class Node(Expr):
 
 	def __str__(self):
 		return "{1}  {0}".format(self.name,self.type)
-'''
-	def __str__(self):
-		ret = "^------" + repr(self.value) + repr(self.type) + "\n"
-		
-		if self.left is not None:
-			ret += "^-----" + self.left.__str__() + "\n"
-		
-		if self.right is not None:
-			ret += "^-----" + self.right.__str__() + "\n"
-		
-		return ret
 
-	def __repr__(self):
-		return '()'
-'''
+class MAPparser():
 
-class mapparser():
-
-	def __init__(self,i):
+	def __init__(self,l,i):
 		self.ast = Node('root') #root of the AST
-		self.lexer = lex.lex(module=self)
-		self.lexer.input(i)
-
-		while 1:
-			tok = self.lexer.token()
-			if not tok: break
-			print tok
-
-		self.tokens = self.lexer.tokens
-		self.parser = yacc.yacc(module=self)
-		self.parser.parse(i,lexer=self.lexer,tracking=True)
-
+		self.lexer = l
+		self.tokens = l.tokens
 
 	def p_id(self,t):
 		'identifier : ID'
@@ -109,9 +82,6 @@ class mapparser():
 		| function_call'''
 		t[0] = Node('','statement',[t[1]])
 
-	'''| selection-statement
-	| iteration-statement'''
-
 	#if statement
 	def p_sels(self,t):
 		'selection_statement : IF LPAREN expression RPAREN statement'
@@ -121,18 +91,6 @@ class mapparser():
 	def p_sels2(self,t):
 		'selection_statement : IF LPAREN expression RPAREN statement ELSE statement'
 		t[0] = Node(self,t[1],'selection_statement',[t[3],t[5],t[7]])
-
-
-	'''
-	#for loop
-	def p_iters(self,t):
-		'iteration-statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement' #compound-statement?
-		t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7] + t[8] + t[9]
-
-	#foreach
-	def p_ters2(self,t):
-		'iteration-statement : FOREACH LPAREN identifier IN identifier RPAREN statement' #compound-statement
-		t[0] = t[1] + t[2] + t[3] + t[4] + t[5] + t[6] + t[7]'''
 
 	#assignment
 	def p_expr(self,t):

@@ -1,4 +1,5 @@
-from yacc import *
+from yacc import * 
+from MAPlexer import *
 from asciitree import *
 
 
@@ -20,8 +21,10 @@ def walkAst(t,state={}):
 	
 	state['processingAdditiveExpression'] = 0
 
-
-
-m = mapparser("func main(Text hi){Text hi = 'bye';}")
-print draw_tree(m.ast)
+i = "func main(Text hi) {Text hi = 'bye';}"
+l = MAPlexer(i)
+l.tokenize(i)
+m = MAPparser(l,i)
+#print m.ast
+#print draw_tree(m.ast)
 

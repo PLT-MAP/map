@@ -3,8 +3,8 @@ import ply.lex as lex
 class MAPlexer:
 	reserved ={ 'null':'NULL',
 		'include':'INCLUDE',
-	#	'true' : 'TRUE', 
-	#	'false' : 'FALSE',
+		#	'true' : 'TRUE', 
+		#	'false' : 'FALSE',
 		'Time':'TIME',
 		'DirEdge':'DIREDGE',
 		'UndirEdge':'UNDIREDGE',
@@ -31,7 +31,7 @@ class MAPlexer:
 		'write':'WRITE',
 		'func':'FUNC',
 		
-	}
+		}
 
 	Boolean=['true','false']
 	Type=['Node','Path','Graph','Text','Numeric']
@@ -75,12 +75,6 @@ class MAPlexer:
 		'EXCLAMATION',
 		'LITERAL',
 		]+list(reserved.values())
-	'''
-	def t_TYPE(self, t):
-		r'^Text$|^Numeric$'
-		return t
-	'''
-	#primitive data types
 
 	#converts string into float 
 	def t_NUMERIC(self, t): 
@@ -97,10 +91,10 @@ class MAPlexer:
 
 	def t_ID(self, t): 
 	 	r'[a-zA-Z_][a-zA-Z_0-9]*' 
-	 	t.type = reserved.get(t.value,'ID')
-	 	if (t.value in Boolean):
+	 	t.type = self.reserved.get(t.value,'ID')
+	 	if (t.value in self.Boolean):
 			t.type='BOOLEAN'
-		if (t.value in Type):
+		if (t.value in self.Type):
 	 		t.type='TYPE'
 			t.value= 'rue' in t.value  
 	 	return t
@@ -158,16 +152,19 @@ class MAPlexer:
 	    print "Illegal character '%s'" % t.value[0]
 	    t.lexer.skip(1)
 
-	def main():
-		lexer=lex.lex(module = self)
+	def __init__(self,i):	
+		self.lexer=lex.lex(module=self)
+		self.lexer.input(i)
 
-	if __name__ == '__main__':
-		main()	
+	
 #lex.input("func main(hi, bye) { Text t = 'Hello, world'; print(t);}")
 
 #lex.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; print(t);}")
 
-#while 1:
-#	tok = lex.token()
-#	if not tok: break
-#	print tok
+	def tokenize(self,data):
+		print "tokenizing {0}".format(data)
+		self.lexer.input(data)
+		while 1:
+			tok = self.lexer.token()
+			if not tok: break
+		print tok
