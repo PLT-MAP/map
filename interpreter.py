@@ -22,7 +22,6 @@ def walkAst(t,state={}):
 
 
 
-print draw_tree(ast)
-walkAst(ast)
+m = mapparser("func main(Text hi){Text hi = 'bye';}")
+print draw_tree(m.ast)
 
-print i
