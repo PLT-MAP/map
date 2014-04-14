@@ -1,23 +1,24 @@
 from yacc import *
 import sys
+from asciitree import *
 
 class Traverse(object):
 	
 	def __init__(self, tree, file=sys.stdout):
 		self.f = file
 		
-		self.flist = {"Edge": "Edge",
-					  "Text": "Text"}
-		self.fargs = {"Edge": [str], 
-					  "Node": [str],
-					  "Text": [str],
-					  "Path": [str]}
-		self.class_meths = {"LIST": {
-								'append': "every",
-								'get': [int],
-								'delete': [int]
-								}
-							}
+		#self.flist = {"Edge": "Edge",
+		#			  "Text": "Text"}
+		#self.fargs = {"Edge": [str], 
+		#			  "Node": [str],
+		#			  "Text": [str],
+		#			  "Path": [str]}
+		#self.class_meths = {"LIST": {
+		#						'append': "every",
+		#						'get': [int],
+		#						'delete': [int]
+		#						}
+		#					}
 		self.class_meth_impls = {"LIST": {
 				'append': (lambda name, params : '%s.append(%s)' % (name, params)),
 				'get': (lambda name, params : '%s[%s]' % (name, params)),
@@ -37,11 +38,12 @@ class Traverse(object):
 		# type table for variables
 		self.symbols = {}
 		self.values = {}
+		self.waitingfor = set()
 		self._indent = 0
 		self.x = self.dispatch(tree)
 		self.f.write("")
 		self.f.flush()
-
+		print draw_tree(tree)
 
 
 	def fill(self, text=""):
@@ -84,11 +86,13 @@ class Traverse(object):
 				self.dispatch(t, flag)
 			return
 		print "type: ", tree.type
+		print tree
 		try:
 			meth = getattr(self,"_"+tree.type)
 			x = meth(tree, flag)
 			return x
 		except AttributeError:
+			print AttributeError
 			print "failed"
 			return
 		else:
@@ -115,8 +119,8 @@ class Traverse(object):
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
-
-			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			
+			#self.fargs[fname] = self.get_param_types(params, tree.children[1])
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
@@ -130,6 +134,7 @@ class Traverse(object):
 				s += a
 				self.waitingfor.add(a)
 			s = s + "):\n"
+			print "first kid: ", tree.children[1]
 			r = self.dispatch(tree.children[1], flag)
 			r += "\npass"
 			s += self.fill(r)
@@ -211,7 +216,8 @@ class Traverse(object):
 			if x:
 				self.waitingfor.add(a)
 		return s
-
+'''
+'''
 	# logical expressions
 	def _logical_or_expr(self, tree, flag=None):
 		if tree.leaf:

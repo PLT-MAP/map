@@ -242,7 +242,7 @@ def p_funcname(t):
 	| EQUALSFUNC'''
 	t[0] = Node('','function_name',[t[1]])
 
-i = "func main(Numeric hi){hi = 4;}"
+i = "func main(Text hi){hi = 4;}"
 #i = "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 #i = "func main(Text hi, Numeric bye) {print(hi);}"
 #i = "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
