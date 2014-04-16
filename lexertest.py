@@ -1,11 +1,16 @@
-import sys
 import unittest
-from MAPlexer import *
+import MAPlexer 
+
 
 
 
 class TestLexingSyntax(unittest.TestCase):
 	
+	def setUp(self):
+		self.lex=MAPlexer.MAPlex()
+		self.lex.build()
+		self.lexer=self.lex.lexer
+
 	def test_tokens(self):
 		cases={
 		'\"':'DOUBLEQUOTE', 
@@ -54,51 +59,51 @@ class TestLexingSyntax(unittest.TestCase):
 
 	def assert_tokens_eq(self,cases):
 		for key, val in cases.iteritems():
-			lexer.input(str(key))
-			token = lexer.token() 
+			self.lexer.input(str(key))
+			token = self.lexer.token() 
 			#self.assertEqual(key, token.value) 
 			self.assertEqual(val, token.type)
 
 	def test_hello_world_eq(self):
-		lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}")
+		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}")
 	
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('FUNC', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('ID', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('LPAREN', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('TYPE', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('ID', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('COMMA', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('TYPE', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('ID', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('RPAREN', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('LBR', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('TYPE', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('ID', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('EQUALS', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('LITERAL', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('SEMICOLON', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('ID', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('EQUALS', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('NUMERIC', token.type)
-		token = lexer.token()
+		token = self.lexer.token()
 		self.assertEqual('RBR', token.type)
 
 
