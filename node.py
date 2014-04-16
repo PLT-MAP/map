@@ -18,6 +18,6 @@ class Node(Expr):
 		self.children.append(c)
 
 	def __str__(self):
-		return "name:{1}  type:{0}".format(self.name,self.type)
+		return "name:{0}  type:{1}".format(self.name,self.type)
 
 

@@ -86,15 +86,14 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		print "type: ", tree.type
+		print "dispatch type: ", tree.type
 		print tree
 		try:
 			meth = getattr(self,"_"+tree.type)
 			x = meth(tree, flag)
 			return x
 		except AttributeError:
-			print AttributeError
-			print "failed"
+			print "failed tree:{0} flag:{1}".format(tree,flag)
 			return
 		else:
 			print "not attribute error"
