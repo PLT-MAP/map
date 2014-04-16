@@ -1,9 +1,6 @@
 import ply.lex as lex
-import ply.yacc as yacc
 
-import sys
-
-class MAPlexer:
+class MAPlex:
 	reserved ={ 'null':'NULL',
 		'include':'INCLUDE',
 		#	'true' : 'TRUE', 
@@ -80,7 +77,7 @@ class MAPlexer:
 		]+list(reserved.values())
 
 	#converts string into float 
-	def t_NUMERIC(self, t): 
+	def t_NUMERIC(self,t): 
 		r'\d*\.?\d+'    #1
 		t.value = str(float(t.value))
 		return t
@@ -88,11 +85,11 @@ class MAPlexer:
 	#t_SINGLEQUOTE=r'(\')' #2
 	t_DOUBLEQUOTE=r'(\")' #2.1
 
-	def t_LITERAL(self, t):
+	def t_LITERAL(self,t):
 		r'\'[A-Za-z ,!]*\''
 		return t
 
-	def t_ID(self, t): 
+	def t_ID(self,t): 
 	 	r'[a-zA-Z_][a-zA-Z_0-9]*' 
 	 	t.type = self.reserved.get(t.value,'ID')
 	 	if (t.value in self.Boolean):
@@ -107,7 +104,7 @@ class MAPlexer:
 	t_PERIOD = r'\.'
 	t_EXCLAMATION = r'\!'
 
-	def t_FUNC(self, t):
+	def t_FUNC(self,t):
 		r'^func\s'
 		return t 
 
@@ -151,14 +148,19 @@ class MAPlexer:
 
 	t_ignore  = ' \t'
 
+	
+
 	def t_error(self, t):
 	    print "Illegal character '%s'" % t.value[0]
 	    t.lexer.skip(1)
         
-	def __init__(self,i):
-        	self.lexer = lex.lex(module=self)
-		self.lexer.input(i)
+	def build(self,**kwargs):
+		self.lexer = lex.lex(module=self, **kwargs)
 
+	def get_lexer(self): 
+		return self.lexer
+	
+	
 	def tokenize(self,data):
 		'Debug method!'
 		self.lexer.input(data)
@@ -168,3 +170,22 @@ class MAPlexer:
 				print tok
 			else: 
 				break
+
+if __name__ == "__main__": 
+	m = MAPlex()
+	m.build()
+	l = m.tokenize
+	print 'Enter a string to be tokenized' 
+	while 1:
+		line = raw_input()
+		print m.tokenize(line)
+		print 'Enter a string to be tokenized'
+
+
+
+
+
+
+
+
+
