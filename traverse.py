@@ -1,3 +1,4 @@
+from MAPlexer import *
 from yacc import *
 import sys
 from asciitree import *
@@ -274,10 +275,11 @@ class Traverse(object):
 
 
 '''
-
+l = MAPlex()
+m = MAPparser(l,"func main(Text hi){hi = 4;}")
 
 def main():
-	t = Traverse(ast)
+	t = Traverse(m.ast)
 	t.enter()
 
 if __name__ == "__main__":
