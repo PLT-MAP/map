@@ -136,7 +136,7 @@ class MAPparser():
 	def p_multexpr2(self,t):
 		'''multiplicative_expression : multiplicative_expression TIMES primary_expression
 		| multiplicative_expression DIVIDE primary_expression'''
-		t[0] = Node(self,t[2],'multiplicative_expression',[t[1], t[3]])
+		t[0] = Node(t[2],'multiplicative_expression',[t[1], t[3]])
 
 	def p_primexp(self,t):
 		'''primary_expression : identifier
@@ -146,7 +146,7 @@ class MAPparser():
 	def p_primexp_term(self,t):
 		'''primary_expression : LITERAL
 		| NUMERIC'''
-		t[0] = Node('','primary_expression',[Node(self,t[1])])
+		t[0] = Node('','primary_expression',[Node(t[1])])
 
 	def p_primexp2(self,t):
 		'''primary_expression : LPAREN expression RPAREN'''	
@@ -170,7 +170,7 @@ class MAPparser():
 
 	def p_arg_lit(self,t):
 		'arg : LITERAL'
-		t[0] = Node('','arg',[Node(self,t[1])])
+		t[0] = Node('','arg',[Node(t[1])])
 
 	def p_arg_id(self,t):
 		'arg : identifier'
