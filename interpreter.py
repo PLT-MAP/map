@@ -21,7 +21,7 @@ def walkAst(t,state={}):
 	
 	state['processingAdditiveExpression'] = 0
 
-i = "func main(Text hi) {Text hi = 'bye';}"
+i = "func main(Text hi,Numeric NumericArg, Graph GraphArg, Path PathArg, Node NodeArg) {Text hi = 'bye';}"
 l = MAPlex()
 l.input = i
 l.tokenize(i)

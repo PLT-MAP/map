@@ -96,8 +96,10 @@ class MAPlex:
 			t.type='BOOLEAN'
 		if (t.value in self.Type):
 	 		t.type='TYPE'
-			t.value= 'rue' in t.value  
+			#t.value= 'rue' in t.value  
 	 	return t
+
+	t_TYPE = r'^Text|Numeric|Graph|Path|Node$'
 
 	t_SEMICOLON = r';' 
 	t_COLON = r'\:'
