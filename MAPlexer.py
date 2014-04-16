@@ -163,6 +163,7 @@ class MAPlex:
 	
 	def tokenize(self,data):
 		'Debug method!'
+		self.build()
 		self.lexer.input(data)
 		while True:
 			tok = self.lexer.token()

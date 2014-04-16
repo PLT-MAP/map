@@ -24,7 +24,7 @@ def walkAst(t,state={}):
 i = "func main(Text hi) {Text hi = 'bye';}"
 l = MAPlex()
 l.input = i
-#l.tokenize(i)
+l.tokenize(i)
 m = MAPparser(l,i)
 print draw_tree(m.ast)
 

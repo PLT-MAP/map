@@ -14,7 +14,7 @@ class MAPparser():
 
 	def p_fd(self,t):
 		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
-		t[0] = Node(t[2],'funcdef',[t[4],t[7]])
+		t[0] = Node(t[2].name,'funcdef',[t[4],t[7]])
 		self.ast = t[0]
 
 
