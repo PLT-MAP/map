@@ -10,16 +10,18 @@ class Traverse(object):
 		
 		#self.flist = {"Edge": "Edge",
 		#			  "Text": "Text"}
-		#self.fargs = {"Edge": [str], 
-		#			  "Node": [str],
-		#			  "Text": [str],
-		#			  "Path": [str]}
-		#self.class_meths = {"LIST": {
-		#						'append': "every",
-		#						'get': [int],
-		#						'delete': [int]
-		#						}
-		#					}
+		self.fargs = {"Edge": [str], 
+					  "Node": [str],
+					  "Text": [str],
+					  "Path": [str],
+					  "List": "every",
+					  "None": "every"}
+		self.class_meths = {"LIST": {
+								'append': "every",
+								'get': [int],
+								'delete': [int]
+								}
+							}
 		self.class_meth_impls = {"LIST": {
 				'append': (lambda name, params : '%s.append(%s)' % (name, params)),
 				'get': (lambda name, params : '%s[%s]' % (name, params)),
@@ -120,19 +122,25 @@ class Traverse(object):
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
-			
-			#self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			print "params: ", params
+
+			# gets stuck here, we need to figure out why
+			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			# from here on doesn't print
+			print "get param types of child 1"
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
+			print "got here"
 			for a in params:
 				if comma:
 					s += ","
 				else:
 					comma = True
 				s += a
+				print "a: ", a
 				self.waitingfor.add(a)
 			s = s + "):\n"
 			print "first kid: ", tree.children[1]
@@ -203,7 +211,6 @@ class Traverse(object):
 		print "hey assignment expression"
 		return self.dispatch(tree.children[0], flag)
 
-'''
 # maybe use
 	def listtoparams(self, l, x=None):
 		s = ""
@@ -217,7 +224,7 @@ class Traverse(object):
 			if x:
 				self.waitingfor.add(a)
 		return s
-'''
+
 '''
 	# logical expressions
 	def _logical_or_expr(self, tree, flag=None):
