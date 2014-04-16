@@ -22,8 +22,9 @@ def walkAst(t,state={}):
 	state['processingAdditiveExpression'] = 0
 
 i = "func main(Text hi) {Text hi = 'bye';}"
-l = MAPlexer(i)
-l.tokenize(i)
+l = MAPlex()
+l.input = i
+#l.tokenize(i)
 m = MAPparser(l,i)
 print draw_tree(m.ast)
 

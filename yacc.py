@@ -6,6 +6,7 @@ class MAPparser():
 	def __init__(self,l,i):
 		self.ast = Node('root') #root of the AST
 		self.lexer = l
+		self.lexer.build()
 		self.input = i
 		self.tokens = l.tokens
 		self.parser=yacc.yacc(module=self)
