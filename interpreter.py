@@ -1,7 +1,6 @@
 from yacc import * 
 from MAPlexer import *
 from asciitree import *
-from testLex import * 
 
 
 def walkAst(t,state={}):
@@ -25,7 +24,6 @@ def walkAst(t,state={}):
 i = "func main(Text hi) {Text hi = 'bye';}"
 l = MAPlexer(i)
 l.tokenize(i)
-#m = MAPparser(l,i)
-#print m.ast
+m = MAPparser(l,i)
 print draw_tree(m.ast)
 

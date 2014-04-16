@@ -1,35 +1,21 @@
 import ply.yacc as yacc
-class Expr: pass
-
-class Node(Expr):
-	def __init__(self,name='',type='',children=None,leaf=None,token=None):
-		self.type = type
-		if children:
-			self.children = children
-		else:
-			self.children = []
-		#print "children:" 
-			
-		#for i in self.children:
-		#	print i
-		self.leaf = leaf
-		self.token = token
-		self.name = name
-		#print "name:{0}".format(self.name)
-	
-
-	def addChild(self,c):
-		self.children.append(c)
-
-	def __str__(self):
-		return "{1}  {0}".format(self.name,self.type)
+from node import *
 
 class MAPparser():
 
 	def __init__(self,l,i):
 		self.ast = Node('root') #root of the AST
 		self.lexer = l
+		self.input = i
 		self.tokens = l.tokens
+		self.parser=yacc.yacc(module=self)
+		self.parser.parse(i)
+
+	def p_fd(self,t):
+		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
+		t[0] = Node(t[2],'funcdef',[t[4],t[7]])
+		self.ast = t[0]
+
 
 	def p_id(self,t):
 		'identifier : ID'
@@ -39,30 +25,17 @@ class MAPparser():
 		'parameter_list : '
 		t[0] = Node('','param_list')
 
-	def p_fd(self,t):
-		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
-		t[0] = Node(self,t[2],'funcdef',[t[4],t[7]])
-		self.ast = t[0]
-
-	def p_id(self,t):
-		'identifier : ID'
-		t[0] = Node(self,t[1])
-
-	def p_listE(self,t):
-		'parameter_list : '
-		t[0] = Node()
-
 	def p_plist(self,t):
 		'parameter_list : type_declaration'
 		t[0] = Node('','param_list',[t[1]])
 
 	def p_plist2(self,t):
 		'parameter_list : parameter_list COMMA type_declaration'
-		t[0] = Node(self,t[2],'param_list',[t[1],t[3]])
+		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 	def p_typedec(self,t):
 		'type_declaration : TYPE identifier'
-		t[0] = Node(self,t[1],'typedec',[t[2]])
+		t[0] = Node(t[1],'typedec',[t[2]])
 
 	def p_slist2(self,t):
 		'statement_list : statement_list statement SEMICOLON'
@@ -84,12 +57,12 @@ class MAPparser():
 	#if statement
 	def p_sels(self,t):
 		'selection_statement : IF LPAREN expression RPAREN statement'
-		t[0] = Node(self,t[1],'selection_statement',[t[3],t[5]])
+		t[0] = Node(t[1],'selection_statement',[t[3],t[5]])
 
 	#else statement
 	def p_sels2(self,t):
 		'selection_statement : IF LPAREN expression RPAREN statement ELSE statement'
-		t[0] = Node(self,t[1],'selection_statement',[t[3],t[5],t[7]])
+		t[0] = Node(t[1],'selection_statement',[t[3],t[5],t[7]])
 
 	#assignment
 	def p_expr(self,t):
@@ -103,7 +76,7 @@ class MAPparser():
 
 	def p_aexpr2(self,t):
 		'assignment_expression : primary_expression EQUALS assignment_expression'
-		t[0] = Node(self,t[2],'assignment_expression',[t[1],t[3]])
+		t[0] = Node(t[2],'assignment_expression',[t[1],t[3]])
 
 	def p_condexpr(self,t):
 		'''conditional_expression : logical_OR_expression
@@ -116,7 +89,7 @@ class MAPparser():
 
 	def p_logorexpr2(self,t):	
 		'logical_OR_expression : logical_OR_expression LOGICALOR logical_AND_expression'
-		t[0] = Node(self,t[2],'',[t[1],t[3]])
+		t[0] = Node(t[2],'',[t[1],t[3]])
 
 	def p_logandexpr(self,t):
 		'logical_AND_expression : equality_expression'
@@ -124,7 +97,7 @@ class MAPparser():
 
 	def p_logandexpr2(self,t):
 		'logical_AND_expression : logical_AND_expression LOGICALAND equality_expression'
-		t[0] = Node(self,t[2],'logical_and_expr',[t[1],t[3]])
+		t[0] = Node(t[2],'logical_and_expr',[t[1],t[3]])
 
 	def p_eqexpr(self,t):
 		'equality_expression : relational_expression'
@@ -133,7 +106,7 @@ class MAPparser():
 	def p_eqexpr2(self,t):
 		'''equality_expression : equality_expression EQUALSEQUALS relational_expression
 		| equality_expression DOESNOTEQUAL relational_expression'''
-		t[0] = Node(self,t[2],'equality_expression',[t[1],t[3]])
+		t[0] = Node(t[2],'equality_expression',[t[1],t[3]])
 
 	def p_relexpr(self,t):
 		'relational_expression : additive_expression'
@@ -144,7 +117,7 @@ class MAPparser():
 		| relational_expression LESSTHAN additive_expression
 		| relational_expression LESSTHANOREQUALTO additive_expression
 		| relational_expression GREATERTHANOREQUALTO additive_expression'''
-		t[0] = Node(self,t[2],'relational_expression',[t[2],t[3]])
+		t[0] = Node(t[2],'relational_expression',[t[2],t[3]])
 
 	def p_addexpr(self,t):
 		'additive_expression : multiplicative_expression'
@@ -153,7 +126,7 @@ class MAPparser():
 	def p_addexpr2(self,t):
 		'''additive_expression : additive_expression PLUS multiplicative_expression
 		| additive_expression MINUS multiplicative_expression'''
-		t[0] = Node(self,t[2],'additive_expression', [t[1],t[3]])
+		t[0] = Node(t[2],'additive_expression', [t[1],t[3]])
 
 	def p_multexpr(self,t):
 		'multiplicative_expression : primary_expression'
@@ -180,7 +153,7 @@ class MAPparser():
 
 	def p_funcall(self,t):
 		'function_call : identifier PERIOD function_name LPAREN parameter_list RPAREN'
-		t[0] = Node(self,t[2],'function_call',[t[1],t[3],t[5]])
+		t[0] = Node(t[2],'function_call',[t[1],t[3],t[5]])
 
 	def p_funcall2(self,t):
 		'function_call : identifier LPAREN func_args RPAREN'
@@ -192,7 +165,7 @@ class MAPparser():
 
 	def p_funcargs2(self,t):
 		'func_args : func_args COMMA arg'
-		t[0] = Node(self,t[2],[t[1],t[3]])
+		t[0] = Node(t[2],[t[1],t[3]])
 
 	def p_arg_lit(self,t):
 		'arg : LITERAL'
@@ -233,7 +206,7 @@ class MAPparser():
 		print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
 		print 'Found:', cvars['ltype']
 		print 'Errtoken: {0}'.format(cvars['errtoken'])
-		print "input: {0}".format(i)
+		print "input: {0}".format(self.input)
 
 
 def main(argv):
