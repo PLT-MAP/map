@@ -1,11 +1,15 @@
 import sys
 import unittest
-from yacc import mapparser
-from MAPlexer import *
+import yacc
+import MAPlexer 
 
 
 
 class TestYaccSyntax(unittest.TestCase):
+
+	def setUp(self):
+		self.parser=yacc.MAPparser
+
 	def testhelloworld(self):
 		 test= "func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}"
 		 mapparser(test)
