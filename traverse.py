@@ -112,6 +112,96 @@ class Traverse(object):
 
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
 
+	def _funcdef(self, tree, flag = None):
+		fname = tree.leaf
+		s = "def " + tree.lead + "("
+		if len(tree.children)==2:
+			self.enter()
+			params = self.dispatch(tree.children[0], flag)
+			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			for (param, param_type) in zip(params, self.fargs[fname]):
+				print (param, param_type)
+				self.symbols[param] = param_type
+				self.var_scopes[self.scope_depth].append(param)
+			comma = False
+			print "got here"
+			for a in params:
+				if comma:
+					s += ","
+				else:
+					comma = True
+				s += a
+				print "a: ", a
+				self.waitingfor.add(a)
+			s = s + "):\n"
+			print "first kid: ", tree.children[1]
+			r = self.dispatch(tree.children[1], flag)
+			r += "\npass"
+			s += self.fill(r)
+			self.leave()
+		else:
+			p = self.dispatch(tree.children[0], flag)
+			comma = False
+			for a in p:
+				if comma:
+					s += ","
+				else:
+					comma = True
+				s += a
+				self.waitingfor.add(a)
+			s = s + "):\n"
+			self.enter()
+			self.fill("pass")
+		return s
+
+	def _funcexp(self,tree,flag=None):
+		if self.symbols.get(flag) == "MAP":
+			if tree.leaf == "add":
+				return self.add_method(tree,flag)
+			else:
+				return flag + "." + self.flist[tree.leaf] + "()"
+		elif flag:
+			if self.symbols.get(flag) in self.class_meths:
+				class_methods = self.class_meths[self.symbols.get(flag)]
+				print tree.leaf
+                if tree.leaf in class_methods:
+                    params = self.dispatch(tree.children[0],flag)
+                    typed_params = [self.num_or_str(param) for param in params]
+                    init_args = [self.get_type(param) for param in typed_params]
+                    if class_methods[tree.leaf] != "every":
+                        for (e_p, p) in zip(class_methods[tree.leaf], init_args):
+                            if e_p != "all" and e_p != p:
+                                raise Exception("Class Method %s of %s excepted %s but got %s"
+                                    % (tree.leaf, flag, class_methods[tree.leaf], init_args))
+
+                    s = self.listtoparams(params)
+                    s = self.class_meth_impls[self.symbols.get(flag)][tree.leaf](flag, s)
+                    print s
+                    return s
+		elif tree.leaf in self.flist:
+			if tree.leaf in self.flistsymbol:
+				if not self.symbols.get(flag) == self.flistsymbol[tree.leaf]:
+					raise Exception(tree.leaf + " method called on a non " + self.flistsymbol[tree.leaf] + " type")
+			return flag + "." + self.flist[tree.leaf] + "()"
+		else:
+			if tree.leaf not in self.fargs:
+				raise Exception("Function %s is not user-defined nor is it part of the MineTime library"
+                    % (tree.leaf))
+			if len(tree.children)==1:
+				params = self.dispatch(tree.children[0],flag)
+                if tree.leaf in self.fargs:
+                    typed_params = [self.num_or_str(param) for param in params]
+                    init_args = [self.get_type(param) for param in typed_params]
+                    print tree.leaf, init_args, params, self.symbols
+                    if self.fargs[tree.leaf] != "every" and init_args != self.fargs[tree.leaf]:
+                        raise Exception("Function Type Check Error for %s, expected %s but got %s" 
+                            % (tree.leaf, str(self.fargs[tree.leaf]), str(init_args)))
+                        s = self.listtoparams(params)
+                    else:
+            			s = ""
+				return tree.leaf + "(" + s + ")"
+
+
 	# function definition
 	def _funcdef(self, tree, flag=None):
 		print "tree", tree
