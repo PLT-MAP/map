@@ -119,11 +119,13 @@ class Traverse(object):
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
 			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			print "got here"
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
+			print "got here"
 			print "got here"
 			for a in params:
 				if comma:
@@ -202,12 +204,13 @@ class Traverse(object):
 				return tree.leaf + "(" + s + ")"
 
 
+
 	# function definition
 	def _funcdef(self, tree, flag=None):
 		print "tree", tree
 		fname = tree.leaf
 		print "fname: ", fname
-		s = "def ", tree.leaf, "("
+		s = "def ",tree.leaf,"("
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
