@@ -112,20 +112,29 @@ class Traverse(object):
 
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
 
-	def _funcdef(self, tree, flag = None):
+	# function definition
+	def _funcdef(self, tree, flag=None):
+		print "got here"
+		print "tree", tree
 		fname = tree.leaf
-		s = "def " + tree.lead + "("
-		if len(tree.children)==2:
+		print "fname: ", fname
+		s = "def ",tree.leaf,"("
+		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
+			print "params: ", params
+
+			# gets stuck here, we need to figure out why
+			print self.fargs
+			print fname
 			self.fargs[fname] = self.get_param_types(params, tree.children[1])
-			print "got here"
+			# from here on doesn't print
+			print "get param types of child 1"
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
-			print "got here"
 			print "got here"
 			for a in params:
 				if comma:
@@ -157,6 +166,7 @@ class Traverse(object):
 		return s
 
 	def _funcexp(self,tree,flag=None):
+		print "fsadhs"
 		if self.symbols.get(flag) == "MAP":
 			if tree.leaf == "add":
 				return self.add_method(tree,flag)
@@ -202,58 +212,6 @@ class Traverse(object):
                     else:
             			s = ""
 				return tree.leaf + "(" + s + ")"
-
-
-
-	# function definition
-	def _funcdef(self, tree, flag=None):
-		print "tree", tree
-		fname = tree.leaf
-		print "fname: ", fname
-		s = "def ",tree.leaf,"("
-		if len(tree.children) == 2:
-			self.enter()
-			params = self.dispatch(tree.children[0], flag)
-			print "params: ", params
-
-			# gets stuck here, we need to figure out why
-			self.fargs[fname] = self.get_param_types(params, tree.children[1])
-			# from here on doesn't print
-			print "get param types of child 1"
-			for (param, param_type) in zip(params, self.fargs[fname]):
-				print (param, param_type)
-				self.symbols[param] = param_type
-				self.var_scopes[self.scope_depth].append(param)
-			comma = False
-			print "got here"
-			for a in params:
-				if comma:
-					s += ","
-				else:
-					comma = True
-				s += a
-				print "a: ", a
-				self.waitingfor.add(a)
-			s = s + "):\n"
-			print "first kid: ", tree.children[1]
-			r = self.dispatch(tree.children[1], flag)
-			r += "\npass"
-			s += self.fill(r)
-			self.leave()
-		else:
-			p = self.dispatch(tree.children[0], flag)
-			comma = False
-			for a in p:
-				if comma:
-					s += ","
-				else:
-					comma = True
-				s += a
-				self.waitingfor.add(a)
-			s = s + "):\n"
-			self.enter()
-			self.fill("pass")
-		return s
 
 	def _param_list(self, tree, flag=None):
 		if len(tree.children) == 0:
@@ -376,7 +334,6 @@ class Traverse(object):
 '''
 l = MAPlex()
 m = MAPparser(l,"func main(Text hi){hi = 4;}")
-
 def main():
 	t = Traverse(m.ast)
 	t.enter()
