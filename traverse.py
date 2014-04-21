@@ -47,7 +47,7 @@ class Traverse(object):
 		self.x = self.dispatch(tree)
 		self.f.write("")
 		self.f.flush()
-		print draw_tree(tree)
+		#print draw_tree(tree)
 
 
 	def fill(self, text=""):
@@ -89,8 +89,8 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		print "dispatch type: ", tree.type
-		print tree
+		#print "dispatch type: ", tree.type
+		#print tree
 		#try:
 		method = getattr(self,"_"+tree.type)
 		x = method(tree, flag)
@@ -115,11 +115,8 @@ class Traverse(object):
 
 	# function definition
 	def _funcdef(self, tree, flag=None):
-		print "got here"
-		print "tree", tree
 		fname = tree.name
-		print "fname: ", fname
-		s = "def ",tree.name,"("
+		s = "def " + tree.name + " ("
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
@@ -132,20 +129,20 @@ class Traverse(object):
 			print self.fargs[fname]
 			# from here on doesn't print
 			print "get param types of child 1"
-			print self.fargs
+			print self.fargs[fname]
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
 			print "got here"
+			print params
 			for a in params:
 				if comma:
 					s += ","
 				else:
 					comma = True
 				s += a
-				print "a: ", a
 				self.waitingfor.add(a)
 			s = s + "):\n"
 			print "first kid: ", tree.children[1]
@@ -280,12 +277,24 @@ class Traverse(object):
 		return s
 
 	def get_param_types(self, params, tree):
+		print "in param types"
+		print tree
 		typed_params = []
+<<<<<<< HEAD
 		for param in params:
 			typed_params.append(self.get_param_type(param, tree))
 		return typed_params
+=======
+		if params is not None: 
+			for param in params:
+				print "processing param " + param
+				print tree
+				typed_params.append(self.get_param_type(param, tree))
+			return typed_params
+>>>>>>> 80d3923d20f986252fa88be965225c391718f562
 
 	def get_param_type(self, param, tree):
+		print "tree name:{0} param: {1}".format(tree.name,param)
 		if tree.name == param:
 			if tree.type == "class_method_expression":
 				for obj in self.class_meths:
@@ -301,7 +310,7 @@ class Traverse(object):
 					return int
 				if tree.name in self.fargs:
 					params = self.dispatch(tree.children[0])
-					print params
+					#print params
 				return return_val
 
 '''
@@ -364,6 +373,7 @@ class Traverse(object):
 l = MAPlex()
 m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 4;}")
 def main():
+	print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	t.enter()
 
