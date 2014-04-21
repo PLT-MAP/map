@@ -52,7 +52,8 @@ class Traverse(object):
 
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
-		self.f.write("\n" + "    "*self._indent + text)
+		s = "\n" + "    "*self._indent + text
+		return s
 
 	def write(self, text):
 		'''Append the text passed in to the current line.'''
@@ -81,7 +82,7 @@ class Traverse(object):
 					del self.values[var + str(self.scope_depth)]
 		del self.var_scopes[self.scope_depth]
 		self.scope_depth -= 1
-		self.indent -= 1
+		self._indent -= 1
 
 	def dispatch(self, tree, flag=None):
 		'''Dispatcher function, dispatching tree type T to method _T.'''
