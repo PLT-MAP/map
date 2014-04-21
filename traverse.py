@@ -252,6 +252,7 @@ class Traverse(object):
 		print "hey identifier"
 		s = tree.name
 		print s
+		return s
 
 	def _primary_expression(self, tree, flag=None):
 		print "hey primary expression"
