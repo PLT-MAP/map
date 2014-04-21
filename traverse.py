@@ -90,16 +90,16 @@ class Traverse(object):
 			return
 		print "dispatch type: ", tree.type
 		print tree
-		try:
-			method = getattr(self,"_"+tree.type)
-			x = method(tree, flag)
-			return x
-		except AttributeError:
-			print "failed tree:{0} flag:{1}".format(tree,flag)
-			return
-		else:
-			print "not attribute error"
-			return 
+		#try:
+		method = getattr(self,"_"+tree.type)
+		x = method(tree, flag)
+		return x
+		#except AttributeError:
+		#print "failed tree:{0} flag:{1}".format(tree,flag)
+		#return
+		#else:
+		#print "not attribute error"
+		#return 
 
 	def flatten(self, x):
 		result = []
