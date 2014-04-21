@@ -125,7 +125,7 @@ class Traverse(object):
 			# gets stuck here, we need to figure out why
 			print self.fargs
 			print fname
-			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			self.fargs[fname] = self.get_param_types(params, tree.children[0])
 			print self.fargs[fname]
 			# from here on doesn't print
 			print "get param types of child 1"
@@ -280,18 +280,12 @@ class Traverse(object):
 		print "in param types"
 		print tree
 		typed_params = []
-<<<<<<< HEAD
-		for param in params:
-			typed_params.append(self.get_param_type(param, tree))
-		return typed_params
-=======
 		if params is not None: 
 			for param in params:
 				print "processing param " + param
 				print tree
 				typed_params.append(self.get_param_type(param, tree))
 			return typed_params
->>>>>>> 80d3923d20f986252fa88be965225c391718f562
 
 	def get_param_type(self, param, tree):
 		print "tree name:{0} param: {1}".format(tree.name,param)
