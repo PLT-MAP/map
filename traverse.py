@@ -277,9 +277,10 @@ class Traverse(object):
 
 	def get_param_types(self, params, tree):
 		typed_params = []
-		for param in params:
-			typed_params.append(self.get_param_type(param, tree))
-		return typed_params
+		if not params.length == 0: 
+			for param in params:
+				typed_params.append(self.get_param_type(param, tree))
+			return typed_params
 
 	def get_param_type(self, param, tree):
 		if tree.leaf == param:
