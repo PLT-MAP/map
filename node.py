@@ -1,7 +1,7 @@
 class Expr : pass
 
 class Node(Expr):
-	def __init__(self,name='',t='',children=None,leaf=None,token=None):
+	def __init__(self,name='',t='',children=None,token=None):
 		self.type = t
 
 		if children:
@@ -9,7 +9,6 @@ class Node(Expr):
 		else:
 			self.children = []
 			
-		self.leaf = leaf
 		self.token = token
 		self.name = name
 	
