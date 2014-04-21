@@ -66,7 +66,7 @@ class MAPlex:
 		'COMMENTFRONT', #27
 		'COMMENTBACK',   #28
 		'COMMA', #37
-		'NEWLINE',#38
+		#'NEWLINE',#38
 		'LBR', # 40
 		'RBR', # 41
 		'LSB', 
@@ -146,9 +146,9 @@ class MAPlex:
 
 	t_COMMA=r'\,' #37
 
-	t_NEWLINE=r'\n'#38
+	#t_NEWLINE=r'\n'#38
 
-	t_ignore  = ' \t'
+	t_ignore  = '\n \t'
 
 	
 
