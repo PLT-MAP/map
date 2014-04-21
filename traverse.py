@@ -94,6 +94,7 @@ class Traverse(object):
 			method = getattr(self,"_"+tree.type)
 			x = method(tree, flag)
 			return x
+
 		except AttributeError:
 			print "failed tree:{0} flag:{1}".format(tree,flag)
 			return
@@ -111,6 +112,7 @@ class Traverse(object):
 		return result
 
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
+
 
 	# function definition
 	def _funcdef(self, tree, flag=None):
