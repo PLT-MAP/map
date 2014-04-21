@@ -275,6 +275,31 @@ class Traverse(object):
 				self.waitingfor.add(a)
 		return s
 
+	def get_param_types(self, params, tree):
+		typed_params = []
+		for param in params:
+			typed_params.append(self.get_param_type(param, tree))
+		return typed_params
+
+	def get_param_type(self, param, tree):
+		if tree.leaf == param:
+			if tree.type == "class_method_expression":
+				for obj in self.class_meths:
+					if tree.children[0].leaf in self.class_meths[obj]:
+						return obj
+			else:
+				return True
+		for child in tree.children:
+			return_val = self.get_param_type(param, child)
+			if return_val:
+				if tree.leaf in self.relops:
+					params = self.dispatch(tree.children[0])
+					return int
+				if tree.leaf in self.fargs:
+					params = self.dispatch(tree.children[0])
+					print params
+				return return_val
+
 '''
 	# logical expressions
 	def _logical_or_expr(self, tree, flag=None):
