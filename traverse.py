@@ -91,8 +91,8 @@ class Traverse(object):
 		print "dispatch type: ", tree.type
 		print tree
 		try:
-			meth = getattr(self,"_"+tree.type)
-			x = meth(tree, flag)
+			method = getattr(self,"_"+tree.type)
+			x = method(tree, flag)
 			return x
 		except AttributeError:
 			print "failed tree:{0} flag:{1}".format(tree,flag)
