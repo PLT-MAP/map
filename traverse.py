@@ -12,8 +12,9 @@ class Traverse(object):
 		#			  "Text": "Text"}
 		self.fargs = {"Edge": [str], 
 					  "Node": [str],
-					  "Text": [str],
+					  "Text": "every",
 					  "Path": [str],
+					  "Numeric": "every",
 					  "List": "every",
 					  "None": "every"}
 		self.class_meths = {"LIST": {
@@ -116,9 +117,9 @@ class Traverse(object):
 	def _funcdef(self, tree, flag=None):
 		print "got here"
 		print "tree", tree
-		fname = tree.leaf
+		fname = tree.name
 		print "fname: ", fname
-		s = "def ",tree.leaf,"("
+		s = "def ",tree.name,"("
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
@@ -131,6 +132,7 @@ class Traverse(object):
 			print self.fargs[fname]
 			# from here on doesn't print
 			print "get param types of child 1"
+			print self.fargs
 			for (param, param_type) in zip(params, self.fargs[fname]):
 				print (param, param_type)
 				self.symbols[param] = param_type
@@ -169,50 +171,50 @@ class Traverse(object):
 	def _funcexp(self,tree,flag=None):
 		print "fsadhs"
 		if self.symbols.get(flag) == "MAP":
-			if tree.leaf == "add":
+			if tree.name == "add":
 				return self.add_method(tree,flag)
 			else:
-				return flag + "." + self.flist[tree.leaf] + "()"
+				return flag + "." + self.flist[tree.name] + "()"
 		elif flag:
 			if self.symbols.get(flag) in self.class_meths:
 				class_methods = self.class_meths[self.symbols.get(flag)]
-				print tree.leaf
-                if tree.leaf in class_methods:
+				print tree.name
+                if tree.name in class_methods:
                     params = self.dispatch(tree.children[0],flag)
                     typed_params = [self.num_or_str(param) for param in params]
                     init_args = [self.get_type(param) for param in typed_params]
-                    if class_methods[tree.leaf] != "every":
-                        for (e_p, p) in zip(class_methods[tree.leaf], init_args):
+                    if class_methods[tree.name] != "every":
+                        for (e_p, p) in zip(class_methods[tree.name], init_args):
                             if e_p != "all" and e_p != p:
                                 raise Exception("Class Method %s of %s excepted %s but got %s"
-                                    % (tree.leaf, flag, class_methods[tree.leaf], init_args))
+                                    % (tree.name, flag, class_methods[tree.leaf], init_args))
 
                     s = self.listtoparams(params)
-                    s = self.class_meth_impls[self.symbols.get(flag)][tree.leaf](flag, s)
+                    s = self.class_meth_impls[self.symbols.get(flag)][tree.name](flag, s)
                     print s
                     return s
-		elif tree.leaf in self.flist:
-			if tree.leaf in self.flistsymbol:
-				if not self.symbols.get(flag) == self.flistsymbol[tree.leaf]:
-					raise Exception(tree.leaf + " method called on a non " + self.flistsymbol[tree.leaf] + " type")
-			return flag + "." + self.flist[tree.leaf] + "()"
+		elif tree.name in self.flist:
+			if tree.name in self.flistsymbol:
+				if not self.symbols.get(flag) == self.flistsymbol[tree.name]:
+					raise Exception(tree.name + " method called on a non " + self.flistsymbol[tree.leaf] + " type")
+			return flag + "." + self.flist[tree.name] + "()"
 		else:
-			if tree.leaf not in self.fargs:
+			if tree.name not in self.fargs:
 				raise Exception("Function %s is not user-defined nor is it part of the MineTime library"
-                    % (tree.leaf))
+                    % (tree.name))
 			if len(tree.children)==1:
 				params = self.dispatch(tree.children[0],flag)
-                if tree.leaf in self.fargs:
+                if tree.name in self.fargs:
                     typed_params = [self.num_or_str(param) for param in params]
                     init_args = [self.get_type(param) for param in typed_params]
-                    print tree.leaf, init_args, params, self.symbols
-                    if self.fargs[tree.leaf] != "every" and init_args != self.fargs[tree.leaf]:
+                    print tree.name, init_args, params, self.symbols
+                    if self.fargs[tree.name] != "every" and init_args != self.fargs[tree.leaf]:
                         raise Exception("Function Type Check Error for %s, expected %s but got %s" 
-                            % (tree.leaf, str(self.fargs[tree.leaf]), str(init_args)))
+                            % (tree.name, str(self.fargs[tree.leaf]), str(init_args)))
                         s = self.listtoparams(params)
                     else:
             			s = ""
-				return tree.leaf + "(" + s + ")"
+				return tree.name + "(" + s + ")"
 
 	def _param_list(self, tree, flag=None):
 		if len(tree.children) == 0:
@@ -284,20 +286,20 @@ class Traverse(object):
 		return typed_params
 
 	def get_param_type(self, param, tree):
-		if tree.leaf == param:
+		if tree.name == param:
 			if tree.type == "class_method_expression":
 				for obj in self.class_meths:
-					if tree.children[0].leaf in self.class_meths[obj]:
+					if tree.children[0].name in self.class_meths[obj]:
 						return obj
 			else:
 				return True
 		for child in tree.children:
 			return_val = self.get_param_type(param, child)
 			if return_val:
-				if tree.leaf in self.relops:
+				if tree.name in self.relops:
 					params = self.dispatch(tree.children[0])
 					return int
-				if tree.leaf in self.fargs:
+				if tree.name in self.fargs:
 					params = self.dispatch(tree.children[0])
 					print params
 				return return_val
@@ -305,42 +307,42 @@ class Traverse(object):
 '''
 	# logical expressions
 	def _logical_or_expr(self, tree, flag=None):
-		if tree.leaf:
+		if tree.name:
 			s = self.dispatch(tree.children[0], flag) + " or " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	def _logical_and_expr(self, tree flag=None):
-		if tree.leaf:
+		if tree.name:
 			s = self.dispatch(tree.children[0], flag) + " and " + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag):
 
 	# equality expression
 	def _equality_expression(self, tree, flag=None):
-		if tree.leaf:
-			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
+		if tree.name:
+			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# relational expression
 	def _relational_expression(self, tree, flag=None):
-		if tree.leaf:
-			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
+		if tree.name:
+			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# additive expression
 	def _additive_expression(self, tree, flag=None):
-		if tree.leaf:
-			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
+		if tree.name:
+			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	# multiplicative expression
 	def _multiplicative_expression(self, tree, flag=None):
-		if tree.leaf:
-			s = self.dispatch(tree.children[0], flag) + tree.leaf + self.dispatch(tree.children[1], flag)
+		if tree.name:
+			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
 			return s
 		return self.dispatch(tree.children[0], flag) 
 
@@ -360,7 +362,7 @@ class Traverse(object):
 
 '''
 l = MAPlex()
-m = MAPparser(l,"func main(Text hi){hi = 4;}")
+m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 4;}")
 def main():
 	t = Traverse(m.ast)
 	t.enter()
