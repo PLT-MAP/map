@@ -128,7 +128,8 @@ class Traverse(object):
 			# gets stuck here, we need to figure out why
 			print self.fargs
 			print fname
-			self.fargs[fname] = self.get_param_types(params, tree.children[1])
+			self.fargs[fname] = self.get_param_types(params, tree.children[0])
+			print self.fargs[fname]
 			# from here on doesn't print
 			print "get param types of child 1"
 			print self.fargs
