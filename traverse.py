@@ -117,7 +117,7 @@ class Traverse(object):
 	# function definition
 	def _funcdef(self, tree, flag=None):
 		fname = tree.name
-		s = "def " + tree.name + " ("
+		s = "def " + tree.name + "("
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
@@ -164,6 +164,7 @@ class Traverse(object):
 			s = s + "):\n"
 			self.enter()
 			self.fill("pass")
+		print s
 		return s
 
 	def _funcexp(self,tree,flag=None):
