@@ -45,6 +45,7 @@ class Traverse(object):
 		self.waitingfor = set()
 		self._indent = 0
 		self.x = self.dispatch(tree)
+		print self.x
 		self.f.write("")
 		self.f.flush()
 		#print draw_tree(tree)
@@ -121,23 +122,23 @@ class Traverse(object):
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
-			print "params: ", params
+			#print "params: ", params
 
 			# gets stuck here, we need to figure out why
-			print self.fargs
-			print fname
+			#print self.fargs
+			#print fname
 			self.fargs[fname] = self.get_param_types(params, tree.children[0])
-			print self.fargs[fname]
+			#print self.fargs[fname]
 			# from here on doesn't print
-			print "get param types of child 1"
-			print self.fargs[fname]
+			#print "get param types of child 1"
+			#print self.fargs[fname]
 			for (param, param_type) in zip(params, self.fargs[fname]):
-				print (param, param_type)
+				#print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
-			print "got here"
-			print params
+			#print "got here"
+			#print params
 			for a in params:
 				if comma:
 					s += ","
@@ -146,7 +147,7 @@ class Traverse(object):
 				s += a
 				self.waitingfor.add(a)
 			s = s + "):\n"
-			print "first kid: ", tree.children[1]
+			#print "first kid: ", tree.children[1]
 			r = self.dispatch(tree.children[1], flag)
 			r += "\npass"
 			s += self.fill(r)
@@ -167,7 +168,7 @@ class Traverse(object):
 		return s
 
 	def _funcexp(self,tree,flag=None):
-		print "fsadhs"
+		#print "fsadhs"
 		if self.symbols.get(flag) == "MAP":
 			if tree.name == "add":
 				return self.add_method(tree,flag)
@@ -176,7 +177,7 @@ class Traverse(object):
 		elif flag:
 			if self.symbols.get(flag) in self.class_meths:
 				class_methods = self.class_meths[self.symbols.get(flag)]
-				print tree.name
+				#print tree.name
                 if tree.name in class_methods:
                     params = self.dispatch(tree.children[0],flag)
                     typed_params = [self.num_or_str(param) for param in params]
@@ -189,7 +190,7 @@ class Traverse(object):
 
                     s = self.listtoparams(params)
                     s = self.class_meth_impls[self.symbols.get(flag)][tree.name](flag, s)
-                    print s
+                    #print s
                     return s
 		elif tree.name in self.flist:
 			if tree.name in self.flistsymbol:
@@ -198,14 +199,14 @@ class Traverse(object):
 			return flag + "." + self.flist[tree.name] + "()"
 		else:
 			if tree.name not in self.fargs:
-				raise Exception("Function %s is not user-defined nor is it part of the MineTime library"
+				raise Exception("Function %s is not user-defined nor is it part of the MAP library"
                     % (tree.name))
 			if len(tree.children)==1:
 				params = self.dispatch(tree.children[0],flag)
                 if tree.name in self.fargs:
                     typed_params = [self.num_or_str(param) for param in params]
                     init_args = [self.get_type(param) for param in typed_params]
-                    print tree.name, init_args, params, self.symbols
+                    #print tree.name, init_args, params, self.symbols
                     if self.fargs[tree.name] != "every" and init_args != self.fargs[tree.leaf]:
                         raise Exception("Function Type Check Error for %s, expected %s but got %s" 
                             % (tree.name, str(self.fargs[tree.leaf]), str(init_args)))
@@ -226,7 +227,7 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
-		print "hey sandya"
+		#print "hey sandya"
 		return self.dispatch(tree.children[0], flag)
 
 	
