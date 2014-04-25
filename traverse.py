@@ -336,7 +336,6 @@ class Traverse(object):
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-
 	# function call
 	def _function_call(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -354,6 +353,10 @@ class Traverse(object):
 		return self.dispatch(tree.children[0], flag)
 
 
+	def _selection_statement(self, tree, flag=None):
+		print tree.children[0]
+		return self.dispatch(tree.children[0], flag)
+
 '''
 	def _function_name():
 '''
@@ -363,7 +366,7 @@ l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
 m = MAPparser(l,"func main(Text hi) {if (5 < 7) {bye = 5;}}")
 def main():
-	print draw_tree(m.ast)
+	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	t.enter()
 
