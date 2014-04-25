@@ -293,7 +293,11 @@ class Traverse(object):
 					params = self.dispatch(tree.children[0])
 				return return_val
 
-'''
+	def _conditional_expression(self, tree, flag= None):
+		#if tree.name:
+		print tree
+		return self.dispatch(tree.children[0], flag)
+
 	# logical expressions
 	def _logical_or_expr(self, tree, flag=None):
 		if tree.name:
@@ -301,11 +305,11 @@ class Traverse(object):
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	def _logical_and_expr(self, tree flag=None):
+	def _logical_and_expr(self, tree, flag=None):
 		if tree.name:
 			s = self.dispatch(tree.children[0], flag) + " and " + self.dispatch(tree.children[1], flag)
 			return s
-		return self.dispatch(tree.children[0], flag):
+		return self.dispatch(tree.children[0], flag)
 
 	# equality expression
 	def _equality_expression(self, tree, flag=None):
@@ -335,10 +339,7 @@ class Traverse(object):
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-	# primary expression
-	def _primary_expression(self, tree, flag=None):
-
-
+'''
 	# function call
 	def _function_call(self, tree, flag=None): #params here?
 
@@ -347,9 +348,9 @@ class Traverse(object):
 	def _arg():
 
 	def _function_name():
-
-
 '''
+
+
 l = MAPlex()
 m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'hi'; bye = 1.0 + 2.0;}")
 def main():
