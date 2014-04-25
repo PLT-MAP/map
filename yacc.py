@@ -41,7 +41,7 @@ class MAPparser():
 	def p_slist2(self,t):
 		'statement_list : statement_list statement SEMICOLON'
 		t[0] = Node('','statement_list',[t[1],t[2]])
-		
+
 	def p_slist(self,t):
 		'statement_list : statement SEMICOLON'
 		t[0] = Node('','statement_list',[t[1]])
@@ -72,7 +72,8 @@ class MAPparser():
 
 	#Conditional expression
 	def p_aexpr(self,t):
-		'assignment_expression : conditional_expression'
+		'''assignment_expression : conditional_expression
+		| primary_expression''' 
 		t[0] = Node('','assignment_expression',[t[1]])
 
 	def p_aexpr2(self,t):
@@ -88,7 +89,7 @@ class MAPparser():
 		'logical_OR_expression : logical_AND_expression'
 		t[0] = Node('','logical_or_expr',[t[1]])
 
-	def p_logorexpr2(self,t):	
+	def p_logorexpr2(self,t):
 		'logical_OR_expression : logical_OR_expression LOGICALOR logical_AND_expression'
 		t[0] = Node(t[2],'',[t[1],t[3]])
 
@@ -149,7 +150,7 @@ class MAPparser():
 		t[0] = Node('','primary_expression',[Node(t[1])])
 
 	def p_primexp2(self,t):
-		'''primary_expression : LPAREN expression RPAREN'''	
+		'''primary_expression : LPAREN expression RPAREN'''
 		t[0] = Node('','primary_expression', [t[2]])
 
 	def p_funcall(self,t):

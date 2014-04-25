@@ -139,7 +139,7 @@ class Traverse(object):
 				self.waitingfor.add(a)
 			s = s + "):\n"
 			r = self.dispatch(tree.children[1], flag)
-			r += "\npass"
+			r += "\n"
 			s += self.fill(r)
 			self.leave()
 		else:
