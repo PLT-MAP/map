@@ -52,18 +52,19 @@ class MAPparser():
 
 	def p_s(self,t):
 		'''statement : expression
-		| function_call'''
+		| function_call
+		| selection_statement'''
 		t[0] = Node('','statement',[t[1]])
 
 	#if statement
 	def p_sels(self,t):
-		'selection_statement : IF LPAREN expression RPAREN statement'
-		t[0] = Node(t[1],'selection_statement',[t[3],t[5]])
+		'selection_statement : IF LPAREN expression RPAREN LBR statement SEMICOLON RBR'
+		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
 
 	#else statement
 	def p_sels2(self,t):
-		'selection_statement : IF LPAREN expression RPAREN statement ELSE statement'
-		t[0] = Node(t[1],'selection_statement',[t[3],t[5],t[7]])
+		'selection_statement : IF LPAREN expression RPAREN LBR statement RBR ELSE statement'
+		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[9]])
 
 	#assignment
 	def p_expr(self,t):
