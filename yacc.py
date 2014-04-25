@@ -40,7 +40,7 @@ class MAPparser():
 
 	def p_slist2(self,t):
 		'statement_list : statement statement_list'
-		t[0] = Node('','statement_list',[t[1],t[3]])
+		t[0] = Node('','statement_list',[t[1],t[2]])
 
 	def p_slist(self,t):
 		'statement_list : statement'
