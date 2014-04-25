@@ -26,7 +26,7 @@ class TestLexingSyntax(unittest.TestCase):
 		'Time':'TIME',
 		'DirEdge':'DIREDGE',
 		'UndirEdge':'UNDIREDGE',
-		'Print':'PRINT', 
+		'print':'PRINT', 
 		'add':'ADD',
 		'Delete':'DELETEFUNC',
 		'path':'PATHFUNC',
@@ -65,7 +65,7 @@ class TestLexingSyntax(unittest.TestCase):
 			self.assertEqual(val, token.type)
 
 	def test_hello_world_eq(self):
-#		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2}")
+#		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2;}")
 		self.lexer.input(MapTests.helloworld)
 		#progfile = open('testfiles/helloworld.map', 'r')
 		token = self.lexer.token()
@@ -104,6 +104,8 @@ class TestLexingSyntax(unittest.TestCase):
 		self.assertEqual('EQUALS', token.type)
 		token = self.lexer.token()
 		self.assertEqual('NUMERIC', token.type)
+		token = self.lexer.token()
+		self.assertEqual('SEMICOLON', token.type)
 		token = self.lexer.token()
 		self.assertEqual('RBR', token.type)
 

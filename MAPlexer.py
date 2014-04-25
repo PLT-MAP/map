@@ -8,7 +8,7 @@ class MAPlex:
 		'Time':'TIME',
 		'DirEdge':'DIREDGE',
 		'UndirEdge':'UNDIREDGE',
-		'Print':'PRINT', 
+		'print':'PRINT', 
 		'add':'ADD',
 		'Delete':'DELETEFUNC',
 		'path':'PATHFUNC',
