@@ -125,23 +125,11 @@ class Traverse(object):
 		if len(tree.children) == 2:
 			self.enter()
 			params = self.dispatch(tree.children[0], flag)
-			#print "params: ", params
-
-			# gets stuck here, we need to figure out why
-			#print self.fargs
-			#print fname
 			self.fargs[fname] = self.get_param_types(params, tree.children[0])
-			#print self.fargs[fname]
-			# from here on doesn't print
-			#print "get param types of child 1"
-			#print self.fargs[fname]
 			for (param, param_type) in zip(params, self.fargs[fname]):
-				#print (param, param_type)
 				self.symbols[param] = param_type
 				self.var_scopes[self.scope_depth].append(param)
 			comma = False
-			#print "got here"
-			#print params
 			for a in params:
 				if comma:
 					s += ","
@@ -150,7 +138,6 @@ class Traverse(object):
 				s += a
 				self.waitingfor.add(a)
 			s = s + "):\n"
-			#print "first kid: ", tree.children[1]
 			r = self.dispatch(tree.children[1], flag)
 			r += "\npass"
 			s += self.fill(r)
@@ -172,7 +159,6 @@ class Traverse(object):
 		return s
 
 	def _funcexp(self,tree,flag=None):
-		#print "fsadhs"
 		if self.symbols.get(flag) == "MAP":
 			if tree.name == "add":
 				return self.add_method(tree,flag)
@@ -181,7 +167,6 @@ class Traverse(object):
 		elif flag:
 			if self.symbols.get(flag) in self.class_meths:
 				class_methods = self.class_meths[self.symbols.get(flag)]
-				#print tree.name
                 if tree.name in class_methods:
                     params = self.dispatch(tree.children[0],flag)
                     typed_params = [self.num_or_str(param) for param in params]
@@ -231,14 +216,11 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
-		#print "hey sandya"
 		return self.dispatch(tree.children[0], flag)
 
 
 	def _statement_list(self, tree, flag=None):
-		print "hey alf"
 		if len(tree.children) == 0:
-			print "no kids"
 			return ""
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -246,26 +228,21 @@ class Traverse(object):
 			return self.dispatch(tree.children[0], flag) + "\n" + self.dispatch(tree.children[1], flag)
 
 	def _statement(self, tree, flag=None):
-		print "hey serena"
 		return self.dispatch(tree.children[0], flag)
 
 	def _expr(self, tree, flag=None):
-		print "hey expression"
 		return self.dispatch(tree.children[0], flag)
 
 	# identifier
 	def _id(self, tree, flag=None):
-		print "hey identifier"
 		s = tree.name
 		print s
 		return s
 
 	def _primary_expression(self, tree, flag=None):
-		print "hey primary expression"
 		return self.dispatch(tree.children[0], flag)
 
 	def _assignment_expression(self, tree, flag=None):
-		print "hey assignment expression"
 		return self.dispatch(tree.children[0], flag)
 
 # maybe use
@@ -283,18 +260,13 @@ class Traverse(object):
 		return s
 
 	def get_param_types(self, params, tree):
-		print "in param types"
-		print tree
 		typed_params = []
 		if params is not None:
 			for param in params:
-				print "processing param " + param
-				print tree
 				typed_params.append(self.get_param_type(param, tree))
 			return typed_params
 
 	def get_param_type(self, param, tree):
-		print "tree name:{0} param: {1}".format(tree.name,param)
 		if tree.name == param:
 			if tree.type == "class_method_expression":
 				for obj in self.class_meths:
@@ -310,7 +282,6 @@ class Traverse(object):
 					return int
 				if tree.name in self.fargs:
 					params = self.dispatch(tree.children[0])
-					#print params
 				return return_val
 
 '''
