@@ -4,13 +4,13 @@ import sys
 from asciitree import *
 
 class Traverse(object):
-	
+
 	def __init__(self, tree, file=sys.stdout):
 		self.f = file
-		
+
 		#self.flist = {"Edge": "Edge",
 		#			  "Text": "Text"}
-		self.fargs = {"Edge": [str], 
+		self.fargs = {"Edge": [str],
 					  "Node": [str],
 					  "Text": "every",
 					  "Path": [str],
@@ -29,11 +29,11 @@ class Traverse(object):
 				'delete': (lambda name, params : 'del %s[%s]' % (name, params))
 				}
 			}
-		
+
 		# used for scope checking
 		self.var_scopes = [[]]
 		self.scope_depth = 0
-		
+
 
 		self.relops = {'<','>','<=','>=','==','!=','+','-','*','/','%'}
 		self.future_imports = []
@@ -52,7 +52,10 @@ class Traverse(object):
 
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
-		s = "\n" + "    "*self._indent + text
+		lines = text.split('\n')
+		s = ""
+		for item in lines:
+			s += "    "*self._indent + item + "\n"
 		return s
 
 	def write(self, text):
@@ -101,7 +104,7 @@ class Traverse(object):
 		#return
 		#else:
 		#print "not attribute error"
-		#return 
+		#return
 
 	def flatten(self, x):
 		result = []
@@ -208,7 +211,7 @@ class Traverse(object):
                     init_args = [self.get_type(param) for param in typed_params]
                     print tree.name, init_args, params, self.symbols
                     if self.fargs[tree.name] != "every" and init_args != self.fargs[tree.leaf]:
-                        raise Exception("Function Type Check Error for %s, expected %s but got %s" 
+                        raise Exception("Function Type Check Error for %s, expected %s but got %s"
                             % (tree.name, str(self.fargs[tree.leaf]), str(init_args)))
                         s = self.listtoparams(params)
                     else:
@@ -230,7 +233,7 @@ class Traverse(object):
 		print "hey sandya"
 		return self.dispatch(tree.children[0], flag)
 
-	
+
 	def _statement_list(self, tree, flag=None):
 		print "hey alf"
 		if len(tree.children) == 0:
@@ -282,7 +285,7 @@ class Traverse(object):
 		print "in param types"
 		print tree
 		typed_params = []
-		if params is not None: 
+		if params is not None:
 			for param in params:
 				print "processing param " + param
 				print tree
@@ -349,7 +352,7 @@ class Traverse(object):
 		if tree.name:
 			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
 			return s
-		return self.dispatch(tree.children[0], flag) 
+		return self.dispatch(tree.children[0], flag)
 
 	# primary expression
 	def _primary_expression(self, tree, flag=None):
@@ -367,7 +370,7 @@ class Traverse(object):
 
 '''
 l = MAPlex()
-m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 4;}")
+m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'hi'; Text hullo = 'hullo'; bye = 1; Numeric bah = 2;}")
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
