@@ -77,7 +77,7 @@ class MAPparser():
 		t[0] = Node('','assignment_expression',[t[1]])
 
 	def p_aexpr2(self,t):
-		'assignment_expression : primary_expression EQUALS assignment_expression'
+		'''assignment_expression : primary_expression EQUALS assignment_expression'''
 		t[0] = Node(t[2],'assignment_expression',[t[1],t[3]])
 
 	def p_condexpr(self,t):
@@ -147,7 +147,7 @@ class MAPparser():
 	def p_primexp_term(self,t):
 		'''primary_expression : LITERAL
 		| NUMERIC'''
-		t[0] = Node('','primary_expression',[Node(t[1])])
+		t[0] = Node(t[1],'primary_expression',[Node(t[1])])
 
 	def p_primexp2(self,t):
 		'''primary_expression : LPAREN expression RPAREN'''

@@ -240,10 +240,22 @@ class Traverse(object):
 		return s
 
 	def _primary_expression(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		print tree.children[0]
+		if not tree.name:
+			print tree
+			x = self.dispatch(tree.children[0], flag)
+			return x
+		else:
+			return str(tree.name)
 
 	def _assignment_expression(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		x = self.dispatch(tree.children[0], flag)
+		if not tree.name:
+			return x
+		else:
+			print tree.children[1]
+			y = self.dispatch(tree.children[1], flag)
+			return x + tree.name + y
 
 # maybe use
 	def listtoparams(self, l, x=None):
@@ -342,7 +354,7 @@ class Traverse(object):
 
 '''
 l = MAPlex()
-m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'hi'; Text hullo = 'hullo'; bye = 1; Numeric bah = 2;}")
+m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'hi'; bye = 1.0;}")
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
