@@ -3,6 +3,7 @@ import unittest
 import yacc
 import MAPlexer 
 from MAPtestfiles import MapTests
+from asciitree import *
 
 
 
@@ -13,14 +14,14 @@ class TestYaccSyntax(unittest.TestCase):
 
 	def testhelloworld(self):
 		test= MapTests.helloworld
+		print test
 		result=yacc.MAPparser(self.lex,test)
-		print result
-
+		print draw_tree(result.ast)
+"""
 	def testprintfunc(self):
 		test= "func main(Text hi, Numeric bye) {print('hi');}"
 		result=yacc.MAPparser(self.lex,test)
-		print result
-
+		#print result
 	def testarithmetic(self):
 		test=  "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 		result=yacc.MAPparser(self.lex,test)
@@ -38,7 +39,7 @@ class TestYaccSyntax(unittest.TestCase):
 	
 		result=yacc.MAPparser(self.lex,test)
 		print result
-
+"""
 
 
 

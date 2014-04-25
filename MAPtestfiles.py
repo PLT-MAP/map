@@ -3,7 +3,7 @@ class MapTests(object):
 	helloworld="""
 	func main(Text hi, Numeric bye) { 
 	Text t = 'Hello, world'; 
-	bye = 2
+	bye = 2;
 	}
 	"""
 
