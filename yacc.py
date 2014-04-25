@@ -39,32 +39,32 @@ class MAPparser():
 		t[0] = Node(t[1],'typedec',[t[2]])
 
 	def p_slist2(self,t):
-		'statement_list : statement_list statement SEMICOLON'
-		t[0] = Node('','statement_list',[t[1],t[2]])
+		'statement_list : statement statement_list'
+		t[0] = Node('','statement_list',[t[1],t[3]])
 
 	def p_slist(self,t):
-		'statement_list : statement SEMICOLON'
+		'statement_list : statement'
 		t[0] = Node('','statement_list',[t[1]])
 
 	def p_slist3(self,t):
 		'statement_list : '
-		t[0] = Node()
+		t[0] = Node('','statement_list_empty')
 
 	def p_s(self,t):
-		'''statement : expression
-		| function_call
+		'''statement : expression SEMICOLON
+		| function_call SEMICOLON
 		| selection_statement'''
 		t[0] = Node('','statement',[t[1]])
 
 	#if statement
 	def p_sels(self,t):
-		'selection_statement : IF LPAREN expression RPAREN LBR statement SEMICOLON RBR'
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
 
 	#else statement
 	def p_sels2(self,t):
-		'selection_statement : IF LPAREN expression RPAREN LBR statement RBR ELSE statement'
-		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[9]])
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR ELSE LBR statement_list RBR'
+		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[10]])
 
 	#assignment
 	def p_expr(self,t):
