@@ -61,7 +61,7 @@ class Traverse(object):
 
 	def write(self, text):
 		'''Append the text passed in to the current line.'''
-		self.f.write(text)
+		return text
 
 	def enter(self):
 		'''Create a new scope associated with the corresponding : and increase to
@@ -69,7 +69,7 @@ class Traverse(object):
 		self.scope_depth += 1
 		self.var_scopes.append([])
 		self._indent += 1
-		self.f.write(":")
+		return ":"
 
 	def leave(self):
 		'''Decrease the indentation level and remove out-of-scope symbols.'''
@@ -155,7 +155,6 @@ class Traverse(object):
 			s = s + "):\n"
 			self.enter()
 			self.fill("pass")
-		print s
 		return s
 
 	def _funcexp(self,tree,flag=None):
@@ -239,7 +238,6 @@ class Traverse(object):
 		return s
 
 	def _primary_expression(self, tree, flag=None):
-		print tree.children[0]
 		if not tree.name:
 			x = self.dispatch(tree.children[0], flag)
 			return x
@@ -252,7 +250,7 @@ class Traverse(object):
 			return x
 		else:
 			y = self.dispatch(tree.children[1], flag)
-			return x + tree.name + y
+			return x + " " + tree.name + " " + y
 
 # maybe use
 	def listtoparams(self, l, x=None):
@@ -295,7 +293,6 @@ class Traverse(object):
 
 	def _conditional_expression(self, tree, flag= None):
 		#if tree.name:
-		print tree
 		return self.dispatch(tree.children[0], flag)
 
 	# logical expressions
@@ -339,20 +336,31 @@ class Traverse(object):
 			return s
 		return self.dispatch(tree.children[0], flag)
 
-'''
+
 	# function call
-	def _function_call(self, tree, flag=None): #params here?
+	def _function_call(self, tree, flag=None):
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		elif len(tree.children) == 2:
+			return self.dispatch(tree.children[0], flag) + " " + self.dispatch(tree.children[1], flag)
+		else:
+			print "need to deal with functions with this many parameters"
+			return self.dispatch(tree.children[0], flag)
 
-	def _func_args():
+	def _func_args(self, tree, flag=None):
+		return self.dispatch(tree.children[0], flag)
 
-	def _arg():
+	def _arg(self, tree, flag=None):
+		return self.dispatch(tree.children[0], flag)
 
+
+'''
 	def _function_name():
 '''
 
 
 l = MAPlex()
-m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'hi'; bye = 1.0 + 2.0;}")
+m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 1.0 + 2.0; print(hi);}")
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
