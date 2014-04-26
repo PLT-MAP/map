@@ -6,7 +6,47 @@ class MapTests(object):
 	bye = 2;
 	}
 	"""
+	
+	if_statement=""" 
+	if (5 < 7) {
+	cost = 5;
+	}
+	"""
 
+	ifelse_statement="""
+	if(5<7){
+	cost=5;
+	}
+	else{
+	cost=10;
+	}
+	"""
+
+	ifelifelse_statement="""
+	if(x<5){
+	cost=5;
+	}
+	elif (x<10){
+	cost=10;
+	}
+	else{
+	cost=15;
+	}
+	"""
+
+	for_statement="""
+	for(int i=0;i<10;i=i+1){
+	print i;
+	}
+	"""
+
+	foreach_statement="""
+	foreach (Node n in graph){
+	print n;
+	}
+	"""
+
+	
 	graph='''
 		func createTrip() {
 		Node cabo = Node({'temp':85,'humidity':'low'});
