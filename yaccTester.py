@@ -14,15 +14,22 @@ class TestYaccSyntax(unittest.TestCase):
 
 	def testhelloworld(self):
 		test= MapTests.helloworld
-		print test
+	#	print test
+	#	result=yacc.MAPparser(self.lex,test)
+	#	print draw_tree(result.ast)
+
+	def testfunc(self):
+		test= '''
+		func main(Text hi) {
+			if (5 < 7) {
+				bye = 5;
+				}
+			}
+		'''
 		result=yacc.MAPparser(self.lex,test)
-		print draw_tree(result.ast)
-"""
-	def testprintfunc(self):
-		test= "func main(Text hi, Numeric bye) {print('hi');}"
-		result=yacc.MAPparser(self.lex,test)
-		#print result
-	def testarithmetic(self):
+		print result
+	#	print draw_tree(result.ast)
+"""	def testarithmetic(self):
 		test=  "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 		result=yacc.MAPparser(self.lex,test)
 		print result
