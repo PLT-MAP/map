@@ -39,37 +39,21 @@ class MAPparser():
 		t[0] = Node(t[1],'typedec',[t[2]])
 
 	def p_slist2(self,t):
-		'statement_list : statement_list statement SEMICOLON'
+		'statement_list : statement_list statement'
 		t[0] = Node('','statement_list',[t[1],t[2]])
 
 	def p_slist(self,t):
-		'statement_list : statement SEMICOLON'
-		t[0] = Node('','statement_list',[t[1]])
-	
-############################################################
-#For the sake of if statement blocks
-	def p_slistif(self,t):
 		'statement_list : statement'
 		t[0] = Node('','statement_list',[t[1]])
-	def p_slistif2(self,t):
-		'statement_list : statement_list statement'
-		t[0] = Node('','statement_list',[t[1],t[2]])
-	def p_sif3(self,t):
-		'statement : selection_statement'
-		t[0] = Node('','statement',[t[1]])
-
-#end of changes by Tommy 
-############################################################
-
 
 	def p_slist3(self,t):
 		'statement_list : '
 		t[0] = Node()
 
 	def p_s(self,t):
-		'''statement : expression
-		| function_call'''
-		#| selection_statement'''
+		'''statement : expression SEMICOLON
+		| function_call SEMICOLON
+		| selection_statement'''
 		t[0] = Node('','statement',[t[1]])
 
 	#if statement
