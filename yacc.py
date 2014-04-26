@@ -58,12 +58,12 @@ class MAPparser():
 
 	#if statement
 	def p_sels(self,t):
-		'selection_statement : IF LPAREN expression RPAREN LBR statement SEMICOLON RBR'
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
 
 	#else statement
 	def p_sels2(self,t):
-		'selection_statement : IF LPAREN expression RPAREN LBR statement RBR ELSE statement'
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR ELSE statement'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[9]])
 
 	#assignment
