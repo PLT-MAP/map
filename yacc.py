@@ -120,7 +120,7 @@ class MAPparser():
 		| relational_expression LESSTHAN additive_expression
 		| relational_expression LESSTHANOREQUALTO additive_expression
 		| relational_expression GREATERTHANOREQUALTO additive_expression'''
-		t[0] = Node(t[2],'relational_expression',[t[2],t[3]])
+		t[0] = Node(t[2],'relational_expression',[t[1],t[3]])
 
 	def p_addexpr(self,t):
 		'additive_expression : multiplicative_expression'
