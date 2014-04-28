@@ -2,6 +2,7 @@ import yacc
 import MAPlexer 
 import traverse 
 import sys
+from preprocess import *
 
 def main(argv):
 	inputfile=argv[1]
@@ -10,7 +11,9 @@ def main(argv):
 	filename=inputfile.split('.')
 	print filename[0]
 	print filename[1]
+	
 	parser=yacc.MAPparser
+	lex=MAPlexer.MAPlex()
 
 
 if __name__ == '__main__':

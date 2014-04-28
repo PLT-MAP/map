@@ -49,11 +49,15 @@ class Traverse(object):
 		self.f.write("")
 		self.f.flush()
 		#print draw_tree(tree)
+		#return self.x
+
+	def complete(self):
 		return self.x
 
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
 		lines = text.split('\n')
+		print lines
 		s = ""
 		for item in lines:
 			s += "    "*self._indent + item + "\n"
@@ -69,7 +73,7 @@ class Traverse(object):
 		self.scope_depth += 1
 		self.var_scopes.append([])
 		self._indent += 1
-		return ":"
+		return ":\n"
 
 	def leave(self):
 		'''Decrease the indentation level and remove out-of-scope symbols.'''
@@ -94,18 +98,9 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		#print "dispatch type: ", tree.type
-		#print tree
-		#try:
 		method = getattr(self,"_"+tree.type)
 		x = method(tree, flag)
 		return x
-		#except AttributeError:
-		#print "failed tree:{0} flag:{1}".format(tree,flag)
-		#return
-		#else:
-		#print "not attribute error"
-		#return
 
 	def flatten(self, x):
 		result = []
@@ -137,7 +132,7 @@ class Traverse(object):
 					comma = True
 				s += a
 				self.waitingfor.add(a)
-			s = s + "):\n"
+			s = s + ")" + self.enter()
 			r = self.dispatch(tree.children[1], flag)
 			r += "\n"
 			s += self.fill(r)
@@ -332,15 +327,20 @@ class Traverse(object):
 	# multiplicative expression
 	def _multiplicative_expression(self, tree, flag=None):
 		if tree.name:
-			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
+			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag) + ")"
 			return s
 		return self.dispatch(tree.children[0], flag)
 
 	def _selection_statement(self, tree, flag=None):
 		x = self.dispatch(tree.children[0], flag)
-		s = tree.name
 		y = self.dispatch(tree.children[1], flag)
-		return s + " (" + x + ")" + self.enter() + self.fill() + y #+ self.leave() + "hey"
+		s = tree.name + " (" + x + ")" 
+		s += self.enter() 
+		print y
+		r = y
+		s += self.fill(r) 
+		self.leave()
+		return s
 
 	# function call
 	def _function_call(self, tree, flag=None):
@@ -366,13 +366,12 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
-m = MAPparser(l,"func main(Text hi) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
+m = MAPparser(l,"func main(Text hi, Numeric bye) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
-
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
-	t.enter()
+	#print(t.complete())
 
 if __name__ == "__main__":
 	main()
