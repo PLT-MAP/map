@@ -14,6 +14,7 @@ class Traverse(object):
 					  "Node": [str],
 					  "Text": "every",
 					  "Path": [str],
+					  "Graph": [str],
 					  "Numeric": "every",
 					  "List": "every",
 					  "None": "every"}
@@ -209,7 +210,14 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		if tree.name == 'Node':
+			x = self.dispatch(tree.children[0], flag)
+			return x
+		elif tree.name == 'Graph':
+			x = self.dispatch(tree.children[0], flag) + " = nx.Graph()"
+			return x
+		else:
+			return self.dispatch(tree.children[0], flag)
 
 
 	def _statement_list(self, tree, flag=None):
@@ -363,7 +371,7 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
-m = MAPparser(l,"func main(Text hi, Numeric bye) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
+m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n;}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
 	print draw_tree(m.ast)
