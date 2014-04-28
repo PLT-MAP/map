@@ -14,12 +14,10 @@ class MapTests(object):
 	"""
 
 	ifelse_statement="""
-	if(5<7){
-	cost=5;
-	}
-	else{
-	cost=10;
-	}
+	func main(Text hi, Numeric bye){
+		hi = 'Hello, World!'; 
+		bye = 2.0;
+		}	
 	"""
 
 	ifelifelse_statement="""
