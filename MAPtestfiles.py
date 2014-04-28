@@ -1,12 +1,19 @@
 class MapTests(object):
 
 	helloworld="""
-	func main(Text hi, Numeric bye) { 
+	func helloworld(Text hi, Numeric bye) { 
 	Text t = 'Hello, world'; 
 	bye = 2;
 	}
 	"""
-	
+	print_statement="""
+	func main(){
+		print("hi);
+	}
+	"""
+
+
+
 	if_statement=""" 
 	func main(Text hi){
 	if (5 < 7) {

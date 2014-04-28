@@ -38,6 +38,13 @@ class TestTraverseSyntax(unittest.TestCase):
 		 expfile=open("test/helloworld.txt",'r')
 		 self.assert_prog(t.complete(),expfile)
 		 
+	def testifstatement(self):
+		 test= MapTests.print_statement
+		 m=yacc.MAPparser(self.lex,test)
+		 t=traverse.Traverse(m.ast)
+		 t.enter()
+
+
 """
 	def testifstatement(self):
 		 test= MapTests.if_statement

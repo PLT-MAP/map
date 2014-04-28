@@ -363,7 +363,7 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
-m = MAPparser(l,"func main(Text hi, Numeric bye) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
+m = MAPparser(l,"func main(Text hi, Numeric bye) { hi = 'Hello, World!'; print(hi); if (5 < 7) {bye = 5;}}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
 	print draw_tree(m.ast)
