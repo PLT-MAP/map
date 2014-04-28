@@ -1,14 +1,15 @@
 class MapTests(object):
 
 	helloworld="""
-	func helloworld(Text hi, Numeric bye) { 
-	Text t = 'Hello, world'; 
+	func main() {  
+	Text t = 'Hello, world';   
 	bye = 2;
-	}
+	print(t);
+}
 	"""
 	print_statement="""
 	func main(){
-		print("hi);
+		print('hi');
 	}
 	"""
 
