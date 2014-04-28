@@ -26,7 +26,7 @@ class TestLexingSyntax(unittest.TestCase):
 		'Time':'TIME',
 		'DirEdge':'DIREDGE',
 		'UndirEdge':'UNDIREDGE',
-		'print':'PRINT', 
+#		'print':'PRINT', 
 		'add':'ADD',
 		'Delete':'DELETEFUNC',
 		'path':'PATHFUNC',
