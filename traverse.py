@@ -58,6 +58,7 @@ class Traverse(object):
 		'''Indent a piece of text, according to the current indentation level.'''
 		lines = text.split('\n')
 		print lines
+		print self._indent
 		s = ""
 		for item in lines:
 			s += "    "*self._indent + item + "\n"
@@ -70,6 +71,7 @@ class Traverse(object):
 	def enter(self):
 		'''Create a new scope associated with the corresponding : and increase to
 		the appropriate indentation.'''
+		print "entering enter"
 		self.scope_depth += 1
 		self.var_scopes.append([])
 		self._indent += 1
@@ -118,7 +120,6 @@ class Traverse(object):
 		fname = tree.name
 		s = "def " + tree.name + "("
 		if len(tree.children) == 2:
-			self.enter()
 			params = self.dispatch(tree.children[0], flag)
 			self.fargs[fname] = self.get_param_types(params, tree.children[0])
 			for (param, param_type) in zip(params, self.fargs[fname]):
@@ -132,9 +133,8 @@ class Traverse(object):
 					comma = True
 				s += a
 				self.waitingfor.add(a)
-			s = s + ")" + self.enter()
+			s += ")" + self.enter()
 			r = self.dispatch(tree.children[1], flag)
-			r += "\n"
 			s += self.fill(r)
 			self.leave()
 		else:
@@ -147,8 +147,7 @@ class Traverse(object):
 					comma = True
 				s += a
 				self.waitingfor.add(a)
-			s = s + "):\n"
-			self.enter()
+			s += ")" + self.enter()
 			self.fill("pass")
 		return s
 
@@ -333,11 +332,9 @@ class Traverse(object):
 
 	def _selection_statement(self, tree, flag=None):
 		x = self.dispatch(tree.children[0], flag)
-		y = self.dispatch(tree.children[1], flag)
 		s = tree.name + " (" + x + ")" 
-		s += self.enter() 
-		print y
-		r = y
+		s += self.enter()
+		r = self.dispatch(tree.children[1], flag)
 		s += self.fill(r) 
 		self.leave()
 		return s
