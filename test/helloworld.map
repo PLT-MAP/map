@@ -1,7 +1,6 @@
-func helloworld(Text hi, Numeric bye) {  
+func main() {  
 	Text t = 'Hello, world';   
 	bye = 2;
+	print(t);
 }
-
-
 

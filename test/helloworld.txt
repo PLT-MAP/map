@@ -1,3 +1,5 @@
-def main(hi,bye):
+def helloworld():
     t = 'Hello, world'
     bye = 2.0
+	print t
+
