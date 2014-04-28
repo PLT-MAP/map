@@ -49,6 +49,9 @@ class Traverse(object):
 		self.f.write("")
 		self.f.flush()
 		#print draw_tree(tree)
+		#return self.x
+
+	def complete(self):
 		return self.x
 
 	def fill(self, text=""):
@@ -372,7 +375,7 @@ m = MAPparser(l,"func main(Text hi) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
-	t.enter()
+	print(t.complete())
 
 if __name__ == "__main__":
 	main()
