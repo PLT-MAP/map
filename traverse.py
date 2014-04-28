@@ -335,7 +335,7 @@ class Traverse(object):
 	# multiplicative expression
 	def _multiplicative_expression(self, tree, flag=None):
 		if tree.name:
-			s = self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag)
+			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag) + ")"
 			return s
 		return self.dispatch(tree.children[0], flag)
 
@@ -371,7 +371,6 @@ l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
 m = MAPparser(l,"func main(Text hi) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
-
 def main():
 	print draw_tree(m.ast)
 	t = Traverse(m.ast)
