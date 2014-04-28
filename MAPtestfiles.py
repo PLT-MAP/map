@@ -8,8 +8,10 @@ class MapTests(object):
 	"""
 	
 	if_statement=""" 
+	func main(Text hi){
 	if (5 < 7) {
-	cost = 5;
+		cost = 5;
+		}
 	}
 	"""
 
