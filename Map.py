@@ -16,7 +16,10 @@ def main(argv):
 
 	outputfile=filename[0]+".py"
 	output=open(outputfile,'w')
-	output.write(t.complete())
+	content=t.complete()
+	mainstatement="if __name__ == '__main__': \n\tmain()"
+	content=content+mainstatement
+	output.write(content)
 
 if __name__ == '__main__':
 	main(sys.argv)

@@ -1,4 +1,4 @@
-func main(Text hi, Numeric bye) {  
+func helloworld(Text hi, Numeric bye) {  
 	Text t = 'Hello, world';   
 	bye = 2;
 }
