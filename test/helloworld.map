@@ -1,14 +1,7 @@
-func main(){
-
-print "Hello World!";
-
+func main(Text hi, Numeric bye) {  
+	Text t = 'Hello, world';   
+	bye = 2;
 }
-
-
-
-
-
-
 
 
 
