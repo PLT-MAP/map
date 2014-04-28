@@ -29,7 +29,7 @@ class TestYaccSyntax(unittest.TestCase):
 		result=yacc.MAPparser(self.lex,test)
 		print test
 		print draw_tree(result.ast)
-"""	def testarithmetic(self):
+	def testarithmetic(self):
 		test=  "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 		result=yacc.MAPparser(self.lex,test)
 		print result
@@ -46,7 +46,7 @@ class TestYaccSyntax(unittest.TestCase):
 	
 		result=yacc.MAPparser(self.lex,test)
 		print result
-"""
+
 
 
 

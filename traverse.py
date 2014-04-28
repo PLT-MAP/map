@@ -207,7 +207,7 @@ class Traverse(object):
 		if len(tree.children) == 0:
 			return ""
 		if len(tree.children) == 1:
-			return self.dispatch(tree.children[0], flag)
+			return [self.dispatch(tree.children[0], flag)]
 		else:
 			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
