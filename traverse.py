@@ -338,7 +338,9 @@ class Traverse(object):
 
 	def _selection_statement(self, tree, flag=None):
 		print tree
-		return self.dispatch(tree.children[0], flag)
+		x = self.dispatch(tree.children[0], flag)
+		s = tree.name
+		return s + " (" + x + ")"
 
 	# function call
 	def _function_call(self, tree, flag=None):
@@ -364,11 +366,11 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
-#m = MAPparser(l,"func main(Text hi) {if (5 < 7) {bye = 5;}}")
-m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
+m = MAPparser(l,"func main(Text hi) {if (5 < 7) {bye = 5;}}")
+#m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 
 def main():
-	#print draw_tree(m.ast)
+	print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	t.enter()
 
