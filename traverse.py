@@ -49,7 +49,7 @@ class Traverse(object):
 		self.f.write("")
 		self.f.flush()
 		#print draw_tree(tree)
-
+		return self.x
 
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
@@ -366,7 +366,7 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0;}")
-m = MAPparser(l,"func main(Text hi) {if (5 < 7) {bye = 5;}}")
+m = MAPparser(l,"func main(Text hi) { hi = 'Hello, World!'; if (5 < 7) {bye = 5;}}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 
 def main():
