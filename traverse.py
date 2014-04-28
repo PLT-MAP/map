@@ -337,10 +337,9 @@ class Traverse(object):
 		return self.dispatch(tree.children[0], flag)
 
 	def _selection_statement(self, tree, flag=None):
-		print tree
 		x = self.dispatch(tree.children[0], flag)
 		s = tree.name
-		return s + " (" + x + ")"
+		return s + " (" + x + ")" + self.enter() + self.fill() + "hey"
 
 	# function call
 	def _function_call(self, tree, flag=None):
