@@ -21,6 +21,25 @@ class TestTraverseSyntax(unittest.TestCase):
                  m=yacc.MAPparser(self.lex,test)
                  t=traverse.Traverse(m.ast)
                  t.enter()
-
+	def testifelsestatement(self):
+                 test= MapTests.ifelse_statement
+                 m=yacc.MAPparser(self.lex,test)
+                 t=traverse.Traverse(m.ast)
+                 t.enter()	
+	def testifelifelsestatement(self):
+                 test= MapTests.ifelifelse_statement
+                 m=yacc.MAPparser(self.lex,test)
+                 t=traverse.Traverse(m.ast)
+                 t.enter()
+	def testforstatement(self):
+                 test= MapTests.for_statement
+                 m=yacc.MAPparser(self.lex,test)
+                 t=traverse.Traverse(m.ast)
+                 t.enter()
+	def testforeachstatement(self):
+                 test= MapTests.foreach_statement
+                 m=yacc.MAPparser(self.lex,test)
+                 t=traverse.Traverse(m.ast)
+                 t.enter()
 if __name__ == "__main__": 
 	unittest.main()
