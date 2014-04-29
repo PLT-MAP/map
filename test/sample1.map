@@ -1,0 +1,21 @@
+func main(){
+        Graph g=Graph();
+        Node nj= Node();
+        Node ny= Node();
+        Node pa= Node({'temp':85,'humidity':'low'});
+	Node va= Node({'temp':87,'humidity':'high'});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
