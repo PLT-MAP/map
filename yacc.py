@@ -183,20 +183,20 @@ class MAPparser():
 
 	def p_funcargs2(self,t):
 		'func_args : func_args COMMA arg'
-		t[0] = Node(t[2],[t[1],t[3]])
+		t[0] = Node(t[2],'func_args',[t[1],t[3]])
 
 	def p_arg_lit(self,t):
 		'arg : LITERAL'
-		t[0] = Node('','arg',[Node(t[1])])
+		t[0] = Node(t[1],'arg')
 
 	def p_arg_id(self,t):
-		'arg : identifier'
-		t[0] = Node('','arg',[t[1]])
+		'arg : ID'
+		t[0] = Node(t[1],'arg')
 
 
 	def p_arg_E(self,t):
 		'arg : '
-		t[0] = Node()
+		t[0] = Node('','arg')
 
 	def p_funcname(self,t):
 		'''function_name : ADD

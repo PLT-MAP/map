@@ -101,8 +101,8 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		#print "calling dispatch for "
-		#print tree
+		print "calling dispatch for "
+		print tree
 		method = getattr(self,"_"+tree.type)
 
 		x = method(tree, flag)
@@ -368,8 +368,10 @@ class Traverse(object):
 		return self.dispatch(tree.children[0], flag)
 
 	def _arg(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		print "arg"
+		print tree
 
+		return tree.name
 
 '''
 	def _function_name():
