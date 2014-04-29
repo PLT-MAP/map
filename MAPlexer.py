@@ -8,7 +8,7 @@ class MAPlex:
 		'Time':'TIME',
 		'DirEdge':'DIREDGE',
 		'UndirEdge':'UNDIREDGE',
-		#'print':'PRINT', 
+		'print':'PRINT', 
 		'add':'ADD',
 		'Delete':'DELETEFUNC',
 		'path':'PATHFUNC',
@@ -41,7 +41,7 @@ class MAPlex:
 		'TYPE',
 		'BOOLEAN',
 		#'SINGLEQUOTE', #2
-		'DOUBLEQUOTE', 
+		#'DOUBLEQUOTE', 
 		'ID',	   
 		'PLUS',    
 		'MINUS',   
@@ -83,14 +83,14 @@ class MAPlex:
 		return t
 
 	#t_SINGLEQUOTE=r'(\')' #2
-	t_DOUBLEQUOTE=r'(\")' #2.1
+	#t_DOUBLEQUOTE=r'(\")' #2.1
 
 	def t_LITERAL(self,t):
-		r'\'[A-Za-z ,!]*\''
+		r'\'[A-Za-z ,!]*\'|\"[A-Za-z ,!]*\" '
 		return t
 
 	def t_ID(self,t): 
-	 	r'[a-zA-Z_][a-zA-Z_0-9]*' 
+	 	r'([a-zA-Z_][a-zA-Z_0-9]*)'
 	 	t.type = self.reserved.get(t.value,'ID')
 	 	if (t.value in self.Boolean):
 			t.type='BOOLEAN'

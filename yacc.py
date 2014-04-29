@@ -54,7 +54,16 @@ class MAPparser():
 		'''statement : expression SEMICOLON
 		| function_call SEMICOLON
 		| selection_statement'''
+		#print_statement SEMICOLON'''
 		t[0] = Node('','statement',[t[1]])
+
+	#def p_print(self,t):
+	#	'print_statement: PRINT LPAREN LITERAL RPAREN'
+	#	t[1] = Node(t[1],'print_statement',[t[3]])
+
+	#def p_print2(self,t):
+	#	'print_statement: PRINT LPAREN ID RPAREN'
+	#	t[1] = Node(t[1],'print_statement',[t[3]])	
 
 	#if statement
 	def p_sels(self,t):
