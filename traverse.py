@@ -46,7 +46,7 @@ class Traverse(object):
 		self.waitingfor = set()
 		self._indent = 0
 		self.x = self.dispatch(tree)
-		print self.x
+		#print self.x
 		self.f.write("")
 		self.f.flush()
 		#print draw_tree(tree)
@@ -58,8 +58,8 @@ class Traverse(object):
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
 		lines = text.split('\n')
-		print lines
-		print self._indent
+		#print lines
+		#print self._indent
 		s = ""
 		for item in lines:
 			s += "    "*self._indent + item + "\n"
@@ -72,7 +72,7 @@ class Traverse(object):
 	def enter(self):
 		'''Create a new scope associated with the corresponding : and increase to
 		the appropriate indentation.'''
-		print "entering enter"
+		#print "entering enter"
 		self.scope_depth += 1
 		self.var_scopes.append([])
 		self._indent += 1
@@ -101,8 +101,8 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
-		print "calling dispatch for "
-		print tree
+		#print "calling dispatch for "
+		#print tree
 		method = getattr(self,"_"+tree.type)
 
 		x = method(tree, flag)
@@ -361,16 +361,13 @@ class Traverse(object):
 		elif len(tree.children) == 2:
 			return self.dispatch(tree.children[0], flag) + " " + self.dispatch(tree.children[1], flag)
 		else:
-			print "need to deal with functions with this many parameters"
+			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
 
 	def _func_args(self, tree, flag=None):
 		return self.dispatch(tree.children[0], flag)
 
 	def _arg(self, tree, flag=None):
-		print "arg"
-		print tree
-
 		return tree.name
 
 '''
@@ -383,7 +380,7 @@ l = MAPlex()
 m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); Node no = Node({}); Node no2 = Node();}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
-	print draw_tree(m.ast)
+	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	#print(t.complete())
 
