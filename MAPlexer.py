@@ -161,7 +161,7 @@ class MAPlex:
 	    t.lexer.skip(1)
         
 	def build(self,**kwargs):
-		self.lexer = lex.lex(module=self, **kwargs)
+		self.lexer = lex.lex(debug=0, module=self, **kwargs)
 
 	def get_lexer(self): 
 		return self.lexer

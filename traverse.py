@@ -101,7 +101,10 @@ class Traverse(object):
 			for t in tree:
 				self.dispatch(t, flag)
 			return
+		#print "calling dispatch for "
+		#print tree
 		method = getattr(self,"_"+tree.type)
+
 		x = method(tree, flag)
 		return x
 
@@ -115,6 +118,9 @@ class Traverse(object):
 		return result
 
 # do we need external declaration stuff? translation unit? not in yacc but in our grammer
+
+	def _print(self, tree, flag=None):
+		return tree.name
 
 	# function definition
 	def _funcdef(self, tree, flag=None):
