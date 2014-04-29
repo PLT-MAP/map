@@ -1,6 +1,10 @@
 import ply.lex as lex
 
 class MAPlex:
+
+	def __init__(self):
+		self.errored = False
+
 	reserved ={ 'null':'NULL',
 		'include':'INCLUDE',
 		#	'true' : 'TRUE', 

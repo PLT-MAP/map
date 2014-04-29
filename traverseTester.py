@@ -12,6 +12,10 @@ class TestTraverseSyntax(unittest.TestCase):
 	def setUp(self):
 		self.lex=MAPlexer.MAPlex()
 
+	def assert_lexer(self):
+		self.assertEqual(self.lex.errored,False)
+
+
 	def assert_prog(self, traversestring, expfile):
 		teststr=expfile.read()
 		teststr=teststr.splitlines()
@@ -35,6 +39,7 @@ class TestTraverseSyntax(unittest.TestCase):
 		 test= MapTests.helloworld
 		 m=yacc.MAPparser(self.lex,test)
 		 t=traverse.Traverse(m.ast)
+		 self.assertEquals(m.errored,False)
 		 expfile=open("test/helloworld.txt",'r')
 		 self.assert_prog(t.complete(),expfile)
 

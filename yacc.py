@@ -11,6 +11,7 @@ class MAPparser():
 		self.tokens = l.tokens
 		self.parser=yacc.yacc(module=self)
 		self.parser.parse(i)
+		self.errored = False
 
 	def p_fd(self,t):
 		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
@@ -219,6 +220,7 @@ class MAPparser():
 		print 'Found:', cvars['ltype']
 		print 'Errtoken: {0}'.format(cvars['errtoken'])
 		print "input: {0}".format(self.input)
+		self.errored = True
 
 
 def main(argv):

@@ -5,7 +5,7 @@ from asciitree import *
 
 class Traverse(object):
 
-	def __init__(self, tree, file=sys.stdout):
+	def __init__(self, tree, file=sys.stdout): 
 		self.f = file
 
 		#self.flist = {"Edge": "Edge",
