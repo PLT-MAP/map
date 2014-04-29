@@ -169,7 +169,8 @@ class MAPparser():
 		t[0] = Node(t[2],'function_call',[t[1],t[3],t[5]])
 
 	def p_funcall2(self,t):
-		'function_call : identifier LPAREN func_args RPAREN'
+		'''function_call : identifier LPAREN func_args RPAREN
+		function_call : PRINT LPAREN func_args RPAREN'''
 		t[0] = Node('','function_call',[t[1], t[3]])
 
 	def p_funcargs(self,t):
