@@ -1,0 +1,7 @@
+func main(){
+	Graph g=Graph();
+	Node cabo= Node();
+	Node mexico= Node();
+	Node newyork= Node();
+	
+}

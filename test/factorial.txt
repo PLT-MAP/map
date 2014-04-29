@@ -1,0 +1,19 @@
+def factorial ( n ):
+        i
+        x = 1
+        if ( n == 0):
+                return 1
+        for ( i = 1; i <= n ; i = i +1):
+                x = x * i         
+        return x 
+
+
+def main():
+        fact = factorial(5)
+        print fact
+
+if __name__ == '__main__':
+	main()
+
+
+
