@@ -57,18 +57,25 @@ class TestTraverseSyntax(unittest.TestCase):
 			t=traverse.Traverse(m.ast)
 		 	expfile=open("test/iftest.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
-"""			
-	def testifelsestatement(self):
-                 test= MapTests.ifelse_statement
-                 m=yacc.MAPparser(self.lex,test)
-                 t=traverse.Traverse(m.ast)
-                 t.enter()	
 
-	def testifelifelsestatement(self):
-                 test= MapTests.ifelifelse_statement
-                 m=yacc.MAPparser(self.lex,test)
-                 t=traverse.Traverse(m.ast)
-                 t.enter()
+	def testifelsetest(self):
+		 test= MapTests.ifelsetest
+		 m=yacc.MAPparser(self.lex,test)
+		 self.assertEquals(m.errored,False)
+		 if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/ifelsetest.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+"""	
+	def testifelifelsetest(self):
+		 test= MapTests.ifelifelsetest
+		 m=yacc.MAPparser(self.lex,test)
+		 self.assertEquals(m.errored,False)
+		 if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/ifelifelsetest.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
 	def testforstatement(self):
                  test= MapTests.for_statement
                  m=yacc.MAPparser(self.lex,test)

@@ -1,6 +1,6 @@
 def main():
-	if (5<7):
-		cost=2;
+	if (10.0<7.0):
+		cost=2.0
 	else:
-		print t
+		print "success"
 	

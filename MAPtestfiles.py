@@ -24,7 +24,7 @@ class MapTests(object):
 	"""
 
 	ifelsetest="""
-	main() {                                                                     
+	func main() {                                                                     
 		if (10<7){ 
 			cost= 2;                                               
 			}                                                                    
@@ -34,15 +34,18 @@ class MapTests(object):
 		}
 	"""
 
-	ifelifelse_statement="""
+	ifelifelsetest="""
+	func main(){
 	if(x<5){
-	cost=5;
+		cost=5;
 	}
-	elif (x<10){
-	cost=10;
+	elif (x<10)
+	{
+		cost=10;
 	}
 	else{
-	cost=15;
+		cost=15;
+	}
 	}
 	"""
 

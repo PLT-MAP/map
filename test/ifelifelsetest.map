@@ -1,0 +1,13 @@
+func main(){
+	if(x<5){
+		cost=5;
+	}
+	elif (x<10)
+	{
+		cost=10;
+	}
+	else{
+		cost=15;
+	}
+}
+	"""
