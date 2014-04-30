@@ -50,14 +50,18 @@ class MapTests(object):
 	"""
 
 	for_statement="""
+func main(){
 	for(int i=0;i<10;i=i+1){
 	print i;
 	}
+}
 	"""
 
 	foreach_statement="""
-	foreach (Node n in graph){
-	print n;
+	func main(){
+		foreach (Node n in graph){
+		print n;
+		}
 	}
 	"""
 
@@ -80,6 +84,10 @@ class MapTests(object):
 		Edge flight49 = Edge(seattle, cabo, {'cost':350,'duration':4.5});
 		flights.addEdge(flight5, flight9, flight7, flight234, flight49);
 		return flights;}
+
+		func main(){
+		createTrip();
+		}
 		'''
 	graphfile='''
 		func printDestination(Node origin, Graph graph) {       
