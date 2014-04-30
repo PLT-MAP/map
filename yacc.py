@@ -36,16 +36,18 @@ class MAPparser():
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 	def p_plist3(self,t):
-		'parameter_list : ASSOCIATIVE_ARR'
+		'''parameter_list : ASSOCIATIVE_ARR COMMA ASSOCIATIVE_ARR
+		| ASSOCIATIVE_ARR'''
+		print "hi THERE IS AN ASSOCIATE ARRAY IN HUEH"
+		t[0] = Node(t[1],'param_list',[t[1]])
 
 	def p_typedec(self,t):
-		'''type_declaration : TYPE identifier'''
-		t[0] = Node(t[1],'typedec',[t[2]])
-
-	#def p_typedec(self,t):
-	#	'''type_declaration : TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
-	#	t[0] = Node(t[1],'typedec',[t[2],t[6]])
-
+		'''type_declaration : TYPE identifier
+		| TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
+ 		if t[6]:
+	 		t[0] = Node(t[1],'typedec',[t[2], t[6]])
+	 	else:
+	 		t[0] = Node(t[1],'typedec',[t[2]])
 	def p_slist2(self,t):
 		'statement_list : statement_list statement'
 		t[0] = Node('','statement_list',[t[1],t[2]])
@@ -203,27 +205,27 @@ class MAPparser():
 		t[0] = Node(t[2],'func_args',[t[1],t[3]])
 
 	def p_arg_lit(self,t):
-		'''arg : LITERAL
-		| ASSOCIATIVE_ARR'''
-		t[0] = Node(t[1],'arg')
+		'''arg : LITERAL'''
+		t[0] = Node(t[1],'param_list')
 
 	def p_assoc_array(self, t):
-		'ASSOCIATIVE_ARR : LBR ARRAY_VALUES RBR'
-		t[0] = Node(t[1], 'arg')
+		'''ASSOCIATIVE_ARR : LBR ARRAY_VALUES RBR
+		| LBR RBR'''
+		t[0] = Node('', 'param_list')
 
 	def p_array_values(self, t):
-		'''ARRAY_VALUES : ARRAYVAL SEMICOLON ARRAYVAL
+		'''ARRAY_VALUES : ARRAYVAL COMMA ARRAYVAL
 		| ARRAYVAL'''
-		t[0] = Node(t[1], 'arg')
+		t[0] = Node(t[1], 'param_list')
 
 	def p_arrayval(self, t):
-		'ARRAYVAL : LITERAL COLON VAL'
-		t[0] = Node(t[1], 'arg')
+		'''ARRAYVAL : LITERAL COLON VAL'''
+		t[0] = Node(t[1], 'param_list')
 
 	def p_value(self, t):
 		'''VAL : LITERAL
 		| NUMERIC'''	
-		t[0] = Node(t[1], 'arg')
+		t[0] = Node(t[1], 'param_list')
 
 	def p_arg_id(self,t):
 		'arg : ID'
