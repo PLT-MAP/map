@@ -33,6 +33,7 @@ class TestYaccSyntax(unittest.TestCase):
 		test=  "func main(Text hi, Text bye) { Numeric n = 1+2;}"
 		result=yacc.MAPparser(self.lex,test)
 		print result
+"""
 	def testgraphfunc(self):
 		test = "func main(Text hi, Numeric hello, Path hereisApath, Node heresanode){ Text oneMore = 1; Text hello = 2; hello = oneMore + hello;}"
 		result=yacc.MAPparser(self.lex,test)
@@ -46,7 +47,7 @@ class TestYaccSyntax(unittest.TestCase):
 	
 		result=yacc.MAPparser(self.lex,test)
 		print result
-
+"""
 
 
 
