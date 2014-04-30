@@ -39,10 +39,12 @@ class MAPparser():
 		'parameter_list : ASSOCIATIVE_ARR'
 
 	def p_typedec(self,t):
-		'''type_declaration : TYPE identifier
-		| TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN
-		'''
+		'''type_declaration : TYPE identifier'''
 		t[0] = Node(t[1],'typedec',[t[2]])
+
+	def p_typedec(self,t):
+		'''type_declaration : TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
+		t[0] = Node(t[1],'typedec',[t[2],t[6]])
 
 	def p_slist2(self,t):
 		'statement_list : statement_list statement'
@@ -93,10 +95,14 @@ class MAPparser():
 		'sel_statement : '
 		t[0] = Node('','sel_statement')
 
-	def p_sels5(self,t):
+	def p_sels6(self,t):
 		'elif_statement : ELIF LPAREN expression RPAREN LBR statement_list RBR'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
 	
+	def p_sels7(self,t):
+		'elif_statement : '
+		t[0] = Node('','elif_statement')
+
 	#assignment
 	def p_expr(self,t):
 		'expression : assignment_expression'
