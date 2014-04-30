@@ -36,7 +36,9 @@ class MAPparser():
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 	def p_typedec(self,t):
-		'type_declaration : TYPE identifier'
+		'''type_declaration : TYPE identifier
+		| TYPE identifier EQUALS TYPE LPAREN func_args RPAREN
+		'''
 		t[0] = Node(t[1],'typedec',[t[2]])
 
 	def p_slist2(self,t):
@@ -186,8 +188,27 @@ class MAPparser():
 		t[0] = Node(t[2],'func_args',[t[1],t[3]])
 
 	def p_arg_lit(self,t):
-		'arg : LITERAL'
+		'''arg : LITERAL
+		| ASSOCIATIVE_ARR'''
 		t[0] = Node(t[1],'arg')
+
+	def p_assoc_array(self, t):
+		'ASSOCIATIVE_ARR : LBR ARRAY_VALUES RBR'
+		t[0] = Node(t[1], 'arg')
+
+	def p_array_values(self, t):
+		'''ARRAY_VALUES : ARRAYVAL SEMICOLON ARRAYVAL
+		| ARRAYVAL'''
+		t[0] = Node(t[1], 'arg')
+
+	def p_arrayval(self, t):
+		'ARRAYVAL : LITERAL COLON VAL'
+		t[0] = Node(t[1], 'arg')
+
+	def p_value(self, t):
+		'''VAL : LITERAL
+		| NUMERIC'''	
+		t[0] = Node(t[1], 'arg')
 
 	def p_arg_id(self,t):
 		'arg : ID'
