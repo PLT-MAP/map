@@ -80,7 +80,7 @@ class Traverse(object):
 
 	def leave(self):
 		'''Decrease the indentation level and remove out-of-scope symbols.'''
-		self._indent -= 1
+		#self._indent -= 1
 		for var in self.var_scopes[self.scope_depth]:
 			del self.symbols[var]
 			if (var + str(self.scope_depth)) in self.symbols:
@@ -156,6 +156,7 @@ class Traverse(object):
 				self.waitingfor.add(a)
 			s += ")" + self.enter()
 			self.fill("pass")
+			self.leave()
 		return s
 
 	def _funcexp(self,tree,flag=None):
