@@ -78,9 +78,21 @@ class MAPparser():
 
 	#else statement
 	def p_sels2(self,t):
-		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR ELSE statement'
-		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[9]])
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR ELSE LBR statement_list RBR'
+		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[10]])
 
+	def p_sels3(self,t):
+		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR sel_statement ELSE LBR statement_list RBR'
+		t[0] = Node(t[1],'selection_statement'[t[3],t[6],t[8],t[11]])
+
+	def p_sels4(self,t):
+		'sel_statement : sel_statement elif_statement'
+		t[0] = Node('','sel_statement',[t[1],t[2]])
+
+	def p_sels5(self,t):
+		'elif_statement : ELIF LPAREN expression RPAREN LBR statement_list RBR'
+		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
+	
 	#assignment
 	def p_expr(self,t):
 		'expression : assignment_expression'
