@@ -35,9 +35,12 @@ class MAPparser():
 		'parameter_list : parameter_list COMMA type_declaration'
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
+	def p_plist3(self,t):
+		'parameter_list : ASSOCIATIVE_ARR'
+
 	def p_typedec(self,t):
 		'''type_declaration : TYPE identifier
-		| TYPE identifier EQUALS TYPE LPAREN func_args RPAREN
+		| TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN
 		'''
 		t[0] = Node(t[1],'typedec',[t[2]])
 
