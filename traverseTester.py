@@ -15,7 +15,6 @@ class TestTraverseSyntax(unittest.TestCase):
 	def testlexer(self):
 		self.assertEqual(self.lex.errored,False)
 
-
 	def assert_prog(self, traversestring, expfile):
 		teststr=expfile.read()
 		teststr=teststr.splitlines()

@@ -13,7 +13,7 @@ class TestLexingSyntax(unittest.TestCase):
 
 	def test_tokens(self):
 		cases={
-		'\"':'DOUBLEQUOTE', 
+		#'\"':'DOUBLEQUOTE', 
 		'piNULLdel':'ID',	   
 		'1':'NUMERIC',
 		'1234':'NUMERIC',
@@ -65,8 +65,8 @@ class TestLexingSyntax(unittest.TestCase):
 			self.assertEqual(val, token.type)
 
 	def test_hello_world_eq(self):
-#		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2;}")
-		self.lexer.input(MapTests.helloworld)
+		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2;}")
+		#self.lexer.input(MapTests.helloworld)
 		#progfile = open('testfiles/helloworld.map', 'r')
 		token = self.lexer.token()
 		self.assertEqual('FUNC', token.type)
