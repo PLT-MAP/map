@@ -90,6 +90,10 @@ class MAPparser():
 		t[0] = Node('','sel_statement',[t[1],t[2]])
 
 	def p_sels5(self,t):
+		'sel_statement : '
+		t[0] = Node('','sel_statement')
+
+	def p_sels5(self,t):
 		'elif_statement : ELIF LPAREN expression RPAREN LBR statement_list RBR'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6]])
 	
