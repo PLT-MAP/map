@@ -1,4 +1,4 @@
-func main(Text hi){
+func main(){
 	if (5 < 7) {
 		cost = 5;
 		}

@@ -1,0 +1,6 @@
+def main():
+	if (5<7):
+		cost=2;
+	else:
+		print t
+	

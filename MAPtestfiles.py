@@ -15,19 +15,23 @@ class MapTests(object):
 
 
 
-	if_statement=""" 
-	func main(Text hi){
+	iftest=""" 
+	func main(){
 	if (5 < 7) {
 		cost = 5;
 		}
 	}
 	"""
 
-	ifelse_statement="""
-	func main(Text hi, Numeric bye){
-		hi = 'Hello, World!'; 
-		bye = 2.0;
-		}	
+	ifelsetest="""
+	main() {                                                                     
+		if (10<7){ 
+			cost= 2;                                               
+			}                                                                    
+		else{  
+				print("success");  
+			}                 
+		}
 	"""
 
 	ifelifelse_statement="""

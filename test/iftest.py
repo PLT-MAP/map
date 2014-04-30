@@ -1,4 +1,6 @@
-def main1(hi):
-	if (5.0<7.0):
-		cost = 5.0
+def main():
+if (5.0<7.0):
+        cost = 5.0
 
+if __name__ == '__main__': 
+	main()
