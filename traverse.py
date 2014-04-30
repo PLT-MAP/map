@@ -366,10 +366,13 @@ class Traverse(object):
 			return ''
 
 	def _else_statement(self, tree, flag=None):
-		s = tree.name
-		s += self.enter() + self.dispatch(tree.children[0], flag)
-		self.leave()
-		return s
+		if len(tree.children) == 1:
+			s = tree.name
+			s += self.enter() + self.dispatch(tree.children[0], flag)
+			self.leave()
+			return s
+		else:
+			return ''
 
 	def _elif_statement(self, tree, flag=None):
 		if len(tree.children) == 2:
@@ -409,6 +412,7 @@ l = MAPlex()
 #m = MAPparser(l,"func main(){hi = 'Hello, World!'; bye = 2.0; print(hi);}")
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = Node({'temp':45});}")
 m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
+#m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
 	print draw_tree(m.ast)

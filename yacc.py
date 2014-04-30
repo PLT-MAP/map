@@ -62,34 +62,20 @@ class MAPparser():
 		'''statement : expression SEMICOLON
 		| function_call SEMICOLON
 		| selection_statement'''
-		#print_statement SEMICOLON'''
 		t[0] = Node('','statement',[t[1]])
-
-	#def p_print(self,t):
-	#	'print_statement: PRINT LPAREN LITERAL RPAREN'
-	#	t[1] = Node(t[1],'print_statement',[t[3]])
-
-	#def p_print2(self,t):
-	#	'print_statement: PRINT LPAREN ID RPAREN'
-	#	t[1] = Node(t[1],'print_statement',[t[3]])	
 
 	#if statement
 	def p_sels(self,t):
 		'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR sel_statement else_statement'
 		t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[8],t[9]])
 
-	#else statement
-	#def p_sels2(self,t):
-	#	'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR ELSE LBR statement_list RBR'
-	#	t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[10]])
-
-	#def p_sels3(self,t):
-	#	'selection_statement : IF LPAREN expression RPAREN LBR statement_list RBR sel_statement ELSE LBR statement_list RBR'
-	#	t[0] = Node(t[1],'selection_statement',[t[3],t[6],t[8],t[11]])
-
 	def p_sels2(self,t):
 		'else_statement : ELSE LBR statement_list RBR'
 		t[0] = Node(t[1],'else_statement',[t[3]])
+	
+	def p_sels3(self,t):
+		'else_statement : '
+		t[0] = Node('','else_statement')
 	
 	def p_sels4(self,t):
 		'sel_statement : sel_statement elif_statement'
@@ -97,7 +83,7 @@ class MAPparser():
 
 	def p_sels5(self,t):
 		'sel_statement : '
-		t[0] = Node('','sel_statement',[])
+		t[0] = Node('','sel_statement')
 
 	def p_sels6(self,t):
 		'elif_statement : ELIF LPAREN expression RPAREN LBR statement_list RBR'
@@ -105,7 +91,7 @@ class MAPparser():
 	
 	def p_sels7(self,t):
 		'elif_statement : '
-		t[0] = Node('','elif_statement',[])
+		t[0] = Node('','elif_statement')
 
 	#assignment
 	def p_expr(self,t):
