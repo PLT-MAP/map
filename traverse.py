@@ -216,6 +216,7 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
+		print tree
 		if tree.name == 'Node':
 			x = self.dispatch(tree.children[0], flag) 
 			y = "nx.add_node(" + x + ")"
@@ -369,6 +370,7 @@ class Traverse(object):
 
 	def _arg(self, tree, flag=None):
 		return tree.name
+		#return self.dispatch(tree.children[0], flag)
 
 '''
 	def _function_name():
@@ -377,7 +379,7 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye){hi = 'Hello, World!'; bye = 2.0; print(hi);}")
-m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); Node no = Node(); Node no2 = Node({'temp':45});}")
+m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); Node no2 = Node({'temp':45}); print(hi);}")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
 	#print draw_tree(m.ast)
