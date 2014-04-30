@@ -353,8 +353,35 @@ class Traverse(object):
 		r = self.dispatch(tree.children[1], flag)
 		s += self.fill(r) 
 		self.leave()
-		print s
+		q = self.dispatch(tree.children[2], flag)
+		s += self.fill(q)
+		p = self.dispatch(tree.children[3], flag)
+		s += self.fill(p)
 		return s
+
+	def _sel_statement(self, tree, flag=None):
+		if len(tree.children) == 2:
+			return self.dispatch(tree.children[0], flag) + self.dispatch(tree.children[1], flag)
+		else:
+			return ''
+
+	def _else_statement(self, tree, flag=None):
+		s = tree.name
+		s += self.enter() + self.dispatch(tree.children[0], flag)
+		self.leave()
+		return s
+
+	def _elif_statement(self, tree, flag=None):
+		if len(tree.children) == 2:
+			x = self.dispatch(tree.children[0], flag) 
+			s = tree.name + " (" + x + ")" 
+			s += self.enter()
+			y = self.dispatch(tree.children[1], flag)
+			s += self.fill(y)
+			self.leave()
+			return s
+		else:
+			return ''
 
 	# function call
 	def _function_call(self, tree, flag=None):
@@ -379,11 +406,12 @@ class Traverse(object):
 
 
 l = MAPlex()
-m = MAPparser(l,"func main(){hi = 'Hello, World!'; bye = 2.0; print(hi);}")
+#m = MAPparser(l,"func main(){hi = 'Hello, World!'; bye = 2.0; print(hi);}")
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = Node({'temp':45});}")
+m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
-	#print draw_tree(m.ast)
+	print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	print(t.complete())
 
