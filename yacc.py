@@ -42,9 +42,9 @@ class MAPparser():
 		'''type_declaration : TYPE identifier'''
 		t[0] = Node(t[1],'typedec',[t[2]])
 
-	def p_typedec(self,t):
-		'''type_declaration : TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
-		t[0] = Node(t[1],'typedec',[t[2],t[6]])
+	#def p_typedec(self,t):
+	#	'''type_declaration : TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
+	#	t[0] = Node(t[1],'typedec',[t[2],t[6]])
 
 	def p_slist2(self,t):
 		'statement_list : statement_list statement'
