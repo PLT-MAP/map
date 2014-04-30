@@ -8,8 +8,6 @@ from MAPtestfiles import MapTests
 from asciitree import *
 
 
-
-
 class TestTraverseSyntax(unittest.TestCase):
 	def setUp(self):
 		self.lex=MAPlexer.MAPlex()
