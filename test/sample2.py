@@ -8,8 +8,10 @@ def main():
         ny = ["ny"]
         pa = ["pa", {'temp':85,'humidity':'low'}]
         va = ["va", {'temp':87,'humidity':'high'}]
+	#adding the nodes
 	g.add_node(nj[0])
 	g.add_node(ny[0])
+	g.add_node(cookies)
 	g.add_nodes_from([(pa[0],pa[1]),(va[0],va[1])])
 	print g.nodes(data=True)
 	
