@@ -286,7 +286,7 @@ class Traverse(object):
 				return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		return "{" + self.dispatch(tree.children[0], flag) + "}"
 
 	def _array_values(self, tree, flag=None):
 		if len(tree.children) == 1:
