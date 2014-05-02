@@ -1,26 +1,15 @@
 func main(){
-	Boolean check = true;
-	print (check);
-	Numeric num = 5;
-	print (num + " " + check);
-	Text sentence= "Ima eat yo face";
-	print (sentence);
-
         Graph g=Graph();
         Node nj=Node();
         Node ny=Node();
         Node fl=Node();
         Node pa= Node({'temp':85,'humidity':'low'});
         Node va= Node({'temp':87,'humidity':'high'});
-	print (nj);
-	print (pa);
         DirEdge flight1= Edge(nj, ny);
         DirEdge flight2= Edge(ny, pa);
         DirEdge flight3= Edge(pa, va, {'cost':302, 'distance':4092});
         UnDirEdge flight4= Edge(va, nj);
         UnDirEdge flight5 = Edge(nj,fl, {'cost':50, 'distance':5000});
-	print (flight1);
-	print (flight3);
         g.add(nj);
         g.add(ny);
         g.add(fl);
@@ -29,19 +18,9 @@ func main(){
         g.addEdge(flight2, flight3);
         g.addEdge(flight4);
         g.addEdge(flight5);
-	print(g);
+	g.delete(pa);
+	g.delete(va,ny);
+	g.deleteEdge(nj,fl)
+	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
