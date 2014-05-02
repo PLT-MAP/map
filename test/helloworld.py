@@ -1,3 +1,5 @@
+import networkx as nx 
+import sys
 def main():
     t = 'Hello, world'
     bye = 2.0
