@@ -4,14 +4,16 @@ func main(){
         Node ny=Node();
         Node pa= Node({'temp':85,'humidity':'low'});
         Node va= Node({'temp':87,'humidity':'high'});
-	Edge flight1= Edge(nj, ny);
-	Edge flight2= Edge(ny, pa);
-	Edge flight3= Edge(pa, va, {'cost':302, 'distance':4092});
+	DirEdge flight1= Edge(nj, ny);
+	DirEdge flight2= Edge(ny, pa);
+	DirEdge flight3= Edge(pa, va, {'cost':302, 'distance':4092});
+	UnDirEdge flight4= Edge(va, nj);
         g.add(nj);
         g.add(ny);
         g.add(pa,va);
 	g.addEdge(flight1);
 	g.addEdge(flight2, flight3);
+	g.addEdge(flight4);
 	
 }
 

@@ -1,22 +1,13 @@
 import networkx as nx
 def main():
-        g=nx.MultiDiGraph()
-        nj = "nj"
-        ny = "ny"
-        pa = "pa"
-        padict= {'temp':85,'humidity':'low'}
-        va = "va"
-        vadict= {'temp':87,'humidity':'high'}
-        g.add_node(nj)
-        g.add_node(ny)
-        g.add_nodes_from([(pa,padict),(va,vadict)])
-
-
-
-
-
-
-
+	g = nx.MultiDiGraph()
+	nj = ["nj"]
+        ny = ["ny"]
+        pa = ["pa", {'temp':85,'humidity':'low'}]
+        va = ["va", {'temp':87,'humidity':'high'}]
+        g.add_node(nj[0])
+        g.add_node(ny[0])
+        g.add_nodes_from([(pa[0],pa[1]),(va[0],va[1])])
 
 
 
