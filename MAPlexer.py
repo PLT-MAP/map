@@ -34,6 +34,7 @@ class MAPlex:
 		'read':'READ', 
 		'write':'WRITE',
 		'func':'FUNC',
+		'new':'NEW',
 		
 		}
 
