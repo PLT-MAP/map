@@ -425,7 +425,12 @@ class Traverse(object):
 		x = self.dispatch(tree.children[0], flag)
 		y = self.dispatch(tree.children[1], flag)
 		z = self.dispatch(tree.children[2], flag)
-		s = tree.name + x + y + z
+		if z == "i = i+1.0":
+			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + "):\n"
+		elif z[5] == "+":
+			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + ", " + z[6:] + "):\n"
+		else:
+			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + ", " + z[5:] + "):\n"
 		r = self.dispatch(tree.children[3], flag)
 		s += r
 		return s
@@ -466,7 +471,7 @@ l = MAPlex()
 
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
-m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i + 1) { x = x * 2; g.add();} }")
+m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i - 2) { x = x * 2; g.add();} }")
 def main():
 	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
