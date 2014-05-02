@@ -107,7 +107,8 @@ class MAPparser():
 
 	#assignment
 	def p_expr(self,t):
-		'expression : assignment_expression'
+		'''expression : assignment_expression
+		| aexpr'''
 		t[0] = Node('','expr',[t[1]])
 
 	def p_aexpr5(self, t):
