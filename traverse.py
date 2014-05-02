@@ -425,12 +425,16 @@ class Traverse(object):
 		x = self.dispatch(tree.children[0], flag)
 		y = self.dispatch(tree.children[1], flag)
 		z = self.dispatch(tree.children[2], flag)
+		ini = str(int(float(x[4:])))
+		end = str(int(float(y[2:])))
 		if z == "i = i+1.0":
-			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + "):\n"
+			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + "):\n"
 		elif z[5] == "+":
-			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + ", " + z[6:] + "):\n"
+			step = str(int(float(z[6:])))
+			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", " + step + "):\n"
 		else:
-			s = tree.name + " " + x[0] + " in range(" + x[4:] + ", " + y[2:] + ", " + z[5:] + "):\n"
+			step = str(int(float(z[6:])))
+			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", -" + step + "):\n"
 		r = self.dispatch(tree.children[3], flag)
 		s += r
 		return s
