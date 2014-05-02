@@ -17,7 +17,7 @@ def main(argv):
 	#write the file
 
 	#add more to the header here if necessary
-	header="import networkx\nimport sys\n"
+	header="import networkx as nx\nimport sys\n"
 	content=header
 	
 	
