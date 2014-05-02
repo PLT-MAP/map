@@ -1,0 +1,33 @@
+func main(){
+        Graph g=Graph();
+        Node nj=Node();
+        Node ny=Node();
+        Node fl=Node();
+        Node pa= Node({'temp':85,'humidity':'low'});
+        Node va= Node({'temp':87,'humidity':'high'});
+        DirEdge flight1= Edge(nj, ny);
+        DirEdge flight2= Edge(ny, pa);
+        DirEdge flight3= Edge(pa, va, {'cost':302, 'distance':4092});
+        UnDirEdge flight4= Edge(va, nj);
+        UnDirEdge flight5 = Edge(nj,fl, {'cost':50, 'distance':5000});
+        g.add(nj);
+        g.add(ny);
+        g.add(fl);
+        g.add(pa,va);
+        g.addEdge(flight1);
+        g.addEdge(flight2, flight3);
+        g.addEdge(flight4);
+        g.addEdge(flight5);
+
+	Boolean check1= g.adjacent(nj, pa);
+	print (check1);
+	Boolean check2= g.adjacent(nj, ny);
+	print (check2); 
+	
+	g.path(nj);
+	g.path(pa);
+	
+	
+
+
+}
