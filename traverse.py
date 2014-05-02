@@ -62,7 +62,7 @@ class Traverse(object):
 		#print self._indent
 		s = ""
 		for item in lines:
-			s += "    "*self._indent + item + "\n"
+			s += "\t"*self._indent + item + "\n"
 		return s
 
 	def write(self, text):
