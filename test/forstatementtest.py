@@ -1,5 +1,7 @@
-func main(){
-	for(int i=0;i<10;i=i+1){
-		print i;
-		}
-}
+import networkx
+import sys
+def main():
+    for i in range(0.0, 10.0, -2.0):
+        print i
+if __name__ == '__main__': 
+	main()

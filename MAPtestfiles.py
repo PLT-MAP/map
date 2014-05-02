@@ -51,7 +51,7 @@ class MapTests(object):
 
 	for_statement="""
 func main(){
-	for(Numeric i=0;i<10;i=i+1){
+	for(Numeric i=0;i<10;i=i+2){
 	print(i);
 	}
 }
