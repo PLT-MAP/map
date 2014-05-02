@@ -258,7 +258,7 @@ class Traverse(object):
 	def _assignment_expression(self, tree, flag=None):
 		if not tree.name:
 			return self.dispatch(tree.children[0], flag)
-		elif tree.name == "tom":
+		elif tree.name == "aexpr":
 			x = self.dispatch(tree.children[0], flag)
 			return x + " = " + tree.children[1]
 		else:
@@ -421,6 +421,15 @@ class Traverse(object):
 		else:
 			return ''
 
+	def _for_loop(self, tree, flag=None):
+		x = self.dispatch(tree.children[0], flag)
+		y = self.dispatch(tree.children[1], flag)
+		z = self.dispatch(tree.children[2], flag)
+		s = tree.name + x + y + z
+		r = self.dispatch(tree.children[3], flag)
+		s += r
+		return s
+
 	# function call
 	def _function_call(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -447,17 +456,17 @@ l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
 
 
-m = MAPparser(l,
-	'''func main() { 
-		Text hi = 'hello'; 
-		Graph n = new Graph(); 
-		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
-		}
-	''')
+#m = MAPparser(l,
+#	'''func main() { 
+#		Text hi = 'hello'; 
+#		Graph n = new Graph(); 
+#		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
+#		}
+#	''')
 
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
-#m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
+m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
 	#print draw_tree(m.ast)
 	t = Traverse(m.ast)

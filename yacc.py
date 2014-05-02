@@ -61,7 +61,8 @@ class MAPparser():
 	def p_s(self,t):
 		'''statement : expression SEMICOLON
 		| function_call SEMICOLON
-		| selection_statement'''
+		| selection_statement
+		| for_loop'''
 		t[0] = Node('','statement',[t[1]])
 
 	#if statement
@@ -93,15 +94,27 @@ class MAPparser():
 		'elif_statement : '
 		t[0] = Node('','elif_statement')
 
+	def p_for_loop(self,t):
+		'''for_loop : FOR LPAREN aexpr SEMICOLON conditional_expression SEMICOLON assignment_expression RPAREN LBR statement_list RBR'''
+		t[0] = Node(t[1],'for_loop',[t[3],t[5],t[7],t[10]])
+
+	# def p_for_loop_init(self,t):
+	# 	'''initializer : assignment_expression'''
+	# 	t[0] = Node('','initializer',[t[1]])
+
+	# def p_for_loop_increment(self,t):
+
+
 	#assignment
 	def p_expr(self,t):
 		'expression : assignment_expression'
 		t[0] = Node('','expr',[t[1]])
 
 	def p_aexpr5(self, t):
-		''' assignment_expression : TYPE identifier EQUALS LITERAL
+		''' aexpr : TYPE identifier EQUALS LITERAL
+		| TYPE identifier EQUALS NUMERIC
 		'''
- 		t[0] = Node('tom','assignment_expression', [t[2],t[4]])
+ 		t[0] = Node('aexpr','assignment_expression', [t[2],t[4]])
 
 	#Conditional expression
 	def p_aexpr(self,t):
