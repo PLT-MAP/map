@@ -1,4 +1,4 @@
-import networkx
+import networkx as nx
 import sys
 def main():
     if (10.0<7.0):

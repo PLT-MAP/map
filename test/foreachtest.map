@@ -1,0 +1,5 @@
+func main(){
+	foreach (Node n in graph){
+	print(n);
+	}
+}

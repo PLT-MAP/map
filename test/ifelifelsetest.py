@@ -1,4 +1,4 @@
-import networkx
+import networkx as nx
 import sys
 def main():
     x = 3.0
