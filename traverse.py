@@ -223,7 +223,7 @@ class Traverse(object):
 			y = "nx.add_node(" + x + ")"
 			return y
 		elif tree.name == 'Graph':
-			x = self.dispatch(tree.children[0], flag) + " = nx.DiMultiGraph()"
+			x = self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
 			return x
 		else:
 			return self.dispatch(tree.children[0], flag)
@@ -272,7 +272,7 @@ class Traverse(object):
 				# types are the same
 				if tree.children[0] == "Graph":
 					x = self.dispatch(tree.children[1], flag)
-					return x + " = nx.DiMultiGraph()"
+					return x + " = nx.MultiDiGraph()"
 				elif tree.children[0] == "Node":
 					if len(tree.children) == 3:
 						x = self.dispatch(tree.children[1], flag)
@@ -466,7 +466,7 @@ l = MAPlex()
 
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
-m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i + 1) { x = x * 2; } }")
+m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i + 1) { x = x * 2; g.add();} }")
 def main():
 	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
