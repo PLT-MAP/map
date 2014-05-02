@@ -86,10 +86,14 @@ class TestTraverseSyntax(unittest.TestCase):
 		 	self.assert_prog(t.complete(),expfile)
 
 	def testforeachstatement(self):
-                 test= MapTests.foreach_statement
-                 m=yacc.MAPparser(self.lex,test)
-                 t=traverse.Traverse(m.ast)
-                 t.enter()
+		test= MapTests.foreach_statement
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/foreachtest.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
 
 if __name__ == "__main__": 
 	unittest.main()
