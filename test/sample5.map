@@ -18,7 +18,9 @@ func main(){
         g.addEdge(flight2, flight3);
         g.addEdge(flight4);
         g.addEdge(flight5);
-	g.delete(fl);
+	g.delete(pa);
+	g.delete(va,ny);
+	g.deleteEdge(nj,fl)
 	
 
 }
