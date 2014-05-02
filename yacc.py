@@ -223,16 +223,20 @@ class MAPparser():
 
 	def p_assoc_array(self, t):
 		'associative_arr : LBR array_values RBR'
+		print "1"
 		t[0] = Node(t[0], 'associative_arr', [t[2]])
 
 	def p_array_values(self, t):
 		'''array_values : arrayval COMMA arrayval
+		| array_values COMMA arrayval
 		'''
+		print "2"
 		t[0] = Node(t[0], 'array_values',[t[1],t[3]])
 
 	def p_array_values1(self, t):
 		'''array_values : arrayval
 		'''
+		print "3"
 		t[0] = Node(t[0], 'array_values',[t[1]])
 
 	def p_arrayval(self, t):

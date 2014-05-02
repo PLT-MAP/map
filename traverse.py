@@ -223,7 +223,7 @@ class Traverse(object):
 			y = "nx.add_node(" + x + ")"
 			return y
 		elif tree.name == 'Graph':
-			x = self.dispatch(tree.children[0], flag) + " = nx.Graph()"
+			x = self.dispatch(tree.children[0], flag) + " = nx.DiMultiGraph()"
 			return x
 		else:
 			return self.dispatch(tree.children[0], flag)
@@ -272,7 +272,7 @@ class Traverse(object):
 				# types are the same
 				if tree.children[0] == "Graph":
 					x = self.dispatch(tree.children[1], flag)
-					return x + " = nx.Graph()"
+					return x + " = nx.DiMultiGraph()"
 				elif tree.children[0] == "Node":
 					if len(tree.children) == 3:
 						x = self.dispatch(tree.children[1], flag)
@@ -445,7 +445,16 @@ class Traverse(object):
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
-m = MAPparser(l,"func main() { Text hi = 'hello'; Graph n = new Graph(); Node no2 = new Node({'temp':45, 'cost':300});}")
+
+
+m = MAPparser(l,
+	'''func main() { 
+		Text hi = 'hello'; 
+		Graph n = new Graph(); 
+		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
+		}
+	''')
+
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
