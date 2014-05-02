@@ -1,6 +1,6 @@
 import networkx as nx
 def main():
-        g=nx.Graph()
+        g=nx.MultiDiGraph()
         nj = "nj"
         ny = "ny"
         pa = "pa"

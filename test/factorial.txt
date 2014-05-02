@@ -12,8 +12,6 @@ def main():
         fact = factorial(5)
         print fact
 
-if __name__ == '__main__':
-	main()
 
 
 
