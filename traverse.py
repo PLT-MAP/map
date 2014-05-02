@@ -256,12 +256,46 @@ class Traverse(object):
 			return str(tree.name)
 
 	def _assignment_expression(self, tree, flag=None):
-		x = self.dispatch(tree.children[0], flag)
 		if not tree.name:
-			return x
+			return self.dispatch(tree.children[0], flag)
+		elif tree.name == "tom":
+			x = self.dispatch(tree.children[0], flag)
+			return x + " = " + tree.children[1]
 		else:
+			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
 			return x + " " + tree.name + " " + y
+
+	def _struct_assignment(self, tree, flag=None):
+		if tree.name == "new":
+			if tree.children[0] == tree.children[2]:
+				# types are the same
+				if tree.children[0] == "Graph":
+					x = self.dispatch(tree.children[1], flag)
+					return x + " = nx.Graph()"
+				elif tree.children[0] == "Node":
+					if len(tree.children) == 3:
+						x = self.dispatch(tree.children[1], flag)
+						return x + " = node"
+					elif len(tree.children) == 4:
+						x = self.dispatch(tree.children[1], flag)
+						y = self.dispatch(tree.children[3], flag)
+						return x + " = " + y
+			else:
+				# we need to throw a type mismatch error
+				return "type mismatch"
+
+	def _associative_arr(self, tree, flag=None):
+		return self.dispatch(tree.children[0], flag)
+
+	def _array_values(self, tree, flag=None):
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		elif len(tree.children) == 2:
+			return self.dispatch(tree.children[0], flag) + "," + self.dispatch(tree.children[1], flag)
+
+	def _arrayval(self, tree, flag=None):
+		return tree.children[0] + ":" + self.dispatch(tree.children[1], flag)
 
 # maybe use
 	def listtoparams(self, l, x=None):
@@ -410,13 +444,13 @@ class Traverse(object):
 
 
 l = MAPlex()
-#m = MAPparser(l,"func main(){hi = 'Hello, World!'; bye = 2.0; print(hi);}")
-#m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = Node({'temp':45});}")
-m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
+#m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
+m = MAPparser(l,"func main() { Text hi = 'hello'; Graph n = new Graph(); Node no2 = new Node({'temp':45, 'cost':300});}")
+#m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
 #m = MAPparser(l,"func main(Text hi) {for (int i = 0; i < 10; i = i + 1) { x = x * 2; } }")
 def main():
-	print draw_tree(m.ast)
+	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	print(t.complete())
 

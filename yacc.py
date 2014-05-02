@@ -36,7 +36,7 @@ class MAPparser():
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 	def p_plist3(self,t):
-		'parameter_list : ASSOCIATIVE_ARR'
+		'parameter_list : associative_arr'
 
 	def p_typedec(self,t):
 		'''type_declaration : TYPE identifier'''
@@ -98,15 +98,29 @@ class MAPparser():
 		'expression : assignment_expression'
 		t[0] = Node('','expr',[t[1]])
 
+	def p_aexpr5(self, t):
+		''' assignment_expression : TYPE identifier EQUALS LITERAL
+		'''
+ 		t[0] = Node('tom','assignment_expression', [t[2],t[4]])
+
 	#Conditional expression
 	def p_aexpr(self,t):
 		'''assignment_expression : conditional_expression
-		| primary_expression''' 
+		| primary_expression
+		| struct_assignment''' 
 		t[0] = Node('','assignment_expression',[t[1]])
 
 	def p_aexpr2(self,t):
 		'''assignment_expression : primary_expression EQUALS assignment_expression'''
 		t[0] = Node(t[2],'assignment_expression',[t[1],t[3]])
+
+	def p_aexpr3(self,t):
+		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN associative_arr RPAREN'''
+		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5],t[7]])
+
+	def p_aexpr4(self,t):
+		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN RPAREN'''
+		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5]])
 
 	def p_condexpr(self,t):
 		'''conditional_expression : logical_OR_expression
@@ -161,8 +175,8 @@ class MAPparser():
 	def p_multexpr(self,t):
 		'multiplicative_expression : primary_expression'
 		t[0] = Node('','multiplicative_expression',[t[1]])
-
-	def p_multexpr2(self,t):
+ 
+ 	def p_multexpr2(self,t):
 		'''multiplicative_expression : multiplicative_expression TIMES primary_expression
 		| multiplicative_expression DIVIDE primary_expression'''
 		t[0] = Node(t[2],'multiplicative_expression',[t[1], t[3]])
@@ -204,26 +218,31 @@ class MAPparser():
 
 	def p_arg_lit(self,t):
 		'''arg : LITERAL
-		| ASSOCIATIVE_ARR'''
+		| associative_arr'''
 		t[0] = Node(t[1],'arg')
 
 	def p_assoc_array(self, t):
-		'ASSOCIATIVE_ARR : LBR ARRAY_VALUES RBR'
-		t[0] = Node(t[1], 'arg')
+		'associative_arr : LBR array_values RBR'
+		t[0] = Node(t[0], 'associative_arr', [t[2]])
 
 	def p_array_values(self, t):
-		'''ARRAY_VALUES : ARRAYVAL SEMICOLON ARRAYVAL
-		| ARRAYVAL'''
-		t[0] = Node(t[1], 'arg')
+		'''array_values : arrayval COMMA arrayval
+		'''
+		t[0] = Node(t[0], 'array_values',[t[1],t[3]])
+
+	def p_array_values1(self, t):
+		'''array_values : arrayval
+		'''
+		t[0] = Node(t[0], 'array_values',[t[1]])
 
 	def p_arrayval(self, t):
-		'ARRAYVAL : LITERAL COLON VAL'
-		t[0] = Node(t[1], 'arg')
+		'arrayval : LITERAL COLON primary_expression'
+		t[0] = Node(t[0], 'arrayval',[t[1],t[3]])
 
-	def p_value(self, t):
-		'''VAL : LITERAL
-		| NUMERIC'''	
-		t[0] = Node(t[1], 'arg')
+	# def p_value(self, t):
+	# 	'''val : LITERAL
+	# 	| NUMERIC'''	
+	# 	t[0] = Node(t[0], 'arg')
 
 	def p_arg_id(self,t):
 		'arg : ID'
