@@ -20,46 +20,59 @@ def main(argv):
 	header="import networkx\nimport sys\n"
 	content=header
 	
-	#main body of file
-	outputfile=filename[0]+".py"
-	output=open(outputfile,'w')
-	content=content+t.complete()
 	
-	mainstatement="if __name__ == '__main__': \n\tmain()"
-	content=content+mainstatement
-	output.write(content)
 	
 	#Bruteforce
 	test=t.complete()
 	test1=test.split("\n")
-	print test1
+	#print test1
 	
 	scope=0
 	numtab=0
 	temptab=0
+	test2=""
 
 	for line in test1:
+		
 		while line.startswith('\t'):
 			temptab+=1
 			line=line[1:]
 		if not line:
-			print "hi"
+			#print "hi"
 			temptab=0
 			continue
 		if temptab<numtab:
-			numtab=numtab-1
-			scope+-1
-		elif line.endswith(':'):
-			scope+=1
 			numtab=temptab
-		temptab=0
+			scope=scope-1
+		else:
+			numtab=temptab
+			
 		i=0
 		space=''
 		while i<scope:
-			space+="\t"
+			#print scope
+			space+="    "
 			i+=1
 		line=space+line
-		print line
+		#print line
+
+		if line.endswith(':'):
+			scope+=1
+			numtab=temptab
+			#print scope
+		temptab=0
+		test2+=line+'\n'
+	print test2
+	#main body of file
+	outputfile=filename[0]+".py"
+	output=open(outputfile,'w')
+	content=content+test2
+	
+	mainstatement="if __name__ == '__main__': \n\tmain()"
+	content=content+mainstatement
+	output.write(content)
+
+
 
 if __name__ == '__main__':
 	main(sys.argv)

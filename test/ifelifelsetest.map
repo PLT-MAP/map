@@ -1,6 +1,7 @@
 func main(){
+	Numeric	x=3;
 	if(x<5){
-		cost=5;
+		print("success");
 	}
 	elif (x<10)
 	{
@@ -10,4 +11,4 @@ func main(){
 		cost=15;
 	}
 }
-	"""
+
