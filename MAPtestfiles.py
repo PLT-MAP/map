@@ -51,8 +51,8 @@ class MapTests(object):
 
 	for_statement="""
 func main(){
-	for(int i=0;i<10;i=i+1){
-	print i;
+	for(Numeric i=0;i<10;i=i+1){
+	print(i);
 	}
 }
 	"""
@@ -60,7 +60,7 @@ func main(){
 	foreach_statement="""
 	func main(){
 		foreach (Node n in graph){
-		print n;
+		print(n);
 		}
 	}
 	"""
