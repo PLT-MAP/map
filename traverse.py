@@ -103,7 +103,7 @@ class Traverse(object):
 			return
 		#print "calling dispatch for "
 		#print tree
-		method = getattr(self,"_"+tree.type)
+ 		method = getattr(self,"_"+tree.type)
 
 		x = method(tree, flag)
 		return x
@@ -460,6 +460,11 @@ class Traverse(object):
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
 			return self.dispatch(tree.children[0], flag) + " " + self.dispatch(tree.children[1], flag)
+		elif len(tree.children) == 3:
+
+			print tree.children[1], tree.children[2]
+			return self.dispatch(tree.children[0], flag) + " "
+
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -491,7 +496,25 @@ l = MAPlex()
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
 #m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i - 2) { x = x * 2; g.add();} }")
-m = MAPparser(l,"func main() {foreach (Node n in graph) { if (10 < 7) { cost = 2; } elif (5 == 7) { break; } elif (7 == 7) { continue; } else { print('success'); } print(n);} }")
+m = MAPparser(l,'''
+	func main() {
+		foreach (Node n in graph) { 
+		if (10 < 7){ 
+			cost = 2; 
+		} 
+		elif (5 == 7) { 
+			break; 
+		} elif (7 == 7) { 
+			continue; 
+		} else { 
+			print('success'); 
+		}
+		print(n);
+		}
+		Graph g = new Graph();
+		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
+		g.add(no2);
+	}''')
 
 def main():
 	#print draw_tree(m.ast)
