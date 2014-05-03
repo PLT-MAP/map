@@ -1,3 +1,4 @@
+import sys
 import ply.yacc as yacc
 from node import *
 
@@ -309,9 +310,10 @@ class MAPparser():
 		print "SYNTAX ERROR:"
 		print 'Expected:', ', '.join(cvars['actions'][cvars['state']].keys())
 		print 'Found:', cvars['ltype']
-		print 'Errtoken: {0}'.format(cvars['errtoken'])
-		print "input: {0}".format(self.input)
+		#print 'Errtoken: {0}'.format(cvars['errtoken'])
+		#print "input: {0}".format(self.input)
 		self.errored = True
+		sys.exit()
 
 
 def main(argv):

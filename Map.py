@@ -30,10 +30,16 @@ def main(argv):
 	lex=MAPlexer.MAPlex()
 	f=open(argv[1],'r')
 	test=f.read()
+
+	#type checking
+	test4=test.split("\n")
+	#print test4
+	typecheck(test)
+
 	m=parser(lex,test)
 	t=traverse.Traverse(m.ast)
+	
 	#write the file
-
 	#add more to the header here if necessary
 	header="import networkx as nx\nimport sys\n"
 	content=header
@@ -47,7 +53,7 @@ def main(argv):
 	
 	test2=indentcheck(test1)
 	test3=scopecheck(test1)
-	print test2
+	#print test2
 	#main body of file
 	outputfile=filename[0]+".py"
 	output=open(outputfile,'w')
@@ -69,7 +75,6 @@ def indentcheck(test1):
 			temptab+=1
 			line=line[1:]
 		if not line:
-			#print "hi"
 			temptab=0
 			continue
 		if temptab<numtab:
@@ -156,6 +161,10 @@ def scopecheck(test1):
 					sys.exit("ERROR: \""+item+"\" not defined in scope")
 	print symbol_table
 	return
+
+def typecheck(test1):
+	return
+
 
 
 if __name__ == '__main__':
