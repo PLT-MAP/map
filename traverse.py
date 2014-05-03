@@ -500,10 +500,25 @@ l = MAPlex()
 #		}
 #	''')
 
-#m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
+#
+test1= '''func main(){ 
+	if (10 < 7) { 
+		cost = 2; 
+	} 
+	elif (5 == 7) { 
+		print('yay'); 
+	} 
+	elif (7 == 7) { 
+		print('even more yay'); 
+	} 
+	else { 
+		print('success'); 
+	}
+}'''
+
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
-#m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i - 2) { x = x * 2; g.add();} }")
-m = MAPparser(l,'''
+
+test2= '''
 	func main() {
 		foreach (Node n in graph) { 
 		if (10 < 7){ 
@@ -519,11 +534,18 @@ m = MAPparser(l,'''
 		Text n = 'hi world';
 		print(n);
 		}
+	}'''
+
+test3= '''
+	func main(){
 		Graph g = new Graph();
-		Node no2 = new Node('lol', {'temp':45, 'cost':300, 'weight':200, 'weather': 'cloudy with a chance'});
+		Node no2 = new Node('los angeles', {'temp':90, 'weather': 'cloudy with a chance'});
 		g.add(no2);
 		g.delete(no2);
-	}''')
+	}
+'''
+
+m = MAPparser(l, test3)
 
 def main():
 	#print draw_tree(m.ast)
