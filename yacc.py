@@ -21,7 +21,7 @@ class MAPparser():
 
 	def p_id(self,t):
 		'identifier : ID'
-		t[0] = Node(t[1],'id')
+		t[0] = Node(t[1],'id', t[1])
 
 	def p_listE(self,t):
 		'parameter_list : '
@@ -32,7 +32,8 @@ class MAPparser():
 		t[0] = Node('','param_list',[t[1]])
 
 	def p_plist2(self,t):
-		'parameter_list : parameter_list COMMA type_declaration'
+		'''parameter_list : parameter_list COMMA type_declaration
+		| parameter_list COMMA parameter_list'''
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
 	def p_plist3(self,t):
@@ -40,7 +41,7 @@ class MAPparser():
 
 	def p_plist4(self, t):
 		'parameter_list : ID'
-		t[0] = Node(t[0], 'param_list', t[1])
+		t[0] = Node(t[1], 'param_list', t[1])
 
 	def p_typedec(self,t):
 		'''type_declaration : TYPE identifier'''
@@ -293,7 +294,7 @@ class MAPparser():
 		| DELETEEDGEFUNC
 		| FINDSHORTESTFUNC
 		| EQUALSFUNC'''
-		t[0] = Node('','function_name',[t[1]])
+		t[0] = Node(t[1],'function_name',[t[1]])
 
 	#i = "func main(self,Text hi, Text bye) { Numeric n = 1+2;}"
 	#i = "func main(self,Text hi, Numeric bye) {print(hi);}"

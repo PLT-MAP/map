@@ -207,9 +207,11 @@ class Traverse(object):
 
 	def _param_list(self, tree, flag=None):
 		if len(tree.children) == 0:
+			#
+			#return tree.name
 			return ""
 		if len(tree.children) == 1:
-			return [self.dispatch(tree.children[0], flag)]
+ 			return [self.dispatch(tree.children[0], flag)]
 		else:
 			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
@@ -275,7 +277,7 @@ class Traverse(object):
 					return x + " = nx.MultiDiGraph()"
 				elif tree.children[0] == "Node":
 					if len(tree.children) == 3:
-						x = self.dispatch(tree.children[1], flag)
+						x = self.dispatch(tree.children[1], flag) 
 						return x + " = node"
 					elif len(tree.children) == 4:
 						x = self.dispatch(tree.children[1], flag)
@@ -460,10 +462,10 @@ class Traverse(object):
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
 			return self.dispatch(tree.children[0], flag) + " " + self.dispatch(tree.children[1], flag)
+		# hack solution below must fix. 
+		# seriously
 		elif len(tree.children) == 3:
-
-			print tree.children[1], tree.children[2]
-			return self.dispatch(tree.children[0], flag) + " "
+			return self.dispatch(tree.children[0], flag) + "." + self.dispatch(tree.children[1], flag) + "(" + tree.children[2].name + ")"
 
 		else:
 			#print "need to deal with functions with this many parameters"
@@ -476,10 +478,9 @@ class Traverse(object):
 		return tree.name
 		#return self.dispatch(tree.children[0], flag)
 
-'''
-	def _function_name():
-'''
 
+	def _function_name(self, tree, flag=None):
+		return tree.name
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
@@ -509,11 +510,14 @@ m = MAPparser(l,'''
 		} else { 
 			print('success'); 
 		}
+		Text n = 'hi world';
 		print(n);
 		}
 		Graph g = new Graph();
 		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
+		Node no3 = new Node({'temp':10});
 		g.add(no2);
+		g.add(no3);
 	}''')
 
 def main():
