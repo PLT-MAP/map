@@ -14,7 +14,7 @@ class MAPlex:
 		'UndirEdge':'UNDIREDGE',
 		'print':'PRINT', 
 		'add':'ADD',
-		'Delete':'DELETEFUNC',
+		'delete':'DELETEFUNC',
 		'path':'PATHFUNC',
 		'adjacent':'ADJACENTFUNC',
 		'getEdge':'GETEDGEFUNC',

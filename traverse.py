@@ -3,6 +3,8 @@ from yacc import *
 import sys
 from asciitree import *
 
+
+
 class Traverse(object):
 
 	def __init__(self, tree, file=sys.stdout): 
@@ -29,12 +31,12 @@ class Traverse(object):
 				'get': (lambda name, params : '%s[%s]' % (name, params)),
 				'delete': (lambda name, params : 'del %s[%s]' % (name, params))
 				}
+
 			}
 
 		# used for scope checking
 		self.var_scopes = [[]]
 		self.scope_depth = 0
-
 
 		self.relops = {'<','>','<=','>=','==','!=','+','-','*','/','%'}
 		self.future_imports = []
@@ -458,6 +460,7 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
+		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
@@ -465,7 +468,8 @@ class Traverse(object):
 		# hack solution below must fix. 
 		# seriously
 		elif len(tree.children) == 3:
-			return self.dispatch(tree.children[0], flag) + "." + self.dispatch(tree.children[1], flag) + "(" + tree.children[2].name + ")"
+			x = self.dispatch(tree.children[1], flag)
+			return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
 
 		else:
 			#print "need to deal with functions with this many parameters"
@@ -514,10 +518,10 @@ m = MAPparser(l,'''
 		print(n);
 		}
 		Graph g = new Graph();
-		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'lol':200});
+		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'weather': 'cloudy with a chance'});
 		Node no3 = new Node({'temp':10});
 		g.add(no2);
-		g.add(no3);
+		g.delete(no2);
 	}''')
 
 def main():
