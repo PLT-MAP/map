@@ -8,10 +8,16 @@ import re
 #sudo pip install -U pyyaml nltk
 
 symbol_table={}
+
+
+symbol_table['MultiDiGraph']=0
+symbol_table['add_node']=0
+symbol_table['remove_node']=0
 symbol_table['def']=0
 symbol_table['print']=0
 symbol_table['=']=0
 symbol_table[':']=0
+symbol_table[',']=0
 symbol_table['for']=0
 symbol_table['else']=0
 symbol_table['if']=0
@@ -20,6 +26,7 @@ symbol_table['for']=0
 symbol_table['range']=0
 symbol_table['return']=0
 symbol_table['each']=0
+symbol_table['nx']=0
 
 
 def main(argv):
@@ -106,7 +113,7 @@ def scopecheck(test1):
 	temptab=0
 	test2=""
 
-	pattern=re.compile(r'\:|\=|\'[A-Za-z ,!]*\'|\"[A-Za-z ,!]*\"|[A-Za-z,!]*')
+	pattern=re.compile(r'\:|\=|\'[A-Za-z ,!]*\'|\"[A-Za-z ,!]*\"|[A-Za-z_,!]*')
 
 	for line in test1:
 		while line.startswith('\t'):

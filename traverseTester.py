@@ -94,6 +94,16 @@ class TestTraverseSyntax(unittest.TestCase):
 		 	expfile=open("test/foreachtest.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
 
+	def testnodeteststatement(self):
+		test= MapTests.nodetest
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/nodetest.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
+
 
 if __name__ == "__main__": 
 	unittest.main()
