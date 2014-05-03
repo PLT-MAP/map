@@ -45,8 +45,8 @@ def main(argv):
 	test1=test.split("\n")
 	#print test1
 	
-	test2=indentb(test1)
-	test3=errorcheck(test1)
+	test2=indentcheck(test1)
+	test3=scopecheck(test1)
 	print test2
 	#main body of file
 	outputfile=filename[0]+".py"
@@ -57,14 +57,14 @@ def main(argv):
 	content=content+mainstatement
 	output.write(content)
 
-def indentb(test1):		
+def indentcheck(test1):		
 	scope=0
 	numtab=0
 	temptab=0
 	test2=""
 
 	for line in test1:
-	
+		
 		while line.startswith('\t'):
 			temptab+=1
 			line=line[1:]
@@ -95,39 +95,66 @@ def indentb(test1):
 		test2+=line+'\n'
 	return test2
 
-
-
-def errorcheck(test1):
+def scopecheck(test1):
 	scope=0
+	numtab=0
+	temptab=0
+	test2=""
+
 	pattern=re.compile(r'\:|\=|\'[A-Za-z ,!]*\'|\"[A-Za-z ,!]*\"|[A-Za-z,!]*')
-	test1=['def main(hi, bye):']
+
 	for line in test1:
+		while line.startswith('\t'):
+			temptab+=1
+			line=line[1:]
+		if not line:
+			#print "hi"
+			temptab=0
+		if temptab<numtab:
+			numtab=temptab
+
+			temp=[]
+			for key in symbol_table:
+				if symbol_table[key]==scope:
+					temp.append(key)
+			for item in temp:
+				symbol_table.pop(item,None)
+
+			scope=scope-1
+		else:
+			numtab=temptab
+
+		if line.endswith(':'):
+			scope+=1
+			numtab=temptab
+
+		temptab=0
 		toklist= list(regexp_tokenize(line,pattern))
 		toklist=filter(None,toklist)
-		print toklist
 		if not toklist:
 			continue
-		if toklist[0]=='def':
+		if toklist[0]=="def":
+			assert(symbol_table[toklist[0]]==0),"Cannot have function declaration within a function"
 			#add function name to outer scope
-			symbol_table[toklist[1]]=scope
-			scope+=1
+			symbol_table[toklist[1]]=0
 			for item in toklist:
 				if item not in symbol_table:
 					symbol_table[item]=scope
 					print item
-			print symbol_table
-		else:
-			for item in toklist:
-				#check if a literal
-				if (item.startswith('\"') && item.endswith('\"')) ||(item.startswith('\'') && item.endswith('\'')):
-					continue
-				
+			continue	
+
+		if toklist[1]=="=":
+			symbol_table[toklist[0]]=scope
 
 
-
-
-
-
+		for item in toklist:
+			#check if a literal
+			if (item.startswith('\"') and item.endswith('\"')) or (item.startswith('\'') and item.endswith('\'')):
+				continue
+			else:
+				if item not in symbol_table:
+					sys.exit("ERROR: \""+item+"\" not defined in scope")
+	print symbol_table
 	return
 
 
