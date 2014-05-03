@@ -290,7 +290,7 @@ class Traverse(object):
 				return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
-		return "{" + self.dispatch(tree.children[0], flag) + "}"
+ 		return tree.children[1] + ", {" + self.dispatch(tree.children[0], flag) + "}"
 
 	def _array_values(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -381,7 +381,7 @@ class Traverse(object):
 	# multiplicative expression
 	def _multiplicative_expression(self, tree, flag=None):
 		if tree.name:
-			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag) + ")"
+			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + tree.name + self.dispatch(tree.children[1], flag) + ")"
 			return s
 		return self.dispatch(tree.children[0], flag)
 
@@ -469,8 +469,10 @@ class Traverse(object):
 		# seriously
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
-			return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
-
+			if x == "add":
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
+			elif x == "delete":
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -518,8 +520,7 @@ m = MAPparser(l,'''
 		print(n);
 		}
 		Graph g = new Graph();
-		Node no2 = new Node({'temp':45, 'cost':300, 'weight':200, 'weather': 'cloudy with a chance'});
-		Node no3 = new Node({'temp':10});
+		Node no2 = new Node('lol', {'temp':45, 'cost':300, 'weight':200, 'weather': 'cloudy with a chance'});
 		g.add(no2);
 		g.delete(no2);
 	}''')
