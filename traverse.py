@@ -446,6 +446,14 @@ class Traverse(object):
 		s = "for " + x + " in " + y + ":\n" + z
 		return s
 
+	def _jump_stmt(self, tree, flag=None):
+		line=""
+		if tree.name== 'break':
+			line=tree.name
+		elif tree.name == 'continue':
+			line=tree.name
+		return line
+
 	# function call
 	def _function_call(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -483,7 +491,7 @@ l = MAPlex()
 #m = MAPparser(l,"func main() { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } }")
 #m = MAPparser(l,"func main() { if (5 < 7) { cost = 5; } }")
 #m = MAPparser(l,"func main() {for (Numeric i = 0; i < 10; i = i - 2) { x = x * 2; g.add();} }")
-m = MAPparser(l,"func main() {foreach (Node n in graph) { if (10 < 7) { cost = 2; } elif (5 == 7) { print('yay'); } elif (7 == 7) { print('even more yay'); } else { print('success'); } print(n);} }")
+m = MAPparser(l,"func main() {foreach (Node n in graph) { if (10 < 7) { cost = 2; } elif (5 == 7) { break; } elif (7 == 7) { continue; } else { print('success'); } print(n);} }")
 
 def main():
 	#print draw_tree(m.ast)

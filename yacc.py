@@ -63,7 +63,8 @@ class MAPparser():
 		| function_call SEMICOLON
 		| selection_statement
 		| for_loop
-		| for_each'''
+		| for_each
+		| jump_stmt'''
 		t[0] = Node('','statement',[t[1]])
 
 	#if statement
@@ -102,6 +103,18 @@ class MAPparser():
 	def p_for_each(self,t):
 		'''for_each : FOREACH LPAREN TYPE identifier IN identifier RPAREN LBR statement_list RBR'''
 		t[0] = Node(t[1],'for_each',[t[3],t[4],t[6],t[9]])
+
+	def p_jump_stmt(self,t):
+		'''
+		jump_stmt : BREAK SEMICOLON
+			  | CONTINUE SEMICOLON
+			  | RETURN logical_OR_expression SEMICOLON
+		'''
+		if len(t) == 3:
+			t[0]=Node(t[1], 'jump_stmt')
+		else:
+			t[0]=Node(t[1], 'jump_stmt', [t[2]])
+		
 
 	#assignment
 	def p_expr(self,t):
@@ -145,7 +158,7 @@ class MAPparser():
 
 	def p_logorexpr2(self,t):
 		'logical_OR_expression : logical_OR_expression LOGICALOR logical_AND_expression'
-		t[0] = Node(t[2],'',[t[1],t[3]])
+		t[0] = Node(t[2],'logical_or_expr',[t[1],t[3]])
 
 	def p_logandexpr(self,t):
 		'logical_AND_expression : equality_expression'
