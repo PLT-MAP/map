@@ -112,10 +112,11 @@ def scopecheck(test1):
 	numtab=0
 	temptab=0
 	test2=""
-
+	line_num=0
 	pattern=re.compile(r'\:|\=|\'[A-Za-z ,!]*\'|\"[A-Za-z ,!]*\"|[A-Za-z_,!]*')
 
 	for line in test1:
+		line_num+=1
 		while line.startswith('\t'):
 			temptab+=1
 			line=line[1:]
@@ -165,13 +166,17 @@ def scopecheck(test1):
 				continue
 			else:
 				if item not in symbol_table:
-					sys.exit("ERROR: \""+item+"\" not defined in scope")
+					print "ERROR: \""+item+"\" not defined in scope"
+					print "Error on line "+str(line_num) 
+					sys.exit()
 	#print symbol_table
 	return
 
 def typecheck(test1):
 	typearray={}
+	line_num=0
 	for line in test1:
+		line_num+=1
 		array=[]
 		lex=MAPlexer.MAPlex()
 		lex.build()
@@ -187,9 +192,11 @@ def typecheck(test1):
 		if len(array)<2:
 			continue
 		if array[0].type=="FUNC":
+			typearray[array[1].value]='FUNC'
 			continue
 		if array[1].value in typearray:
 			print "ERROR: Casting a variable more than once"
+			print "Error on line "+str(line_num)
 			sys.exit()
 		if array[0].type=="TYPE":
 			typearray[array[1].value]=array[0].value
@@ -197,13 +204,16 @@ def typecheck(test1):
 			if item.type=="ID":
 				if item.value not in typearray:
 					print "ERROR: "+item.value+" is not casted properly"
+					print "Error on line "+str(line_num)
 					sys.exit()
 
 			#print typearray
 		#print " "
 		del array
 
-
+	if 'main' not in typearray:
+		print "Function does not have main function"
+		sys.exit()
 	return
 
 
