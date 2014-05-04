@@ -27,6 +27,22 @@ symbol_table['range']=0
 symbol_table['return']=0
 symbol_table['each']=0
 symbol_table['nx']=0
+symbol_table['and']=0
+symbol_table['in']=0
+symbol_table['yield']=0
+symbol_table['not']=0
+symbol_table['as']=0
+symbol_table['assert']=0
+symbol_table['break']=0
+symbol_table['class']=0
+symbol_table['continue']=0
+symbol_table['except']=0
+symbol_table['try']=0
+symbol_table['elif']=0
+symbol_table['exec']=0
+symbol_table['finally']=0
+
+
 
 
 def main(argv):
@@ -203,19 +219,11 @@ def typecheck(test1):
 		#print " "
 		del array
 
-
 	return
-
 
 
 if __name__ == '__main__':
 	main(sys.argv)
-
-
-
-
-
-
 
 
 
