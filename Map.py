@@ -41,7 +41,7 @@ def main(argv):
 	#type checking
 	test4=test.split("\n")
 	#print test4
-	typecheck(test)
+	typecheck(test4)
 
 	m=parser(lex,test)
 	t=traverse.Traverse(m.ast)
@@ -60,7 +60,7 @@ def main(argv):
 	
 	test2=indentcheck(test1)
 	test3=scopecheck(test1)
-	#print test2
+	print test2
 	#main body of file
 	outputfile=filename[0]+".py"
 	output=open(outputfile,'w')
@@ -166,10 +166,44 @@ def scopecheck(test1):
 			else:
 				if item not in symbol_table:
 					sys.exit("ERROR: \""+item+"\" not defined in scope")
-	print symbol_table
+	#print symbol_table
 	return
 
 def typecheck(test1):
+	typearray={}
+	for line in test1:
+		array=[]
+		lex=MAPlexer.MAPlex()
+		lex.build()
+		lexer=lex.lexer
+		lexer.input(line)
+		while True:
+			tok=lexer.token()
+			if tok:
+				array.append(tok)
+				#print tok.type
+			else:
+				break
+		if len(array)<2:
+			continue
+		if array[0].type=="FUNC":
+			continue
+		if array[1].value in typearray:
+			print "ERROR: Casting a variable more than once"
+			sys.exit()
+		if array[0].type=="TYPE":
+			typearray[array[1].value]=array[0].value
+		for item in array:
+			if item.type=="ID":
+				if item.value not in typearray:
+					print "ERROR: "+item.value+" is not casted properly"
+					sys.exit()
+
+			#print typearray
+		#print " "
+		del array
+
+
 	return
 
 
