@@ -227,12 +227,9 @@ def typecheck(test1):
 		#print " "
 		del array
 
-<<<<<<< HEAD
-=======
 	if 'main' not in typearray:
 		print "Function does not have main function"
 		sys.exit()
->>>>>>> fab8cb7ef16aeeb35999c00c19d2c75ed0df3a7f
 	return
 
 
