@@ -443,8 +443,20 @@ class Traverse(object):
 		x = self.dispatch(tree.children[0], flag)
 		y = self.dispatch(tree.children[1], flag)
 		z = self.dispatch(tree.children[2], flag)
-		ini = str(int(float(x[4:])))
-		end = str(int(float(y[2:])))
+		if x[4].isdigit():
+			ini = str(int(float(x[4:])))
+		else:
+			ini = x[4:]
+		if y[2] == "=":
+			if y[3].isdigit():
+				end = str(int(float(y[3:]))) + "+1"
+			else: 
+				end = y[3:] + "+1"
+		else:
+			if y[2].isdigit():
+				end = str(int(float(y[2:])))
+			else:
+				end = y[2:]
 		if z == "i = i+1.0":
 			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + "):\n"
 		elif z[5] == "+":
@@ -561,7 +573,13 @@ test3= '''
 
 test4= '''
 	func factorial(Numeric n) {
-		print(n);
+		Numeric x = 1;
+		if (n == 0) {
+			print(n);
+		}
+		for (Numeric i = 1; i <= n; i = i + 1) {
+			 x = x * i;
+		}
 	}
 	func main() {
 		factorial(5);

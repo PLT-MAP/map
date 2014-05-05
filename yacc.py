@@ -260,6 +260,7 @@ class MAPparser():
 
 	def p_arg_lit(self,t):
 		'''arg : LITERAL
+		| NUMERIC
 		| associative_arr'''
 		t[0] = Node(t[1],'arg')
 
