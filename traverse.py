@@ -395,7 +395,7 @@ class Traverse(object):
 	# multiplicative expression
 	def _multiplicative_expression(self, tree, flag=None):
 		if tree.name:
-			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + tree.name + self.dispatch(tree.children[1], flag) + ")"
+			s = "(" + self.dispatch(tree.children[0], flag) + tree.name + self.dispatch(tree.children[1], flag) + ")"
 			return s
 		return self.dispatch(tree.children[0], flag)
 
