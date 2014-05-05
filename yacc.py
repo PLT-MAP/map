@@ -220,7 +220,8 @@ class MAPparser():
  
  	def p_multexpr2(self,t):
 		'''multiplicative_expression : multiplicative_expression TIMES primary_expression
-		| multiplicative_expression DIVIDE primary_expression'''
+		| multiplicative_expression DIVIDE primary_expression
+		| multiplicative_expression MODULUS primary_expression'''
 		t[0] = Node(t[2],'multiplicative_expression',[t[1], t[3]])
 
 	def p_primexp(self,t):

@@ -578,7 +578,7 @@ test4= '''
 			print(n);
 		}
 		for (Numeric i = 1; i <= n; i = i + 1) {
-			 x = x * i;
+			 x = x % i;
 		}
 	}
 	func main() {
