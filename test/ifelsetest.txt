@@ -2,5 +2,5 @@ def main():
 	if (10.0<7.0):
 		cost=2.0
 	else:
-		print "success"
+		print ("success")
 	

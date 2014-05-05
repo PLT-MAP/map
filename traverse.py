@@ -482,7 +482,10 @@ class Traverse(object):
 			line=tree.name
 		elif tree.name == 'continue':
 			line=tree.name
+		elif tree.name == 'return':
+			 line=tree.name + " " + self.dispatch(tree.children[0], flag)
 		return line
+
 
 	# function call
 	def _function_call(self, tree, flag=None):
@@ -580,12 +583,14 @@ test4= '''
 		for (Numeric i = 1; i <= n; i = i + 1) {
 			 x = x % i;
 		}
+		return (x>0);
 	}
 	func main() {
 		factorial(5);
 		print(fact);
 	}
 '''
+
 m = MAPparser(l, test4)
 
 def main():
