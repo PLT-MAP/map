@@ -1,6 +1,6 @@
 func main(){
 	if (5 < 7) {
-		cost = 5;
+		Numeric cost = 5;
 		}
 	}
 

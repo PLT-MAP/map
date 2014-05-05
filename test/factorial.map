@@ -1,15 +1,19 @@
-func factorial ( Numeric n ) {
-	Numeric i ;
+func factorial(Numeric n) {
 	Numeric x = 1;
-	if ( n == 0)
-		return 1;
-	for ( i = 1; i <= n ; i = i +1) {
-		x = x * i ;
+	if (n == 0) {
+		print(n);
 	}
-	return x ;
+
+	for (Numeric i = 1; i <= n; i = i + 1) {
+		 x = x % i;
+	}
+	return (x>0);
 }
 
-func main(){
-	Numeric fact = factorial(5);
-	print fact;
+func main() {
+	Numeric fact;
+	factorial(5);
+	print("Reached here");
 }
+
+

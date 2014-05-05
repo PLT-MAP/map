@@ -184,7 +184,7 @@ def scopecheck(test1):
 				if item not in symbol_table:
 					print "ERROR: \""+item+"\" not defined in scope"
 					print "Error on line "+str(line_num) 
-					sys.exit()
+					#sys.exit()
 	#print symbol_table
 	return
 
@@ -208,12 +208,18 @@ def typecheck(test1):
 		if len(array)<2:
 			continue
 		if array[0].type=="FUNC":
-			typearray[array[1].value]='FUNC'
+			i=0
+			for element in array:
+				if (element.value not in typearray) and element.type=='ID':
+					print element.value
+					typearray[element.value]=array[i-1].value
+					print typearray
+				i+=1
 			continue
-		if array[1].value in typearray:
+		if array[1].value in typearray and array[0].type!='RETURN':
 			print "ERROR: Casting a variable more than once"
 			print "Error on line "+str(line_num)
-			sys.exit()
+			#sys.exit()
 		if array[0].type=="TYPE":
 			typearray[array[1].value]=array[0].value
 		for item in array:
@@ -221,7 +227,7 @@ def typecheck(test1):
 				if item.value not in typearray:
 					print "ERROR: "+item.value+" is not casted properly"
 					print "Error on line "+str(line_num)
-					sys.exit()
+					#sys.exit()
 
 			#print typearray
 		#print " "
