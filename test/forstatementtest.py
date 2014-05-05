@@ -1,4 +1,4 @@
-import networkx
+import networkx as nx
 import sys
 def main():
     for i in range(0, 10):

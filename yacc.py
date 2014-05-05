@@ -14,11 +14,22 @@ class MAPparser():
 		self.parser.parse(i)
 		self.errored = False
 
+	def p_translation_unit(self,t):
+		'''translation_unit : external_declaration
+		| translation_unit external_declaration'''
+		if len(t) == 2:
+			t[0] = Node(t[0],'translation_unit',[t[1]])
+		else:
+			t[0] = Node(t[0],'translation_unit',[t[1],t[2]])
+		self.ast = t[0]
+
+	def p_external_declaration(self,t):
+		'''external_declaration : function_definition'''
+		t[0] = Node(t[0],'external_declaration',[t[1]])
+
 	def p_fd(self,t):
 		'function_definition : FUNC identifier LPAREN parameter_list RPAREN LBR statement_list RBR'
 		t[0] = Node(t[2].name,'funcdef',[t[4],t[7]])
-		self.ast = t[0]
-
 
 	def p_id(self,t):
 		'identifier : ID'

@@ -124,6 +124,20 @@ class Traverse(object):
 	def _print(self, tree, flag=None):
 		return tree.name
 
+
+	def _translation_unit(self, tree, flag=None):
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		else:
+			x = self.dispatch(tree.children[0], flag)
+			y = self.dispatch(tree.children[1], flag)
+			return x + "\n\n" + y
+
+
+	def _external_declaration(self, tree, flag=None):
+		return self.dispatch(tree.children[0], flag)
+
+
 	# function definition
 	def _funcdef(self, tree, flag=None):
 		fname = tree.name
@@ -545,7 +559,16 @@ test3= '''
 	}
 '''
 
-m = MAPparser(l, test3)
+test4= '''
+	func factorial(Numeric n) {
+		print(n);
+	}
+	func main() {
+		factorial(5);
+		print(fact);
+	}
+'''
+m = MAPparser(l, test4)
 
 def main():
 	#print draw_tree(m.ast)

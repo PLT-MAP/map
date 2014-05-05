@@ -12,11 +12,25 @@ class TestYaccSyntax(unittest.TestCase):
 	def setUp(self):
 		self.lex=MAPlexer.MAPlex()
 
-	def testhelloworld(self):
-		test= MapTests.helloworld
+	#def testhelloworld(self):
+	#	test= MapTests.helloworld
 	#	print test
 	#	result=yacc.MAPparser(self.lex,test)
 	#	print draw_tree(result.ast)
+	def testtranslationunit(self):
+		test='''
+		func printStr(Text hi){
+			print(hi);
+		}
+		func main(){
+			Text hi="Hello World";
+			printStr(hi);
+			}
+			'''
+		result=yacc.MAPparser(self.lex,test)
+		print result
+		#print draw_tree(result.ast)
+
 
 	def testfunc(self):
 		test= '''
@@ -27,10 +41,11 @@ class TestYaccSyntax(unittest.TestCase):
 			}
 		'''
 		result=yacc.MAPparser(self.lex,test)
-		print test
-		print draw_tree(result.ast)
+		print result
+		#print draw_tree(result.ast)
+	
 	def testarithmetic(self):
-		test=  "func main(Text hi, Text bye) { Numeric n = 1+2;}"
+		test=  "func main(Text hi, Text bye) { Numeric n = 1;}"
 		result=yacc.MAPparser(self.lex,test)
 		print result
 """
