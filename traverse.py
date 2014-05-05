@@ -490,7 +490,7 @@ class Traverse(object):
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
-			return self.dispatch(tree.children[0], flag) + " " + self.dispatch(tree.children[1], flag)
+			return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
 		# hack solution below must fix. 
 		# seriously
 		elif len(tree.children) == 3:
