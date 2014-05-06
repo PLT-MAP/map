@@ -611,7 +611,7 @@ test4= '''
 	}
 '''
 
-m = MAPparser(l, test3)
+m = MAPparser(l, test4)
 
 def main():
 	#print draw_tree(m.ast)

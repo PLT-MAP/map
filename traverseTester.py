@@ -4,8 +4,10 @@ import unittest
 import yacc 
 import MAPlexer 
 import traverse 
-from MAPtestfiles import MapTests
 from asciitree import *
+
+sys.path.insert(0,'/path/test')
+from MAPtestfiles import MapTests
 
 
 class TestTraverseSyntax(unittest.TestCase):

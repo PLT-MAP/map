@@ -76,7 +76,7 @@ def main(argv):
 	#print test1
 	
 	test2=indentcheck(test1)
-	test3=scopecheck(test1)
+	#test3=scopecheck(test1)
 	print test2
 	#main body of file
 	outputfile=filename[0]+".py"
@@ -95,7 +95,7 @@ def indentcheck(test1):
 	test2=""
 
 	for line in test1:
-		
+		#print line
 		while line.startswith('\t'):
 			temptab+=1
 			line=line[1:]
@@ -107,7 +107,10 @@ def indentcheck(test1):
 			scope=scope-1
 		else:
 			numtab=temptab
-		
+
+		if line.startswith('d') and line[1]=='e' and line[2]=='f':
+			scope=0
+			numtab=0
 		i=0
 		space=''
 		while i<scope:
@@ -116,7 +119,6 @@ def indentcheck(test1):
 			i+=1
 		line=space+line
 		#print line
-
 		if line.endswith(':'):
 			scope+=1
 			numtab=temptab
@@ -178,15 +180,19 @@ def scopecheck(test1):
 			symbol_table[toklist[0]]=scope
 
 
+		i=0
 		for item in toklist:
 			#check if a literal
 			if (item.startswith('\"') and item.endswith('\"')) or (item.startswith('\'') and item.endswith('\'')):
 				continue
 			else:
 				if item not in symbol_table:
+					print toklist[i]
+					print item
 					print "ERROR: \""+item+"\" not defined in scope"
 					print "Error on line "+str(line_num) 
 					#sys.exit()
+			i+=1
 	#print symbol_table
 	return
 
@@ -213,9 +219,9 @@ def typecheck(test1):
 			i=0
 			for element in array:
 				if (element.value not in typearray) and element.type=='ID':
-					print element.value
+					#print element.value
 					typearray[element.value]=array[i-1].value
-					print typearray
+					#print typearray
 				i+=1
 			continue
 		if array[1].value in typearray and array[0].type!='RETURN':
@@ -224,12 +230,20 @@ def typecheck(test1):
 			#sys.exit()
 		if array[0].type=="TYPE":
 			typearray[array[1].value]=array[0].value
+		i=0
 		for item in array:
+			if i==0:
+				i+=1
+				continue
+
 			if item.type=="ID":
 				if item.value not in typearray:
+					if array[i-1].type=="FOR":
+						typearray[item.value]="NUMERIC"
+						continue
 					print "ERROR: "+item.value+" is not casted properly"
 					print "Error on line "+str(line_num)
-					#sys.exit()
+					sys.exit()
 
 			#print typearray
 		#print " "
