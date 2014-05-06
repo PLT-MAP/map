@@ -1,11 +1,11 @@
 func main(){
-	Numeric	x=3;
+	Numeric	x=2;
 	if(x<5){
 		print("success");
 	}
 	elif (x<10)
 	{
-		cost=10;
+		Numeric cost=10;
 	}
 	else{
 		cost=15;

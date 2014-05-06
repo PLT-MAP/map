@@ -3,7 +3,7 @@ func main() {
 		if (10<7){
 			print("hi");
 		}
-		cost= 2;
+		Numeric cost= 2;
 	}
 	else{
 		print("success");

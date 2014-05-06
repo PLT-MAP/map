@@ -4,7 +4,8 @@ func factorial(Numeric n) {
 		print(n);
 	}
 
-	for (Numeric i = 1; i <= n; i = i + 1) {
+	Numeric p=10;
+	for (Numeric i = 1; i <= p; i = i + 1) {
 		 x = x % i;
 	}
 	return (x>0);

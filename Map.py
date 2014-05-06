@@ -76,7 +76,7 @@ def main(argv):
 	#print test1
 	
 	test2=indentcheck(test1)
-	#test3=scopecheck(test1)
+	test3=scopecheck(test1)
 	print test2
 	#main body of file
 	outputfile=filename[0]+".py"
@@ -152,7 +152,6 @@ def scopecheck(test1):
 					temp.append(key)
 			for item in temp:
 				symbol_table.pop(item,None)
-
 			scope=scope-1
 		else:
 			numtab=temptab
@@ -170,6 +169,7 @@ def scopecheck(test1):
 			assert(symbol_table[toklist[0]]==0),"Cannot have function declaration within a function"
 			#add function name to outer scope
 			symbol_table[toklist[1]]=0
+			print symbol_table
 			for item in toklist:
 				if item not in symbol_table:
 					symbol_table[item]=scope
@@ -191,15 +191,17 @@ def scopecheck(test1):
 					print item
 					print "ERROR: \""+item+"\" not defined in scope"
 					print "Error on line "+str(line_num) 
-					#sys.exit()
+					sys.exit()
 			i+=1
 	#print symbol_table
 	return
 
 def typecheck(test1):
+	scope=0
 	typearray={}
 	line_num=0
 	for line in test1:
+	#	print typearray
 		line_num+=1
 		array=[]
 		lex=MAPlexer.MAPlex()
@@ -217,19 +219,21 @@ def typecheck(test1):
 			continue
 		if array[0].type=="FUNC":
 			i=0
+			scope+=1
 			for element in array:
 				if (element.value not in typearray) and element.type=='ID':
 					#print element.value
 					typearray[element.value]=array[i-1].value
-					#print typearray
+				#	print typearray
 				i+=1
 			continue
 		if array[1].value in typearray and array[0].type!='RETURN':
 			print "ERROR: Casting a variable more than once"
 			print "Error on line "+str(line_num)
-			#sys.exit()
+			sys.exit()
 		if array[0].type=="TYPE":
 			typearray[array[1].value]=array[0].value
+	#		print typearray
 		i=0
 		for item in array:
 			if i==0:
@@ -237,15 +241,18 @@ def typecheck(test1):
 				continue
 
 			if item.type=="ID":
+				print item
 				if item.value not in typearray:
-					if array[i-1].type=="FOR":
+					print item.value
+					if array[i-1].type=="FOR" or array[i-1].type=="FOREACH":
 						typearray[item.value]="NUMERIC"
 						continue
 					print "ERROR: "+item.value+" is not casted properly"
 					print "Error on line "+str(line_num)
 					sys.exit()
 
-			#print typearray
+
+	#		print typearray
 		#print " "
 		del array
 
@@ -259,6 +266,6 @@ if __name__ == '__main__':
 	f=main(sys.argv)
 	command="python " + f
 
-	os.system(command)
-	os.remove(f)
+	#os.system(command)
+	#os.remove(f)
 
