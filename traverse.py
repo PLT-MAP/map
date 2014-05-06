@@ -499,9 +499,15 @@ class Traverse(object):
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
 			if x == "add":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + str(tree.children[2].name) + "[0], " + str(tree.children[2].name) + "[1]" + ")"
 			elif x == "delete":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+				if tree.children[2].name == ",":
+					s = ''
+					for child in tree.children[2].children:
+						s += self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + child.name + "[0])\n"
+					return s
+				else:
+					return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -570,7 +576,7 @@ test3= '''
 		Graph g = new Graph();
 		Node no2 = new Node('los angeles', {'temp':90, 'weather': 'cloudy with a chance'});
 		g.add(no2);
-		g.delete(no2);
+		g.delete(no2, no1);
 	}
 '''
 
@@ -591,7 +597,7 @@ test4= '''
 	}
 '''
 
-m = MAPparser(l, test4)
+m = MAPparser(l, test3)
 
 def main():
 	#print draw_tree(m.ast)

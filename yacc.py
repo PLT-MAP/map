@@ -48,12 +48,12 @@ class MAPparser():
 		| parameter_list COMMA parameter_list'''
 		t[0] = Node(t[2],'param_list',[t[1],t[3]])
 
-	def p_plist3(self,t):
-		'parameter_list : associative_arr'
+	# def p_plist3(self,t):
+	# 	'parameter_list : associative_arr'
 
 	def p_plist4(self, t):
 		'parameter_list : ID'
-		t[0] = Node(t[1], 'param_list', t[1])
+		t[0] = Node(t[1],'param_list',t[1])
 
 	def p_typedec(self,t):
 		'''type_declaration : TYPE identifier'''
