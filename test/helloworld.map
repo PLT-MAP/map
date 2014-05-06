@@ -1,6 +1,7 @@
 func main() {  
 	Text t = 'Hello, world';   
 	Numeric bye = 2;
+	bye=1/0;
 	print(t);
 }
 

@@ -1,3 +1,4 @@
+import os
 import yacc 
 import MAPlexer 
 import traverse 
@@ -82,9 +83,10 @@ def main(argv):
 	output=open(outputfile,'w')
 	content=content+test2
 	
-	mainstatement="if __name__ == '__main__': \n\tmain()"
+	mainstatement="if __name__ == '__main__': \n\ttry:\n\t\tmain()\n\texcept:\n\t\tprint'Error:',sys.exc_info()[0]\n\t\tprint'Resolve error before running again!'"
 	content=content+mainstatement
 	output.write(content)
+	return outputfile
 
 def indentcheck(test1):		
 	scope=0
@@ -240,9 +242,9 @@ def typecheck(test1):
 
 
 if __name__ == '__main__':
-	main(sys.argv)
+	f=main(sys.argv)
+	command="python " + f
 
-
-
-
+	os.system(command)
+	os.remove(f)
 
