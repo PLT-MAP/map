@@ -514,6 +514,12 @@ class Traverse(object):
 					s+= tree.children[2].children[0].name + ',' + tree.children[2].children[1].name
 				s = s+")"
 				return s
+			elif x == "deleteEdge":
+				s = self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" 
+				if tree.children[2].name == ",":
+					s+= tree.children[2].children[0].name + ',' + tree.children[2].children[1].name
+				s = s+")"
+				return s
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -584,6 +590,7 @@ test3= '''
 		g.add(no2);
 		g.delete(no2, no1);
 		g.addEdge(no1,no2);
+		g.deleteEdge(no1, no2);
 	}
 '''
 
