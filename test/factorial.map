@@ -1,19 +1,17 @@
 func factorial(Numeric n) {
-	Numeric x = 1;
 	if (Numeric n == 0) {
-		print(n);
+		return 1;
 	}
-
-	Numeric p=10;
-	for (Numeric i = 1; i <= p; i = i + 1) {
-		 x = x % i;
+	Numeric x=1;
+	for (Numeric i = 1; i <= n; i = i + 1) {
+		 x = x * i;
 	}
-	return (x>0);
+	return x;
 }
 
 func main() {
 	Numeric fact = factorial(5);
-	print("Reached here");
+	print(fact);
 }
 
 

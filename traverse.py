@@ -596,20 +596,21 @@ test3= '''
 '''
 
 test4= '''
-	func factorial(Numeric n) {
-		Numeric x = 1;
-		if (n == 0) {
-			print(n);
-		}
-		for (Numeric i = 1; i <= n; i = i + 1) {
-			 x = x % i;
-		}
-		return (x>0);
+func factorial(Numeric n) {
+	if (Numeric n == 0) {
+		return 1;
 	}
-	func main() {
-		factorial(5);
-		print(fact);
+	Numeric x=1;
+	for (Numeric i = 1; i <= n; i = i + 1) {
+		 x = x * i;
 	}
+	return x;
+}
+
+func main() {
+	Numeric fact = factorial(5);
+	print(fact);
+}
 '''
 
 m = MAPparser(l, test4)
