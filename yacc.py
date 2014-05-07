@@ -269,9 +269,13 @@ class MAPparser():
 		| associative_arr'''
 		t[0] = Node(t[1],'arg')
 
+	# def p_assoc_array(self, t):
+	# 	'associative_arr : LITERAL COMMA LBR array_values RBR'
+	# 	t[0] = Node(t[0], 'associative_arr', [t[4],t[1]])
+
 	def p_assoc_array(self, t):
-		'associative_arr : LITERAL COMMA LBR array_values RBR'
-		t[0] = Node(t[0], 'associative_arr', [t[4],t[1]])
+		'associative_arr : LBR array_values RBR'
+		t[0] = Node(t[0], 'associative_arr', [t[2]])
 
 	def p_array_values1(self, t):
 		'''array_values : arrayval

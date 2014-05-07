@@ -298,13 +298,13 @@ class Traverse(object):
 					elif len(tree.children) == 4:
 						x = self.dispatch(tree.children[1], flag)
 						y = self.dispatch(tree.children[3], flag)
-						return x + " = " + y
+						return x + " = " + "'" + x + "'" + y 
 			else:
 				# we need to throw a type mismatch error
 				return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
- 		return tree.children[1] + ", {" + self.dispatch(tree.children[0], flag) + "}"
+ 		return ", {" + self.dispatch(tree.children[0], flag) + "}"
 
 	def _array_values(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -501,6 +501,7 @@ class Traverse(object):
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
 			if x == "add":
+				print "hihi"
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
@@ -570,7 +571,7 @@ test2= '''
 test3= '''
 	func main(){
 		Graph g = new Graph();
-		Node no2 = new Node('los angeles', {'temp':90, 'weather': 'cloudy with a chance'});
+		Node losangeles = new Node({'temp':90, 'weather': 'cloudy with a chance'});
 		g.add(no2);
 		g.delete(no2);
 	}
@@ -604,7 +605,7 @@ test5= '''
 	}
 '''
 
-m = MAPparser(l, test5)
+m = MAPparser(l, test3)
 
 def main():
 	#print draw_tree(m.ast)
