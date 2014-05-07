@@ -298,7 +298,7 @@ class Traverse(object):
 				elif tree.children[0] == "Node":
 					if len(tree.children) == 3:
 						x = self.dispatch(tree.children[1], flag) 
-						return x + " = node"
+						return x + " = " + "'" + x + "'"
 					elif len(tree.children) == 4:
 						x = self.dispatch(tree.children[1], flag)
 						y = self.dispatch(tree.children[3], flag)
@@ -610,7 +610,17 @@ test5= '''
 	}
 '''
 
-m = MAPparser(l, test3)
+test6= '''
+func main(){
+        Graph g= new Graph();
+        Node nj= new Node();
+        Node ny= new Node();
+        Node pa= new Node({'temp':85,'humidity':'low'});
+        Node va= new Node({'temp':87,'humidity':'high'});
+}
+'''
+
+m = MAPparser(l, test6)
 
 def main():
 	#print draw_tree(m.ast)

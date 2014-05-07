@@ -1,9 +1,9 @@
 func main(){
-        Graph g=Graph();
-	Node nj=Node();
-	Node ny=Node();
-        Node pa= Node({'temp':85,'humidity':'low'});
-        Node va= Node({'temp':87,'humidity':'high'});
+        Graph g=new Graph();
+	Node nj=new Node();
+	Node ny=new Node();
+        Node pa= new Node({'temp':85,'humidity':'low'});
+        Node va= new Node({'temp':87,'humidity':'high'});
 	g.add(nj);
 	g.add(ny);
 	g.add(pa,va);
