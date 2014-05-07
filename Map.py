@@ -76,7 +76,7 @@ def main(argv):
 	#print test1
 	
 	test2=indentcheck(test1)
-	test3=scopecheck(test1)
+	#test3=scopecheck(test1)
 	print test2
 	#main body of file
 	outputfile=filename[0]+".py"
@@ -201,7 +201,10 @@ def typecheck(test1):
 	typearray={}
 	line_num=0
 	for line in test1:
-	#	print typearray
+		line=line.strip()
+		line=line.strip("\t")
+		#print scope
+
 		line_num+=1
 		array=[]
 		lex=MAPlexer.MAPlex()
@@ -216,46 +219,71 @@ def typecheck(test1):
 			else:
 				break
 		if len(array)<2:
+			if line.startswith("}"):
+				temparr=[]
+				for element in typearray:
+					if typearray[element][1]==scope:
+						temparr.append(element)
+				for element in temparr:
+					typearray.pop(element)
+				del temparr
+				scope-=1
+
+			elif line.startswith("{"):
+				scope+=1
 			continue
 		if array[0].type=="FUNC":
 			i=0
-			scope+=1
 			for element in array:
 				if (element.value not in typearray) and element.type=='ID':
 					#print element.value
-					typearray[element.value]=array[i-1].value
+					typearray[element.value]=[array[i-1].value,scope]
 				#	print typearray
 				i+=1
+			scope+=1
 			continue
 		if array[1].value in typearray and array[0].type!='RETURN':
 			print "ERROR: Casting a variable more than once"
 			print "Error on line "+str(line_num)
 			sys.exit()
 		if array[0].type=="TYPE":
-			typearray[array[1].value]=array[0].value
+			typearray[array[1].value]=[array[0].value,scope]
 	#		print typearray
 		i=0
 		for item in array:
-			if i==0:
-				i+=1
-				continue
-
 			if item.type=="ID":
-				print item
+				#print item
 				if item.value not in typearray:
-					print item.value
-					if array[i-1].type=="FOR" or array[i-1].type=="FOREACH":
-						typearray[item.value]="NUMERIC"
-						continue
+					print "poop"
+					if i>0:
+						if array[i-1].type=="FOR" or array[i-1].type=="FOREACH":
+							typearray[item.value]=["NUMERIC",scope]
+							continue
 					print "ERROR: "+item.value+" is not casted properly"
 					print "Error on line "+str(line_num)
 					sys.exit()
+			i+=1
+		if line.endswith("}") or line.startswith("}"):
+			temparr=[]
+			for element in typearray:
+				if typearray[element][1]==scope:
+					temparr.append(element)
+			for element in temparr:
+				typearray.pop(element)
+			del temparr
+			scope-=1
 
+		elif line.endswith("{"):
+			scope+=1
 
-	#		print typearray
+		print str(scope)+line
+		#print typearray
+		#print
+		
 		#print " "
 		del array
-
+	#print typearray
+	#print scope
 	if 'main' not in typearray:
 		print "Function does not have main function"
 		sys.exit()

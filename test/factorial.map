@@ -1,6 +1,6 @@
 func factorial(Numeric n) {
 	Numeric x = 1;
-	if (n == 0) {
+	if (Numeric n == 0) {
 		print(n);
 	}
 

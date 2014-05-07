@@ -8,7 +8,7 @@ func main(){
 		Numeric cost=10;
 	}
 	else{
-		cost=15;
+		Numeric cost=15;
 	}
 }
 
