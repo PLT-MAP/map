@@ -282,7 +282,7 @@ class Traverse(object):
 		else:
 			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
-			return x + " " + tree.name + " " + y
+			return x + " = " + y
 
 	def _struct_assignment(self, tree, flag=None):
 		if tree.name == "new":

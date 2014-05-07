@@ -4,12 +4,12 @@ def factorial(n):
     if (n==0.0):
         return 1.0
     x = 1.0
-    for i in range(1, int(n+1)):
+    for i in range(1, n+1):
         x = (x*i)
-        return x
+    return x
 def main():
     fact = factorial(5.0)
-    print(fact)
+    print fact
 if __name__ == '__main__': 
 	try:
 		main()
