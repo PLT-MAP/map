@@ -1,9 +1,13 @@
 import networkx as nx
 import sys
 def main():
-    for i in range(0,int(10)):
-        print(i)
-    return i
+    x = 2.0
+    if (x<5.0):
+        print("success")
+    elif (x<10.0):
+        cost = 10.0
+    else:
+        cost = 15.0
 if __name__ == '__main__': 
 	try:
 		main()
