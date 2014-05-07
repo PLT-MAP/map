@@ -6,4 +6,8 @@ def main():
     g.add_node(no2[0], no2[1])
     g.remove_node(no2[0])
 if __name__ == '__main__': 
-	main()
+	try:
+		main()
+	except:
+		print'Error:',sys.exc_info()[0]
+		print'Resolve error before running again!'

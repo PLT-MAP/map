@@ -256,7 +256,7 @@ def typecheck(test1):
 				if item.value not in typearray:
 					print "poop"
 					if i>0:
-						if array[i-1].type=="FOR" or array[i-1].type=="FOREACH":
+						if array[i-3].type=="FOR" or array[i-3].type=="FOREACH":
 							typearray[item.value]=["NUMERIC",scope]
 							continue
 					print "ERROR: "+item.value+" is not casted properly"
