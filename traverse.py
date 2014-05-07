@@ -282,7 +282,7 @@ class Traverse(object):
 		else:
 			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
-			return x + " " + tree.name + " " + y
+			return x + " " + "=" + " " + y
 
 	def _struct_assignment(self, tree, flag=None):
 		if tree.name == "new":
@@ -490,8 +490,9 @@ class Traverse(object):
 	# function call
 	def _function_call(self, tree, flag=None):
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
+		print tree
 		if len(tree.children) == 1:
-			return self.dispatch(tree.children[0], flag)
+			return self.dispatch(tree.children[0], flag) + "()"
 		elif len(tree.children) == 2:
 			return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
 		# hack solution below must fix. 
