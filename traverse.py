@@ -282,7 +282,7 @@ class Traverse(object):
 		else:
 			x = self.dispatch(tree.children[0], flag)
 			y = self.dispatch(tree.children[1], flag)
-			return x + " " + "=" + " " + y
+			return x + " " + tree.name + " " + y
 
 	def _struct_assignment(self, tree, flag=None):
 		if tree.name == "new":
@@ -443,6 +443,7 @@ class Traverse(object):
 		x = self.dispatch(tree.children[0], flag)
 		y = self.dispatch(tree.children[1], flag)
 		z = self.dispatch(tree.children[2], flag)
+		self.enter()
 		if x[4].isdigit():
 			ini = str(int(float(x[4:])))
 		else:
@@ -458,15 +459,16 @@ class Traverse(object):
 			else:
 				end = y[2:]
 		if z == "i = i+1.0":
-			s = tree.name + " " + x[0] + " in range(" + ini + ", int(" + end + ")):\n"
+			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + "):\n"
 		elif z[5] == "+":
 			step = str(int(float(z[6:])))
-			s = tree.name + " " + x[0] + " in range(" + ini + ", int(" + end + "), " + step + "):\n"
+			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", " + step + "):\n"
 		else:
 			step = str(int(float(z[6:])))
 			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", -" + step + "):\n"
 		r = self.dispatch(tree.children[3], flag)
-		s += r
+		s += self.fill(r)
+		self.leave()
 		return s
 
 	def _for_each(self, tree, flag=None):
@@ -490,9 +492,8 @@ class Traverse(object):
 	# function call
 	def _function_call(self, tree, flag=None):
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
-		print tree
 		if len(tree.children) == 1:
-			return self.dispatch(tree.children[0], flag) + "()"
+			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
 			return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
 		# hack solution below must fix. 
@@ -500,27 +501,9 @@ class Traverse(object):
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
 			if x == "add":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + str(tree.children[2].name) + "[0], " + str(tree.children[2].name) + "[1]" + ")"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
-				if tree.children[2].name == ",":
-					s = ''
-					for child in tree.children[2].children:
-						s += self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + child.name + "[0])\n"
-					return s
-				else:
-					return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
-			elif x == "addEdge":
-				s = self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" 
-				if tree.children[2].name == ",":
-					s+= tree.children[2].children[0].name + ',' + tree.children[2].children[1].name
-				s = s+")"
-				return s
-			elif x == "deleteEdge":
-				s = self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" 
-				if tree.children[2].name == ",":
-					s+= tree.children[2].children[0].name + ',' + tree.children[2].children[1].name
-				s = s+")"
-				return s
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -589,13 +572,12 @@ test3= '''
 		Graph g = new Graph();
 		Node no2 = new Node('los angeles', {'temp':90, 'weather': 'cloudy with a chance'});
 		g.add(no2);
-		g.delete(no2, no1);
-		g.addEdge(no1,no2);
-		g.deleteEdge(no1, no2);
+		g.delete(no2);
 	}
 '''
 
 test4= '''
+
 func factorial(Numeric n) {
 	if (Numeric n == 0) {
 		return 1;
@@ -613,7 +595,16 @@ func main() {
 }
 '''
 
-m = MAPparser(l, test4)
+test5= '''
+	func main() {
+		for (Numeric i = 0; i < 10; i = i+1) {
+			print(i);
+		}
+		return i;
+	}
+'''
+
+m = MAPparser(l, test5)
 
 def main():
 	#print draw_tree(m.ast)
