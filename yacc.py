@@ -59,10 +59,6 @@ class MAPparser():
 		'''type_declaration : TYPE identifier'''
 		t[0] = Node(t[1],'typedec',[t[2]])
 
-	#def p_typedec(self,t):
-	#	'''type_declaration : TYPE identifier EQUALS TYPE LPAREN parameter_list RPAREN'''
-	#	t[0] = Node(t[1],'typedec',[t[2],t[6]])
-
 	def p_slist2(self,t):
 		'statement_list : statement_list statement'
 		t[0] = Node('','statement_list',[t[1],t[2]])
@@ -273,7 +269,7 @@ class MAPparser():
 	# 	'associative_arr : LITERAL COMMA LBR array_values RBR'
 	# 	t[0] = Node(t[0], 'associative_arr', [t[4],t[1]])
 
-	def p_assoc_array(self, t):
+	def p_assoc_array2(self, t):
 		'associative_arr : LBR array_values RBR'
 		t[0] = Node(t[0], 'associative_arr', [t[2]])
 

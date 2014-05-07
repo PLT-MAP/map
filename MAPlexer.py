@@ -39,7 +39,7 @@ class MAPlex:
 		}
 
 	Boolean=['true','false']
-	Type=['Node','Path','Graph','Text','Numeric']
+	Type=['Node','Path','UnDirEdge', 'DirEdge','Graph','Text','Numeric']
 
 	tokens = [
 		'NUMERIC', 

@@ -243,6 +243,10 @@ class Traverse(object):
 		elif tree.name == 'Graph':
 			x = self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
 			return x
+		elif tree.name == "DirEdge":
+			print "hi"
+			x = self.dispatch(tree.children[0], flag) + " = adads"
+
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -299,6 +303,8 @@ class Traverse(object):
 						x = self.dispatch(tree.children[1], flag)
 						y = self.dispatch(tree.children[3], flag)
 						return x + " = " + "'" + x + "'" + y 
+				elif tree.children[1] == "DirEdge": 
+					print "lol"
 			else:
 				# we need to throw a type mismatch error
 				return "type mismatch"
@@ -501,7 +507,6 @@ class Traverse(object):
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
 			if x == "add":
-				print "hihi"
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
@@ -573,7 +578,7 @@ test3= '''
 		Graph g = new Graph();
 		Node losangeles = new Node({'temp':90, 'weather': 'cloudy with a chance'});
 		g.add(no2);
-		g.delete(no2);
+		g.delete(no2); 
 	}
 '''
 
