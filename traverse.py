@@ -459,10 +459,10 @@ class Traverse(object):
 			else:
 				end = y[2:]
 		if z == "i = i+1.0":
-			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + "):\n"
+			s = tree.name + " " + x[0] + " in range(" + ini + ",int(" + end + ")):\n"
 		elif z[5] == "+":
 			step = str(int(float(z[6:])))
-			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", " + step + "):\n"
+			s = tree.name + " " + x[0] + " in range(" + ini + ", int(" + end + "), " + step + "):\n"
 		else:
 			step = str(int(float(z[6:])))
 			s = tree.name + " " + x[0] + " in range(" + ini + ", " + end + ", -" + step + "):\n"
