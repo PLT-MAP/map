@@ -9,8 +9,7 @@ def factorial(n):
         x = (x%i)
         return x>0.0
 def main():
-    fact = 5.0
-    factorial(5.0)
+    fact = factorial
     print("Reached here")
 if __name__ == '__main__': 
 	try:

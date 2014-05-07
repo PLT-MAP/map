@@ -12,8 +12,7 @@ func factorial(Numeric n) {
 }
 
 func main() {
-	Numeric fact=5;
-	factorial(5);
+	Numeric fact = factorial(5);
 	print("Reached here");
 }
 

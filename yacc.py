@@ -145,6 +145,10 @@ class MAPparser():
 		'''
  		t[0] = Node('aexpr','assignment_expression', [t[2],t[4]])
 
+	def p_aexpr6(self, t):
+		'''aexpr : TYPE identifier EQUALS function_call'''
+		t[0] = Node('aexpr','assignment_expression', [t[2],t[4].name])
+
 	#Conditional expression
 	def p_aexpr(self,t):
 		'''assignment_expression : conditional_expression
@@ -245,7 +249,7 @@ class MAPparser():
 	def p_funcall2(self,t):
 		'''function_call : identifier LPAREN func_args RPAREN
 		function_call : print_func LPAREN func_args RPAREN'''
-		t[0] = Node('','function_call',[t[1], t[3]])
+		t[0] = Node(t[1].name,'function_call',[t[1], t[3]])
 	
 	def p_printfunc(self,t):
 		'print_func : PRINT'
