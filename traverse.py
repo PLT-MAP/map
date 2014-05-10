@@ -243,7 +243,6 @@ class Traverse(object):
 		elif tree.name == 'Graph':
 			x = self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
 			return x
-
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -300,8 +299,6 @@ class Traverse(object):
 						x = self.dispatch(tree.children[1], flag)
 						y = self.dispatch(tree.children[3], flag)
 						return x + " = " + "'" + x + "'" + y 
-				elif tree.children[1] == "DirEdge": 
-					print "lol"
 			else:
 				# we need to throw a type mismatch error
 				return "type mismatch"
