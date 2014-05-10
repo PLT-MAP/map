@@ -500,6 +500,8 @@ class Traverse(object):
 		# seriously
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
+			for child in tree.children[2].children:
+				print child
 			if x == "add":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
@@ -634,9 +636,19 @@ test8='''
 func main(){
         Graph g = new Graph();
         Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-        g.add(no2);
+        g.add(no2, no1,no3);
         g.delete(no2);
 
+}
+'''
+
+test9='''
+func fact(Numeric hi){
+	
+}
+func main(){
+	Numeric hi= 5;
+	fact(hi);
 }
 '''
 
