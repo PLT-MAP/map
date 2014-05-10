@@ -298,8 +298,11 @@ class Traverse(object):
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				print tree.children[2]
-				return tree.children[2]
+				print tree.children[1]
+				# x = self.dispatch(tree.children[1], flag) 
+				# y = self.dispatch(tree.children[3], flag)
+				print tree.children[1], tree.children[3]
+				# print x + y
 			elif tree.children[0] == 'UnDirEdge':
 				print "hi"
 			elif tree.children[0] == "Node":
