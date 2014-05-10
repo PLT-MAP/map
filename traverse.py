@@ -291,23 +291,28 @@ class Traverse(object):
 			return x + " = " + y
 
 	def _struct_assignment(self, tree, flag=None):
-		if tree.name == "new":
-			if tree.children[0] == tree.children[2]:
-				# types are the same
-				if tree.children[0] == "Graph":
+		# if tree.name == "new":
+		if tree.children[0] == tree.children[2]:
+			# types are the same
+			if tree.children[0] == "Graph":
+				x = self.dispatch(tree.children[1], flag)
+				return x + " = nx.MultiDiGraph()"
+			elif tree.children[0] == 'DirEdge':
+				print tree.children[2]
+				return tree.children[2]
+			elif tree.children[0] == 'UnDirEdge':
+				print "hi"
+			elif tree.children[0] == "Node":
+				if len(tree.children) == 3:
+					x = self.dispatch(tree.children[1], flag) 
+					return x + " = " + "'" + x + "'"
+				elif len(tree.children) == 4:
 					x = self.dispatch(tree.children[1], flag)
-					return x + " = nx.MultiDiGraph()"
-				elif tree.children[0] == "Node":
-					if len(tree.children) == 3:
-						x = self.dispatch(tree.children[1], flag) 
-						return x + " = " + "'" + x + "'"
-					elif len(tree.children) == 4:
-						x = self.dispatch(tree.children[1], flag)
-						y = self.dispatch(tree.children[3], flag)
-						return x + " = " + "'" + x + "'" + y 
-			else:
-				# we need to throw a type mismatch error
-				return "type mismatch"
+					y = self.dispatch(tree.children[3], flag)
+					return x + " = " + "'" + x + "'" + y 
+		else:
+			# we need to throw a type mismatch error
+			return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
  		return ", {" + self.dispatch(tree.children[0], flag) + "}"
@@ -497,6 +502,8 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
+		print "got here"
+		print tree.children[2].name
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -510,6 +517,7 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+		
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -630,8 +638,8 @@ func main(){
 
 test7= '''
 func main(){
-        g.add(pa,va);
-	DirEdge e = new DirEdge(no1,no2,{'cost':100});
+        g.add(pa);
+		DirEdge e = new DirEdge(no1,no2,{'cost':100});
 }
 '''
 
