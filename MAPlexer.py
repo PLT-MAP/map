@@ -68,8 +68,6 @@ class MAPlex:
 		'LOGICALOR',  #25
 		'LOGICALNOT',
 		'COMMENT',    #26
-		'COMMENTFRONT', #27
-		'COMMENTBACK',   #28
 		'COMMA', #37
 		#'NEWLINE',#38
 		'LBR', # 40
@@ -140,14 +138,17 @@ class MAPlex:
 	t_LOGICALNOT=r'!' 
 
 	#commenting
-	t_COMMENT=r'//' #26
-	t_COMMENTBACK=r'(\*/)' #27
-	t_COMMENTFRONT=r'(/\*)'#28
+	#t_COMMENT=r'//' #26
+	#t_COMMENTBACK=r'(\*/)' #27
+	#t_COMMENTFRONT=r'(/\*)'#28
 	t_LSB = '\['
 	t_RSB = '\]'
 	t_LBR = '\{'
 	t_RBR = '\}'
-
+	
+	def t_COMMENT(self,t):
+		r'//[^\n]*'
+		pass
 
 	t_COMMA=r'\,' #37
 
