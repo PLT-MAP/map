@@ -528,6 +528,9 @@ class Traverse(object):
 	def _function_name(self, tree, flag=None):
 		return tree.name
 
+	def _input(self, tree, flag=None):
+		return "raw_input"
+
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
 
@@ -658,7 +661,17 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test7)
+test10='''
+func fact(Numeric hi){
+	
+}
+func main(){
+	Numeric hi= input("hi! please input something");
+	fact(hi);
+}
+'''
+
+m = MAPparser(l, test10)
 
 def main():
 	#print draw_tree(m.ast)
