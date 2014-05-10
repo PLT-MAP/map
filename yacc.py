@@ -159,7 +159,7 @@ class MAPparser():
 		t[0] = Node(t[2],'assignment_expression',[t[1],t[3]])
 
 	def p_aexpr3(self,t):
-		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN associative_arr RPAREN'''
+		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN func_args RPAREN'''
 		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5],t[7]])
 
 	def p_aexpr4(self,t):
