@@ -291,7 +291,7 @@ class Traverse(object):
 			elif tree.children[0] == 'DirEdge':
 				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == 'UnDirEdge':
-				print "hi"
+				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
@@ -493,7 +493,6 @@ class Traverse(object):
 	def _function_call(self, tree, flag=None):
 		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 
-		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
@@ -502,22 +501,24 @@ class Traverse(object):
 		# seriously
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
-			for child in tree.children[2].children:
-				print child
+			# for child in tree.children[2].children:
+			# 	print child
 			if x == "add":
+
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge" or x == "deleteEdge":
+				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
 			elif x == "adjacent":
 				print self.dispatch(tree.children[0], flag)
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
-			# elif x == "path":
-			# 	print self.dispatch(tree.children[0], flag)
-			# 	x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
-			# 	return x			
+			elif x == "path":
+				print self.dispatch(tree.children[0], flag)
+				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
+				return x			
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -539,7 +540,7 @@ class Traverse(object):
 		return tree.name
 
 	def _input(self, tree, flag=None):
-		return tree.name
+		return "raw_input"
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
@@ -641,8 +642,18 @@ func main(){
         Graph g=new Graph();
         Node nj=new Node();
         Node ny=new Node();
-        Node pa= new Node({'temp':85,'humidity':'low'});
-        Node va= new Node({'temp':87,'humidity':'high'});
+        Node losangeles= new Node({'temp':85,'humidity':'low'});
+        Node boston= new Node({'temp':87,'humidity':'high'});
+        Node paris= new Node({'temp':80});
+        Node kansascity = new Node({'temp':40,'humidity':'low'});
+        Node sanfransisco= new Node({'temp':30,'humidity':'low'});
+        Node durham= new Node({'temp':21,'humidity':'low'});
+        Node minneapolis= new Node({'temp':41});
+        Node stpaul= new Node({'temp':50,'humidity':'low'});
+        Node philly= new Node({'temp':82,'humidity':'low'});
+        Node pitts= new Node({'temp':90});
+        Node stpeters= new Node({'temp':100});
+
         g.add(nj);
         g.add(ny);
         g.add(losangeles);
@@ -662,9 +673,6 @@ func main(){
         print(losangeles);
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
-        DirEdge e = new DirEdge(no1,no2,{'cost':100});
-        g.addEdge(e);
-        g.deleteEdge(e);
 }
 '''
 
@@ -679,15 +687,24 @@ func main(){
 '''
 
 test9='''
-func fact(Numeric hi){
-	
+func factorial(Numeric n) {
+	if (Numeric n == 0) {
+		return 1;
+	}
+	Numeric x=1;
+	for (Numeric i = 1; i <= n; i = i + 1) {
+		 x = x * i;
+	}
+	return x;
 }
-func main(){
-	Numeric hi= 5;
-	fact(hi);
+
+func main() {
+	Numeric fact = factorial(5);
+	print(fact);
 }
 '''
 
+m = MAPparser(l, test9)
 test10='''
 func fact(Numeric hi){
 	
@@ -697,18 +714,6 @@ func main(){
 	fact(hi);
 }
 '''
-
-test11='''
-func main(){
-	Graph g = new Graph();
-        Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-        g.add(no2);
-        Text filepath = "someFilename";
-	write(filepath,g);
-	Graph g2 = read(filepath);
-}
-'''''
-
 
 m = MAPparser(l, test7)
 
