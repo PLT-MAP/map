@@ -241,7 +241,6 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
-		print tree.name
 		if tree.name == 'Node':
 			x = self.dispatch(tree.children[0], flag) 
 			y = "nx.add_node(" + x + ")"
@@ -298,11 +297,9 @@ class Traverse(object):
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				print tree.children[1]
 				# x = self.dispatch(tree.children[1], flag) 
 				# y = self.dispatch(tree.children[3], flag)
-				print tree.children[1], tree.children[3]
-				# print x + y
+				return self.dispatch(tree.children[1]) + "=" + tree.children[2] + '(' + self.dispatch(tree.children[3]) + ')'
 			elif tree.children[0] == 'UnDirEdge':
 				print "hi"
 			elif tree.children[0] == "Node":
@@ -318,7 +315,7 @@ class Traverse(object):
 			return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
- 		return ", {" + self.dispatch(tree.children[0], flag) + "}"
+ 		return " {" + self.dispatch(tree.children[0], flag) + "}"
 
 	def _array_values(self, tree, flag=None):
 		if len(tree.children) == 1:
@@ -505,8 +502,6 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-		print "got here"
-		print tree.children[2].name
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -526,7 +521,10 @@ class Traverse(object):
 			return self.dispatch(tree.children[0], flag)
 
 	def _func_args(self, tree, flag=None):
-		return self.dispatch(tree.children[0], flag)
+		if len(tree.children) == 1:
+			return self.dispatch(tree.children[0], flag)
+		elif len(tree.children) == 2:
+			return self.dispatch(tree.children[0], flag) + ', ' + self.dispatch(tree.children[1], flag)
 
 	def _arg(self, tree, flag=None):
 		if len(tree.children) == 0:
