@@ -523,7 +523,8 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge":
 				#print tree.children[0]
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1]" + tree.children[2].name + "[2])"
+				#return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1]" + tree.children[2].name + "[2])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "*" + tree.children[2].name + ")"
 			elif x == "deleteEdge":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1])"
 			elif x == "adjacent":
