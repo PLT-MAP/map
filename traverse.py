@@ -295,7 +295,7 @@ class Traverse(object):
 				# y = self.dispatch(tree.children[3], flag)
 				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == 'UnDirEdge':
-				print "hi"
+				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
@@ -305,7 +305,6 @@ class Traverse(object):
 					y = self.dispatch(tree.children[3], flag)
 					return x + " = " + "'" + x + "'" + y 
 		else:
-			# we need to throw a type mismatch error
 			return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
@@ -497,6 +496,7 @@ class Traverse(object):
 	# function call
 	def _function_call(self, tree, flag=None):
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
+
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
@@ -505,13 +505,15 @@ class Traverse(object):
 		# seriously
 		elif len(tree.children) == 3:
 			x = self.dispatch(tree.children[1], flag)
-			for child in tree.children[2].children:
-				print child
+			# for child in tree.children[2].children:
+			# 	print child
 			if x == "add":
+
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge" or x == "deleteEdge":
+				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
 		else:
 			#print "need to deal with functions with this many parameters"
@@ -633,13 +635,36 @@ func main(){
         Graph g=new Graph();
         Node nj=new Node();
         Node ny=new Node();
-        Node pa= new Node({'temp':85,'humidity':'low'});
-        Node va= new Node({'temp':87,'humidity':'high'});
+        Node losangeles= new Node({'temp':85,'humidity':'low'});
+        Node boston= new Node({'temp':87,'humidity':'high'});
+        Node paris= new Node({'temp':80});
+        Node kansascity = new Node({'temp':40,'humidity':'low'});
+        Node sanfransisco= new Node({'temp':30,'humidity':'low'});
+        Node durham= new Node({'temp':21,'humidity':'low'});
+        Node minneapolis= new Node({'temp':41});
+        Node stpaul= new Node({'temp':50,'humidity':'low'});
+        Node philly= new Node({'temp':82,'humidity':'low'});
+        Node pitts= new Node({'temp':90});
+        Node stpeters= new Node({'temp':100});
+
         g.add(nj);
         g.add(ny);
-        DirEdge e = new DirEdge(no1,no2,{'cost':100});
-        g.addEdge(e);
-        g.deleteEdge(e);
+        g.add(losangeles);
+        g.add(paris);
+        g.add(durham);
+        d.add(philly);
+        g.add(pitts);
+        g.add(stpeters);
+        UnDirEdge nynj = new UnDirEdge(ny,nj,{'distance':100});
+    	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
+		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
+    	DirEdge stpaulpitts = new DirEdge(stpaul,pitts,{'distance':40});
+        g.addEdge(nynj);
+        g.addEdge(pittsphilly);
+        g.addEdge(stpaulpitts);
+        g.addEdge(pittsparis);
+        print(losangeles);
+
 }
 '''
 
@@ -654,16 +679,24 @@ func main(){
 '''
 
 test9='''
-func fact(Numeric hi){
-	
+func factorial(Numeric n) {
+	if (Numeric n == 0) {
+		return 1;
+	}
+	Numeric x=1;
+	for (Numeric i = 1; i <= n; i = i + 1) {
+		 x = x * i;
+	}
+	return x;
 }
-func main(){
-	Numeric hi= 5;
-	fact(hi);
+
+func main() {
+	Numeric fact = factorial(5);
+	print(fact);
 }
 '''
 
-m = MAPparser(l, test7)
+m = MAPparser(l, test9)
 
 def main():
 	#print draw_tree(m.ast)
