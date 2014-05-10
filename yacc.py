@@ -71,7 +71,7 @@ class MAPparser():
 
 	def p_slist3(self,t):
 		'statement_list : '
-		t[0] = Node()
+		t[0] = Node('','statement_list')
 
 	def p_s(self,t):
 		'''statement : expression SEMICOLON
@@ -235,7 +235,7 @@ class MAPparser():
 	def p_primexp_term(self,t):
 		'''primary_expression : LITERAL
 		| NUMERIC'''
-		t[0] = Node(t[1],'primary_expression',[Node(t[1])])
+		t[0] = Node(t[1],'primary_expression',[Node(t[1],'primary_expression_ln')])
 
 	def p_primexp2(self,t):
 		'''primary_expression : LPAREN expression RPAREN'''
@@ -247,12 +247,18 @@ class MAPparser():
 
 	def p_funcall2(self,t):
 		'''function_call : identifier LPAREN func_args RPAREN
-		function_call : print_func LPAREN func_args RPAREN'''
+				|  print_func LPAREN func_args RPAREN
+				| input_func LPAREN func_args RPAREN'''
 		t[0] = Node(t[1],'function_call',[t[1], t[3]])
 	
 	def p_printfunc(self,t):
 		'print_func : PRINT'
 		t[0] = Node(t[1],'print') 
+	
+	def p_inputfunc(self,t):
+		'input_func : INPUT'
+		print 'hit input'
+		t[0] = Node(t[1],'input')
 
 	def p_funcargs(self,t):
 		'func_args : arg'

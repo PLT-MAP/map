@@ -284,15 +284,11 @@ class Traverse(object):
 			return x + " = " + y
 
 	def _struct_assignment(self, tree, flag=None):
-		# if tree.name == "new":
 		if tree.children[0] == tree.children[2]:
-			# types are the same
 			if tree.children[0] == "Graph":
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				# x = self.dispatch(tree.children[1], flag) 
-				# y = self.dispatch(tree.children[3], flag)
 				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == 'UnDirEdge':
 				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
@@ -303,7 +299,7 @@ class Traverse(object):
 				elif len(tree.children) == 4:
 					x = self.dispatch(tree.children[1], flag)
 					y = self.dispatch(tree.children[3], flag)
-					return x + " = " + "'" + x + "'" + y 
+					return x + " = '" + x + "', " + y 
 		else:
 			return "type mismatch"
 
@@ -535,6 +531,9 @@ class Traverse(object):
 	def _function_name(self, tree, flag=None):
 		return tree.name
 
+	def _input(self, tree, flag=None):
+		return "raw_input"
+
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
 
@@ -696,7 +695,21 @@ func main() {
 }
 '''
 
+<<<<<<< HEAD
 m = MAPparser(l, test9)
+=======
+test10='''
+func fact(Numeric hi){
+	
+}
+func main(){
+	Numeric hi= input("hi! please input something");
+	fact(hi);
+}
+'''
+
+m = MAPparser(l, test10)
+>>>>>>> b4ef854f780e5ba447a61f6213ca3ad87a408bf3
 
 def main():
 	#print draw_tree(m.ast)

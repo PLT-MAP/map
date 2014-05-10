@@ -35,7 +35,7 @@ class MAPlex:
 		'write':'WRITE',
 		'func':'FUNC',
 		'new':'NEW',
-		
+		'input':'INPUT',	
 		}
 
 	Boolean=['true','false']
