@@ -284,15 +284,11 @@ class Traverse(object):
 			return x + " = " + y
 
 	def _struct_assignment(self, tree, flag=None):
-		# if tree.name == "new":
 		if tree.children[0] == tree.children[2]:
-			# types are the same
 			if tree.children[0] == "Graph":
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				# x = self.dispatch(tree.children[1], flag) 
-				# y = self.dispatch(tree.children[3], flag)
 				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == 'UnDirEdge':
 				print "hi"
@@ -303,9 +299,8 @@ class Traverse(object):
 				elif len(tree.children) == 4:
 					x = self.dispatch(tree.children[1], flag)
 					y = self.dispatch(tree.children[3], flag)
-					return x + " = " + "'" + x + "'" + y 
+					return x + " = '" + x + "', " + y 
 		else:
-			# we need to throw a type mismatch error
 			return "type mismatch"
 
 	def _associative_arr(self, tree, flag=None):
