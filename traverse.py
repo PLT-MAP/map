@@ -20,12 +20,14 @@ class Traverse(object):
 					  "Numeric": "every",
 					  "List": "every",
 					  "None": "every"}
+
 		self.class_meths = {"LIST": {
 								'append': "every",
 								'get': [int],
 								'delete': [int]
 								}
 							}
+							
 		self.class_meth_impls = {"LIST": {
 				'append': (lambda name, params : '%s.append(%s)' % (name, params)),
 				'get': (lambda name, params : '%s[%s]' % (name, params)),
