@@ -1,18 +1,18 @@
 import sys
 import ply.yacc as yacc
 from node import *
-import warnings
+#import warnings
 
-warnings.filterwarnings("ignore")
+#warnings.filterwarnings("ignore")
 class MAPparser():
 
-	def __init__(self,l,i):
+	def __init__(self,l,i,deb=1):
 		self.ast = Node('root') #root of the AST
 		self.lexer = l
 		self.lexer.build()
 		self.input = i
 		self.tokens = l.tokens
-		self.parser=yacc.yacc(module=self)
+		self.parser=yacc.yacc(module=self,debug=deb)
 		self.parser.parse(i)
 		self.errored = False
 
@@ -160,7 +160,7 @@ class MAPparser():
 
 	def p_aexpr3(self,t):
 		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN func_args RPAREN'''
-		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5],t[7]])
+		t[0] = Node(t[2],'struct_assignment',[t[1],t[2],t[5],t[7]])
 
 #	def p_aexpr4(self,t):
 #		'''

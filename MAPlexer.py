@@ -162,7 +162,7 @@ class MAPlex:
 	    t.lexer.skip(1)
         
 	def build(self,**kwargs):
-		self.lexer = lex.lex(debug=0, module=self, **kwargs)
+		self.lexer = lex.lex(module=self, **kwargs)
 
 	def get_lexer(self): 
 		return self.lexer
@@ -181,7 +181,7 @@ class MAPlex:
 
 if __name__ == "__main__": 
 	m = MAPlex()
-	m.build()
+	m.build(debug=1)
 	l = m.tokenize
 	print 'Enter a string to be tokenized' 
 	while 1:
