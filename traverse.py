@@ -511,6 +511,8 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+			elif x == "addEdge" or x == "deleteEdge":
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -636,6 +638,8 @@ func main(){
         g.add(nj);
         g.add(ny);
         DirEdge e = new DirEdge(no1,no2,{'cost':100});
+        g.addEdge(e);
+        g.deleteEdge(e);
 }
 '''
 
