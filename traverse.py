@@ -502,13 +502,13 @@ class Traverse(object):
 				print "reading"
 				self.autoincludes = "import pickle\n"
 				fp = tree.children[0].name
-				return "pickle.load(open({0},\"wb\"))".format(fp)
+				return "pickle.load(open({0},\"rb\"))".format(fp)
 
 			elif tree.children[0].type == "write":
 				self.autoincludes = "import pickle\n"
 				go = tree.children[1].children[1].name
 				fp = tree.children[1].children[0].children[0].name
-				return "pickle.dump({0},open({1}))".format(go,fp)
+				return "pickle.dump({0},open({1},\"wb\"))".format(go,fp)
 				
 			else:
 				return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
@@ -750,9 +750,45 @@ func main(){
 }
 '''
 
+test12='''
+func main(){
+	Graph g = new Graph();
+       	Node losangeles= new Node({'temp':85,'humidity':'low'});
+        Node boston= new Node({'temp':87,'humidity':'high'});
+        Node paris= new Node({'temp':80});
+        Node kansascity = new Node({'temp':40,'humidity':'low'});
+        Node sanfransisco= new Node({'temp':30,'humidity':'low'});
+        Node durham= new Node({'temp':21,'humidity':'low'});
+        Node minneapolis= new Node({'temp':41});
+        Node stpaul= new Node({'temp':50,'humidity':'low'});
+        Node philly= new Node({'temp':82,'humidity':'low'});
+        Node pitts= new Node({'temp':90});
+        Node stpeters= new Node({'temp':100});
+
+        g.add(nj);
+        g.add(ny);
+        g.add(losangeles);
+        g.add(paris);
+        g.add(durham);
+        d.add(philly);
+        g.add(pitts);
+        g.add(stpeters);
+        UnDirEdge nynj = new UnDirEdge(ny,nj,{'distance':100});
+    	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
+		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
+    	DirEdge stpaulpitts = new DirEdge(stpaul,pitts,{'distance':40});
+        g.addEdge(nynj);
+        g.addEdge(pittsphilly);
+        g.addEdge(stpaulpitts);
+        g.addEdge(pittsparis);
+  
+}
+'''
+
+
 
 def main():
-	m = MAPparser(l, test11)
+	m = MAPparser(l, test12)
 	t = Traverse(m.ast)
 	print(t.complete())
 
