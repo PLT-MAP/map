@@ -57,7 +57,9 @@ def main(argv):
 
 	#type checking
 	test4=test.split("\n")
+	test=commentcheck(test4)
 	#print test4
+	test4=test.split("\n") 
 	typecheck(test4)
 
 	m=parser(lex,test)
@@ -87,6 +89,30 @@ def main(argv):
 	content=content+mainstatement
 	output.write(content)
 	return outputfile
+
+def commentcheck(test4):
+	boolean=False
+	filestring=''
+	for line in test4:
+		if not boolean:
+			if "/*" in line:
+				boolean=True
+				index=line.index("/*")
+				if "*/" in line:
+					boolean=False
+					continue
+				else:
+					line=line[0:index]
+		if boolean:
+			if "*/" in line:
+				boolean=False
+				index=line.index("*/")
+				end=len(line)
+				line = line[index+2:end]
+				print line
+		if not boolean:
+			filestring+=line+"\n"
+	return filestring
 
 def indentcheck(test1):		
 	scope=0
@@ -276,7 +302,7 @@ def typecheck(test1):
 		elif line.endswith("{"):
 			scope+=1
 
-		print str(scope)+line
+		#print str(scope)+line
 		#print typearray
 		#print
 		

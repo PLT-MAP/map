@@ -24,14 +24,14 @@ class TestTraverseSyntax(unittest.TestCase):
 		teststr=teststr.replace(" ", "")
 		teststr=teststr.replace("\t", "")
 		teststr=teststr.replace("\n", "") 
-		print teststr
+		#print teststr
 
 		traversestring=traversestring.splitlines()
 		traversestring=''.join(traversestring)
 		traversestring=traversestring.replace(" ", "")
 		traversestring=traversestring.replace("\t", "")
 		traversestring=traversestring.replace("\n", "")
-		print traversestring
+		#print traversestring
 		
 		self.assertEqual(teststr,traversestring)
 
