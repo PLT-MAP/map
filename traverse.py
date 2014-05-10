@@ -491,12 +491,9 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-<<<<<<< HEAD
 		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 
-=======
 		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
@@ -517,10 +514,10 @@ class Traverse(object):
 				print self.dispatch(tree.children[0], flag)
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
-			elif x == "path":
-				print self.dispatch(tree.children[0], flag)
-				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
-				return x			
+			# elif x == "path":
+			# 	print self.dispatch(tree.children[0], flag)
+			# 	x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
+			# 	return x			
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -648,7 +645,6 @@ func main(){
         Node va= new Node({'temp':87,'humidity':'high'});
         g.add(nj);
         g.add(ny);
-<<<<<<< HEAD
         g.add(losangeles);
         g.add(paris);
         g.add(durham);
@@ -666,11 +662,9 @@ func main(){
         print(losangeles);
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
-=======
         DirEdge e = new DirEdge(no1,no2,{'cost':100});
         g.addEdge(e);
         g.deleteEdge(e);
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 }
 '''
 
@@ -694,10 +688,6 @@ func main(){
 }
 '''
 
-<<<<<<< HEAD
-m = MAPparser(l, test9)
-=======
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 test10='''
 func fact(Numeric hi){
 	
@@ -708,9 +698,6 @@ func main(){
 }
 '''
 
-<<<<<<< HEAD
-m = MAPparser(l, test7)
-=======
 test11='''
 func main(){
 	Graph g = new Graph();
@@ -723,8 +710,7 @@ func main(){
 '''''
 
 
-m = MAPparser(l, test11)
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
+m = MAPparser(l, test7)
 
 def main():
 	#print draw_tree(m.ast)
