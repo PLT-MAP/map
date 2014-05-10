@@ -1,0 +1,5 @@
+func test(){
+	Text string=input("Enter a string: ");
+	return string;
+}
+

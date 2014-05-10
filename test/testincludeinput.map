@@ -1,0 +1,12 @@
+include header.map
+
+func main(){
+	Text line=test();
+	print(line);
+	}
+
+
+
+
+
+
