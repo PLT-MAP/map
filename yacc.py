@@ -247,18 +247,17 @@ class MAPparser():
 
 	def p_funcall2(self,t):
 		'''function_call : identifier LPAREN func_args RPAREN
-				|  print_func LPAREN func_args RPAREN
-				| input_func LPAREN func_args RPAREN'''
+				|  function LPAREN func_args RPAREN'''
+		
 		t[0] = Node(t[1],'function_call',[t[1], t[3]])
 	
 	def p_printfunc(self,t):
-		'print_func : PRINT'
-		t[0] = Node(t[1],'print') 
+		'''function : PRINT 
+			| INPUT
+			| WRITE
+			| READ'''
+		t[0] = Node(t[1],t[1]) 
 	
-	def p_inputfunc(self,t):
-		'input_func : INPUT'
-		print 'hit input'
-		t[0] = Node(t[1],'input')
 
 	def p_funcargs(self,t):
 		'func_args : arg'
