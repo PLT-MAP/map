@@ -67,10 +67,11 @@ func main(){
 
 	nodetest="""
 	func main(){
-		Graph g = new Graph();
-		Node no2 = new Node('los angeles', {'temp':90, 'weather': 'cloudy with a chance'});
-		g.add(no2);
-		g.delete(no2);
+        Graph g = new Graph();
+        Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+        g.add(no2);
+        g.delete(no2);
+
 	}
 	"""
 	graph='''

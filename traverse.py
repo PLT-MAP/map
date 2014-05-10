@@ -620,7 +620,30 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test6)
+test7= '''
+func main(){
+        Graph g=new Graph();
+        Node nj=new Node();
+        Node ny=new Node();
+        Node pa= new Node({'temp':85,'humidity':'low'});
+        Node va= new Node({'temp':87,'humidity':'high'});
+        g.add(nj);
+        g.add(ny);
+        g.add(pa,va);
+}
+'''
+
+test8='''
+func main(){
+        Graph g = new Graph();
+        Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+        g.add(no2);
+        g.delete(no2);
+
+}
+'''
+
+m = MAPparser(l, test8)
 
 def main():
 	#print draw_tree(m.ast)
