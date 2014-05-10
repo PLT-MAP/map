@@ -492,12 +492,7 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-<<<<<<< HEAD
 		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
-
-=======
-		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
@@ -707,10 +702,6 @@ func main(){
 }
 '''
 
-<<<<<<< HEAD
-m = MAPparser(l, test9)
-=======
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 test10='''
 func fact(Numeric hi){
 	
@@ -721,9 +712,6 @@ func main(){
 }
 '''
 
-<<<<<<< HEAD
-m = MAPparser(l, test7)
-=======
 test11='''
 func main(){
 	Graph g = new Graph();
@@ -735,9 +723,6 @@ func main(){
 }
 '''''
 
-
-m = MAPparser(l, test11)
->>>>>>> 5b85c494648fcd99a28528e1651dfa8d48ba7f7b
 
 def main():
 	#print draw_tree(m.ast)
