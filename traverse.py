@@ -9,6 +9,7 @@ class Traverse(object):
 
 	def __init__(self, tree, file=sys.stdout): 
 		self.f = file
+		self.autoincludes = '' #newline delimited list of includes for map.py
 
 		#self.flist = {"Edge": "Edge",
 		#			  "Text": "Text"}
@@ -495,7 +496,11 @@ class Traverse(object):
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
-			return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
+			if tree.children[0].type == "write":
+				
+				return "pickle.dump" + self.dispatch(tree.children[0], flag) + "("  
+			else:
+				return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
 		# hack solution below must fix. 
 		# seriously
 		elif len(tree.children) == 3:
@@ -529,7 +534,15 @@ class Traverse(object):
 		return tree.name
 
 	def _input(self, tree, flag=None):
-		return tree.name
+		return "raw_input"
+
+	def _write(self, tree, flag=None):
+		self.autoincludes = "import pickle\n"
+		return ""
+
+	def _read(self, tree, flag=None):
+		self.autoincludes = "import pickle\n"
+		return "read"
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
