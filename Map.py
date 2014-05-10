@@ -55,22 +55,43 @@ def main(argv):
 	f=open(argv[1],'r')
 	test=f.read()
 
-	#type checking
-	test4=test.split("\n")
-	test=commentcheck(test4)
-	#print test4
-	test4=test.split("\n") 
-	typecheck(test4)
+	#get file path
+	filepath=inputfile.split("/")
+	filepath.pop()
+	path=''
+	for line in filepath:
+		path+=line
+	path+='/'
 
-	m=parser(lex,test)
+
+	#comment checking
+	test1=test.split("\n")
+	test1=commentcheck(test1)
+
+	#"include" parsing
+	test2=test1.split("\n")
+	test2=includecheck(test2,path)
+	print test2
+
+	#type checking
+	test3=test2.split("\n")
+	typecheck(test3)
+
+	test4=""
+	for line in test3:
+		test4+=line
+	m=parser(lex,test4)
+
 	t=traverse.Traverse(m.ast)
+	#autoincludes=traverse.autoincludes()
 	
 	#write the file
 	#add more to the header here if necessary
 	header="import networkx as nx\nimport sys\n"
+	#header+=autoincludes
 	content=header
 	
-	
+
 	
 	#Bruteforce
 	test=t.complete()
@@ -89,6 +110,26 @@ def main(argv):
 	content=content+mainstatement
 	output.write(content)
 	return outputfile
+
+def includecheck(test4,path):
+	file_extension=''
+	file_main=''
+	for line in test4:
+		if line.startswith("include"):
+			line1=line.split()
+			filename=path+line1[1]
+			try:
+				f=open(filename,'r')
+			except:
+				print "ERROR: File "+line1[0]+" does not exist!"
+				sys.exit()
+			file_extension+=f.read()
+			f.close()
+		else:
+			file_main+=line+'\n'
+	newfile=file_extension+file_main
+	
+	return newfile
 
 def commentcheck(test4):
 	boolean=False
@@ -268,10 +309,10 @@ def typecheck(test1):
 				i+=1
 			scope+=1
 			continue
-		if array[1].value in typearray and array[0].type!='RETURN':
-			print "ERROR: Casting a variable more than once"
-			print "Error on line "+str(line_num)
-			sys.exit()
+		#if array[1].value in typearray and array[0].type!='RETURN':
+		#	print "ERROR: Casting a variable more than once"
+		#	print "Error on line "+str(line_num)
+		#	sys.exit()
 		if array[0].type=="TYPE":
 			typearray[array[1].value]=[array[0].value,scope]
 	#		print typearray
@@ -280,7 +321,6 @@ def typecheck(test1):
 			if item.type=="ID":
 				#print item
 				if item.value not in typearray:
-					print "poop"
 					if i>0:
 						if array[i-3].type=="FOR" or array[i-3].type=="FOREACH":
 							typearray[item.value]=["NUMERIC",scope]
