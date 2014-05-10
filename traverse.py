@@ -235,7 +235,7 @@ class Traverse(object):
 			return self.flatten(z)
 
 	def _typedec(self, tree, flag=None):
-		print tree.name
+		print tree
 		if tree.name == 'Node':
 			x = self.dispatch(tree.children[0], flag) 
 			y = "nx.add_node(" + x + ")"
@@ -243,6 +243,9 @@ class Traverse(object):
 		elif tree.name == 'Graph':
 			x = self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
 			return x
+		elif tree.name == "DirEdge":
+			print "hi"
+			x = self.dispatch(tree.children[0], flag) + " = adads"
 
 		else:
 			return self.dispatch(tree.children[0], flag)
@@ -629,7 +632,6 @@ func main(){
         g.add(nj);
         g.add(ny);
         g.add(pa,va);
-        DirEdge e = new DirEdge(no1,no2,{'cost':100});
 }
 '''
 
@@ -643,7 +645,7 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test8)
+m = MAPparser(l, test7)
 
 def main():
 	#print draw_tree(m.ast)

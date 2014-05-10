@@ -1,18 +1,18 @@
 import sys
 import ply.yacc as yacc
 from node import *
-import warnings
+#import warnings
 
-warnings.filterwarnings("ignore")
+#warnings.filterwarnings("ignore")
 class MAPparser():
 
-	def __init__(self,l,i):
+	def __init__(self,l,i,deb=1):
 		self.ast = Node('root') #root of the AST
 		self.lexer = l
 		self.lexer.build()
 		self.input = i
 		self.tokens = l.tokens
-		self.parser=yacc.yacc(module=self)
+		self.parser=yacc.yacc(module=self,debug=deb)
 		self.parser.parse(i)
 		self.errored = False
 
