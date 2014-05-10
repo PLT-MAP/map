@@ -491,7 +491,7 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-		functions = {'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
+		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
 
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -511,6 +511,14 @@ class Traverse(object):
 			elif x == "addEdge" or x == "deleteEdge":
 				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
+			elif x == "adjacent":
+				print self.dispatch(tree.children[0], flag)
+				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				return x
+			elif x == "path":
+				print self.dispatch(tree.children[0], flag)
+				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
+				return x			
 		else:
 			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
@@ -663,7 +671,8 @@ func main(){
         g.addEdge(stpaulpitts);
         g.addEdge(pittsparis);
         print(losangeles);
-
+        g.adjacent(losangeles,paris);
+        g.path(losangeles, paris);
 }
 '''
 
@@ -695,9 +704,7 @@ func main() {
 }
 '''
 
-<<<<<<< HEAD
 m = MAPparser(l, test9)
-=======
 test10='''
 func fact(Numeric hi){
 	
@@ -708,8 +715,7 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test10)
->>>>>>> b4ef854f780e5ba447a61f6213ca3ad87a408bf3
+m = MAPparser(l, test7)
 
 def main():
 	#print draw_tree(m.ast)
