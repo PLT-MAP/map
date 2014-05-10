@@ -1,7 +1,9 @@
 import sys
 import ply.yacc as yacc
 from node import *
+import warnings
 
+warnings.filterwarnings("ignore")
 class MAPparser():
 
 	def __init__(self,l,i):
