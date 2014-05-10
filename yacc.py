@@ -162,9 +162,10 @@ class MAPparser():
 		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN func_args RPAREN'''
 		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5],t[7]])
 
-	def p_aexpr4(self,t):
-		'''struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN RPAREN'''
-		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5]])
+#	def p_aexpr4(self,t):
+#		'''
+#		struct_assignment : TYPE identifier EQUALS NEW TYPE LPAREN RPAREN'''
+#		t[0] = Node(t[4],'struct_assignment',[t[1],t[2],t[5]])
 
 	def p_condexpr(self,t):
 		'''conditional_expression : logical_OR_expression
@@ -263,9 +264,12 @@ class MAPparser():
 
 	def p_arg_lit(self,t):
 		'''arg : LITERAL
-		| NUMERIC
-		| associative_arr'''
+		| NUMERIC'''
 		t[0] = Node(t[1],'arg')
+	
+	def p_arg_assoc(self,t):
+		'arg : associative_arr'
+		t[0] = Node('','arg',[t[1]])	
 
 	# def p_assoc_array(self, t):
 	# 	'associative_arr : LITERAL COMMA LBR array_values RBR'

@@ -518,8 +518,10 @@ class Traverse(object):
 		return self.dispatch(tree.children[0], flag)
 
 	def _arg(self, tree, flag=None):
-		return tree.name
-		#return self.dispatch(tree.children[0], flag)
+		if len(tree.children) == 0:
+			return tree.name
+		else:
+			return self.dispatch(tree.children[0], flag)
 
 
 	def _function_name(self, tree, flag=None):
