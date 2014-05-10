@@ -3,9 +3,7 @@ from yacc import *
 import sys
 from asciitree import *
 
-
-
-class Traverse(object):
+class Traverse(object): 
 
 	def __init__(self, tree, file=sys.stdout): 
 		self.f = file
@@ -139,7 +137,6 @@ class Traverse(object):
 	def _external_declaration(self, tree, flag=None):
 		return self.dispatch(tree.children[0], flag)
 
-
 	# function definition
 	def _funcdef(self, tree, flag=None):
 		fname = tree.name
@@ -246,7 +243,6 @@ class Traverse(object):
 			return x
 		else:
 			return self.dispatch(tree.children[0], flag)
-
 
 	def _statement_list(self, tree, flag=None):
 		if len(tree.children) == 0:
@@ -490,7 +486,6 @@ class Traverse(object):
 			 line=tree.name + " " + self.dispatch(tree.children[0], flag)
 		return line
 
-
 	# function call
 	def _function_call(self, tree, flag=None):
 		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
@@ -518,14 +513,19 @@ class Traverse(object):
 			x = self.dispatch(tree.children[1], flag)
 			# for child in tree.children[2].children:
 			# 	print child
-			if x == "add":
 
+			if x == "add":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
+			elif x == "draw":
+				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
+				return x
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
-			elif x == "addEdge" or x == "deleteEdge":
+			elif x == "addEdge":
 				#print tree.children[0]
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + ")"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1]" + tree.children[2].name + "[2])"
+			elif x == "deleteEdge":
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1])"
 			elif x == "adjacent":
 				print self.dispatch(tree.children[0], flag)
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
@@ -535,7 +535,6 @@ class Traverse(object):
 				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
 				return x			
 		else:
-			#print "need to deal with functions with this many parameters"
 			return self.dispatch(tree.children[0], flag)
 
 	def _func_args(self, tree, flag=None):
@@ -549,7 +548,6 @@ class Traverse(object):
 			return tree.name
 		else:
 			return self.dispatch(tree.children[0], flag)
-
 
 	def _function_name(self, tree, flag=None):
 		return tree.name
@@ -674,26 +672,23 @@ func main(){
         Node philly= new Node({'temp':82,'humidity':'low'});
         Node pitts= new Node({'temp':90});
         Node stpeters= new Node({'temp':100});
-
-        g.add(nj);
-        g.add(ny);
         g.add(losangeles);
         g.add(paris);
         g.add(durham);
-        d.add(philly);
+        g.add(philly);
         g.add(pitts);
         g.add(stpeters);
         UnDirEdge nynj = new UnDirEdge(ny,nj,{'distance':100});
     	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
 		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
     	DirEdge stpaulpitts = new DirEdge(stpaul,pitts,{'distance':40});
-        g.addEdge(nynj);
         g.addEdge(pittsphilly);
         g.addEdge(stpaulpitts);
         g.addEdge(pittsparis);
         print(losangeles);
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
+        g.draw('lolcat.jpg');
 }
 '''
 
@@ -736,9 +731,6 @@ func main(){
 }
 '''
 
-
-
-
 test11='''
 func main(){
 	Graph g = new Graph();
@@ -750,9 +742,8 @@ func main(){
 }
 '''
 
-
 def main():
-	m = MAPparser(l, test11)
+	m = MAPparser(l, test7)
 	t = Traverse(m.ast)
 	print(t.complete())
 
