@@ -1,0 +1,8 @@
+func main(){
+	Graph g = new Graph();
+	Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+	g.add(no2);
+	Text filepath = "someFilename";
+	write(filepath,g);
+	Graph g2 = read(filepath);
+}
