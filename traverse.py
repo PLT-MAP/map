@@ -293,7 +293,7 @@ class Traverse(object):
 			elif tree.children[0] == 'DirEdge':
 				# x = self.dispatch(tree.children[1], flag) 
 				# y = self.dispatch(tree.children[3], flag)
-				return self.dispatch(tree.children[1]) + "=" + tree.children[2] + '(' + self.dispatch(tree.children[3]) + ')'
+				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
 			elif tree.children[0] == 'UnDirEdge':
 				print "hi"
 			elif tree.children[0] == "Node":
@@ -660,7 +660,7 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test8)
+m = MAPparser(l, test7)
 
 def main():
 	#print draw_tree(m.ast)
