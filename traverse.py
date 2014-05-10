@@ -498,7 +498,20 @@ class Traverse(object):
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
-			return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
+			if tree.children[0].type == "read":
+				print "reading"
+				self.autoincludes = "import pickle\n"
+				fp = tree.children[0].name
+				return "pickle.load(open({0},\"wb\"))".format(fp)
+
+			elif tree.children[0].type == "write":
+				self.autoincludes = "import pickle\n"
+				go = tree.children[1].children[1].name
+				fp = tree.children[1].children[0].children[0].name
+				return "pickle.dump({0},open({1}))".format(go,fp)
+				
+			else:
+				return self.dispatch(tree.children[0], flag) + "(" + self.dispatch(tree.children[1], flag) + ")"
 		# hack solution below must fix. 
 		# seriously
 		elif len(tree.children) == 3:
@@ -543,6 +556,12 @@ class Traverse(object):
 
 	def _input(self, tree, flag=None):
 		return "raw_input"
+
+	def _write(self, tree, flag=None):
+		return ""
+
+	def _read(self, tree, flag=None):
+		return ""
 
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
@@ -717,10 +736,23 @@ func main(){
 }
 '''
 
-m = MAPparser(l, test7)
+
+
+
+test11='''
+func main(){
+	Graph g = new Graph();
+	Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+	g.add(no2);
+	Text filepath = "someFilename";
+	write(filepath,g);
+	Graph g2 = read(filepath);
+}
+'''
+
 
 def main():
-	#print draw_tree(m.ast)
+	m = MAPparser(l, test11)
 	t = Traverse(m.ast)
 	print(t.complete())
 

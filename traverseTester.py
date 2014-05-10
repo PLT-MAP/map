@@ -105,6 +105,12 @@ class TestTraverseSyntax(unittest.TestCase):
 		 	expfile=open("test/nodetest.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
 
+	def testrwtest(self):
+		test= MapTests.rwtest
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+
+
 
 
 if __name__ == "__main__": 
