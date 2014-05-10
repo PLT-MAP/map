@@ -635,7 +635,6 @@ func main(){
         Node va= new Node({'temp':87,'humidity':'high'});
         g.add(nj);
         g.add(ny);
-        g.add(pa,va);
         DirEdge e = new DirEdge(no1,no2,{'cost':100});
 }
 '''
