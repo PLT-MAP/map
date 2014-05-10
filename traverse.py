@@ -9,6 +9,8 @@ class Traverse(object):
 
 	def __init__(self, tree, file=sys.stdout): 
 		self.f = file
+		self.errored = False
+		self.erroredDetail = []
 
 		#self.flist = {"Edge": "Edge",
 		#			  "Text": "Text"}
@@ -106,8 +108,12 @@ class Traverse(object):
 		#print "calling dispatch for "
 		#print tree
  		method = getattr(self,"_"+tree.type)
-
 		x = method(tree, flag)
+		if x is None:
+			print "Traverse encountered an error!"
+			self.errored = True
+			self.erroredDetail.append(str(tree))
+			x = ""
 		return x
 
 	def flatten(self, x):
@@ -521,6 +527,12 @@ class Traverse(object):
 	def _function_name(self, tree, flag=None):
 		return tree.name
 
+	def concatcheck(self, tree):
+		for n in tree.children:
+			if n is None:
+				self.errored = True
+				self.erroredDetail.append(n)
+
 l = MAPlex()
 #m = MAPparser(l,"func main(Text hi, Numeric bye) { Graph n = new Graph(); hi = 'hello'; bye = 3-4; bye = 3*4+6-(5/4); print(hi); if (5 < 7) { bye = 0; } Node no2 = new Node({'temp':45});}")
 
@@ -618,14 +630,8 @@ func main(){
 
 test7= '''
 func main(){
-        Graph g=new Graph();
-        Node nj=new Node();
-        Node ny=new Node();
-        Node pa= new Node({'temp':85,'humidity':'low'});
-        Node va= new Node({'temp':87,'humidity':'high'});
-        g.add(nj);
-        g.add(ny);
         g.add(pa,va);
+	DirEdge e = new DirEdge(no1,no2,{'cost':100});
 }
 '''
 
@@ -645,6 +651,10 @@ def main():
 	#print draw_tree(m.ast)
 	t = Traverse(m.ast)
 	print(t.complete())
+	if t.errored:
+		for md in t.erroredDetail:
+			print "errored at dispatching tree node: " + md
+
 
 if __name__ == "__main__":
 	main()
