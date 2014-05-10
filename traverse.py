@@ -496,7 +496,7 @@ class Traverse(object):
 			if tree.children[0].type == "read":
 				print "reading"
 				self.autoincludes = "import pickle\n"
-				fp = tree.children[0].name
+				fp = tree.children[1].children[0].name
 				return "pickle.load(open({0},\"rb\"))".format(fp)
 
 			elif tree.children[0].type == "write":
@@ -780,7 +780,7 @@ func main(){
 
 
 def main():
-	m = MAPparser(l, test12)
+	m = MAPparser(l, test11)
 	t = Traverse(m.ast)
 	print(t.complete())
 
