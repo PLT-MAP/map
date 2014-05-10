@@ -1,18 +1,14 @@
-#creating node types
-#nodes are put into lists
-#nodes with attributes will be stored in a dictionary in the first index
 import networkx as nx
-def main():	
-	g=nx.MultiDiGraph()
-	nj = ["nj"]
-	ny = ["ny"]
-	pa = ["pa", {'temp':85,'humidity':'low'}]
-	va = ["va", {'temp':87,'humidity':'high'}]
-	print g.nodes()
-	
-if __name__== '__main__':
-	main()
-
-
-
-
+import sys
+def main():
+    g = nx.MultiDiGraph()
+    nj = 'nj', 
+    ny = 'ny', 
+    pa = 'pa',  {'temp':85.0,'humidity':'low'}
+    va = 'va',  {'temp':87.0,'humidity':'high'}
+if __name__ == '__main__': 
+	try:
+		main()
+	except:
+		print'Error:',sys.exc_info()[0]
+		print'Resolve error before running again!'

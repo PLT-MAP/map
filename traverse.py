@@ -696,8 +696,9 @@ func main(){
 test8='''
 func main(){
         Graph g = new Graph();
+        Node no3= new Node();
         Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-        g.add(no2, no1,no3);
+        g.add(no2);
         g.delete(no2);
 
 }
@@ -781,7 +782,7 @@ func main(){
 
 
 def main():
-	m = MAPparser(l, test11)
+	m = MAPparser(l, test8)
 	t = Traverse(m.ast)
 	print(t.complete())
 
