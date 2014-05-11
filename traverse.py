@@ -546,19 +546,19 @@ class Traverse(object):
 				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
 				return x
 			elif x == "findShortest":
-				return "try:\n\tnx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")\nexcept:\n\tprint 'no path'"
+				return "try:\n\tnx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].children[0].children[0].name + "[0]," + tree.children[2].children[0].children[1].name +"[0]," + tree.children[2].children[1].name +")\nexcept:\n\tprint 'no path'"
 			elif x == "findShortestPaths":
-				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
+				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].children[0].children[0].name)
 				return x
 			elif x == "delete":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
 			elif x == "addEdge":
 				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[0].name + "[1]," + tree.children[2].children[0].name + "[2])])"
 			elif x == "deleteEdge":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 			elif x == "getEdge":
-				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "adjacent":
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
@@ -568,7 +568,7 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
 				#return x			
 			elif x == 'noNeighbors':
-				return "nx.is_isolate({},{})".format(self.dispatch(tree.children[0], flag), (tree.children[2].name + '[0]'))
+				return "nx.is_isolate({0},{1})".format(self.dispatch(tree.children[0], flag), (tree.children[2].children[0].name + '[0]'))
 			elif x == 'nodesWithoutNeighbors':
 				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
 			elif x == 'printGraphDiagnostics':
@@ -578,7 +578,7 @@ class Traverse(object):
 				x = '''print "Path:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
 				return x
 			elif x == 'printNodeDiagnostics':
-				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
+				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].name)
 				return x
 		else:
 			return self.dispatch(tree.children[0], flag)
@@ -859,41 +859,35 @@ func main(){
 }
 '''
 test13 = '''
-		func main(){
-		Graph g=new Graph();
-		Node nj=new Node();
-		Node ny=new Node();
-		Node fl=new Node();
-		Node pa= new Node({'temp':85,'humidity':'low'});
-		Node va= new Node({'temp':87,'humidity':'high'});
-		DirEdge flight1= new DirEdge(nj, ny);
-		DirEdge flight2= new DirEdge(ny, pa);
-		DirEdge flight3= new DirEdge(pa, va, {'cost':302, 'distance':4092});
-		UnDirEdge flight4= new UnDirEdge(va, nj);
-		UnDirEdge flight5 = new UnDirEdge(nj,fl, {'cost':50, 'distance':5000});
-		g.add(nj);
-		g.add(ny);
-		g.add(fl);
-		g.add(pa);
-		g.add(va);
-		g.addEdge(flight1);
-		g.addEdge(flight2);
-		g.addEdge(flight3);
-		g.addEdge(flight4);
-		g.addEdge(flight5);
-		Boolean check1= g.adjacent(nj, pa);
-		print (check1);
-		Boolean check2= g.adjacent(nj, ny);
-		print (check2); 
-		Path p1 = g.path(nj);
-		Path p2 = g.path(pa);
-		if (p1 == p2){
-			print("yo");
+	func main(){
+		Graph g = new Graph();
+		Node no3= new Node();
+		Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+		g.add(no3);
+		g.add(no2);
+		DirEdge e = new DirEdge(no2, no3, {'cost':100});
+		g.addEdge(e);
+		g.findShortest(no2, no3, 'cost');
+		g.getEdge(no2, no3);
+		Path p = new Path();
+		print(p);
+		p.add(no3);
+		p.add(no2);
+		if(no2==no3){
+			        print("hi");
 		}
-
+		else {
+			        print('bye');
+		}
+		g.printGraphDiagnostics();
+		p.printPathDiagnostics();
+		g.printNodeDiagnostics(no2);
+		print(g.noNeighbors(no2));
+		Graph empty = g.nodesWithoutNeighbors(no2); 
+		foreach (Node lol in empty){
+			        print(n);
+		}
 	}
-
-
 '''
 
 def main():
