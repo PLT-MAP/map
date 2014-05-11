@@ -2,8 +2,8 @@ import networkx as nx
 import sys
 def main():
     g = nx.MultiDiGraph()
-    nj = 'nj'
-    ny = 'ny'
+    nj = 'nj',{}
+    ny = 'ny',{}
     pa = 'pa',  {'temp':85.0,'humidity':'low'}
     va = 'va',  {'temp':87.0,'humidity':'high'}
 if __name__ == '__main__': 

@@ -2,7 +2,7 @@ import networkx as nx
 import sys
 def main():
     p = nx.MultiDiGraph()
-    p.add_node(nj[0], nj[1])
+    p.add_nodes_from([(nj[0], nj[1])])
 if __name__ == '__main__': 
 	try:
 		main()

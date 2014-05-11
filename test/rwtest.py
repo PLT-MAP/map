@@ -3,7 +3,7 @@ import sys
 def main():
     g = nx.MultiDiGraph()
     no2 = 'no2',  {'temp':90.0,'weather':'cloudy with a chance'}
-    g.add_node(no2[0], no2[1])
+    g.add_nodes_from([(no2[0], no2[1])])
     filepath = "someFilename"
     pickle.dump(g,open(filepath,"wb"))
     g2 = pickle.load(open(filepath,"rb"))
