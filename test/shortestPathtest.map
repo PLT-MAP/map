@@ -7,7 +7,7 @@ func main(){
         DirEdge e = new DirEdge(no2, no3, {'cost':100});
         g.addEdge(e);
         g.findShortest(no2, no3, 'cost');
-        print(g.getEdge(no2, no3));
+        g.getEdge(no2, no3);
         Path p = new Path();
         print(p);
         p.add(no3);
