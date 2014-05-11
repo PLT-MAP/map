@@ -138,7 +138,12 @@ func main(){
         Node pa= new Node({'temp':85,'humidity':'low'});
 		Node va= new Node({'temp':87,'humidity':'high'});}
 	'''
-
+	pathtest='''
+		func main(){
+		Path p = new Path(g);
+		p.add(nj);
+  	}
+	'''
 
 	def __init__(self):
 		pass

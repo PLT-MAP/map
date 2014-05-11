@@ -821,7 +821,10 @@ func main(){
 
 
 def main():
+
 	m = MAPparser(l, test8)
+
+
 	t = Traverse(m.ast)
 	print(t.complete())
 
