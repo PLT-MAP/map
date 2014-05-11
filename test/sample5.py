@@ -25,8 +25,7 @@ def main():
     g.remove_node(pa[0])
     g.remove_node(va[0])
     g.remove_node(ny[0])
-    g.remove_edge(nj[0]nj[1])
-    g.remove_edge(fl[0]fl[1])
+    g.remove_edge(nj[0],ny[0])
 if __name__ == '__main__': 
 	try:
 		main()
