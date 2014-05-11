@@ -316,7 +316,7 @@ class Traverse(object):
 					y = self.dispatch(tree.children[3], flag)
 					return x + " = '" + x + "', " + y
 			elif tree.children[0] == "Path":
-				return "{0}=[]".format(self.dispatch(tree.children[1]))
+				return "{0} = nx.MultiDiGraph()".format(self.dispatch(tree.children[1]))
 		else:
 			return "type mismatch"
 
@@ -801,7 +801,7 @@ func main(){
         g.addEdge(pittsparis);
 
 	Path p = new Path(g);
-	//p.add(nj);
+	p.add(nj);
   
 }
 '''
