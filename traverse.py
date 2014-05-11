@@ -287,13 +287,25 @@ class Traverse(object):
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
-						"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
-						self.dispatch(tree.children[3].children[1]))
+				if len(tree.children[3].children[0].children) == 2:
+					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
+							"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
+							self.dispatch(tree.children[3].children[1]))
+				else:
+					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0]) +
+							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0]")
+				
 			elif tree.children[0] == 'UnDirEdge':
-				return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
-						"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
-						self.dispatch(tree.children[3].children[1]))
+				# return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
+				# 		"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
+				# 		self.dispatch(tree.children[3].children[1]))
+				if len(tree.children[3].children[0].children) == 2:
+					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
+							"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
+							self.dispatch(tree.children[3].children[1]))
+				else:
+					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0]) +
+							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0]")
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
@@ -686,6 +698,8 @@ func main(){
         g.add(philly);
         g.add(pitts);
         g.add(stpeters);
+        DirEdge wee= new DirEdge(nj,ny);
+  		UnDirEdge lol = new UnDirEdge(boston,paris);
         UnDirEdge nynj = new UnDirEdge(ny,nj,{'distance':100});
     	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
 		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
@@ -775,7 +789,6 @@ func main(){
         d.add(philly);
         g.add(pitts);
         g.add(stpeters);
-        UnDirEdge nynj = new UnDirEdge(ny,nj,{'distance':100});
     	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
 		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
     	DirEdge stpaulpitts = new DirEdge(stpaul,pitts,{'distance':40});
