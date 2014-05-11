@@ -54,7 +54,8 @@ class MAPparser():
 	# 	'parameter_list : associative_arr'
 
 	def p_plist4(self, t):
-		'parameter_list : ID'
+		'''parameter_list : ID 
+		| LITERAL '''
 		t[0] = Node(t[1],'param_list',t[1])
 
 	def p_typedec(self,t):
@@ -326,6 +327,7 @@ class MAPparser():
 		| ADDEDGEFUNC
 		| DELETEEDGEFUNC
 		| FINDSHORTESTFUNC
+		| DRAWFUNC
 		| EQUALSFUNC'''
 		t[0] = Node(t[1],'function_name',[t[1]])
 
