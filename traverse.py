@@ -858,13 +858,7 @@ func main(){
 
 def main():
 
-<<<<<<< HEAD
 	m = MAPparser(l, test6)
-=======
-	m = MAPparser(l, test13)
->>>>>>> 2b92a45b5a1fa3de4580996a5eef966582b74ae8
-
-
 	t = Traverse(m.ast)
 	#print draw_tree(m.ast)
 	print(t.complete())
