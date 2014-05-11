@@ -492,7 +492,7 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edge', 'deleteEdge':'remove_edge' }
+		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edges_from', 'deleteEdge':'remove_edge' }
 
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -527,8 +527,8 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge":
 				#print tree.children[0]
-				#return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1]" + tree.children[2].name + "[2])"
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "*" + tree.children[2].name + ")"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1]," + tree.children[2].name + "[2])])"
+				
 			elif x == "deleteEdge":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1])"
 			elif x == "adjacent":
