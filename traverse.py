@@ -832,7 +832,7 @@ func main(){
         g.add(no2);
         DirEdge e = new DirEdge(no2, no3, {'cost':100});
         g.addEdge(e);
-        Path p = g.findShortest(no2, no3, 'cost');
+        g.findShortest(no2, no3, 'cost');
         print(p);
         print(g.getEdge(no2, no3));
         Path p = new Path();
