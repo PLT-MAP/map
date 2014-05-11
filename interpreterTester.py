@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+
 class TestInterpreterSyntax(unittest.TestCase):
 	def assert_prog(self, testname, outname):
 		t=open(testname,'r')
