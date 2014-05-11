@@ -49,5 +49,26 @@ class TestInterpreterSyntax(unittest.TestCase):
 		os.system("python Map.py test/pathtest.map")
 		self.assert_prog("test/pathtest.py","test/pathtest.out")
 
+	def testsample2(self):
+		os.system("python Map.py test/sample2.map")
+		self.assert_prog("test/sample2.py","test/sample2.out")
+
+	def testsample3(self):
+		os.system("python Map.py test/sample3.map")
+		self.assert_prog("test/sample3.py","test/sample3.out")
+
+	def testsample4(self):
+		os.system("python Map.py test/sample4.map")
+		self.assert_prog("test/sample4.py","test/sample4.out")
+
+
+	def testsample5(self):
+		os.system("python Map.py test/sample5.map")
+		self.assert_prog("test/sample5.py","test/sample5.out")
+
+
+	def testsample6(self):
+		os.system("python Map.py test/sample6.map")
+		self.assert_prog("test/sample6.py","test/sample6.out")
 if __name__ == "__main__": 
 	unittest.main()
