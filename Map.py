@@ -360,6 +360,6 @@ if __name__ == '__main__':
 	f=main(sys.argv)
 	command="python " + f
 
-	os.system(command)
-	os.remove(f)
+#	os.system(command)
+#	os.remove(f)
 

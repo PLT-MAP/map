@@ -70,5 +70,12 @@ class TestInterpreterSyntax(unittest.TestCase):
 	def testsample6(self):
 		os.system("python Map.py test/sample6.map")
 		self.assert_prog("test/sample6.py","test/sample6.out")
+	
+	def testshortestpath(self):
+		os.system("python Map.py test/shortestPathtest.map")
+		self.assert_prog("test/shortestPathtest.py","test/shortestPathtest.out")
+	
+
+
 if __name__ == "__main__": 
 	unittest.main()
