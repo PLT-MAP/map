@@ -507,7 +507,13 @@ class Traverse(object):
 
 	# function call
 	def _function_call(self, tree, flag=None):
-		functions = {'path':'neighbors','adjacent': 'has_edge' , 'add' : 'add_node', 'delete': 'remove_node', 'addEdge': 'add_edges_from', 'deleteEdge':'remove_edge' }
+		functions = {'path':'neighbors',
+		'adjacent': 'has_edge' , 
+		'add' : 'add_node', 
+		'delete': 'remove_node', 
+		'addEdge': 'add_edges_from', 
+		'deleteEdge':'remove_edge',
+		}
 
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
@@ -535,6 +541,10 @@ class Traverse(object):
 
 			if x == "add":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
+			elif x == 'equals':
+				x = '''({0}.nodes() == {1}.nodes() and {0}.edges() == {1}.edges())
+				'''.format(tree.children[0].name, tree.children[2].name)
+				return x
 			elif x == "draw":
 				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
 				return x
@@ -714,7 +724,7 @@ func main(){
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
        	g.draw('lol.jpg');
-  
+  		Boolean lol = g.equals(g2);
 }
 '''
 
