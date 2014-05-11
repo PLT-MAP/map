@@ -125,6 +125,7 @@ class MAPparser():
 		jump_stmt : BREAK SEMICOLON
 			  | CONTINUE SEMICOLON
 			  | RETURN assignment_expression SEMICOLON
+			  | RETURN function_call SEMICOLON
 		'''
 		if len(t) == 3:
 			t[0]=Node(t[1], 'jump_stmt')
