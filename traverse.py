@@ -558,7 +558,7 @@ class Traverse(object):
 			elif x == "deleteEdge":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 			elif x == "getEdge":
-				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "adjacent":
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
@@ -709,6 +709,8 @@ func main(){
 test7= '''
 func main(){
         Graph g=new Graph();
+        Graph g2=new Graph();
+        g2=g;
         Node nj=new Node();
         Node ny=new Node();
         Node losangeles= new Node({'temp':85,'humidity':'low'});
@@ -740,10 +742,12 @@ func main(){
         g.addEdge(pittsparis);
         print(losangeles);
         g.adjacent(losangeles,paris);
-        g.path(losangeles, paris);
+        g.path(losangeles);
        	g.draw('lol.jpg');
        	g.printGraphDiagnostics();
   		Boolean lol = g.equals(g2);
+  		print (lol);
+  		g.getEdge(pitts,philly);
 }
 '''
 
@@ -863,7 +867,7 @@ func main(){
 
 def main():
 
-	m = MAPparser(l, test6)
+	m = MAPparser(l, test7)
 	t = Traverse(m.ast)
 	#print draw_tree(m.ast)
 	print(t.complete())
