@@ -566,6 +566,8 @@ class Traverse(object):
 				#return x			
 			elif x == 'noNeighbors':
 				return "nx.is_isolate({},{})".format(self.dispatch(tree.children[0], flag), (tree.children[2].name + '[0]'))
+			elif x == 'nodesWithoutNeighbors':
+				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -831,7 +833,12 @@ func main(){
         else {
         	print('bye');
         }
+        //FOR LPAREN aexpr SEMICOLON conditional_expression SEMICOLON assignment_expression RPAREN LBR statement_list RBR
         print(g.noNeighbors(no2));
+        Graph empty = g.noNeighbors(no2); 
+        foreach (Node lol in empty){
+        	print(n);
+        }
 }
 '''
 test13 = '''
