@@ -547,6 +547,9 @@ class Traverse(object):
 				return x
 			elif x == "findShortest":
 				return "nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")"
+			elif x == "findShortestPaths":
+				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
+				return x
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge":
@@ -573,6 +576,9 @@ class Traverse(object):
 				return x
 			elif x == 'printPathDiagnostics':
 				x = '''print "Path:"\nprint {}\nprint "Nodes:"\nprint {}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				return x
+			elif x == 'printNodeDiagnostics':
+				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
 				return x
 		else:
 			return self.dispatch(tree.children[0], flag)
@@ -696,6 +702,8 @@ func main(){
         Node ny= new Node();
         Node pa= new Node({'temp':85,'humidity':'low'});
         Node va= new Node({'temp':87,'humidity':'high'});
+        g.printNodeDiagnostics(ny);
+        g.findShortestPaths(ny);
 }
 '''
 
@@ -841,6 +849,7 @@ func main(){
         }
         g.printGraphDiagnostics();
         p.printPathDiagnostics();
+        g.printNodeDiagnostics(no2);
         //FOR LPAREN aexpr SEMICOLON conditional_expression SEMICOLON assignment_expression RPAREN LBR statement_list RBR
         print(g.noNeighbors(no2));
         Graph empty = g.noNeighbors(no2); 

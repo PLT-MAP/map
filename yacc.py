@@ -335,7 +335,9 @@ class MAPparser():
 		| NODESWONEIHGHBORSFUNC
 		| GRAPHDIAGNOSTICSFUNC
 		| PATHDIAGNOSTICFUNC
-		| EQUALSFUNC'''
+		| EQUALSFUNC
+		| FINDSHORTESTPATHSFUNC
+		| NODEDIAGNOSTICSFUNC'''
 		t[0] = Node(t[1],'function_name',[t[1]])
 
 	#i = "func main(self,Text hi, Text bye) { Numeric n = 1+2;}"
