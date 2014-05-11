@@ -261,7 +261,8 @@ class MAPparser():
 	
 
 	def p_funcargs(self,t):
-		'func_args : arg'
+		'''func_args : arg
+		| function_call'''
 		t[0] = Node('','func_args',[t[1]])
 
 	def p_funcargs2(self,t):

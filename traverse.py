@@ -513,6 +513,8 @@ class Traverse(object):
 		'delete': 'remove_node', 
 		'addEdge': 'add_edges_from', 
 		'deleteEdge':'remove_edge',
+		'findShortest':'shortest_path',
+		'getEdge': 'get_edge_data'
 		}
 
 		if len(tree.children) == 1:
@@ -548,16 +550,20 @@ class Traverse(object):
 			elif x == "draw":
 				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
 				return x
+			elif x == "findShortest":
+				print "here"
+				return "nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge":
 				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1]," + tree.children[2].name + "[2])])"
-				
 			elif x == "deleteEdge":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1])"
+			elif x == "getEdge":
+				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				return x
 			elif x == "adjacent":
-				print self.dispatch(tree.children[0], flag)
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "path":
@@ -729,18 +735,6 @@ func main(){
 }
 '''
 
-test8='''
-func main(){
-        Graph g = new Graph();
-        Node no3= new Node();
-        Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-        g.add(no3);
-        g.add(no2);
-        g.delete(no2);
-
-}
-'''
-
 test9='''
 func factorial(Numeric n) {
 	if (Numeric n == 0) {
@@ -759,7 +753,6 @@ func main() {
 }
 '''
 
-m = MAPparser(l, test7)
 test10='''
 func fact(Numeric hi){
 	
@@ -818,7 +811,22 @@ func main(){
 }
 '''
 
+test8='''
+func main(){
+        Graph g = new Graph();
+        Node no3= new Node();
+        Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+        g.add(no3);
+        g.add(no2);
+        g.delete(no2);
+        Path p = g.findShortest(no2, no3, 'cost');
+        print(p);
+        //Boolean willitblend = g.equals(g2);
+        print(g.equals(g2));
+        print(g.getEdge(no2, no3));
 
+}
+'''
 
 def main():
 
