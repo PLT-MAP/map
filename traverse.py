@@ -294,7 +294,7 @@ class Traverse(object):
 							self.dispatch(tree.children[3].children[1]))
 				else:
 					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0]) +
-							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0]")
+							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0],{}")
 				
 			elif tree.children[0] == 'UnDirEdge':
 				# return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
@@ -306,7 +306,7 @@ class Traverse(object):
 							self.dispatch(tree.children[3].children[1]))
 				else:
 					return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0]) +
-							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0]")
+							"[0]," +  self.dispatch(tree.children[3].children[1]) + "[0],{}")
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
@@ -717,6 +717,7 @@ func main(){
     	DirEdge pittsphilly = new DirEdge(pitts,philly,{'distance':10});
 		DirEdge pittsparis = new DirEdge(pitts,paris,{'distance':15});
     	DirEdge stpaulpitts = new DirEdge(stpaul,pitts,{'distance':40});
+        g.addEdge(wee);
         g.addEdge(pittsphilly);
         g.addEdge(stpaulpitts);
         g.addEdge(pittsparis);
