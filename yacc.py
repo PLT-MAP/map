@@ -333,6 +333,8 @@ class MAPparser():
 		| DRAWFUNC
 		| NONEIGHBORSFUNC
 		| NODESWONEIHGHBORSFUNC
+		| GRAPHDIAGNOSTICSFUNC
+		| PATHDIAGNOSTICFUNC
 		| EQUALSFUNC'''
 		t[0] = Node(t[1],'function_name',[t[1]])
 

@@ -551,7 +551,7 @@ class Traverse(object):
 				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1]," + tree.children[2].name + "[2])])"
 			elif x == "deleteEdge":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 			elif x == "getEdge":
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
@@ -566,6 +566,12 @@ class Traverse(object):
 				return "nx.is_isolate({},{})".format(self.dispatch(tree.children[0], flag), (tree.children[2].name + '[0]'))
 			elif x == 'nodesWithoutNeighbors':
 				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
+			elif x == 'printGraphDiagnostics':
+				x = '''print "Graph:"\nprint {}\nprint "Nodes:"\nprint {}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				return x
+			elif x == 'printPathDiagnostics':
+				x = '''print "Path:"\nprint {}\nprint "Nodes:"\nprint {}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				return x
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -831,6 +837,8 @@ func main(){
         else {
         	print('bye');
         }
+        g.printGraphDiagnostics();
+        p.printPathDiagnostics();
         //FOR LPAREN aexpr SEMICOLON conditional_expression SEMICOLON assignment_expression RPAREN LBR statement_list RBR
         print(g.noNeighbors(no2));
         Graph empty = g.noNeighbors(no2); 
@@ -842,7 +850,7 @@ func main(){
 
 def main():
 
-	m = MAPparser(l, test8)
+	m = MAPparser(l, test6)
 
 
 	t = Traverse(m.ast)

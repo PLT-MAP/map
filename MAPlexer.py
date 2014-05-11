@@ -24,6 +24,8 @@ class MAPlex:
 		'equals':'EQUALSFUNC',
 		'noNeighbors':'NONEIGHBORSFUNC',
 		'nodesWithoutNeighbors':"NODESWONEIHGHBORSFUNC",
+		'printGraphDiagnostics':'GRAPHDIAGNOSTICSFUNC',
+		'printPathDiagnostics':'PATHDIAGNOSTICFUNC',
 		'in':'IN',
 		'if':'IF', 
 		'for':'FOR', 
@@ -192,12 +194,3 @@ if __name__ == "__main__":
 		line = raw_input()
 		print m.tokenize(line)
 		print 'Enter a string to be tokenized'
-
-
-
-
-
-
-
-
-
