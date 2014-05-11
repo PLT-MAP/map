@@ -1,8 +1,6 @@
 import networkx as nx
 import sys
-def main():
-    t = "Hello, World!"
-    print(t)
+def main(a,b):
 if __name__ == '__main__': 
 	try:
 		main()

@@ -351,22 +351,24 @@ class Traverse(object):
 			return typed_params
 
 	def get_param_type(self, param, tree):
-		if tree.name == param:
-			if tree.type == "class_method_expression":
-				for obj in self.class_meths:
-					if tree.children[0].name in self.class_meths[obj]:
-						return obj
-			else:
-				return True
-		for child in tree.children:
-			return_val = self.get_param_type(param, child)
-			if return_val:
-				if tree.name in self.relops:
-					params = self.dispatch(tree.children[0])
-					return int
-				if tree.name in self.fargs:
-					params = self.dispatch(tree.children[0])
-				return return_val
+		if not isinstance(tree,str): 
+			if tree.name == param :
+
+				if tree.type == "class_method_expression":
+					for obj in self.class_meths:
+						if tree.children[0].name in self.class_meths[obj]:
+							return obj
+				else:
+					return True
+			for child in tree.children:
+				return_val = self.get_param_type(param, child)
+				if return_val:
+					if tree.name in self.relops:
+						params = self.dispatch(tree.children[0])
+						return int
+					if tree.name in self.fargs:
+						params = self.dispatch(tree.children[0])
+					return return_val
 
 	def _conditional_expression(self, tree, flag= None):
 		#if tree.name:
