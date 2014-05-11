@@ -1,10 +1,10 @@
 func main(){
-	Boolean check = true;
-	print (check);
-	Numeric num = 5;
-	print (num + " " + check);
-	Text sentence= "Ima eat yo face";
-	print (sentence);
+        Boolean check = true;
+        print (check);
+        Numeric num = 5;
+        print (num + " " + check);
+        Text sentence= "Ima eat yo face";
+        print (sentence);
 
         Graph g=new Graph();
         Node nj=new Node();
@@ -12,28 +12,28 @@ func main(){
         Node fl=new Node();
         Node pa= new Node({'temp':85,'humidity':'low'});
         Node va= new Node({'temp':87,'humidity':'high'});
-	print (nj);
-	print (pa);
+        print (nj);
+        print (pa);
         DirEdge flight1= new DirEdge(nj, ny);
         DirEdge flight2= new DirEdge(ny, pa);
         DirEdge flight3= new DirEdge(pa, va, {'cost':302, 'distance':4092});
         UnDirEdge flight4= new UnDirEdge(va, nj);
         UnDirEdge flight5 = new UnDirEdge(nj,fl, {'cost':50, 'distance':5000});
-	print (flight1);
-	print (flight3);
+        print (flight1);
+        print (flight3);
         g.add(nj);
         g.add(ny);
         g.add(fl);
         g.add(pa);
-		g.add(va);
+        	g.add(va);
         g.addEdge(flight1);
         g.addEdge(flight2);
-		g.addEdge(flight3);
+        	g.addEdge(flight3);
         g.addEdge(flight4);
         g.addEdge(flight5);
-	print(g);
+        print(g);
 
-}
+        }
 
 
 
