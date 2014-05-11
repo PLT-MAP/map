@@ -26,8 +26,12 @@ def main():
     print(check1)
     check2 = g.has_edge(nj[0],ny[0])
     print(check2)
-    g.neighbors(nj[0])
-    g.neighbors(pa[0])
+    p1 = g.neighbors(pa[0])
+    p2 = g.neighbors(pa[0])
+    if (p1==p2):
+        print("yo")
+    else:
+        print("not equal")
 if __name__ == '__main__': 
 	try:
 		main()

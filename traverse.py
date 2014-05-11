@@ -538,7 +538,7 @@ class Traverse(object):
 			# 	print child
 
 			if x == "add":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "([(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "([(" + tree.children[2].children[0].name + "[0], " + tree.children[2].children[0].name + "[1]" + ")])"
 			elif x == 'equals':
 				x = '''({0}.nodes() == {1}.nodes() and {0}.edges() == {1}.edges())'''.format(tree.children[0].name, tree.children[2].name)
 				return x
@@ -551,18 +551,18 @@ class Traverse(object):
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 			elif x == "addEdge":
 				#print tree.children[0]
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1]," + tree.children[2].name + "[2])])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[0].name + "[1]," + tree.children[2].children[0].name + "[2])])"
 			elif x == "deleteEdge":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 			elif x == "getEdge":
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "adjacent":
-				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
+				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "path":
 				# x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
 				#return x			
 			elif x == 'noNeighbors':
 				return "nx.is_isolate({},{})".format(self.dispatch(tree.children[0], flag), (tree.children[2].name + '[0]'))
@@ -850,18 +850,49 @@ func main(){
 }
 '''
 test13 = '''
-func main(){
-	Boolean check = true;
-}
+		func main(){
+		Graph g=new Graph();
+		Node nj=new Node();
+		Node ny=new Node();
+		Node fl=new Node();
+		Node pa= new Node({'temp':85,'humidity':'low'});
+		Node va= new Node({'temp':87,'humidity':'high'});
+		DirEdge flight1= new DirEdge(nj, ny);
+		DirEdge flight2= new DirEdge(ny, pa);
+		DirEdge flight3= new DirEdge(pa, va, {'cost':302, 'distance':4092});
+		UnDirEdge flight4= new UnDirEdge(va, nj);
+		UnDirEdge flight5 = new UnDirEdge(nj,fl, {'cost':50, 'distance':5000});
+		g.add(nj);
+		g.add(ny);
+		g.add(fl);
+		g.add(pa);
+		g.add(va);
+		g.addEdge(flight1);
+		g.addEdge(flight2);
+		g.addEdge(flight3);
+		g.addEdge(flight4);
+		g.addEdge(flight5);
+		Boolean check1= g.adjacent(nj, pa);
+		print (check1);
+		Boolean check2= g.adjacent(nj, ny);
+		print (check2); 
+		Path p1 = g.path(nj);
+		Path p2 = g.path(pa);
+		if (p1 == p2){
+			print("yo");
+		}
+
+	}
+
 
 '''
 
 def main():
-
-	m = MAPparser(l, test6)
+	m = MAPparser(l,test13)
 	t = Traverse(m.ast)
 	#print draw_tree(m.ast)
 	print(t.complete())
+	#print m.dt
 
 if __name__ == "__main__":
 	main()

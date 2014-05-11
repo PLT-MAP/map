@@ -231,8 +231,11 @@ func main(){
 		print (check1);
 		Boolean check2= g.adjacent(nj, ny);
 		print (check2); 
-		g.path(nj);
-		g.path(pa);
+		Path p1 = g.path(nj);
+		Path p2 = g.path(pa);
+		if (p1 == p2){
+			print("yo");
+		}
 
 	}
 	'''

@@ -1,30 +1,34 @@
 func main(){
-	Graph g=new Graph();
-	Node nj=new Node();
-	Node ny=new Node();
-	Node fl=new Node();
-	Node pa= new Node({'temp':85,'humidity':'low'});
-	Node va= new Node({'temp':87,'humidity':'high'});
-	DirEdge flight1= new DirEdge(nj, ny);
-	DirEdge flight2= new DirEdge(ny, pa);
-	DirEdge flight3= new DirEdge(pa, va, {'cost':302, 'distance':4092});
-	UnDirEdge flight4= new UnDirEdge(va, nj);
-	UnDirEdge flight5 = new UnDirEdge(nj,fl, {'cost':50, 'distance':5000});
-	g.add(nj);
-	g.add(ny);
-	g.add(fl);
-	g.add(pa);
-	g.add(va);
-	g.addEdge(flight1);
-	g.addEdge(flight2);
-	g.addEdge(flight3);
-	g.addEdge(flight4);
-	g.addEdge(flight5);
-	Boolean check1= g.adjacent(nj, pa);
-	print (check1);
-	Boolean check2= g.adjacent(nj, ny);
-	print (check2); 
-	g.path(nj);
-	g.path(pa);
-
-	}
+Graph g=new Graph();
+Node nj=new Node();
+Node ny=new Node();
+Node fl=new Node();
+Node pa= new Node({'temp':85,'humidity':'low'});
+Node va= new Node({'temp':87,'humidity':'high'});
+DirEdge flight1= new DirEdge(nj, ny);
+DirEdge flight2= new DirEdge(ny, pa);
+DirEdge flight3= new DirEdge(pa, va, {'cost':302, 'distance':4092});
+UnDirEdge flight4= new UnDirEdge(va, nj);
+UnDirEdge flight5 = new UnDirEdge(nj,fl, {'cost':50, 'distance':5000});
+g.add(nj);
+g.add(ny);
+g.add(fl);
+g.add(pa);
+g.add(va);
+g.addEdge(flight1);
+g.addEdge(flight2);
+g.addEdge(flight3);
+g.addEdge(flight4);
+g.addEdge(flight5);
+Boolean check1= g.adjacent(nj, pa);
+print (check1);
+Boolean check2= g.adjacent(nj, ny);
+print (check2); 
+Path p1 = g.path(pa);
+Path p2 = g.path(pa);
+if (p1 == p2){
+	print("yo");
+} else {
+	print("not equal");
+}
+}
