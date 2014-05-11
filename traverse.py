@@ -270,6 +270,8 @@ class Traverse(object):
 		if not tree.name:
 			return self.dispatch(tree.children[0], flag)
 		elif tree.name == "aexpr":
+			if tree.children[1] == "true" or tree.children[1] == "false":
+				tree.children[1] = tree.children[1].title()
 			x = self.dispatch(tree.children[0], flag)
 			return x + " = " + tree.children[1]
 		else:
@@ -847,13 +849,24 @@ func main(){
         }
 }
 '''
+test13 = '''
+func main(){
+	Boolean check = true;
+}
+
+'''
 
 def main():
 
+<<<<<<< HEAD
 	m = MAPparser(l, test6)
+=======
+	m = MAPparser(l, test13)
+>>>>>>> 2b92a45b5a1fa3de4580996a5eef966582b74ae8
 
 
 	t = Traverse(m.ast)
+	#print draw_tree(m.ast)
 	print(t.complete())
 
 if __name__ == "__main__":

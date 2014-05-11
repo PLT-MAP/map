@@ -27,4 +27,4 @@ func main(){
 	g.path(nj);
 	g.path(pa);
 
-}
+	}

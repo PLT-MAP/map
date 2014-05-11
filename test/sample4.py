@@ -1,7 +1,7 @@
 import networkx as nx
 import sys
 def main():
-    check = true
+    check = True
     print(check)
     num = 5.0
     print(str(str(num) + str(" ")) + str(check))
