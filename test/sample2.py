@@ -8,6 +8,10 @@ def main():
     va = 'va',  {'temp':87.0,'humidity':'high'}
     g.add_nodes_from([(nj[0], nj[1])])
     g.add_nodes_from([(ny[0], ny[1])])
-
+    g.add_nodes_from([(pa[0], pa[1])])
 if __name__ == '__main__': 
-	main()
+	try:
+		main()
+	except:
+		print'Error:',sys.exc_info()[0]
+		print'Resolve error before running again!'
