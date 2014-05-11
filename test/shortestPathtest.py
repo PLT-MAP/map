@@ -39,7 +39,7 @@ def main():
             print nx.shortest_path(g, source=no2[0], target=nodeVal[0])
         except:
             print "no path"
-        print(nx.is_isolate(g,[0]))
+        print(nx.is_isolate(g,no2[0]))
         empty = nx.isolates(g)
         for lol in empty:
             print(n)
