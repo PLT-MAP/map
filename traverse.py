@@ -546,7 +546,7 @@ class Traverse(object):
 				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
 				return x
 			elif x == "findShortest":
-				return "nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")"
+				return "try:\n\tnx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")\nexcept:\n\tprint 'no path'"
 			elif x == "findShortestPaths":
 				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
 				return x
@@ -572,10 +572,10 @@ class Traverse(object):
 			elif x == 'nodesWithoutNeighbors':
 				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
 			elif x == 'printGraphDiagnostics':
-				x = '''print "Graph:"\nprint {}\nprint "Nodes:"\nprint {}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				x = '''print "Graph:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
 				return x
 			elif x == 'printPathDiagnostics':
-				x = '''print "Path:"\nprint {}\nprint "Nodes:"\nprint {}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				x = '''print "Path:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
 				return x
 			elif x == 'printNodeDiagnostics':
 				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].name)
@@ -702,8 +702,7 @@ func main(){
         Node ny= new Node();
         Node pa= new Node({'temp':85,'humidity':'low'});
         Node va= new Node({'temp':87,'humidity':'high'});
-        g.printNodeDiagnostics(ny);
-        g.findShortestPaths(ny);
+        g.findShortest(ny, nj, 'cost');
 }
 '''
 
@@ -743,6 +742,7 @@ func main(){
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
        	g.draw('lol.jpg');
+       	g.printGraphDiagnostics();
   		Boolean lol = g.equals(g2);
 }
 '''
@@ -830,13 +830,10 @@ func main(){
         Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
         g.add(no3);
         g.add(no2);
-        g.delete(no2);
-        Path p = g.findShortest(no2, no3, 'cost');
         DirEdge e = new DirEdge(no2, no3, {'cost':100});
         g.addEdge(e);
+        Path p = g.findShortest(no2, no3, 'cost');
         print(p);
-        //Boolean willitblend = g.equals(g2);
-        print(g.equals(g2));
         print(g.getEdge(no2, no3));
         Path p = new Path();
         p.add(no3);
@@ -850,7 +847,6 @@ func main(){
         g.printGraphDiagnostics();
         p.printPathDiagnostics();
         g.printNodeDiagnostics(no2);
-        //FOR LPAREN aexpr SEMICOLON conditional_expression SEMICOLON assignment_expression RPAREN LBR statement_list RBR
         print(g.noNeighbors(no2));
         Graph empty = g.noNeighbors(no2); 
         foreach (Node lol in empty){
