@@ -310,7 +310,7 @@ class Traverse(object):
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
-					return x + " = " + "'" + x + "'"
+					return x + " = " + "'" + x + "'" + ",{}"
 				elif len(tree.children) == 4:
 					x = self.dispatch(tree.children[1], flag)
 					y = self.dispatch(tree.children[3], flag)
@@ -509,7 +509,7 @@ class Traverse(object):
 	def _function_call(self, tree, flag=None):
 		functions = {'path':'neighbors',
 		'adjacent': 'has_edge' , 
-		'add' : 'add_node', 
+		'add' : 'add_nodes_from', 
 		'delete': 'remove_node', 
 		'addEdge': 'add_edges_from', 
 		'deleteEdge':'remove_edge',
@@ -540,7 +540,7 @@ class Traverse(object):
 			# 	print child
 
 			if x == "add":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "([(" + tree.children[2].name + "[0], " + tree.children[2].name + "[1]" + ")])"
 			elif x == 'equals':
 				x = '''({0}.nodes() == {1}.nodes() and {0}.edges() == {1}.edges())
 				'''.format(tree.children[0].name, tree.children[2].name)
@@ -734,6 +734,7 @@ func main(){
         Graph g = new Graph();
         Node no3= new Node();
         Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+        g.add(no3);
         g.add(no2);
         g.delete(no2);
 
@@ -820,7 +821,7 @@ func main(){
 
 
 def main():
-	m = MAPparser(l, test12)
+	m = MAPparser(l, test8)
 	t = Traverse(m.ast)
 	print(t.complete())
 
