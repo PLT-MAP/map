@@ -128,7 +128,16 @@ func main(){
 		write(filepath,g);
 		Graph g2 = read(filepath);
 	}'''
+	
 
+	sample1='''
+	func main(){
+        Graph g=new Graph();
+        Node nj= new Node();
+        Node ny= new Node();
+        Node pa= new Node({'temp':85,'humidity':'low'});
+		Node va= new Node({'temp':87,'humidity':'high'});}
+	'''
 
 
 	def __init__(self):

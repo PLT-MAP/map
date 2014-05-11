@@ -239,8 +239,9 @@ class Traverse(object):
 			y = "nx.add_node(" + x + ")"
 			return y
 		elif tree.name == 'Graph':
-			x = self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
-			return x
+			return self.dispatch(tree.children[0], flag) + " = nx.MultiDiGraph()"
+		elif tree.name == 'Path':
+			return "creating a new path " + tree.children[0]
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -313,7 +314,9 @@ class Traverse(object):
 				elif len(tree.children) == 4:
 					x = self.dispatch(tree.children[1], flag)
 					y = self.dispatch(tree.children[3], flag)
-					return x + " = '" + x + "', " + y 
+					return x + " = '" + x + "', " + y
+			elif tree.children[0] == "Path":
+				return "{0}=[]".format(self.dispatch(tree.children[1]))
 		else:
 			return "type mismatch"
 
@@ -806,13 +809,17 @@ func main(){
         g.addEdge(pittsphilly);
         g.addEdge(stpaulpitts);
         g.addEdge(pittsparis);
+
+	Path p = new Path(g);
+	//p.add(nj);
+  
 }
 '''
 
 
 
 def main():
-	m = MAPparser(l, test7)
+	m = MAPparser(l, test12)
 	t = Traverse(m.ast)
 	print(t.complete())
 

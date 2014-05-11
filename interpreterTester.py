@@ -38,6 +38,13 @@ class TestInterpreterSyntax(unittest.TestCase):
 	def testnode(self):
 		os.system("python Map.py test/nodetest.map")
 		self.assert_prog("test/nodetest.py","test/nodetest.out")
+	def testsample1(self):
+		os.system("python Map.py test/sample1.map")
+		self.assert_prog("test/sample1.out","test/sample1.py")
+	def testincludeinput(self):
+		os.system("python Map.py test/testincludeinput.map")
+		self.assert_prog("test/testincludeinput.out","test/testincludeinput.py")
+
 if __name__ == "__main__": 
 	unittest.main()
 
