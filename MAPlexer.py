@@ -23,6 +23,7 @@ class MAPlex:
 		'findShortest':'FINDSHORTESTFUNC',
 		'equals':'EQUALSFUNC',
 		'noNeighbors':'NONEIGHBORSFUNC',
+		'nodesWithoutNeighbors':"NODESWONEIHGHBORSFUNC",
 		'in':'IN',
 		'if':'IF', 
 		'for':'FOR', 
