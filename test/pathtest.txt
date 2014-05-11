@@ -1,0 +1,3 @@
+def main():
+    p = nx.MultiDiGraph()
+	p.add_node(nj[0], nj[1])

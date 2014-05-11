@@ -44,11 +44,9 @@ class TestInterpreterSyntax(unittest.TestCase):
 	def testincludeinput(self):
 		os.system("python Map.py test/testincludeinput.map")
 		self.assert_prog("test/testincludeinput.out","test/testincludeinput.py")
+	def testpathtest(self):
+		os.system("python Map.py test/pathtest.map")
+		self.assert_prog("test/pathtest.py","test/pathtest.out")
 
 if __name__ == "__main__": 
 	unittest.main()
-
-
-
-
-
