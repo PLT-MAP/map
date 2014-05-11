@@ -287,9 +287,13 @@ class Traverse(object):
 				x = self.dispatch(tree.children[1], flag)
 				return x + " = nx.MultiDiGraph()"
 			elif tree.children[0] == 'DirEdge':
-				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
+				return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
+						"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
+						self.dispatch(tree.children[3].children[1]))
 			elif tree.children[0] == 'UnDirEdge':
-				return self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3]) 
+				return (self.dispatch(tree.children[1]) + "="  + self.dispatch(tree.children[3].children[0].children[0]) +
+						"[0]," +  self.dispatch(tree.children[3].children[0].children[1]) + "[0]," + 
+						self.dispatch(tree.children[3].children[1]))
 			elif tree.children[0] == "Node":
 				if len(tree.children) == 3:
 					x = self.dispatch(tree.children[1], flag) 
@@ -692,7 +696,7 @@ func main(){
         print(losangeles);
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
-        g.draw('lolcat.jpg');
+        
 }
 '''
 
@@ -725,7 +729,7 @@ func main() {
 }
 '''
 
-m = MAPparser(l, test9)
+m = MAPparser(l, test7)
 test10='''
 func fact(Numeric hi){
 	
@@ -785,7 +789,7 @@ func main(){
 
 
 def main():
-	m = MAPparser(l, test8)
+	m = MAPparser(l, test7)
 	t = Traverse(m.ast)
 	print(t.complete())
 
