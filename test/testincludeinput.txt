@@ -1,0 +1,6 @@
+def test():
+	string = raw_input("Enter a string: ")
+	return string
+def main():
+	line = test()
+	print(line)

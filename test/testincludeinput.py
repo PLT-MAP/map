@@ -1,10 +1,11 @@
 import networkx as nx
 import sys
 def test():
-    string = raw_input("Enter a string")
+    string = raw_input("Enter a string: ")
     return string
 def main():
-    test()
+    line = test()
+    print(line)
 if __name__ == '__main__': 
 	try:
 		main()
