@@ -113,6 +113,15 @@ class TestTraverseSyntax(unittest.TestCase):
 			t=traverse.Traverse(m.ast)
 		 	expfile=open("test/rwtest.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
+	def testpathtest(self):
+		test= MapTests.pathtest
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/pathtest.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
 	def testsample1(self):
 		test= MapTests.sample1
 		m=yacc.MAPparser(self.lex,test)
@@ -122,14 +131,52 @@ class TestTraverseSyntax(unittest.TestCase):
 		 	expfile=open("test/sample1.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
 	
-	def testpathtest(self):
-		test= MapTests.pathtest
+
+	def testsample2(self):
+		test= MapTests.sample2
 		m=yacc.MAPparser(self.lex,test)
 		self.assertEquals(m.errored,False)
 		if not m.errored:
 			t=traverse.Traverse(m.ast)
-		 	expfile=open("test/pathtest.txt",'r')
+		 	expfile=open("test/sample2.txt",'r')
 		 	self.assert_prog(t.complete(),expfile)
+	
+	def testsample3(self):
+		test= MapTests.sample3
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/sample3.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
+	def testsample4(self):
+		test= MapTests.sample4
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/sample4.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+	
+	def testsample5(self):
+		test= MapTests.sample5
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/sample5.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+	
+	def testsample6(self):
+		test= MapTests.sample6
+		m=yacc.MAPparser(self.lex,test)
+		self.assertEquals(m.errored,False)
+		if not m.errored:
+			t=traverse.Traverse(m.ast)
+		 	expfile=open("test/sample6.txt",'r')
+		 	self.assert_prog(t.complete(),expfile)
+
 
 
 if __name__ == "__main__": 

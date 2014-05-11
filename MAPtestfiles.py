@@ -197,9 +197,11 @@ func main(){
 	g.delete(pa);
 	g.delete(va);
 	g.delete(ny);
-	g.deleteEdge(nj);
-	g.deleteEdge(fl);
-	}
+	g.deleteEdge(nj,ny);
+}
+
+	
+	
 	'''
 
 	sample6='''
