@@ -514,7 +514,8 @@ class Traverse(object):
 		'addEdge': 'add_edges_from', 
 		'deleteEdge':'remove_edge',
 		'findShortest':'shortest_path',
-		'getEdge': 'get_edge_data'
+		'getEdge': 'get_edge_data',
+		'path':'neighbors' 
 		}
 
 		if len(tree.children) == 1:
@@ -558,7 +559,7 @@ class Traverse(object):
 				#print tree.children[0]
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + "[" + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1]," + tree.children[2].name + "[2])])"
 			elif x == "deleteEdge":
-				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]" + tree.children[2].name + "[1])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0]," + tree.children[2].name + "[1])"
 			elif x == "getEdge":
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
@@ -567,8 +568,9 @@ class Traverse(object):
 				return x
 			elif x == "path":
 				print self.dispatch(tree.children[0], flag)
-				x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
-				return x			
+				# x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
+				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
+				#return x			
 		else:
 			return self.dispatch(tree.children[0], flag)
 
