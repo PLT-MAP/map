@@ -21,9 +21,9 @@ func main(){
 	g.addEdge(flight4);
 	g.addEdge(flight5);
 	Boolean check1= g.adjacent(nj, pa);
-	//print (check1);
+	print (check1);
 	Boolean check2= g.adjacent(nj, ny);
-	//print (check2); 
+	print (check2); 
 	g.path(nj);
 	g.path(pa);
 

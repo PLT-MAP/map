@@ -15,9 +15,11 @@ def main():
     g.add_nodes_from([(nj[0], nj[1])])
     g.add_nodes_from([(ny[0], ny[1])])
     g.add_nodes_from([(fl[0], fl[1])])
-    g.add_nodes_from([(,[0], ,[1])])
+    g.add_nodes_from([(pa[0], pa[1])])
+    g.add_nodes_from([(va[0], va[1])])
     g.add_edges_from([(flight1[0],flight1[1],flight1[2])])
-    g.add_edges_from([(,[0],,[1],,[2])])
+    g.add_edges_from([(flight2[0],flight2[1],flight2[2])])
+    g.add_edges_from([(flight3[0],flight3[1],flight3[2])])
     g.add_edges_from([(flight4[0],flight4[1],flight4[2])])
     g.add_edges_from([(flight5[0],flight5[1],flight5[2])])
 if __name__ == '__main__': 

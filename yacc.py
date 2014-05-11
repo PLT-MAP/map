@@ -141,11 +141,13 @@ class MAPparser():
 	def p_aexpr5(self, t):
 		''' aexpr : TYPE identifier EQUALS LITERAL
 		| TYPE identifier EQUALS NUMERIC
+		| TYPE identifier EQUALS BOOLEAN
 		'''
  		t[0] = Node('aexpr','assignment_expression', [t[2],t[4]])
 
 	def p_aexpr6(self, t):
-		'''assignment_expression : TYPE identifier EQUALS function_call'''
+		'''assignment_expression : TYPE identifier EQUALS function_call
+		   | TYPE identifier EQUALS BOOLEAN'''
 		t[0] = Node('equalsfunc','assignment_expression', [t[2],t[4]])
 
 	#Conditional expression
