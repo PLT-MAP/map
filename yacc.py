@@ -148,6 +148,7 @@ class MAPparser():
 		jump_stmt : BREAK SEMICOLON
 			  | CONTINUE SEMICOLON
 			  | RETURN assignment_expression SEMICOLON
+			  | RETURN function_call SEMICOLON
 		'''
 		self.dt.append('jump_stmt -> break ; continue semicolon ; return assignment_expression ;')
 		if len(t) == 3:
@@ -385,7 +386,11 @@ class MAPparser():
 		| DRAWFUNC
 		| NONEIGHBORSFUNC
 		| NODESWONEIHGHBORSFUNC
-		| EQUALSFUNC'''
+		| GRAPHDIAGNOSTICSFUNC
+		| PATHDIAGNOSTICFUNC
+		| EQUALSFUNC
+		| FINDSHORTESTPATHSFUNC
+		| NODEDIAGNOSTICSFUNC'''
 		t[0] = Node(t[1],'function_name',[t[1]])
 
 	#i = "func main(self,Text hi, Text bye) { Numeric n = 1+2;}"

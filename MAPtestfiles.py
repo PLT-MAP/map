@@ -246,6 +246,39 @@ func main(){
 		p.add(nj);
   	}
 	'''
+	shortestPathtest='''
+	func main(){
+		Graph g = new Graph();
+		Node no3= new Node();
+		Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
+		g.add(no3);
+		g.add(no2);
+		DirEdge e = new DirEdge(no2, no3, {'cost':100});
+		g.addEdge(e);
+		g.findShortest(no2, no3, 'cost');
+		g.getEdge(no2, no3);
+		Path p = new Path();
+		print(p);
+		p.add(no3);
+		p.add(no2);
+		if(no2==no3){
+			        print("hi");
+		}
+		else {
+			        print('bye');
+		}
+		g.printGraphDiagnostics();
+		p.printPathDiagnostics();
+		g.printNodeDiagnostics(no2);
+		print(g.noNeighbors(no2));
+		Graph empty = g.nodesWithoutNeighbors(no2); 
+		foreach (Node lol in empty){
+			        print(n);
+		}
+	}
+	'''
+
+
 
 	def __init__(self):
 		pass

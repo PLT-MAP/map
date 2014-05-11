@@ -1,0 +1,14 @@
+func gcd(Numeric a, Numeric b){
+	if (b==0){
+		return a;
+	} else {
+		Numeric t;
+		t= a % b;
+		return gcd(b,t);
+	}
+
+}
+
+func main(){
+	
+}
