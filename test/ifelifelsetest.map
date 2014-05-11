@@ -1,14 +1,15 @@
 func main(){
 	Numeric	x=2;
-	if(x<5){
+	if(x<5 & x>10){
 		print("success");
 	}
-	elif (x<10)
+	elif (x<10 | x>20)
 	{
 		Numeric cost=10;
 	}
 	else{
 		Numeric cost=15;
 	}
+	print("cost = " + cost);
 }
 

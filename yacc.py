@@ -264,8 +264,12 @@ class MAPparser():
 		t[0] = Node('','func_args',[t[1]])
 
 	def p_funcargs2(self,t):
-		'func_args : func_args COMMA arg'
+		'''func_args : func_args COMMA arg'''
 		t[0] = Node(t[2],'func_args',[t[1],t[3]])
+
+	def p_funcargs3(self,t):
+		'''func_args : func_args PLUS arg'''
+		t[0] = Node('print','func_args',[t[1],t[3]])
 
 	def p_arg_lit(self,t):
 		'''arg : LITERAL

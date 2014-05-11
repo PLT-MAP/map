@@ -75,7 +75,7 @@ def main(argv):
 
 	#type checking
 	test3=test2.split("\n")
-	typecheck(test3)
+	#typecheck(test3)
 
 	test4=""
 	for line in test3:

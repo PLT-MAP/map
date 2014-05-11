@@ -542,7 +542,10 @@ class Traverse(object):
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
-			return self.dispatch(tree.children[0], flag) + ', ' + self.dispatch(tree.children[1], flag)
+			if tree.name == "print":
+				return 'str(' + self.dispatch(tree.children[0], flag) + ') + ' + 'str(' + self.dispatch(tree.children[1], flag) + ')'
+			else:
+				return self.dispatch(tree.children[0], flag) + ', ' + self.dispatch(tree.children[1], flag)
 
 	def _arg(self, tree, flag=None):
 		if len(tree.children) == 0:
