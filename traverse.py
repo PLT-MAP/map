@@ -48,10 +48,8 @@ class Traverse(object):
 		self.waitingfor = set()
 		self._indent = 0
 		self.x = self.dispatch(tree)
-		#print self.x
 		self.f.write("")
 		self.f.flush()
-		#print draw_tree(tree)
 		#return self.x
 
 	def complete(self):
@@ -60,8 +58,6 @@ class Traverse(object):
 	def fill(self, text=""):
 		'''Indent a piece of text, according to the current indentation level.'''
 		lines = text.split('\n')
-		#print lines
-		#print self._indent
 		s = ""
 		for item in lines:
 			s += "\t"*self._indent + item + "\n"
@@ -74,7 +70,6 @@ class Traverse(object):
 	def enter(self):
 		'''Create a new scope associated with the corresponding : and increase to
 		the appropriate indentation.'''
-		#print "entering enter"
 		self.scope_depth += 1
 		self.var_scopes.append([])
 		self._indent += 1
@@ -517,12 +512,10 @@ class Traverse(object):
 		'getEdge': 'get_edge_data',
 		'path':'neighbors' 
 		}
-
 		if len(tree.children) == 1:
 			return self.dispatch(tree.children[0], flag)
 		elif len(tree.children) == 2:
 			if tree.children[0].type == "read":
-				print "reading"
 				self.autoincludes = "import pickle\n"
 				fp = tree.children[1].children[0].name
 				return "pickle.load(open({0},\"rb\"))".format(fp)
@@ -551,7 +544,6 @@ class Traverse(object):
 				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
 				return x
 			elif x == "findShortest":
-				print "here"
 				return "nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].children[0].name +"[0]," + tree.children[2].children[1].children[1].name +")"
 			elif x == "delete":
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
@@ -567,10 +559,11 @@ class Traverse(object):
 				x =  self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0]," + tree.children[2].children[1].name +"[0])"
 				return x
 			elif x == "path":
-				print self.dispatch(tree.children[0], flag)
 				# x =  "print " + self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].children[0].name + "[0])"
 				return self.dispatch(tree.children[0], flag) + "." + functions[x] + "(" + tree.children[2].name + "[0])"
 				#return x			
+			elif x == 'noNeighbors':
+				return "nx.is_isolate({},{})".format(self.dispatch(tree.children[0], flag), (tree.children[2].name + '[0]'))
 		else:
 			return self.dispatch(tree.children[0], flag)
 
@@ -827,7 +820,16 @@ func main(){
         //Boolean willitblend = g.equals(g2);
         print(g.equals(g2));
         print(g.getEdge(no2, no3));
-
+        Path p = new Path();
+        p.add(no3);
+        p.add(no2);
+        if(no2==no3){
+        	print("hi");
+        }
+        else {
+        	print('bye');
+        }
+        print(g.noNeighbors(no2));
 }
 '''
 

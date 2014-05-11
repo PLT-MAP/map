@@ -22,6 +22,7 @@ class MAPlex:
 		'deleteEdge':'DELETEEDGEFUNC',
 		'findShortest':'FINDSHORTESTFUNC',
 		'equals':'EQUALSFUNC',
+		'noNeighbors':'NONEIGHBORSFUNC',
 		'in':'IN',
 		'if':'IF', 
 		'for':'FOR', 

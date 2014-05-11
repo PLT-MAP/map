@@ -331,6 +331,7 @@ class MAPparser():
 		| DELETEEDGEFUNC
 		| FINDSHORTESTFUNC
 		| DRAWFUNC
+		| NONEIGHBORSFUNC
 		| EQUALSFUNC'''
 		t[0] = Node(t[1],'function_name',[t[1]])
 
