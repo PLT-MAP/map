@@ -696,7 +696,8 @@ func main(){
         print(losangeles);
         g.adjacent(losangeles,paris);
         g.path(losangeles, paris);
-        
+       	g.draw('lol.jpg');
+  
 }
 '''
 
@@ -782,7 +783,6 @@ func main(){
         g.addEdge(pittsphilly);
         g.addEdge(stpaulpitts);
         g.addEdge(pittsparis);
-  
 }
 '''
 

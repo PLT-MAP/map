@@ -30,6 +30,7 @@ class MAPlex:
 		'foreach':'FOREACH',
 		'continue':'CONTINUE',
 		'return':'RETURN',
+		'draw' : 'DRAWFUNC',
 		'else':'ELSE', 
 		'read':'READ', 
 		'write':'WRITE',
@@ -89,7 +90,7 @@ class MAPlex:
 	#t_DOUBLEQUOTE=r'(\")' #2.1
 
 	def t_LITERAL(self,t):
-		r'\'[A-Za-z: ,!=]*\'|\"[A-Za-z: ,!=]*\" '
+		r'\'[A-Za-z: .,!=]*\'|\"[A-Za-z: .,!=]*\" '
 		return t
 
 	def t_ID(self,t): 
