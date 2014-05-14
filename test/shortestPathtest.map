@@ -21,9 +21,12 @@ func main(){
         g.addEdge(la_sj);
 
         g.addEdge(sj_sf);
-        
+
         g.addEdge(la_sf);
 
+        g.getEdge(losangeles, sanfransisco);
+
+        print("Shortest path between Los Angeles and San Fransisco: ");
         g.findShortest(losangeles, sanfransisco, 'cost');
 
         g.draw("shortest.jpeg");
