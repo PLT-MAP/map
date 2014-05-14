@@ -490,8 +490,11 @@ class Traverse(object):
 	def _for_each(self, tree, flag=None):
 		x = self.dispatch(tree.children[1], flag)
 		y = self.dispatch(tree.children[2], flag)
+		self.enter()
 		z = self.dispatch(tree.children[3], flag)
-		s = "for " + x + " in " + y + ":\n" + z
+		s = "for " + x + " in " + y + ":\n" 
+		s += self.fill(z)
+		self.leave()
 		return s
 
 	def _jump_stmt(self, tree, flag=None):
