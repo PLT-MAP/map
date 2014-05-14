@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Map : Language Tutorial" />
+    <meta name="description" content="Map : Language Reference Manual" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/PLT-MAP/map">View on GitHub</a>
 
           <h1 id="project_title">Map</h1>
-          <h2 id="project_tagline">Language Tutorial</h2>
+          <h2 id="project_tagline">Language Reference Manual</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/PLT-MAP/map/zipball/master">Download this project as a .zip file</a>
@@ -31,190 +31,432 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h2>
-<a name="language-tutorial" class="anchor" href="#language-tutorial"><span class="octicon octicon-link"></span></a>Language Tutorial</h2>
+        <h1>
+<a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of Contents</h1>
+
+<ol>
+<li>
+<p><a href="#language-reference-manual">Language Reference Manual</a></p>
+
+<p>1.1 <a href="#introduction">Introduction</a></p>
+</li>
+<li><p><a href="#contributors">Contributors</a></p></li>
+</ol><h2>
+<a name="language-reference-manual" class="anchor" href="#language-reference-manual"><span class="octicon octicon-link"></span></a>Language Reference Manual</h2>
 
 <h3>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>This will be a brief walkthrough of the mechanics of the MAP language. The aim is to show the essential elements of the language in real programs, without focusing too much on details, rules and exceptions. The ultimate goal is to allow users to attain the tools and skills to be able to write their own creative and useful programs.</p>
-
-<p>In this brief tutorial, there will be several sample programs that demonstrate the multiple usages of the language. The main focus will be on the basics: variables and constants, arithmetic operations, control flow, functions, and the correct application of inputs and outputs. Specifically, a user will be able to learn how to implement the different graph data structures available in the language and learn how to quickly build nodes and edges without needing to know the specifics of how the graphs are implemented.</p>
-
-<p>Experienced programmers should easily be able to extrapolate the material in this tutorial to meet their own programming needs. New users can easily pick up the basics of MAP by slowly building their knowledge by starting from small, similar programs and expanding to longer and more advanced programs. Either way, both subsets of programmers should be able to efficiently use this tutorial as a framework for any projects they wish to work on in the future. </p>
+<p>This manual describes MAP: the first ever travel-dedicated graphing programming language. This is a reliable guide to the proposed language. Furthermore, it describes the numerous features that MAP will use to deal with the problems and complexities of creating a graph data structure. The manual starts with an overview of lexical conventions used within this language, and moves onto the language syntax, and finishes with the grammar that is used to parse MAP.</p>
 
 <h3>
-<a name="input-and-output" class="anchor" href="#input-and-output"><span class="octicon octicon-link"></span></a>Input and Output</h3>
+<a name="lexical-conventions" class="anchor" href="#lexical-conventions"><span class="octicon octicon-link"></span></a>Lexical Conventions</h3>
 
-<p>The purpose of MAP is to create and implement graph data structures much more efficiently and easily. As such, the general output will be a visual representation of the graph in the form of an associative array. The input will usually be data entered by the user or from a file, and that will be used to populate the graph. To prompt a user, a programmer can use the command:</p>
+<h4>
+<a name="tokens" class="anchor" href="#tokens"><span class="octicon octicon-link"></span></a>Tokens</h4>
 
-<pre><code>input("prompt")
-</code></pre>
+<p>Every program is parsed to a series of tokens. Each token can be broken down to several categories: primitives, data types, operators, and standard library functions. In addition we have a few reserved words as well as white space and tabs that are dealt with as separate tokens.</p>
 
-<p>For a visual example of a undirected graph, please use the example below. Array 1 includes all the Nodes, and Array 2 includes the associate array of costs for each respective Node, so costs2 could be an associative array such as: </p>
+<h4>
+<a name="comments" class="anchor" href="#comments"><span class="octicon octicon-link"></span></a>Comments</h4>
 
-<pre><code>('sanfran', {'cost':280,'duration':6})
-</code></pre>
+<p>Map uses // for single line comments that will extend to a newline character. Block comments start with /* and end with */ and everything in between these two characters will be ignored.</p>
 
-<p>and the information stored in Array 2 for this connection could be:</p>
+<h4>
+<a name="identifiers" class="anchor" href="#identifiers"><span class="octicon octicon-link"></span></a>Identifiers</h4>
+
+<p>An identifier can start with any letter, capital or lowercase, or an underscore. Every following character may include any letter, underscore or number. All identifiers are case sensitive and can be used to identify any basic or derived data types.</p>
+
+<h4>
+<a name="reserved-keywords" class="anchor" href="#reserved-keywords"><span class="octicon octicon-link"></span></a>Reserved Keywords</h4>
+
+<p>The following are reserved for use as keywords and cannot be used otherwise.</p>
 
 <table>
 <thead><tr>
-<th>Array 1: Nodes</th>
-<th>Array 2: Edges</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
 </tr></thead>
 <tbody>
 <tr>
-<td>Node 1</td>
-<td>('Node 2','Node 1',{costs2})</td>
+<td>if</td>
+<td>elif</td>
+<td>else</td>
+<td>for</td>
 </tr>
 <tr>
-<td>Node 2</td>
-<td>('Node 1','Node 2',{costs3}), ('Node 3','Node 2',{costs4})</td>
+<td>foreach</td>
+<td>null</td>
+<td>break</td>
+<td>return</td>
 </tr>
 <tr>
-<td>Node 3</td>
-<td>('Node 4','Node 3',{costs5}), ('Node 2','Node 3',{costs6})</td>
+<td>continue</td>
+<td>true</td>
+<td>false</td>
+<td>func</td>
 </tr>
 <tr>
-<td>Node 4</td>
-<td>('Node 2','Node 4',{costs7}), ('Node 3','Node 4',{costs8})</td>
+<td>in</td>
+<td>include</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
-</table><pre><code>Graph g = new Graph():
-</code></pre>
+</table><h4>
+<a name="reserved-characters" class="anchor" href="#reserved-characters"><span class="octicon octicon-link"></span></a>Reserved Characters</h4>
 
-<p>Assume this graph is filled in with Nodes and Edges. Suppose if you wanted to print the graph out in a user-friendly and readable format, in MAP you would call: </p>
+<p>The following characters are reserved for use in the grammar.</p>
 
-<pre><code>print(g);
-</code></pre>
+<table>
+<thead><tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>-</td>
+<td>*</td>
+<td>/</td>
+<td>%</td>
+<td>[</td>
+</tr>
+<tr>
+<td>]</td>
+<td>(</td>
+<td>)</td>
+<td>{</td>
+<td>}</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>&lt;</td>
+<td>&lt;=</td>
+<td>==</td>
+<td>!=</td>
+<td>=</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>|</td>
+<td>,</td>
+<td>.</td>
+<td>//</td>
+<td>/*</td>
+</tr>
+<tr>
+<td>*/</td>
+<td>;</td>
+<td>:</td>
+<td>'</td>
+<td>"</td>
+<td>!</td>
+</tr>
+</tbody>
+</table><h4>
+<a name="constants" class="anchor" href="#constants"><span class="octicon octicon-link"></span></a>Constants</h4>
 
-<p>This would print the graph out in a similar format to this: </p>
+<h5>
+<a name="character-constants" class="anchor" href="#character-constants"><span class="octicon octicon-link"></span></a>Character Constants</h5>
 
-<pre><code>NODES
-1. Node1
-2. Node2
-3. Node3
-4. Node4
+<p>Character constants are strings whose values cannot be changed. Some special character constants can only be represented using the backslash escape character. Here are those special character constants:</p>
 
-EDGES
-(1-&gt;2)-costs2
-(2-&gt;1)-costs3
-(2-&gt;3)-costs4
-(3-&gt;4)-costs5
-(3-&gt;2)-costs6
-(4-&gt;2)-costs7
-(4-&gt;3)-costs8
-</code></pre>
+<table>
+<thead><tr>
+<th>Meaning</th>
+<th>Character</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>newline</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>horizontal tab</td>
+<td>\t</td>
+</tr>
+<tr>
+<td>backslash</td>
+<td>\</td>
+</tr>
+<tr>
+<td>single quote</td>
+<td>'</td>
+</tr>
+<tr>
+<td>double quote</td>
+<td>"</td>
+</tr>
+</tbody>
+</table><h5>
+<a name="boolean-constants" class="anchor" href="#boolean-constants"><span class="octicon octicon-link"></span></a>Boolean Constants</h5>
 
-<p>The print function simplifies the programming and formatting issues that programmers usually face when doing graph programming. </p>
-
-<p>Additionally, MAP allows for printing of Edge values, Node values, text values, and numeric values. </p>
-
-<pre><code>    Node la = new Node({'temp':78});
-    print(la);
-</code></pre>
-
-<p>would give:</p>
-
-<pre><code>    ('la', {'temp':78})
-
-    DirEdge flight234 = new DirEdge(newyork, sanfran, {'cost': 280,'duration': 6});
-    print(flight234);
-</code></pre>
-
-<p>would give:</p>
-
-<pre><code>    (newyork-&gt;sanfran) - cost: 280, duration: 6
-
-    Text temp = " hello";
-    Numeric num = 1; 
-    print(num + temp);
-</code></pre>
-
-<p>would give:</p>
-
-<pre><code>    1 hello
-</code></pre>
-
-<h3>
-<a name="hello-world" class="anchor" href="#hello-world"><span class="octicon octicon-link"></span></a>Hello World</h3>
-
-<p>To begin the tutorial on how to write programs in MAP, we will walk through the very simple, but standard, Hello World program. Program 1 is a Hello World program, which when compiled and run will print the sentence “Hello, World!”</p>
-
-<pre><code>Program 1:
-func main() {
-    Text t = "Hello, World!";
-    print(t);
-}
-</code></pre>
-
-<p>The first line of this program is the declaration of the function called main. Every program in MAP needs a main function, which is what will be executed when the program is run. Every function declaration begins with the keyword func, followed by the function name, any parameters, and the bracket that begins (and later ends) the function body. </p>
-
-<p>The second line of the program creates a variable t, of type Text, and stores the string “Hello, World!” in the variable as Text. Every line must be ended with a semicolon as well. </p>
-
-<p>The third line uses the standard library function print, which can print any data type. The function print is passed the variable t, and the line is ended with a semicolon.</p>
-
-<p>The last line simply contains the closing bracket, which signifies the end of the function. </p>
-
-<p>This program is compiled and run by using the command:</p>
-
-<pre><code>python Map.py helloworld.map
-</code></pre>
-
-<p>If everything goes as it is supposed to, “Hello, World!” should be printed to the console. </p>
-
-<h3>
-<a name="variables-and-expressions" class="anchor" href="#variables-and-expressions"><span class="octicon octicon-link"></span></a>Variables and Expressions</h3>
-
-<p>Program 2 is a GCD program, which means it calculates the greatest common divisor of two numbers given. This program is slightly more complicated than the Hello World program, and will help show how other aspects of MAP are used, such as variables, expressions, and operators. </p>
-
-<pre><code>Program 2:
-func gcd(Numeric a, Numeric b) {
-    if (b == 0) {
-        return a;
-    } else {
-        return gcd(b, a % b);   // recursive call
-    }
-}
-
-func main() {
-    Numeric x = 3 + 5 * 14; // 73
-    Numeric y = 89;
-
-    Numeric result = gcd(x, y);
-    print("The gcd of " + x + " and " + y + " is " + result);
-}
-</code></pre>
-
-<p>The first thing to notice about this program is there are two separate functions, a function that does the GCD computation, and a main function. </p>
-
-<p>The GCD function follows a simple algorithm that recursively calculates the GCD. The first line declares the function, which in this case takes in two parameters, both of type Numeric. The function body is started with the opening bracket. </p>
-
-<p>The first line of the function makes use of an if statement, to check whether the parameter b passed in is equal to 0. This line is ended with another opening bracket, which in this case signifies the start of the body of the if statement. </p>
-
-<p>The if statement body only has one line, which says to return the parameter a that was passed in, if the parameter b is equal to 0. This line is ended with a semicolon, which is then followed by a closing bracket to end the body of the if statement. </p>
-
-<p>The if is then followed by an else, which has its own opening and closing brackets around its body as well. The body of the else is a line that has a return statement that returns a call to the same function, modifying the parameters by calling GCD with b, and a % b (a modulus b, returning the remainder from a divided by b) as the new parameters. </p>
-
-<p>After the semicolon at the end of the line there is the special character constant \\. This symbolizes a comment, and is not part of the executed code. The function is ended with a closing bracket. </p>
-
-<p>The main function begins with a function declaration and the opening bracket to start the body. The first two lines of the main declare two variables of type Numeric, and set them to numerical values. The first of these declarations shows operator precedence because multiplication has higher precedence than addition, so 5 * 14 is calculated before the 3 is added (the comment shows the value this should evaluate to, 73). The third line creates a variable called result to store the return from the function GCD, which is passed the variables created earlier. The last line of the main function prints this result out, and uses the + operator to concatenate strings with variables in order to print the output as one sentence. </p>
-
-<p>This program is then compiled and run by typing the command:</p>
-
-<pre><code>python map.py gcd.map
-</code></pre>
-
-<p>If all goes well, it should print out a sentence that gives the two numbers assigned to the variables in main, and the greatest common divisor of them. </p>
+<p>Boolean constants are either true or false.</p>
 
 <h3>
-<a name="control-flow" class="anchor" href="#control-flow"><span class="octicon octicon-link"></span></a>Control Flow</h3>
+<a name="data-types" class="anchor" href="#data-types"><span class="octicon octicon-link"></span></a>Data Types</h3>
+
+<p>MAP has three basic data types, and four derived data types that promote the use of graph data structures.</p>
 
 <h4>
-<a name="if-elif-else-statements" class="anchor" href="#if-elif-else-statements"><span class="octicon octicon-link"></span></a>If-elif-else Statements</h4>
+<a name="basic-data-types" class="anchor" href="#basic-data-types"><span class="octicon octicon-link"></span></a>Basic Data Types</h4>
 
-<p>To perform different actions based on different conditions, MAP supports if-elif-else statements to properly direct control flow.</p>
+<h5>
+<a name="boolean" class="anchor" href="#boolean"><span class="octicon octicon-link"></span></a>Boolean</h5>
+
+<p>Booleans can either be true or false. The default value of a boolean is false. </p>
+
+<h5>
+<a name="numeric" class="anchor" href="#numeric"><span class="octicon octicon-link"></span></a>Numeric</h5>
+
+<p>The Numeric data type can hold any numeric value, including integers, doubles, floats, etc. MAP stores the values as floats, so it will handle as many decimal places and significant digits as allowed by the available memory on the machine. When values with decimals do not make sense, such as for indexing, the fractional part will be ignored. MAP simplifies primitive data types by lumping all numeric types into one type so that the user does not have to spend time thinking about which specific numeric type they will need. </p>
+
+<h5>
+<a name="text" class="anchor" href="#text"><span class="octicon octicon-link"></span></a>Text</h5>
+
+<p>Any string, or any sequence of characters, surrounded by double quotes. </p>
+
+<h4>
+<a name="derived-data-types" class="anchor" href="#derived-data-types"><span class="octicon octicon-link"></span></a>Derived Data Types</h4>
+
+<p>Since MAP is focused around making graph data structures easier to implement, there are many derived data types that are related to graphs. </p>
+
+<h5>
+<a name="edge" class="anchor" href="#edge"><span class="octicon octicon-link"></span></a>Edge</h5>
+
+<p>The Edge data type is used to represent an edge in a graph. There are two types of edges, directed edges and undirected edges. All edges have specified origin and destination nodes, and associated costs. When the user creates a directed edge, the order of the nodes listed matters because that is the direction, from source to destination. When the user creates an undirected edge they will just put in two nodes, and behind the scenes we will just create two directed edges, one going in each direction, to create their “undirected edge”. The associated cost attributes, origin, and destination are stored in associative arrays so they can be accessed with string indices. This will be done in the back end while the user will not have to write 'origin' and 'destination' to simplify the syntax.  Initializing a directed edge looks like this:</p>
+
+<pre><code>DirEdge flight5 = DirEdge('newyork','seattle',
+                          {'cost':330,'distance':4092,'duration':6.5});
+</code></pre>
+
+<p>where flight5 is the name of the edge, newyork is the origin node, seattle is the destination node, and the associative array holds the attributes of the edge, labeled cost, distance, duration, and date. An undirected edge will be initialized the same way, except the data type is UnDirEdge. </p>
+
+<h5>
+<a name="graph" class="anchor" href="#graph"><span class="octicon octicon-link"></span></a>Graph</h5>
+
+<p>The Graph data type represents a graph as a whole, containing nodes and edges. A graph can be initialized without any nodes or edges, and nodes and edges are added to the graph using built-in library functions. Initializing a graph called trip looks like this:</p>
+
+<pre><code>Graph trip = Graph();
+</code></pre>
+
+<p>Graphs will store their nodes and edges in an adjacency list with the associative array of costs related to the edge in the list. </p>
+
+<h5>
+<a name="node" class="anchor" href="#node"><span class="octicon octicon-link"></span></a>Node</h5>
+
+<p>The Node data type is used to represent a node in a graph. Nodes also have associative arrays to store attributes. Initializing a node looks like this:</p>
+
+<pre><code>Node cabo = Node({'temp':85,'humidity':"low"});
+</code></pre>
+
+<p>where the name of the node is cabo, and it has attributes of temp and humidity. </p>
+
+<h5>
+<a name="path" class="anchor" href="#path"><span class="octicon octicon-link"></span></a>Path</h5>
+
+<p>The Path data type is an ordered list of Nodes that provides a route from some start node to some end node. This can be used in finding a path through a graph such as the shortest path based on a specific cost attribute, or the path from one node to another node with specific attributes. Paths will be stored as lists, and will be created in the order that the path flows, from one node to another. Users can initialize paths like:</p>
+
+<pre><code>Path roadTrip = Path(graphName);
+</code></pre>
+
+<p>The user passes in a parameter to specify which graph the path is associated with. The user can then add in nodes along the path from a graph. </p>
+
+<h3>
+<a name="expressions" class="anchor" href="#expressions"><span class="octicon octicon-link"></span></a>Expressions</h3>
+
+<h4>
+<a name="primary" class="anchor" href="#primary"><span class="octicon octicon-link"></span></a>Primary</h4>
+
+<p>An expression consists of at least one operand and zero or more operators. Operands can be made from any numeric values, constants, variables, or functions that return values. Parentheses can group subexpressions. Expressions are evaluated from left to right. Examples of expressions are:</p>
+
+<pre><code>3.14159
+4 + 13
+(((2 + 10) / (12 + 4)) * (27 - 14)) * 3.9
+</code></pre>
+
+<h4>
+<a name="operators" class="anchor" href="#operators"><span class="octicon octicon-link"></span></a>Operators</h4>
+
+<p>Operators can be combined with operands to make expressions. </p>
+
+<h5>
+<a name="assignment-operators" class="anchor" href="#assignment-operators"><span class="octicon octicon-link"></span></a>Assignment Operators</h5>
+
+<p>The assignment operator is used to assign a value to a specified variable.</p>
+
+<pre><code>x = 3.1415;
+y = (2.9 * 1.3);
+graph1 = graph2;
+node1 = node2;
+edge1 = edge2;
+path1 = path2;
+</code></pre>
+
+<h5>
+<a name="arithmetic-operators" class="anchor" href="#arithmetic-operators"><span class="octicon octicon-link"></span></a>Arithmetic Operators</h5>
+
+<p>MAP allows for standard arithmetic operators that can be used with the Numeric data type. These arithmetic operators include addition (+), subtraction (-), multiplication (*), division (/), and modulus (%). All of these are binary operators. A binary operator is of the form:</p>
+
+<pre><code>expression binary-operator expression
+</code></pre>
+
+<p>Here are some examples of the arithmetic operators:</p>
+
+<pre><code>x = 4.67 + 38;
+x = (8.97 / 6.7) * (5 * 3.14);
+x = 7 % 5;
+</code></pre>
+
+<p>All arithmetic operators are left associative, and the precedence goes multiplication and division, and then addition and subtraction.</p>
+
+<h5>
+<a name="relational-operators" class="anchor" href="#relational-operators"><span class="octicon octicon-link"></span></a>Relational Operators</h5>
+
+<p>Relational operators are also binary operators, and can be used to form boolean expressions that can then be used in control flow. The relational operators are greater than (&gt;), greater than or equal to (&gt;=), less than (&lt;), less than or equal to (&lt;=), is equal to (==), and not equal to (!=). Each relational operator compares two expressions and returns true or false based on the validity of the statement. Examples of relational operators include:</p>
+
+<pre><code>3 &lt;= 6                               // returns true
+(4 + (6.2 / 7.45)) &gt; (1.96 * 2.01)   // returns true
+5 &gt;= 6                               // returns false
+((1 + 2) * 3) == (1 + (2 * 3))       // returns false
+4 != 4.2                             // returns true
+graph1 == graph2                     // returns true/false depending on the graphs
+graph1 &gt; graph2                      // returns true if graph1 has more nodes than graph2
+</code></pre>
+
+<p>Graphs and paths can be compared based on number of nodes. Comparing with (==) will return true if they have the same number of nodes. Edges and nodes cannot be compared with relational operators.</p>
+
+<h5>
+<a name="logical-operators" class="anchor" href="#logical-operators"><span class="octicon octicon-link"></span></a>Logical Operators</h5>
+
+<p>Logical operators are binary operators that are also used to form boolean expressions used in control flow. The logical operators are logical AND (&amp;), and logical OR (|). The operands to a logical operator must be booleans, and the expression evaluates to a boolean. Some examples include:</p>
+
+<pre><code>true &amp; true       // returns true
+true | false      // returns true
+false &amp; true      // returns false
+</code></pre>
+
+<h5>
+<a name="summary-of-operators" class="anchor" href="#summary-of-operators"><span class="octicon octicon-link"></span></a>Summary of Operators</h5>
+
+<table>
+<thead><tr>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>Assignment operator</td>
+</tr>
+<tr>
+<td>+</td>
+<td>Numeric addition operator, binary, left-associative</td>
+</tr>
+<tr>
+<td>-</td>
+<td>Numeric subtraction operator, binary, left-associative</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Numeric multiplication operator, binary, left-associative</td>
+</tr>
+<tr>
+<td>/</td>
+<td>Numeric division operator, binary, left-associative</td>
+</tr>
+<tr>
+<td>%</td>
+<td>Numeric modulus operator, binary, left-associative</td>
+</tr>
+<tr>
+<td>&gt; &gt;= &lt; &lt;= == !=</td>
+<td>Comparison operators, each operator returns true or false based on validity, used in control flow for creating expressions, binary operators, left-associative</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>Logical AND operator, binary</td>
+</tr>
+<tr>
+<td>|</td>
+<td>Logical OR operator, binary</td>
+</tr>
+<tr>
+<td>!</td>
+<td>Logical NOT operator, unary</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="function-definitions" class="anchor" href="#function-definitions"><span class="octicon octicon-link"></span></a>Function Definitions</h3>
+
+<p>Our MAP language allows users to define their own functions.  All function declarations must be defined immediately after the declaration. The format of the function declaration must first be the return type, an identifier, and finally comma-separated parameters enclosed within parentheses. A function can have any number of parameters which are all passed by value. Each parameter must also have a data type. In the function definition, there must be a single return statement that returns a value which corresponds to the return type of the function. Here is an example of a function declaration and definition:</p>
+
+<pre><code>func func_name(param_list) {
+    func_body;
+    return val;
+}
+
+func factorial(Numeric n) {
+    Numeric i;
+    Numeric x = 1;
+    if (n == 0)
+        return 1;
+    for (i = 1; i &lt;= n; i = i+1) {
+        x = x*i;
+    }
+    return x;
+}
+</code></pre>
+
+<h3>
+<a name="statements" class="anchor" href="#statements"><span class="octicon octicon-link"></span></a>Statements</h3>
+
+<p>A statement in the MAP language does not have a value, and except for those described, statements are executed in sequence.</p>
+
+<h4>
+<a name="assignments" class="anchor" href="#assignments"><span class="octicon octicon-link"></span></a>Assignments</h4>
+
+<p>An assignment statement will include a modifiable lvalue and an expression. When the assignment statement is executed, the expression will first be executed and then the result of this expression will be assigned to the lvalue.</p>
+
+<pre><code>lvalue = expression;
+</code></pre>
+
+<h4>
+<a name="function-calls" class="anchor" href="#function-calls"><span class="octicon octicon-link"></span></a>Function Calls</h4>
+
+<p>A function call statement will execute the specified function, but ignore the return value of the function. If the return value should not be ignored, the return value of the function call can be captured with an assignment statement.</p>
+
+<pre><code>function(optionalParameters);
+</code></pre>
+
+<h4>
+<a name="compound-statement" class="anchor" href="#compound-statement"><span class="octicon octicon-link"></span></a>Compound Statement</h4>
+
+<p>A compound statement is provided so that several statements can be used together.</p>
+
+<pre><code>compound-statement:
+    { statement-list-E }
+
+statement-list:
+    statement
+    statement-list statement
+</code></pre>
+
+<h4>
+<a name="selection-statement" class="anchor" href="#selection-statement"><span class="octicon octicon-link"></span></a>Selection Statement</h4>
+
+<h5>
+<a name="if-elif-else" class="anchor" href="#if-elif-else"><span class="octicon octicon-link"></span></a>If-elif-else</h5>
+
+<p>An if-elif-else statement will execute the statement-list which has the first true boolean expression in the condition.</p>
 
 <pre><code>if (expression-1)
 {
@@ -224,194 +466,391 @@ elif (expression-2)
 {
     statement-2-list
 }
+elif (expression-n)
+{
+    statement-n-list
+}
 else
 {
     statement-else-list
 }
 </code></pre>
 
-<p>Here is an example that implements this statement:</p>
-
-<pre><code>if (n['temp'] &lt; 30 &amp; n['temp'] &gt; 0)
-{
-    graph1.add(n);
-}
-elif (n['temp'] &lt; 70)
-{
-    graph2.add(n);
-}
-else
-{
-    print("This location is too hot.");
-}
-</code></pre>
-
-<p>If the temperature of a node is greater than 0, but less than 30, then the node will be added to graph1. However, if this expression is false, then the elif expression is checked. If the elif expression is true, then the node is added to graph 2. Otherwise, the else statement will be executed and the standard output will state “This location is too hot.”</p>
+<p>In this example of the if-elif-else statement, if expression-1 is evaluated to true, then only statement-1-list will be executed. If expression-1 is false, then expression-2 in the elif-statement will be checked. If expression-2 evaluates to true, then only statement-2-list will be executed. This process will repeat for the second elif statement. If all the expressions evaluate to false, then statement-else-list will be executed. All elif and else statements are optional but if else is used, it must come after the elif statements. Additionally, an else statement will correspond with the last encountered else-less if.</p>
 
 <h4>
-<a name="loops" class="anchor" href="#loops"><span class="octicon octicon-link"></span></a>Loops</h4>
+<a name="iteration-statements" class="anchor" href="#iteration-statements"><span class="octicon octicon-link"></span></a>Iteration Statements</h4>
 
-<p>Above, we learned about conditional statements, but now we will learn how to repeat statements by using two forms of the for loop.</p>
+<p>The for statement will have two forms:</p>
 
-<p>Here is a simple example using the first for loop, which also demonstrates nested loops:</p>
+<pre><code>for (expression-1; expression-2; expression-3) statement
+</code></pre>
 
-<pre><code>for (int x = 0; x &lt; 10; x = x+1) {
-    print(x + " ");
-    for (int y = 0; y &lt; 10; y = y+1) {
-        print(x*y + " ");
-    }
+<p>The statement will be executed repeatedly as long as the value of expression-2 remains true. The evaluation of expression-2 will take place before the execution of the statement.</p>
+
+<pre><code>foreach (datatype-1 in datatype-2) { 
+     statement;
 }
 </code></pre>
 
-<p>This snippet of code will basically print out a small multiplication table. For both for loops, inside the parentheses the first expression initializes a variable, the second expression is a condition that must be true in order for the loop to continue, and the third expression increases the variable by  1. For each x in the outer loop, the x will be printed and then the result of the multiplication of x and the numbers 0 to 9 will also be printed. The numbers 0 to 9 come from y in the inner for loop.</p>
+<p>This statement will be executed repeatedly until there is no longer any datatype-1 inside datatype-2.</p>
 
-<p>Here is an example using the second for loop:</p>
+<h4>
+<a name="jump-statements" class="anchor" href="#jump-statements"><span class="octicon octicon-link"></span></a>Jump Statements</h4>
 
-<pre><code>foreach (Node n in graph1) {
-    if (n['population'] &lt; 8000000) {
-        graph2.add(n);
-    }
-}
+<h5>
+<a name="break-statement" class="anchor" href="#break-statement"><span class="octicon octicon-link"></span></a>Break Statement</h5>
+
+<p>A break statement will cause termination of the closest enclosing for statement. Control would then pass on to the next statement after the terminated loop.</p>
+
+<pre><code>break;
 </code></pre>
 
-<p>A graph is made up of any number of nodes. Thus, in the foreach statement, it will keep repeating the statements in the loop until there are no more nodes in the graph. If there were no nodes in the graph initially, the foreach statement would not even execute. In the above example, a smaller subset of graph1 called graph2 is being created. For every node in graph1, if the population of the node is less than 8 million, that node will be added to graph2. The foreach statement could also be used with edges in graphs, nodes in paths, and edges in paths. </p>
+<h5>
+<a name="continue-statement" class="anchor" href="#continue-statement"><span class="octicon octicon-link"></span></a>Continue Statement</h5>
+
+<p>A continue statement will go to the next iteration of the closest enclosing for statement. Thus, this also can be thought of as causing an iteration of a loop to end.</p>
+
+<pre><code>continue;
+</code></pre>
+
+<h5>
+<a name="return-statement" class="anchor" href="#return-statement"><span class="octicon octicon-link"></span></a>Return Statement</h5>
+
+<p>A return statement will end a function or return to the caller and can be in two forms:</p>
+
+<pre><code>return;
+return (expression);
+</code></pre>
+
+<p>The first return statement has no value, but will end the function. The second return statement will have an expression that is evaluated and the result will be the return value of the function. If there is no return statement, the function would end as if the first return statement was at the end of the function. </p>
 
 <h3>
-<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h3>
+<a name="scope" class="anchor" href="#scope"><span class="octicon octicon-link"></span></a>Scope</h3>
 
-<p>MAP allows users to define their own functions in order to enhance reusability and even readability by treating a specific computation as a unit and to allow this computation to be repeated. Even if a function is only used once, it often helps clarify a piece of code. </p>
+<h4>
+<a name="scoping-with-blocks" class="anchor" href="#scoping-with-blocks"><span class="octicon octicon-link"></span></a>Scoping With Blocks</h4>
 
-<p>Here is the syntax for a function:</p>
+<p>A block is an area in which a variable is defined and accessible. MAP represents blocks using curly braces to show the context where a value or expression is valid. The use of curly braces gives MAP a Java/C/C++ look.
+In MAP. variables are passed by value, as programmers should be able to work with copies of the Data Types (Edge, Graph, Node, Path) when passing these values into functions, instead of altering the actual data itself.
+MAP is statically/lexically scoped, meaning variables defined within a block not visible or accessible outside the block and variables outside the scope are still visible and accessible within the block. With lexical scope, a variable name refers to its local block and can be determined by studying the nested structure of the program.
+Consider this MAP code: </p>
 
-<pre><code>func func_name(param_list) {
+<pre><code>func main() {
+    Numeric x = 1;
+    Numeric z = 4; 
+    print(x);
+    for (Numeric i = 0; i &lt; 2; i = i + 1) {
+        x = 2;
+        Numeric y = 4; 
+        print(x);
+        print(z);
+    }
+    print(x);
+    // if you called print(y) here, there would be an error because
+    // y is not accessible here 
+}
+</code></pre>
+
+<p>The output should be:</p>
+
+<pre><code>1 2 4 2 4 2
+</code></pre>
+
+<p>x is defined throughout main, while y is defined only in the for loop. When z is called in the for-loop block, its declaration is searched for in that block, and when it is not found, it is searched for in the parent block. If z did not exist even in the parent block, an error would be thrown. </p>
+
+<h4>
+<a name="function-scope" class="anchor" href="#function-scope"><span class="octicon octicon-link"></span></a>Function Scope</h4>
+
+<p>In line with lexical scoping, a variable declared within a function is destroyed when a function returns. However, if a variable defined outside a function is modified within the function, the changes persist when the function returns.</p>
+
+<h3>
+<a name="built-in-functions" class="anchor" href="#built-in-functions"><span class="octicon octicon-link"></span></a>Built-in Functions</h3>
+
+<p>MAP includes various built-in functions that simplify graph programming. </p>
+
+<table>
+<thead><tr>
+<th>Function</th>
+<th>What it does</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Graph.add(node)</td>
+<td>Add a node to a graph, returns true on success</td>
+</tr>
+<tr>
+<td>Path.add(node)</td>
+<td>Add a node to a path, returns true on success. When adding a node to a path, the order the nodes are added matters for the direction of the path</td>
+</tr>
+<tr>
+<td>Graph.delete(node) Path.delete(node)</td>
+<td>Remove a node from a graph or path, returns true if node existed, otherwise false</td>
+</tr>
+<tr>
+<td>print(DataType)</td>
+<td>Print given data type, can be a graph, node, edge, or primitive, returns null</td>
+</tr>
+<tr>
+<td>Graph.adjacent(node1, node2) Path.adjacent(node1, node2)</td>
+<td>Returns whether the two nodes given are directly connected, returns true if the two nodes are adjacent, false otherwise</td>
+</tr>
+<tr>
+<td>Graph.path(node)</td>
+<td>Return all nodes that are connected to this node, returns list of nodes (graph)</td>
+</tr>
+<tr>
+<td>Graph.getEdge(node1, node2) Path.getEdge(node1, node2)</td>
+<td>Return an instance of the edge between the two nodes given, returns null if edge does not exist</td>
+</tr>
+<tr>
+<td>Graph.addEdge(edge)</td>
+<td>Add an edge into the non-empty graph, returns true on success, false on error</td>
+</tr>
+<tr>
+<td>Graph.deleteEdge(node1, node2)</td>
+<td>Deletes an edge in the non-empty graph, returns true if edge existed, false otherwise</td>
+</tr>
+<tr>
+<td>Graph.findShortest(node1, node2, attribute)</td>
+<td>Finds the shortest path between two nodes in a graph and finds the shortest minimum value for an attribute, if the attribute is not null, returns a new Path object</td>
+</tr>
+<tr>
+<td>read(file)</td>
+<td>Reads in a file with serialized Graph object, returns a new Graph object on success, null on error</td>
+</tr>
+<tr>
+<td>write(file, Graph)</td>
+<td>Serializes Graph object to a file, returns true on success, false on error</td>
+</tr>
+<tr>
+<td>Graph.equals(Graph)</td>
+<td>Returns true if both graphs are equal. Otherwise, returns false</td>
+</tr>
+<tr>
+<td>Path.equals(Path)</td>
+<td>Returns true if both paths are equal. Otherwise, returns false</td>
+</tr>
+<tr>
+<td>Graph.draw(filename)</td>
+<td>Draws a graph and saves it according to file name specified</td>
+</tr>
+<tr>
+<td>Path.printNodeDiagnostics()</td>
+<td>Prints information about the node</td>
+</tr>
+<tr>
+<td>Path.printPathDiagnostics()</td>
+<td>Prints information about the path</td>
+</tr>
+<tr>
+<td>Graph.printGraphDiagnostics()</td>
+<td>Prints information about the graph</td>
+</tr>
+<tr>
+<td>Graph.nodesWithoutNeighbors()</td>
+<td>Returns all unconnected nodes in the graph</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="preprocessing" class="anchor" href="#preprocessing"><span class="octicon octicon-link"></span></a>Preprocessing</h3>
+
+<h4>
+<a name="file-inclusion" class="anchor" href="#file-inclusion"><span class="octicon octicon-link"></span></a>File Inclusion</h4>
+
+<p>MAP allows one file to gain access to the contents of another file and utilize its functions through file inclusion. File inclusion should be performed at the top of the file, and only other .map files may be included. Additionally, though some languages like Python allow for inclusion of portions of a file (from MODULE import SUB-MODULE would only import SUB-MODULE), MAP does not allow for selective inclusion of a file’s contents.</p>
+
+<pre><code>// main.map
+include functions.map
+func main() {
     func_body;
 }
 </code></pre>
 
-<p>The param_list can have any number of arguments and the function can end with return (expression) or return. If there is no return statement, the function will simply end as if return was placed at the end of the function body. </p>
-
-<p>Here is an example function that helps a user choose a location based on a budget:</p>
-
-<pre><code>func printNodes(Node origin, Numeric budget, Graph graph) {
-    foreach (Node n in graph) {
-        if (graph.adjacent(origin, n)) {
-            temp = graph.getEdge(origin,n);
-            if (temp['cost'] &lt;= budget) {
-                print(n);
-            }
-        }
-    }
-}
-</code></pre>
-
-<p>This function will loop through all the nodes in a certain graph, check if each node is adjacent to the origin specified, and if it is adjacent and the cost of the edge is less than or equal to the user’s budget, the location is printed out. </p>
-
-<p>In order to call this function, we only have to use its name and put in the parameters with the correct data types. Here is an example:</p>
-
-<pre><code>printNodes(newark, 1000, graph1);
-</code></pre>
-
-<p>This function is very reusable because the user can check different price ranges and even change the graph, which might have different attributes. Here is an example of a user checking different prices with different graphs:</p>
-
-<pre><code>func main() {
-    Graph graph1 = new Graph();
-    Graph graph2 = new Graph();
-    Node newark = new Node();
-    graph1.add(newark);
-    graph2.add(newark);
-    printNodes(newark, 1000, graph1);
-    printNodes(newark, 2000, graph2);
-}
-</code></pre>
-
-<p>This is obviously a simple example without any direct results. However, with the creation of larger graphs, this function could become very useful. Another important aspect to point out is that a main function is required in MAP. All the code in the main function will be executed. Additionally, functions have to be declared in the program before they are called or there will be a compiler error. </p>
-
 <h3>
-<a name="create-your-own-graph" class="anchor" href="#create-your-own-graph"><span class="octicon octicon-link"></span></a>Create Your Own Graph</h3>
+<a name="grammar" class="anchor" href="#grammar"><span class="octicon octicon-link"></span></a>Grammar</h3>
 
-<p>Now that you are familiar with the basics of MAP - its variables, functions, file I/O, and control flow, we will focus on the driving motivation behind MAP's creation: the easy manipulation of graphs. In this section of the tutorial, we will create a graph, populate it with nodes, and see how MAP graphs utilize built-in and user-created functions. </p>
+<pre><code>translation-unit: 
+    external-declaration 
+    translation-unit external-declaration 
 
-<h4>
-<a name="graphs-in-map" class="anchor" href="#graphs-in-map"><span class="octicon octicon-link"></span></a>Graphs in MAP</h4>
+external-declaration: 
+    function-definition 
 
-<p>A graph is a set of nodes and their associated edges. A graph will be used to represent flights between various pairs of airports. Flights will be of DirEdge type, weighted by cost and duration, and airports will be Nodes, with specific characteristics like humidity and temperature. The reason that we use DirEdges (directed edges) instead of UndirEdges (undirected edges) is that flights imply a one direction movement. There might be up to two Flights associated with the same pair of cities; zero if the cities have no flight between them, one if there is a flight from city #1 to city #2 but not from city #2 to city #1, and two if there is a flight going both ways between the cities. </p>
+function-definition:
+    func identifier ( parameter-list ) {statement-list}
 
-<p>We start by creating an empty graph </p>
+identifier:
+    ID
 
-<pre><code>Graph flights = Graph(); 
+parameter-list:
+    type_declaration 
+    parameter-list , type_declaration 
+    ID
+    E
+
+type_declaration:
+    TYPE identifier
+
+statement_list:
+    statement_list statement
+    statement
+    E
+
+statement:
+    expression;
+    function_call;
+    selection_statement
+    for_loop
+    for_each
+    jump_stmt
+
+selection_statement:
+    if ( expression) {statement_list} sel_statement else_statement
+
+else_statement:
+    else {statement_list}
+    E
+
+sel_statement:
+    sel_statement elif_statement
+    E
+
+else_statement:
+    ELSE { statement_list}
+    E
+
+elif_statement:
+    elif (expression) {statement_list}
+    E
+
+for_loop:
+    for (aexpr ; conditional_expression ; assignment_expression) {statement_list}
+
+for_each:
+   foreach (TYPE identifier in identifier ) {statement_list }
+
+jump_stmt:
+    break;
+    continue;
+    return assignment_expression;
+    return function_call;
+
+expression:
+    assignment_expression
+    aexpr
+
+aexpr:
+    TYPE identifier = LITERAL
+    TYPE identifier = NUMERIC
+    TYPE identifier = BOOLEAN
+
+assignment_expression:
+    TYPE identifier = function_call
+    TYPE identifier = BOOLEAN
+    conditional_expression
+    primary_expression
+    struct_assignment
+    primary_expression = assignment_expression
+
+struct_assignment:
+    TYPE identifier = new TYPE ( func_args )
+
+conditional_expression:
+    logical_OR_expression
+    logical_AND_expression
+
+logical_OR_expression: 
+    logical_AND_expression
+    logical_OR_expression | logical_AND_expression
+
+logical_AND_expression:
+    equality_expression
+    logical_AND_expression &amp; equality_expression
+
+equality_expression:
+    equality_expression == relational_expression
+    equality_expression != relational_expression
+
+relational_expression:
+    additive_expression
+    relational_expression &gt; additive expression
+    relational_expression &gt;= additive expression
+    relational_expression &lt; additive expression
+    relational_expression &lt;= additive expression
+
+additive_expression:
+    multiplicative_expression
+    additive_expression + multiplicative_expression
+    additive_expression - multiplicative_expression
+
+multiplicative_expression:
+    primary_expression
+    multiplicative_expression * primary_expression
+    multiplicative_expression / primary_expression
+    multiplicative_expression \% primary_expression
+
+primary_expression:
+    Identifier
+    LITERAL
+    Numeric
+    (expression)
+
+functional_call:
+    identifier.function_name(parameter_list)
+    identifier(func_args)
+    function(func_args)
+
+function:
+    print
+    input
+    write
+    read
+
+func_args:
+    arg
+    func_args , arg
+    func_args + arg
+    function_call
+
+
+args:
+    LITERAL
+    Numeric
+    associative_arr
+
+associative_arr:
+    {array_values}
+
+array_values:
+    arrayval
+    array_values,arrayval
+    array_vals, array_vals
+
+arrayval:
+    LITERAL : primary_expression
+
+arg:
+    ID
+    E
+
+function_name:
+    add
+    delete
+    adjacent
+    path
+    getEdge
+    addEdge
+    deleteEdge
+    findShortest
+    equals
+    draw
+    noNeighbors
+    nodesWithoutNeighbors
+    printGraphDiagnostics
+    printPathDiagnostics
+    printNodeDiagnostics
 </code></pre>
-
-<p>To populate the graph with city's airports, we create nodes for airports:</p>
-
-<pre><code>Node cabo    = new Node({'temp':85,'humidity':"low"});
-Node miami   = new Node({'temp':87,'humidity':"high"});
-Node ontario = new Node({'temp':45});
-Node seattle = new Node({'temp':60,'humidity':"low"});
-Node sanfran = new Node({'temp':75,'humidity':"low"});
-Node newyork = newNode({'temp':50,'humidity':"medium"});
-Node la      = new Node({'temp':78});
-</code></pre>
-
-<p>We then add these nodes to the graph:</p>
-
-<pre><code>flights.add(cabo);
-flights.add(miami);
-flights.add(ontario);
-flights.add(seattle);
-flights.add(sanfran);
-flights.add(newyork);
-flights.add(la);
-</code></pre>
-
-<p>Note that, as our graph currently is, there is no connection among various airports, which is why we need to add edges to the graph between airports. Edges between two cities will be associated with two costs in our example: duration and cost. The DirEdges we use represent flights.</p>
-
-<pre><code>DirEdge flight5 = new DirEdge(newyork, seattle, {'cost':330,'distance':4092,
-                          'duration':6.5,'date':2014.03.14.6.25});
-DirEdge flight9 = new DirEdge(newyork, la, {'cost':256,'duration':6});
-DirEdge flight7 = new DirEdge(la, cabo, {'cost':180,'duration':2.5});
-DirEdge flight234 = new DirEdge(newyork, sanfran, {'cost': 280,'duration': 6});
-DirEdge flight49 = new DirEdge(seattle, cabo, {'cost':350,'duration':4.5});
-</code></pre>
-
-<p>Now add these edges to the graph to create connections among airports in our graph.</p>
-
-<p>You can do this one edge at a time:</p>
-
-<pre><code>flights.addEdge(flight5);
-flights.addEdge(flight9);   
-flights.addEdge(flight7);
-flights.addEdge(flight234); 
-flights.addEdge(flight49);
-</code></pre>
-
-<p>or all at once:</p>
-
-<pre><code>flights.addEdge(flight5);
-flights.addedge(flight9);
-flights.addedge(flight7);
-flights.addedge(flight234);
-flights.addedge(flight49);
-</code></pre>
-
-<p>With our graph set up, we can now begin to use MAP's built-in library functions. For example, if we wanted to know if there was a flight between New York and Los Angeles, and if so, how much would that trip cost and how long it would take, we could use the getEdge() built-in method as follows:</p>
-
-<pre><code>if (flights.getEdge(newyork, la) != null) {
-    Edge temp = flights.getEdge(newyork, la);
-    Text t = "There is a flight from";
-    Text t2 = " to "; 
-    Text t3 = "The cost is"; 
-    Text t4 = " and the duration is ";
-    print(t + temp['origin'] + t2 + temp['destination']);
-    print(t3 + temp['cost'] + t4 + temp['duration']); 
-}
-</code></pre>
-
-<p>Graph programming typically requires much more coding and debugging, but MAP allows users to not have to worry about building a graph from scratch, and lets them instead focus on the manipulation of these graphs to produce meaningful results. In addition to the example provided, users can also write their own functions to use on MAP graphs. Though our example explores a graph with directed edges, MAP graphs additionally support undirected edges for connections between nodes that are equivalent regardless of which Node is the origin and which is the destination. </p>
-
-<h3>
-<a name="conclusion" class="anchor" href="#conclusion"><span class="octicon octicon-link"></span></a>Conclusion</h3>
-
-<p>This tutorial for MAP covers the essential parts of this programming language and hopefully assists programmers of all levels in acquiring all the right tools in using this language effectively to its full potential. It especially showcases all the unique aspects of MAP and offers a very basic understanding of MAP’s grammar and syntax. A more detailed analysis of the inner workings of this language can be found in the Language Reference Manual.</p>
 
 <h2>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
