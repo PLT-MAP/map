@@ -5,7 +5,7 @@
 Map is a graphing programming language intended to make graph programming easier. Unlike other languages, MAP includes the derived types relevant to graph programming, such as edges, nodes, graphs, and paths as inherent data structures. 
 
 ### Deliverables
-Whitepaper ([HTML](http://plt-map.github.io/tutorial))
+Whitepaper ([HTML](http://plt-map.github.io/whitepaper))
 
 Language Tutorial ([HTML](http://plt-map.github.io/tutorial))
 
