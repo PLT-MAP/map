@@ -9,7 +9,7 @@ def main():
     e=no2[0],no3[0], {'cost':100.0}
     g.add_edges_from([(e[0],e[1],e[2])])
     try:
-        nx.shortest_path(g,no2[0],no3[0],'cost')
+        print (nx.shortest_path(g,no2[0],no3[0],'cost'))
     except:
         print 'no path'
     print g.get_edge_data(no2[0],no3[0])

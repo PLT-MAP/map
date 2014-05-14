@@ -1,0 +1,16 @@
+func createItinerary() {
+	Graph trip = new Graph();    
+	Node seattleAirport= new Node({'temp':85,'humidity':'low'});
+	Node nyAirport= new Node({'temp':80,'humidity':'high'});
+	DirEdge flight5= new DirEdge(seattleAirport, nyAirport, {'cost':302,'distance':4092});
+	trip.add(seattleAirport);
+	trip.add(nyAirport);
+	trip.addEdge(flight5);
+	return trip;
+
+}
+
+func main() {
+	Graph trip = createItinerary();
+	trip.printGraphDiagnostics();
+}
