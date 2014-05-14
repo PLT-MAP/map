@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     p = nx.MultiDiGraph()
     p.add_nodes_from([(nj[0], nj[1])])

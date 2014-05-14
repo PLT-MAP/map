@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def test():
     string = raw_input("Enter a string: ")
     return string
