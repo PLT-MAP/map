@@ -490,8 +490,11 @@ class Traverse(object):
 	def _for_each(self, tree, flag=None):
 		x = self.dispatch(tree.children[1], flag)
 		y = self.dispatch(tree.children[2], flag)
+		self.enter()
 		z = self.dispatch(tree.children[3], flag)
-		s = "for " + x + " in " + y + ":\n" + z
+		s = "for " + x + " in " + y + ":\n" 
+		s += self.fill(z)
+		self.leave()
 		return s
 
 	def _jump_stmt(self, tree, flag=None):
@@ -545,10 +548,10 @@ class Traverse(object):
 				x = '''({0}.nodes() == {1}.nodes() and {0}.edges() == {1}.edges())'''.format(tree.children[0].name, tree.children[2].name)
 				return x
 			elif x == "draw":
-				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
+				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].children[0].name))
 				return x
 			elif x == "findShortest":
-				return "try:\n\tnx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].children[0].children[0].name + "[0]," + tree.children[2].children[0].children[1].name +"[0]," + tree.children[2].children[1].name +")\nexcept:\n\tprint 'no path'"
+				return "try:\n\tprint nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].children[0].children[0].name + "[0]," + tree.children[2].children[0].children[1].name +"[0]," + tree.children[2].children[1].name +")\nexcept:\n\tprint 'no path'"
 			elif x == "findShortestPaths":
 				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].children[0].children[0].name)
 				return x
@@ -574,10 +577,10 @@ class Traverse(object):
 			elif x == 'nodesWithoutNeighbors':
 				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
 			elif x == 'printGraphDiagnostics':
-				x = '''print "Graph:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				x = '''print "Graph:"\nprint {0}\nprint {0}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
 				return x
 			elif x == 'printPathDiagnostics':
-				x = '''print "Path:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
+				x = '''print "Path:"\nprint {0}\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
 				return x
 			elif x == 'printNodeDiagnostics':
 				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].name)
@@ -861,35 +864,57 @@ func main(){
 }
 '''
 test13 = '''
-	func main(){
-		Graph g = new Graph();
-		Node no3= new Node();
-		Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-		g.add(no3);
-		g.add(no2);
-		DirEdge e = new DirEdge(no2, no3, {'cost':100});
-		g.addEdge(e);
-		g.findShortest(no2, no3, 'cost');
-		g.getEdge(no2, no3);
-		Path p = new Path();
-		print(p);
-		p.add(no3);
-		p.add(no2);
-		if(no2==no3){
-			        print("hi");
-		}
-		else {
-			        print('bye');
-		}
-		g.printGraphDiagnostics();
-		p.printPathDiagnostics();
-		g.printNodeDiagnostics(no2);
-		print(g.noNeighbors(no2));
-		Graph empty = g.nodesWithoutNeighbors(no2); 
-		foreach (Node lol in empty){
-			        print(n);
-		}
-	}
+func main(){
+        Graph g = new Graph();
+        Node losangeles= new Node({'temp':85,'humidity':'low'});
+        Node boston= new Node({'temp':87,'humidity':'high'});
+        Node paris= new Node({'temp':80});
+        Node kansascity = new Node({'temp':40,'humidity':'low'});
+        Node sanfransisco= new Node({'temp':30,'humidity':'low'});
+        Node durham= new Node({'temp':21,'humidity':'low'});
+        Node minneapolis= new Node({'temp':41});
+        Node stpaul= new Node({'temp':50,'humidity':'low'});
+        Node philly= new Node({'temp':82,'humidity':'low'});
+        Node pitts= new Node({'temp':90});
+        Node stpeters= new Node({'temp':100});
+        g.add(losangeles);
+        g.add(boston);
+        g.add(paris);
+        g.add(kansascity);
+        g.add(sanfransisco);
+        g.add(durham);
+        g.add(minneapolis);
+        g.add(stpaul);
+        g.add(philly);
+        g.add(pitts);
+        g.add(stpeters);
+        UnDirEdge laboston = new UnDirEdge(losangeles, boston, {'cost': 550});
+        UnDirEdge bostonparis = new UnDirEdge(boston, paris, {'cost':100});
+        UnDirEdge parisla = new UnDirEdge(losangeles, paris,{'cost':20});
+        g.addEdge(laboston);
+        g.addEdge(bostonparis);
+        g.addEdge(parisla);
+        g.findShortest(losangeles, paris, 'cost');
+        g.getEdge(losangeles, paris);
+        if(losangeles==losangeles){
+                print("hi");
+        }
+        else {
+                print('bye');
+        }
+        g.printGraphDiagnostics();
+        g.printNodeDiagnostics(losangeles);
+        print(g.noNeighbors());
+        Graph empty = g.nodesWithoutNeighbors(no2); 
+        Graph empty_nodes;
+        print(empty);
+        foreach (Text x in empty){
+                print(x);
+                empty_nodes.add(x);
+        }
+        
+        empty_nodes.draw("shortest.jpeg");
+}
 '''
 
 def main():

@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     graph = nx.MultiDiGraph()
     for n in graph:
