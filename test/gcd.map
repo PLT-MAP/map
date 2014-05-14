@@ -1,4 +1,6 @@
-
+func fact(Numeric a, Numeric b){
+	
+}
 
 func main(Numeric a, Numeric b){
 	
