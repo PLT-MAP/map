@@ -38,12 +38,12 @@ def main():
     g.neighbors(losangeles[0])
     nx.draw(g)
     plt.show(g)
-    plt.savefig('lol.jpg')
+    plt.savefig()
     print "Graph:"
     print g
     print "Nodes:"
     print g.nodes(data=True)
-    lol = (g.nodes() == g2.nodes() and g.edges() == g2.edges())
+    lol = (g.nodes() == .nodes() and g.edges() == .edges())
     print(lol)
     print g.get_edge_data(pitts[0],philly[0])
 if __name__ == '__main__': 

@@ -1,7 +1,8 @@
 import networkx as nx
 import sys
-def fact(a,b):
-def main(a,b):
+def createTrip():
+    cabo = 'cabo',  {'temp':85.0,'humidity':'low'}
+def main():
 if __name__ == '__main__': 
 	try:
 		main()
