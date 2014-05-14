@@ -32,7 +32,11 @@ def main():
     g.add_edges_from([(bostonparis[0],bostonparis[1],bostonparis[2])])
     g.add_edges_from([(parisla[0],parisla[1],parisla[2])])
     try:
+
+        print (nx.shortest_path(g,no2[0],no3[0],'cost'))
+
         nx.shortest_path(g,losangeles[0],paris[0],'cost')
+
     except:
         print 'no path'
     print g.get_edge_data(losangeles[0],paris[0])

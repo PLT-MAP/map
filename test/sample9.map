@@ -1,0 +1,14 @@
+func createTrip() {
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+	Node miami = new Node({'temp':87,'humidity':'high'});
+	Node ontario = new Node({'temp':45});
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+	Node cabo = new Node({'temp':85,'humidity':'low'});
+}
+
+func main(){
+	
+}

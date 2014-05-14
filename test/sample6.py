@@ -33,9 +33,7 @@ def main():
         print("yo")
     else:
         print("not equal")
+    nx.draw(g)
+    plt.show()
 if __name__ == '__main__': 
-	try:
-		main()
-	except:
-		print'Error:',sys.exc_info()[0]
-		print'Resolve error before running again!'
+	main()
