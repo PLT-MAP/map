@@ -71,7 +71,7 @@ def main(argv):
 	#"include" parsing
 	test2=test1.split("\n")
 	test2=includecheck(test2,path)
-	print test2
+	#print test2
 
 	#type checking
 	test3=test2.split("\n")
