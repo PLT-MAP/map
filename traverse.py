@@ -577,10 +577,10 @@ class Traverse(object):
 			elif x == 'nodesWithoutNeighbors':
 				return "nx.isolates({})".format(self.dispatch(tree.children[0]), flag)
 			elif x == 'printGraphDiagnostics':
-				x = '''print "Graph:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
+				x = '''print "Graph:"\nprint {0}\nprint {0}.nodes(data=True)'''.format(self.dispatch(tree.children[0]), flag)
 				return x
 			elif x == 'printPathDiagnostics':
-				x = '''print "Path:"\nprint {0}\nprint "Nodes:"\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
+				x = '''print "Path:"\nprint {0}\nprint {0}.nodes(data=True)'''.format(tree.children[0].children)
 				return x
 			elif x == 'printNodeDiagnostics':
 				x = '''print "Node {1}:"\nprint {1}\nprint "Neighbors:"\nprint {0}.neighbors({1}[0])\nprint "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path"'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].name)
