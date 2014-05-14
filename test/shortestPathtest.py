@@ -6,9 +6,11 @@ def main():
     losangeles = 'losangeles',  {'temp':90.0,'humidity':'low'}
     sanjose = 'sanjose',  {'temp':50.0,'humidity':'low'}
     sanfransisco = 'sanfransisco',  {'temp':65.0,'humidity':'high'}
+    paris = 'paris',  {'temp':30.0,'weather':'snowing'}
     g.add_nodes_from([(losangeles[0], losangeles[1])])
     g.add_nodes_from([(sanjose[0], sanjose[1])])
     g.add_nodes_from([(sanfransisco[0], sanfransisco[1])])
+    g.add_nodes_from([(paris[0], paris[1])])
     la_sj=losangeles[0],sanjose[0], {'cost':100.0}
     sj_sf=sanjose[0],sanfransisco[0], {'cost':50.0}
     la_sf=losangeles[0],sanfransisco[0], {'cost':180.0}
@@ -22,7 +24,14 @@ def main():
         print nx.shortest_path_length(g,losangeles[0],sanfransisco[0], 'cost')
     except:
         print 'no path'
-    nx.draw(g)
+    print("Unconnected nodes in graph g: ")
+    print(nx.isolates(g))
+    pos = nx.spring_layout(g)
+    nx.draw(g, pos)
+    node_labels = nx.get_node_attributes(g,'cost')
+    nx.draw_networkx_labels(g, pos, labels = node_labels)
+    edge_labels = nx.get_edge_attributes(g,'cost')
+    nx.draw_networkx_edge_labels(g, pos, labels = edge_labels)
     plt.show(g)
     plt.savefig("shortest.jpeg")
 if __name__ == '__main__': 

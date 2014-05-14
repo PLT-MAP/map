@@ -1,16 +1,21 @@
 func main(){
         Graph g = new Graph();
+
         Node losangeles = new Node({'temp':90,'humidity':'low'});
 
         Node sanjose = new Node({'temp':50,'humidity':'low'});
 
         Node sanfransisco = new Node({'temp':65, 'humidity':'high'});
 
+        Node paris = new Node({'temp':30, 'weather':'snowing'});
+
         g.add(losangeles);
 
         g.add(sanjose);
 
         g.add(sanfransisco);
+
+        g.add(paris);
 
         UnDirEdge la_sj = new UnDirEdge(losangeles, sanjose, {'cost': 100});
 
@@ -27,7 +32,12 @@ func main(){
         g.getEdge(losangeles, sanfransisco);
 
         print("Shortest path between Los Angeles and San Fransisco: ");
+
         g.findShortest(losangeles, sanfransisco, 'cost');
+
+        print("Unconnected nodes in graph g: ");
+
+        print(g.nodesWithoutNeighbors());
 
         g.draw("shortest.jpeg");
 }
