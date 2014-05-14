@@ -100,7 +100,7 @@ def main(argv):
 	
 	test2=indentcheck(test1)
 	#test3=scopecheck(test1)
-	print test2
+	#print test2
 	#main body of file
 	outputfile=filename[0]+".py"
 	output=open(outputfile,'w')
@@ -360,6 +360,6 @@ if __name__ == '__main__':
 	f=main(sys.argv)
 	command="python " + f
 
-#	os.system(command)
-#	os.remove(f)
+	os.system(command)
+	os.remove(f)
 

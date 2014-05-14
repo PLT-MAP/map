@@ -247,35 +247,38 @@ if (p1 == p2){
 		p.add(nj);
   	}
 	'''
+	
+	
 	shortestPathtest='''
 	func main(){
 		Graph g = new Graph();
-		Node no3= new Node();
-		Node no2 = new Node( {'temp':90, 'weather': 'cloudy with a chance'});
-		g.add(no3);
-		g.add(no2);
-		DirEdge e = new DirEdge(no2, no3, {'cost':100});
-		g.addEdge(e);
-		g.findShortest(no2, no3, 'cost');
-		g.getEdge(no2, no3);
-		Path p = new Path();
-		print(p);
-		p.add(no3);
-		p.add(no2);
-		if(no2==no3){
-			        print("hi");
-		}
-		else {
-			        print('bye');
-		}
-		g.printGraphDiagnostics();
-		p.printPathDiagnostics();
-		g.printNodeDiagnostics(no2);
-		print(g.noNeighbors(no2));
-		Graph empty = g.nodesWithoutNeighbors(no2); 
-		foreach (Node lol in empty){
-			        print(n);
-		}
+		Node losangeles = new Node({'temp':90,'humidity':'low'});
+		
+		Node sanjose = new Node({'temp':50,'humidity':'low'});
+		
+		Node sanfransisco = new Node({'temp':65, 'humidity':'high'});
+		
+		g.add(losangeles);
+		
+		g.add(sanjose);
+		
+		g.add(sanfransisco);
+		
+		UnDirEdge la_sj = new UnDirEdge(losangeles, sanjose, {'cost': 100});
+		
+		UnDirEdge sj_sf = new UnDirEdge(sanjose, sanfransisco, {'cost':50});
+		
+		UnDirEdge la_sf = new UnDirEdge(losangeles, sanfransisco, {'cost':180});
+		
+		g.addEdge(la_sj);
+		
+		g.addEdge(sj_sf);
+		
+		g.addEdge(la_sf);
+		
+		g.findShortest(losangeles, sanfransisco, 'cost');
+		
+		g.draw("shortest.jpeg");
 	}
 	'''
 

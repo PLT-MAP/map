@@ -12,6 +12,7 @@ class TestLexingSyntax(unittest.TestCase):
 		self.lexer=self.lex.lexer
 
 	def test_tokens(self):
+		print "Testing all tokens:"
 		cases={
 		#'\"':'DOUBLEQUOTE', 
 		'piNULLdel':'ID',	   
@@ -24,8 +25,8 @@ class TestLexingSyntax(unittest.TestCase):
 		'true' : 'BOOLEAN', 
 		'false' : 'BOOLEAN',
 		'Time':'TIME',
-		'DirEdge':'DIREDGE',
-		'UndirEdge':'UNDIREDGE',
+		#'DirEdge':'DIREDGE',
+		#'UndirEdge':'UNDIREDGE',
 #		'print':'PRINT', 
 		'add':'ADD',
 		'delete':'DELETEFUNC',
@@ -55,16 +56,18 @@ class TestLexingSyntax(unittest.TestCase):
 		'Numeric':'TYPE'
 		}
 		self.assert_tokens_eq(cases)
-	
+		print "Token test passed!"
 
 	def assert_tokens_eq(self,cases):
 		for key, val in cases.iteritems():
 			self.lexer.input(str(key))
-			token = self.lexer.token() 
+			token = self.lexer.token()
+			print "asserting key: " + key
 			#self.assertEqual(key, token.value) 
 			self.assertEqual(val, token.type)
 
 	def test_hello_world_eq(self):
+		print "Asserting syntax of hello world and checking generated tokens:"
 		self.lexer.input("func main(Text hi, Numeric bye) { Text t = 'Hello, world'; bye = 2;}")
 		#self.lexer.input(MapTests.helloworld)
 		#progfile = open('testfiles/helloworld.map', 'r')
@@ -108,8 +111,8 @@ class TestLexingSyntax(unittest.TestCase):
 		self.assertEqual('SEMICOLON', token.type)
 		token = self.lexer.token()
 		self.assertEqual('RBR', token.type)
-
-
+		print "Hello world test passed!"
+		print
 
 
 
