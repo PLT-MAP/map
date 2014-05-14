@@ -1,0 +1,48 @@
+func main(){
+        Graph plt_group = new Graph();
+        Node serena = new Node({'role':'project manager','specialty':'github humor'});
+        Node sandya = new Node({'role':'language guru','major':'CompSci'});
+        Node tommy = new Node({'role':'tester', 'favorite game':'settlers of caton'});
+        Node alfred = new Node({'role':'systems integrator', 'favorite song':'carried away by passion pit'});
+        Node alex = new Node({'role':'systems architect', 'homestate':'new jersey'});
+        Node kevin = new Node({'role':'patient TA'});
+        Node aho = new Node({'role':'benevolent ruler'});
+        plt_group.add(serena);
+        plt_group.add(sandya);
+        plt_group.add(tommy);
+        plt_group.add(alfred);
+        plt_group.add(alex);
+        UnDirEdge tommy_alf = new UnDirEdge(tommy, alfred, {'cost': 'friends'});
+        UnDirEdge alex_tommy = new UnDirEdge(tommy, alex, {'cost':'master hackers'});
+        UnDirEdge sandya_serena = new UnDirEdge(sandya, serena, {'cost':'WiCs'});
+        UnDirEdge sandya_alfred = new UnDirEdge(sandya, alfred, {'cost':'narcoleptics'});
+        UnDirEdge serena_alfred = new UnDirEdge(sandya, alfred, {'cost':'llama video enthusiasts'});
+        UnDirEdge alex_alfred = new UnDirEdge(alex, alfred, {'cost':'jersey kids'});
+        DirEdge sandya_aho = new DirEdge(aho, sandya, {'cost':'advisor and prof'});
+        DirEdge alfred_aho = new DirEdge(aho, alfred, {'cost':'the original alfred'});
+        DirEdge serena_aho = new DirEdge(aho, serena, {'cost':'prof'});
+        DirEdge tommy_aho = new DirEdge(aho, tommy, {'cost':'prof'});
+        DirEdge alex_aho = new DirEdge(aho, alex, {'cost':'prof'});
+        DirEdge kevin_aho = new DirEdge(aho, kevin, {'cost':'cool prof and ta'});
+
+        plt_group.addEdge(tommy_alf);
+        plt_group.addEdge(alex_tommy);
+        plt_group.addEdge(sandya_serena);
+        plt_group.addEdge(sandya_alfred);        
+        plt_group.addEdge(serena_alfred);
+        plt_group.addEdge(alex_alfred);
+        plt_group.addEdge(sandya_aho);
+        plt_group.addEdge(serena_aho);
+        plt_group.addEdge(alex_aho);
+        plt_group.addEdge(alfred_aho);
+        plt_group.addEdge(tommy_aho);
+        plt_group.addEdge(kevin_aho);
+
+
+        plt_group.draw("pltfriends.jpeg");
+        print("All the cool kids");
+        foreach (Node coolkid in plt_group){
+        	print(coolkid);
+        }
+
+}
