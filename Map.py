@@ -87,7 +87,7 @@ def main(argv):
 	
 	#write the file
 	#add more to the header here if necessary
-	header="import networkx as nx\nimport sys\n"
+	header="import networkx as nx\nimport sys\nimport matplotlib.pyplot as plt\n"
 	#header+=autoincludes
 	content=header
 	
