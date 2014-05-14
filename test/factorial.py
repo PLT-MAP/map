@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def factorial(n):
     if (n==0.0):
         return 1.0

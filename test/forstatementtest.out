@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     for i in range(0,int(10)):
         print(i)

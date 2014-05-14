@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     t = 'Hello, world'
     bye = 2.0

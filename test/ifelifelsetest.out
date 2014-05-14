@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     x = 2.0
     if (x<5.0 and x>10.0):

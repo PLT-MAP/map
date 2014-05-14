@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     if (10.0<7.0):
         if (10.0<7.0):

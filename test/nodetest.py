@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import matplotlib.pyplot as plt
 def main():
     g = nx.MultiDiGraph()
     no2 = 'no2',  {'temp':90.0,'weather':'cloudy with a chance'}
