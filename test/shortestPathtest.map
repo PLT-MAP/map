@@ -1,51 +1,30 @@
 func main(){
         Graph g = new Graph();
-        Node losangeles= new Node({'temp':85,'humidity':'low'});
-        Node boston= new Node({'temp':87,'humidity':'high'});
-        Node paris= new Node({'temp':80});
-        Node kansascity = new Node({'temp':40,'humidity':'low'});
-        Node sanfransisco= new Node({'temp':30,'humidity':'low'});
-        Node durham= new Node({'temp':21,'humidity':'low'});
-        Node minneapolis= new Node({'temp':41});
-        Node stpaul= new Node({'temp':50,'humidity':'low'});
-        Node philly= new Node({'temp':82,'humidity':'low'});
-        Node pitts= new Node({'temp':90});
-        Node stpeters= new Node({'temp':100});
+        Node losangeles = new Node({'temp':90,'humidity':'low'});
+
+        Node sanjose = new Node({'temp':50,'humidity':'low'});
+
+        Node sanfransisco = new Node({'temp':65, 'humidity':'high'});
+
         g.add(losangeles);
-        g.add(boston);
-        g.add(paris);
-        g.add(kansascity);
+
+        g.add(sanjose);
+
         g.add(sanfransisco);
-        g.add(durham);
-        g.add(minneapolis);
-        g.add(stpaul);
-        g.add(philly);
-        g.add(pitts);
-        g.add(stpeters);
-        UnDirEdge laboston = new UnDirEdge(losangeles, boston, {'cost': 550});
-        UnDirEdge bostonparis = new UnDirEdge(boston, paris, {'cost':100});
-        UnDirEdge parisla = new UnDirEdge(losangeles, paris,{'cost':20});
-        g.addEdge(laboston);
-        g.addEdge(bostonparis);
-        g.addEdge(parisla);
-        g.findShortest(losangeles, paris, 'cost');
-        g.getEdge(losangeles, paris);
-        if(losangeles==losangeles){
-                print("hi");
-        }
-        else {
-                print('bye');
-        }
-        g.printGraphDiagnostics();
-        g.printNodeDiagnostics(losangeles);
-        print(g.noNeighbors());
-        Graph empty = g.nodesWithoutNeighbors(no2); 
-        Graph empty_nodes;
-        print(empty);
-        foreach (Text x in empty){
-                print(x);
-                empty_nodes.add(x);
-        }
+
+        UnDirEdge la_sj = new UnDirEdge(losangeles, sanjose, {'cost': 100});
+
+        UnDirEdge sj_sf = new UnDirEdge(sanjose, sanfransisco, {'cost':50});
+
+        UnDirEdge la_sf = new UnDirEdge(losangeles, sanfransisco, {'cost':180});
+
+        g.addEdge(la_sj);
+
+        g.addEdge(sj_sf);
         
-        empty_nodes.draw("shortest.jpeg");
+        g.addEdge(la_sf);
+
+        g.findShortest(losangeles, sanfransisco, 'cost');
+
+        g.draw("shortest.jpeg");
 }

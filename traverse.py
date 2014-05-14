@@ -548,10 +548,10 @@ class Traverse(object):
 				x = '''({0}.nodes() == {1}.nodes() and {0}.edges() == {1}.edges())'''.format(tree.children[0].name, tree.children[2].name)
 				return x
 			elif x == "draw":
-				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].name))
+				x = '''nx.draw({0})\nplt.show({0})\nplt.savefig({1})'''.format(self.dispatch(tree.children[0], flag), (tree.children[2].children[0].name))
 				return x
 			elif x == "findShortest":
-				return "try:\n\tnx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].children[0].children[0].name + "[0]," + tree.children[2].children[0].children[1].name +"[0]," + tree.children[2].children[1].name +")\nexcept:\n\tprint 'no path'"
+				return "try:\n\tprint nx." + functions[x] + "(" + self.dispatch(tree.children[0], flag) + "," + tree.children[2].children[0].children[0].children[0].name + "[0]," + tree.children[2].children[0].children[1].name +"[0]," + tree.children[2].children[1].name +")\nexcept:\n\tprint 'no path'"
 			elif x == "findShortestPaths":
 				x = '''print "shortest paths:"\nfor nodeVal in {0}:\n\ttry:\n\t\tprint nx.shortest_path({0}, source={1}[0], target=nodeVal[0])\n\texcept:\n\t\tprint "no path between" + nodeVal[0] + "and" + {1}[0]'''.format(self.dispatch(tree.children[0], flag), tree.children[2].children[0].children[0].children[0].name)
 				return x
