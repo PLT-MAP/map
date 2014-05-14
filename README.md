@@ -7,12 +7,12 @@ Map is a graphing programming language intended to make graph programming easier
 ### Deliverables
 Whitepaper
 
-Language Tutorial ([HTML](http://plt-map.github.io/map))
+Language Tutorial ([HTML](http://plt-map.github.io/tutorial))
 
 Language Reference Manual
 
 ### Contributors
-Serena Simkus - Project Manager
+Serena Simkus - Project Manager ([@serenasimkus](https://github.com/serenasimkus))
 
 Sandya Sankarram - Language Guru
 
