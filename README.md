@@ -14,10 +14,10 @@ Language Reference Manual ([HTML](http://plt-map.github.io/manual))
 ### Contributors
 Serena Simkus - Project Manager ([@serenasimkus](https://github.com/serenasimkus))
 
-Sandya Sankarram - Language Guru
+Sandya Sankarram - Language Guru ([@sandyaaaa](https://github.com/sandyaaaa))
 
-Alex Merkulov - System Architect
+Alex Merkulov - System  ([@mereck](https://github.com/mereck))
 
-Alfred Tan - System Integrator
+Alfred Tan - System Integrator ([@altan92](https://github.com/altan92))
 
-Tommy Inouye - Verification & Validation Person
+Tommy Inouye - Verification & Validation Person ([@tominaway1](https://github.com/tominaway1))
