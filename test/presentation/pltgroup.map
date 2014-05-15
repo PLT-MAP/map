@@ -16,7 +16,7 @@ func main(){
         UnDirEdge alex_tommy = new UnDirEdge(tommy, alex, {'cost':'master hackers'});
         UnDirEdge sandya_serena = new UnDirEdge(sandya, serena, {'cost':'WiCs'});
         UnDirEdge sandya_alfred = new UnDirEdge(sandya, alfred, {'cost':'narcoleptics'});
-        UnDirEdge serena_alfred = new UnDirEdge(sandya, alfred, {'cost':'llama video enthusiasts'});
+        UnDirEdge serena_alfred = new UnDirEdge(serena, alfred, {'cost':'llama video enthusiasts'});
         UnDirEdge alex_alfred = new UnDirEdge(alex, alfred, {'cost':'jersey kids'});
         DirEdge sandya_aho = new DirEdge(aho, sandya, {'cost':'advisor and prof'});
         DirEdge alfred_aho = new DirEdge(aho, alfred, {'cost':'the original alfred'});
